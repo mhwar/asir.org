@@ -1,0 +1,16 @@
+{
+  "name": "asir-council",
+  "private": true,
+  "scripts": {
+    "build": "python3 build.py && python3 build.py --deploy",
+    "seed": "python3 tools/seed_d1.py",
+    "db:migrate:local": "wrangler d1 migrations apply asir-council --local",
+    "db:seed:local": "for f in seed/*.sql; do wrangler d1 execute asir-council --local --file=$f; done",
+    "dev": "python3 build.py --deploy && wrangler dev",
+    "deploy": "python3 build.py --deploy && wrangler deploy",
+    "test:platform": "node tests/platform.test.cjs"
+  },
+  "devDependencies": {
+    "wrangler": "^4"
+  }
+}

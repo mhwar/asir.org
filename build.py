@@ -1,10 +1,15 @@
 #!/usr/bin/env python3
-"""Build the single-file prototype into dist/asir-council-site.html.
+"""Build the site.
 
-Uses data/internal.json when present (real council file — never committed),
+  python3 build.py            -> dist/asir-council-site.html  (standalone file, data embedded)
+  python3 build.py --deploy   -> dist/site/index.html         (for the Worker: data blocks left empty,
+                                                               the Worker injects live data from D1)
+
+Standalone build uses data/internal.json when present (real council file — never committed),
 otherwise data/internal.redacted.json (same records, personal fields removed).
 """
 import base64, json, os, sys
+DEPLOY = '--deploy' in sys.argv
 ROOT = os.path.dirname(os.path.abspath(__file__))
 P = lambda *a: os.path.join(ROOT, *a)
 src = open(P('src', 'site.src.html'), encoding='utf8').read()
@@ -18,11 +23,14 @@ for k, f in assets.items():
     src = src.replace('{{' + k + '}}', f'data:{mime[f.rsplit(".", 1)[1]]};base64,{d}')
 real = P('data', 'internal.json')
 internal_path = real if os.path.exists(real) else P('data', 'internal.redacted.json')
-src = src.replace('{{internal}}', json.dumps(json.load(open(internal_path, encoding='utf8'))['internal'], ensure_ascii=False, separators=(',', ':')))
-src = src.replace('{{public}}', open(P('data', 'public.json'), encoding='utf8').read())
+if DEPLOY:
+    src = src.replace('{{internal}}', '[]').replace('{{public}}', '[]')
+else:
+    src = src.replace('{{internal}}', json.dumps(json.load(open(internal_path, encoding='utf8'))['internal'], ensure_ascii=False, separators=(',', ':')))
+    src = src.replace('{{public}}', open(P('data', 'public.json'), encoding='utf8').read())
 src = src.replace('{{suplogos}}', open(P('data', 'suplogos.json'), encoding='utf8').read())
 src = src.replace('{{geo}}', open(P('data', 'geo.json'), encoding='utf8').read())
-os.makedirs(P('dist'), exist_ok=True)
-out = P('dist', 'asir-council-site.html')
+out = P('dist', 'site', 'index.html') if DEPLOY else P('dist', 'asir-council-site.html')
+os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
-print(f'{len(src)//1024} KB  ->  {out}  (data: {os.path.basename(internal_path)})')
+print(f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')

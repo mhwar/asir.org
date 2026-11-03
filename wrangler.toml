@@ -1,0 +1,34 @@
+#:schema node_modules/wrangler/config-schema.json
+# مجلس الجمعيات الأهلية بعسير — Cloudflare Worker (API + الموقع)
+name = "asir-council"
+main = "worker/src/index.js"
+compatibility_date = "2026-10-01"
+workers_dev = true
+
+[build]
+command = "python3 build.py --deploy"
+
+[assets]
+directory = "./dist/site"
+binding = "ASSETS"
+run_worker_first = true          # كل طلب يمر على التحقق من الدخول أولاً
+
+[[d1_databases]]
+binding = "DB"
+database_name = "asir-council"
+database_id = "83817b3e-4f04-4b32-9017-2691066c2ab2"
+migrations_dir = "migrations"
+
+[[r2_buckets]]
+binding = "FILES"
+bucket_name = "asir-council-assets"
+
+[vars]
+ENVIRONMENT = "production"
+SITE_MODE = "private"            # المرحلة 1: private · عند فتح الموقع للعامة: public
+# يُضبطان بعد إنشاء تطبيق Cloudflare Access (انظر docs/DEPLOY.md):
+ACCESS_TEAM_DOMAIN = ""          # مثال: asir-council.cloudflareaccess.com
+ACCESS_AUD = ""                  # Application Audience (AUD) Tag
+
+[observability]
+enabled = true

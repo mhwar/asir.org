@@ -901,9 +901,10 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .jpriv{display:inline-flex;align-items:center;gap:7px;padding:8px 12px;border-radius:12px;border:1px solid #DDE1EA;background:var(--sf);color:#3D4462;font-size:12.5px;font-weight:600}
 .jpriv.on{border-color:#F5A524;background:#FFF8EA;color:#7A4D00}
 .jav{position:relative;width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:grid;place-items:center;font-weight:700;cursor:pointer;margin-inline-start:4px}
-.jmenu2{display:none;position:absolute;top:44px;left:0;width:200px;padding:12px;border-radius:14px;background:var(--sf);border:1px solid #E4E7EE;box-shadow:0 18px 40px -12px rgba(9,9,81,.25);color:var(--text);text-align:start;z-index:30}
+.jmenu2{display:none;position:absolute;top:44px;left:0;width:240px;padding:12px;border-radius:14px;background:var(--sf);border:1px solid #E4E7EE;box-shadow:0 18px 40px -12px rgba(9,9,81,.25);color:var(--text);text-align:start;z-index:30}
 .jav:hover .jmenu2,.jav:focus-within .jmenu2{display:block}
 .jmenu2 b{display:block;color:var(--hd);font-size:14px}.jmenu2 small{color:var(--mute);font-size:12px}
+.jmenu2 .jsrc{display:flex;gap:5px;align-items:center;margin-top:8px;padding:6px 8px;border-radius:8px;background:#E9F7F1;color:#14804A;font-size:11.5px;line-height:1.5}
 .jmenu2 button{display:block;width:100%;text-align:start;margin-top:10px;padding:8px 10px;border-radius:10px;background:#F5F6F9;font-size:13px;font-weight:600;color:#B42318}
 .jbody{flex:1;display:grid;grid-template-columns:var(--rail) var(--side) minmax(0,1fr);gap:0;padding:0 0 16px 16px;min-height:0}
 .j.noside .jbody{grid-template-columns:var(--rail) minmax(0,1fr)}
@@ -2016,7 +2017,7 @@ function govIcon(gs,sz=36,cls=''){gs=[].concat(gs).filter(g=>GIK.includes(g));if
 const GN=GEO.govs.map(g=>g.ar);
 // Public fields only (name, license no., founding year, supervising entity, governorate, categories).
 // Contact data, unified number, license dates, officers' names/emails stay internal (dashboard).
-const assoc={{public}};
+const assoc=/*@PUB*/{{public}}/*@END*/;
 /* ---------- category & supervisor icons (24px, stroke) ---------- */
 const FI={
  'الخدمات الاجتماعية':'<circle cx="9" cy="7" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><path d="M17.5 13.5c-1.2-1.4-3.5-.6-3.5 1.1 0 1.6 2.3 2.9 3.5 3.9 1.2-1 3.5-2.3 3.5-3.9 0-1.7-2.3-2.5-3.5-1.1z"/>',
@@ -2725,7 +2726,9 @@ $$('.reveal').forEach(el=>io.observe(el));
 /* ================= DASHBOARD (لوحة التحكم) =================
  Internal data = the full council spreadsheet (personal fields included). Personal fields are masked on screen by default.
  Production: data lives in a database behind role-based access; this prototype keeps everything in memory. */
-const RAW={{internal}};
+const RAW=/*@RAW*/{{internal}}/*@END*/;
+// جلسة الدخول الفعلية — يحقنها الخادم عند التشغيل على المنصة؛ null في النسخة المحلية
+const SESSION=/*@SESSION*/null/*@END*/;
 const TODAY=new Date();TODAY.setHours(0,0,0,0);
 const CF=['email','mobile','del','delEmail','pres','presEmail'];
 const DB=RAW.map(r=>{const o={id:r[0],n:r[1],lic:r[2],uid:r[3],gov:r[4],grp:r[5],s1:r[6],s2:r[7],sup:r[8],founded:r[9]||'',issued:r[10]||'',exp:r[11]||'',origSt:r[13],email:r[15],mobile:r[16],del:r[17],delEmail:r[18],pres:r[19],presEmail:r[20],consent:r[21]=='نعم',issues:r[22]?r[22].split('؛ ').filter(Boolean):[]};
@@ -3323,9 +3326,14 @@ HDR.decisions=HDR_DEC;
 function adminEnter(sub){document.body.classList.add('inadmin');if(sub&&MODS.some(m=>m[0]==sub))ADM.mod=sub;renderAdmin();window.scrollTo(0,0)}
 function mnav(on){const j=$('.j');if(!j)return;const v=on===undefined?!j.classList.contains('mnav'):on;j.classList.toggle('mnav',v);document.body.classList.toggle('mnavopen',v)}
 function adminLeave(){document.body.classList.remove('inadmin','mnavopen');$('#adrawer').classList.remove('on')}
+function sessAvatar(){
+ if(!SESSION)return `<div class="jav" title="${ROLES[ADM.role][0]}">ف<div class="jmenu2"><b>فريق المجلس</b><small>${ROLES[ADM.role][0]}</small><button onclick="ADM.auth=false;renderAdmin()">تسجيل الخروج</button></div></div>`;
+ const nm=SESSION.name||SESSION.email,syn=SESSION.synced?new Date(SESSION.synced).toLocaleString('ar-SA-u-nu-latn',{dateStyle:'medium',timeStyle:'short'}):'';
+ return `<div class="jav" title="${esc(nm)}">${esc(nm.trim().charAt(0))}<div class="jmenu2"><b>${esc(nm)}</b><small>${esc(SESSION.roleName||ROLES[ADM.role][0])}</small><small dir="ltr" style="display:block">${esc(SESSION.email)}</small><small class="jsrc">${I(P.check,'width:13px;height:13px;flex:none')}متصل بقاعدة البيانات${syn?' · آخر تحديث '+syn:''}</small><button onclick="location.href='/cdn-cgi/access/logout'">تسجيل الخروج</button></div></div>`}
 function renderAdmin(){
  document.body.classList.remove('mnavopen');
  const el=$('#adminRoot');
+ if(!ADM.auth&&SESSION){ADM.auth=true;ADM.role=ROLES[SESSION.role]?SESSION.role:'admin';syncGaps()}
  if(!ADM.auth){el.innerHTML=`<div class="jlogin"><div class="card alog"><img src="${$('header.top .logo .d').src}" alt="" style="height:46px;margin:0 auto 14px"><h2 style="color:var(--hd)">لوحة تحكم فريق المجلس</h2><p>دخول تجريبي. في النسخة الفعلية: حساب لكل عضو في الفريق برمز تحقق، وصلاحيات حسب الدور.</p>
   <div style="font-size:13px;color:var(--hd);font-weight:600;text-align:start">ادخل بدور:</div><div class="roles">${Object.entries(ROLES).map(([k,v])=>`<button class="${ADM.role==k?'on':''}" data-role="${k}">${v[0]}<small>${v[1]}</small></button>`).join('')}</div>
   <button class="jbtn pri" style="width:100%;justify-content:center;margin-top:10px;padding:13px" id="admGo">دخول اللوحة</button><button class="jbtn" style="width:100%;justify-content:center;margin-top:8px;padding:12px" onclick="go('')">العودة للموقع</button>
@@ -3343,7 +3351,7 @@ function renderAdmin(){
   <button class="jpriv ${ADM.reveal?'on':''}" id="privtg" title="إظهار أو إخفاء البيانات الشخصية">${I(ADM.reveal?P.eye:P.lock,'width:16px;height:16px')}<span>${ADM.reveal?'البيانات الشخصية ظاهرة':'البيانات الشخصية مخفية'}</span></button>
   <button class="jic" onclick="goMod('home')" title="الإجراءات المطلوبة" aria-label="الإشعارات">${I(P.bell,'width:20px;height:20px')}${pendingN()+newConsultN()+subsN()+capN()+joinN()?'<i class="jdot"></i>':''}</button>
   <button class="jic" onclick="go('')" title="عرض الموقع العام" aria-label="الموقع العام">${I(P.globe,'width:20px;height:20px')}</button>
-  <div class="jav" title="${ROLES[ADM.role][0]}">ف<div class="jmenu2"><b>فريق المجلس</b><small>${ROLES[ADM.role][0]}</small><button onclick="ADM.auth=false;renderAdmin()">تسجيل الخروج</button></div></div></header>
+  ${sessAvatar()}</header>
  <div class="jbody">
   <nav class="jrail" aria-label="الأقسام">${visG.map(g=>`<div class="jr ${g.tmp?'tmp':''}"><button class="${g==G?'on':''}" data-g="${g.k}" aria-label="${g.t}">${I(P[g.ic],'width:20px;height:20px')}${gBadge(g)?'<i class="jdot"></i>':''}</button><div class="jfly"><b>${g.t}</b>${sideItems(g)}</div></div>`).join('')}</nav>
   <div class="jbd" onclick="mnav(false)"></div>
