@@ -1,0 +1,10 @@
+# real council data — never commit
+data/internal.json
+data/*.xlsx
+*.xlsx
+# build output and test artefacts
+dist/
+tests/out/
+node_modules/
+__pycache__/
+.DS_Store

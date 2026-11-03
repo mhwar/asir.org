@@ -1,0 +1,11 @@
+const {chromium,devices}=require('playwright');const path=require('path');
+(async()=>{const b=await chromium.launch();const ctx=await b.newContext({...devices['iPhone 13'],colorScheme:'light'});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file://'+path.resolve('dist/asir-council-site.html'));await p.waitForTimeout(600);
+await p.evaluate(()=>go('admin'));await p.tap('#admGo');await p.waitForTimeout(400);
+await p.tap('.jmenu');await p.waitForTimeout(500);await p.screenshot({path:'tests/out/m_side1.png'});
+const sb=await p.$('#jside');const box=await sb.boundingBox();console.log('side box',box,'scrollH',await sb.evaluate(e=>[e.scrollHeight,e.clientHeight]));
+await sb.evaluate(e=>e.scrollTop=e.scrollHeight);await p.waitForTimeout(200);await p.screenshot({path:'tests/out/m_side2.png'});
+await p.tap('#jside [data-m=gaps]');await p.waitForTimeout(500);console.log('mnav after nav',await p.evaluate(()=>document.querySelector('.j').classList.contains('mnav')),await p.evaluate(()=>document.body.className));
+await p.screenshot({path:'tests/out/m_side3.png',fullPage:true});
+await p.tap('.jmenu');await p.waitForTimeout(400);await p.tap('.jbd',{position:{x:10,y:400}});await p.waitForTimeout(400);console.log('closed by backdrop',await p.evaluate(()=>!document.querySelector('.j').classList.contains('mnav')));
+console.log(errs);await b.close()})();

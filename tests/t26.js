@@ -1,0 +1,12 @@
+const {chromium}=require('playwright');const path=require('path');
+(async()=>{const b=await chromium.launch();const p=await (await b.newContext({viewport:{width:1440,height:900},acceptDownloads:true})).newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));
+await p.goto('file://'+path.resolve('dist/asir-council-site.html'));await p.waitForTimeout(500);
+await p.evaluate(()=>{localStorage.clear();go('admin')});await p.click('#admGo');await p.evaluate(()=>goMod('analytics'));await p.waitForTimeout(400);
+await p.screenshot({path:'tests/out/an.png',fullPage:true});
+const [d]=await Promise.all([p.waitForEvent('download'),p.click('#ap-heat .apx button:first-child')]);console.log('dl',d.suggestedFilename());
+const fs=require('fs');const pth=await d.path();console.log(fs.readFileSync(pth,'utf8').split('\n').slice(0,2).join(' | ').slice(0,160));
+await p.click('#ap-pgov .apsel .jbtn');await p.waitForTimeout(400);await (await p.$('#adrawer')).screenshot({path:'tests/out/an_prof.png'});
+await p.evaluate(()=>{closeAll();profile('sup','وزارة الصحة')});await p.waitForTimeout(300);await (await p.$('#adrawer')).screenshot({path:'tests/out/an_prof2.png'});
+await p.evaluate(()=>{closeAll();goMod('decisions')});await p.waitForTimeout(300);await p.selectOption('.decc [data-ds]','قيد الدراسة');await p.waitForTimeout(300);
+console.log('dec st',await p.evaluate(()=>Object.values(ADM.dec).map(x=>x.st)));await p.screenshot({path:'tests/out/dec.png',fullPage:true});
+console.log('errs',errs);await p.evaluate(()=>localStorage.clear());await b.close()})();

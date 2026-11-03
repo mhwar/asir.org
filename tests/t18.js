@@ -1,0 +1,33 @@
+const {chromium}=require('playwright');
+(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1440,height:900}});
+const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>{if(m.type()=='error')errs.push(m.text())});
+await p.goto('file://'+require('path').resolve('dist/asir-council-site.html')+'#/consult');await p.waitForTimeout(700);
+await p.click('.ct[data-i="2"]');await p.waitForTimeout(150);
+await p.screenshot({path:'tests/out/c1_pick.png'});
+await p.click('.cpick [data-c="3"]');await p.click('.day:not([disabled])');await p.click('.slot:not([disabled])');await p.waitForTimeout(100);
+await p.screenshot({path:'tests/out/c2_time.png'});
+await p.click('#nx');
+await p.fill('#bf [name=assoc]','آباء لرعاية الأيتام بمنطقة عسير');await p.fill('#bf [name=name]','محمد');await p.fill('#bf [name=email]','m@example.org');await p.fill('#bf [name=need]','نحتاج مراجعة الموازنة');await p.click('#nx');await p.click('#nx');await p.waitForTimeout(200);
+const ref=await p.evaluate(()=>B.ref);console.log('ref',ref);
+await p.evaluate(()=>document.querySelector('#consTeam').scrollIntoView());await p.waitForTimeout(400);
+await p.screenshot({path:'tests/out/c3_team.png'});
+await p.evaluate(()=>joinConsultant());await p.fill('#jf [name=n]','أ. تجربة');await p.fill('#jf [name=email]','t@example.org');await p.fill('#jf [name=ttl]','مستشار');await p.fill('#jf [name=yrs]','5');await p.check('#jf [name=sp][value="1"]');await p.check('#jf .chk1 input');
+await p.screenshot({path:'tests/out/c4_join.png'});await p.click('#jf .btn.p');await p.waitForTimeout(200);
+await p.evaluate(()=>go('admin'));await p.click('#admGo');await p.waitForTimeout(300);
+await p.screenshot({path:'tests/out/d0_home.png',fullPage:true});
+for(const m of ['consults','calendar','consultants','capps','cset','communities','mops','mset','campaigns','roles','plan']){await p.evaluate(m=>goMod(m),m);await p.waitForTimeout(150);await p.screenshot({path:`src/r/d_${m}.png`,fullPage:true})}
+await p.evaluate(r=>{goMod('consults');openConsult(r)},ref);await p.waitForTimeout(400);await p.screenshot({path:'tests/out/d_open.png'});
+await p.click('#cOk');await p.waitForTimeout(200);
+console.log('confirmed:',await p.evaluate(r=>{const c=ADM.consults.find(x=>x.ref==r);return c.st+' '+c.cid+' '+c.link},ref));
+await p.evaluate(()=>openCons(4));await p.waitForTimeout(400);await p.screenshot({path:'tests/out/d_cons.png'});
+await p.evaluate(()=>{closeAll();goMod('home')});await p.fill('#jsq','أيتام');await p.waitForTimeout(200);await p.screenshot({path:'tests/out/d_search.png'});
+await p.evaluate(()=>{ADM.auth=false;ADM.role='consult';renderAdmin()});await p.click('#admGo');await p.waitForTimeout(200);
+console.log('consult role menu:',await p.evaluate(()=>[...document.querySelectorAll('.jfly [data-m]')].map(b=>b.dataset.m).join(',')));
+await p.evaluate(()=>{ADM.auth=false;ADM.role='content';renderAdmin()});await p.click('#admGo');await p.waitForTimeout(200);
+console.log('content role menu:',await p.evaluate(()=>[...document.querySelectorAll('.jfly [data-m]')].map(b=>b.dataset.m).join(',')));
+// mobile
+const m=await b.newPage({viewport:{width:390,height:844},isMobile:true,hasTouch:true});m.on('pageerror',e=>errs.push('M:'+e.message));
+await m.goto('file://'+require('path').resolve('dist/asir-council-site.html')+'#/consult');await m.waitForTimeout(600);await m.tap('.ct[data-i="0"]');await m.waitForTimeout(200);await m.evaluate(()=>$('#booking').scrollIntoView());await m.screenshot({path:'tests/out/m_consult.png'});
+await m.evaluate(()=>go('admin'));await m.tap('#admGo');await m.evaluate(()=>goMod('calendar'));await m.waitForTimeout(200);await m.screenshot({path:'tests/out/m_cal.png'});
+await m.evaluate(()=>goMod('consultants'));await m.waitForTimeout(200);await m.screenshot({path:'tests/out/m_cons.png'});
+console.log('errors',errs);await b.close()})();
