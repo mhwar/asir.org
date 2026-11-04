@@ -21,7 +21,7 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   // 2) الصفحة المستقلة برابط ثابت بعد إعادة التحميل (من قاعدة البيانات)
   const v = await b.newPage({ viewport: { width: 1440, height: 900 } }); v.on('pageerror', (e) => errs.push('v:' + e.message));
   await v.goto(BASE + '/#/read/' + st.id); await v.waitForTimeout(1000);
-  const rd = await v.evaluate(() => ({ h1: (document.querySelector('.rdhero h1') || {}).textContent, paras: document.querySelectorAll('.rdart>p').length, share: document.querySelectorAll('.rdsb>*').length, title: document.title }));
+  const rd = await v.evaluate(() => ({ h1: (document.querySelector('.rd2 h1, .rdhero h1') || {}).textContent, paras: document.querySelectorAll('.rdtext>p').length, share: document.querySelectorAll('.rdsb>*').length, title: document.title }));
   ok(rd.h1 && rd.h1.includes('مكتبة متنقلة') && rd.paras >= 2 && rd.share >= 4, 'read page renders from synced state');
   await v.screenshot({ path: 'tests/out/read_page.png' });
   // 3) نموذج التواصل
