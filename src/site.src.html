@@ -2143,6 +2143,32 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
  #rptDoc .rb2{font-size:9pt}#rptDoc .rbr{break-inside:avoid}
  #rptDoc .rkc>b{font-size:17pt}
 }
+/* الفعاليات والملتقيات */
+.evx{padding-bottom:10px}
+.evstats{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:16px}
+.evstats div{padding:16px;border-radius:18px;background:var(--mist);border:1px solid var(--line)}.evstats b{display:block;font-size:30px;color:var(--hd);line-height:1.15}.evstats small{color:var(--mute);font-size:13px}
+.evkinds{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.evkinds button{display:inline-flex;gap:6px;align-items:center;padding:7px 14px;border-radius:999px;border:1px solid var(--line);background:var(--sf);font-size:13px;font-weight:600;color:var(--text)}.evkinds button em{font-style:normal;color:var(--mute);font-size:12px}
+.evkinds button.on{background:var(--navy);border-color:var(--navy);color:#fff}.evkinds button.on em{color:#B9C3F5}
+.evy+.evy{margin-top:22px}
+.evy h3{display:flex;align-items:baseline;gap:10px;font-size:22px;color:var(--hd);margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}.evy h3 small{font-size:13px;color:var(--mute);font-weight:500}
+.evg{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,420px),1fr));gap:12px}
+.evc{display:flex;gap:14px;padding:16px;border-radius:20px;border:1px solid var(--line);background:var(--sf);transition:.2s;color:inherit;min-width:0}
+.evc:hover{border-color:var(--sky);box-shadow:var(--shadow);transform:translateY(-2px)}
+.evd{flex:none;width:66px;border-radius:14px;background:var(--navy);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 4px;text-align:center;align-self:flex-start}
+.evd b{font-size:24px;line-height:1.1}.evd small{font-size:12px;opacity:.9}.evd em{font-style:normal;font-size:11px;opacity:.7}
+.evb{display:flex;flex-direction:column;gap:6px;min-width:0}
+.evt{display:flex;gap:6px;flex-wrap:wrap;align-items:center}.evt i{display:inline-flex;gap:5px;align-items:center;font-style:normal;padding:3px 10px;border-radius:999px;background:var(--ice);color:var(--blue);font-size:12px;font-weight:700}.evt i.up{background:#E5F8EE;color:#14804A}
+.evt small{display:inline-flex;gap:4px;align-items:center;color:var(--mute);font-size:12px}
+.evb>b{color:var(--hd);font-size:16px;line-height:1.55}
+.evb p{color:var(--mute);font-size:13.5px;line-height:1.8;margin:0;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.evp{display:flex;gap:5px;flex-wrap:wrap}.evp em{font-style:normal;font-size:11.5px;padding:3px 9px;border-radius:8px;background:var(--mist);border:1px solid var(--line);color:var(--text)}
+.evc.sm .evd{width:56px}.evc.sm .evd b{font-size:20px}.evc.sm .evb>b{font-size:14.5px}
+.evhome{margin-top:28px}.evhh{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px}.evhh h3{display:flex;gap:8px;align-items:center;font-size:18px;color:var(--hd)}.evhh a{color:var(--blue);font-weight:600;font-size:14px}
+.evg3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.rdev{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}.rdev div{padding:12px 14px;border-radius:14px;background:var(--mist);border:1px solid var(--line)}.rdev small{display:block;color:var(--mute);font-size:12px}.rdev b{color:var(--hd);font-size:14.5px}
+@media (max-width:980px){.evstats{grid-template-columns:repeat(3,1fr)}.evg3{grid-template-columns:1fr}}
+@media (max-width:560px){.evstats{grid-template-columns:1fr 1fr}.evstats div:first-child{grid-column:1/-1}}
 </style>
 </head>
 <body>
@@ -2244,6 +2270,7 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
   <div class="wrap">
     <div class="head reveal"><div><span class="eyebrow">المركز الإعلامي</span><h2>من أعمال المجلس</h2></div><a class="btn o" href="#/news">كل الأخبار <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
     <div class="news3 reveal" id="homeNews"></div>
+    <div class="evhome reveal" id="homeEvents"></div>
   </div>
 </section>
 <!-- ============ PLATFORMS ============ -->
@@ -2337,6 +2364,10 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
 <div class="page" data-page="news">
 <div class="phero"><div class="wrap"><nav class="crumb" aria-label="مسار التصفح"><a href="#/">الرئيسية</a> <span>/</span> <span>المركز الإعلامي</span></nav><h1>المركز الإعلامي</h1><p>أخبار المجلس وجمعيات المنطقة وفعالياتها.</p></div></div>
 <!-- ============ NEWS ============ -->
+<section id="events" class="evx"><div class="wrap">
+  <div class="head reveal"><div><span class="eyebrow">الفعاليات والملتقيات</span><h2>سجل فعاليات المجلس</h2><p class="hsub">ملتقيات ولقاءات وبرامج تدريبية نظّمها المجلس مع شركائه، من الأحدث إلى الأقدم. المصدر: حساب المجلس على X.</p></div><div class="filters" id="evYears"></div></div>
+  <div class="evstats reveal" id="evStats"></div><div class="evkinds" id="evKinds"></div><div class="evtl" id="evList"></div>
+</div></section>
 <section id="news">
   <div class="wrap">
     <div class="note"><b>الأخبار:</b> أخبار المجلس وأخبار الجمعيات في قسم واحد مع فلترة. مستقبلاً: تستطيع كل جمعية رفع خبرها ليُراجَع ويُنشر.</div>
@@ -2948,18 +2979,59 @@ const STORIES=[
 /* ---------- استوديو المحتوى: الأخبار والتجارب والإعلانات في مخزن واحد مشترك (asirContent) ----------
    كل عنصر: {id,type:news|story|ann,st:pub|draft,home,feat,t,c,k,dt,ic,lead,body,imgs[],aid,m[[v,l]],pt[],ch,so,src,url}
    يُبنى منه مصفوفتا news وSTORIES فتعمل كل واجهات العرض كما هي، ولكل عنصر صفحة مستقلة #/read/<id>. */
-const CT_T={news:'خبر',story:'تجربة مميزة',ann:'إعلان'};
+const CT_T={news:'خبر',story:'تجربة مميزة',event:'فعالية',ann:'إعلان'};
 function ctSeed(){let h=0;
  return [...news.map((n,i)=>({id:'n'+(i+1),type:'news',st:'pub',home:i<3,feat:i==0,t:n.t,c:n.c,k:n.k||'',dt:n.dt,ic:n.ic||'award',lead:'',body:n.d||'',imgs:n.img?[n.img]:[],aid:null,m:[],pt:[],ch:'',so:'',src:n.src||'',url:''})),
   ...STORIES.map(s=>({id:'s-'+s.k,type:'story',st:'pub',home:!!s.img&&h++<3,feat:0,t:s.t,c:s.cat,k:'',dt:s.y,ic:s.ic,lead:s.lead,body:s.did,imgs:s.img?['/brand/'+s.img+'-1','/brand/'+s.img+'-2']:[],aid:s.aid,m:s.m||[],pt:s.pt||[],ch:s.ch||'',so:s.so||'',src:s.src||'',url:s.url||''}))]}
-var CT=(()=>{try{const o=JSON.parse(localStorage.getItem('asirContent')||'null');if(o&&Array.isArray(o.items)&&o.items.length)return o.items}catch(e){}return ctSeed()})();
+/* ---------- محتوى من حساب المجلس على X (@ngos_ase) — جُمع في نوفمبر 2026 وصيغ باختصار ----------
+   يُضاف تلقائياً إلى مخزن المحتوى إن لم يكن موجوداً ولم يحذفه الفريق. */
+const XSRC='حساب المجلس على X (@ngos_ase)',XURL='https://x.com/ngos_ase',XS=id=>'https://x.com/ngos_ase/status/'+id;
+const EVK=['ملتقى','لقاء','برنامج تدريبي','ورشة عمل','دبلوم','زيارة','مبادرة'];
+const ev=(id,when,dt,t,kind,body,o={})=>({id,type:'event',st:'pub',home:!!o.home,feat:!!o.feat,t,c:kind,kind,when,dt,ic:o.ic||({'ملتقى':'people','لقاء':'chat','برنامج تدريبي':'award','ورشة عمل':'target','دبلوم':'book','مبادرة':'hand'}[kind]||'star'),lead:o.lead||'',body,place:o.place||'',imgs:[],aid:null,m:o.m||[],pt:o.pt||[],ch:'',so:'',src:XSRC,url:o.url||XURL,k:''});
+const nw=(id,dt,t,body,o={})=>({id,type:'news',st:'pub',home:!!o.home,feat:false,t,c:o.c||'المجلس',k:o.k||'',dt,when:o.when||'',ic:o.ic||'award',lead:o.lead||'',body,imgs:[],aid:null,m:[],pt:o.pt||[],ch:'',so:'',src:XSRC,url:o.url||XURL});
+const CT_ADD=[
+ ev('x-ev-kku-coop','2026-11-04','4 نوفمبر 2026','لقاء: التعاون مع جامعة الملك خالد في التدريب التعاوني','لقاء','نظّم المجلس لقاءً بعنوان «آلية التعاون والاستفادة من التدريب التعاوني لطلاب جامعة الملك خالد»، قدّمه الدكتور سعد القحطاني عميد شؤون الطلاب بالجامعة، لتعريف الجمعيات بطريقة استقبال طلاب التدريب التعاوني والاستفادة منهم.\n\nجاء اللقاء امتداداً لزيارة المجلس لرئيس الجامعة في أكتوبر 2026.',{pt:['جامعة الملك خالد'],url:XS('2118007428008579350'),home:1,lead:'كيف تستفيد الجمعيات من طلاب التدريب التعاوني في الجامعة.'}),
+ ev('x-ev-tawasul','2026-08-22','أغسطس 2026','ملتقى تواصل للجمعيات الأهلية بعسير','ملتقى','ملتقى مهني نظّمه المجلس بالشراكة مع هيئة تطوير منطقة عسير، جمع ممثلي الجمعيات الأهلية لتبادل الخبرات والتجارب، وبناء العلاقات، واستكشاف فرص التعاون والشراكة بين الجمعيات.\n\nتناولت أوراق العمل فرص الإسناد الحكومي للجمعيات، والتقاء السياحة بالعمل غير الربحي، وتجارب في العمل الإنساني تمتد من عسير إلى خارج المملكة. واستضاف الملتقى الأستاذ عبدالمجيد بن عواد الدهمشي الرئيس التنفيذي لمجلس الجمعيات الأهلية.\n\nفُتح باب التسجيل في نهاية يوليو 2026، واختُتم الملتقى مطلع سبتمبر.',{pt:['هيئة تطوير منطقة عسير'],feat:1,home:1,lead:'مساحة تجمع الجمعيات لتبادل الخبرات واستكشاف فرص الشراكة.'}),
+ ev('x-ev-subcom','2026-06-14','14 يونيو 2026','ملتقى اللجان الفرعية بالمحافظات','ملتقى','جمع الملتقى رؤساء وأعضاء اللجان الفرعية للمجلس في المحافظات، لتعزيز التكامل بينها وتبادل الخبرات واستعراض تجاربها الناجحة. وتضمّن عرضاً لمستهدفات المجلس واستراتيجيته، وورشة عمل لبناء مبادرات نوعية في المحافظات.'),
+ ev('x-ev-sahel','2026-06-24','24 يونيو 2026','لقاء جمعيات الساحل','لقاء','عقدت اللجنة الفرعية للمجلس بالساحل لقاءً لجمعيات المنطقة بحضور رئيس المجلس المهندس علي المشيخي، ناقش موضوعات لتطوير العمل الأهلي وتعزيز التكامل بين الجمعيات، واستعرض فرصاً ومبادرات قائمة.',{place:'الساحل'}),
+ ev('x-ev-secplus','2026-05-18','مايو 2026','معسكر الاستعداد لشهادة Security+','برنامج تدريبي','معسكر تدريبي نظّمه المجلس مع جمعية سواعد التطوع، بالشراكة مع فريق حصن السيبراني، لتأهيل المشاركين لاجتياز شهادة CompTIA Security+ ورفع كفاءتهم في الأمن السيبراني.',{pt:['جمعية سواعد التطوع','فريق حصن السيبراني']}),
+ ev('x-ev-iap2','2026-05-14','مايو 2026','برنامج أساسيات المشاركة المجتمعية (IAP2)','برنامج تدريبي','برنامج أطلقه المجلس بالتعاون مع شركة الخطوة الذكية ومنتج «نشارك»، لتأهيل الممارسين على تصميم المشاركة المجتمعية وإدارتها وفق منهجية IAP2 العالمية.',{pt:['شركة الخطوة الذكية','نشارك']}),
+ ev('x-ev-microfin','2026-05-10','10 مايو 2026','برنامج مبادئ التمويل الأصغر وإدارة المحافظ التمويلية','برنامج تدريبي','برنامج من ثلاثة أيام نظّمه المجلس بالتعاون مع بنك التنمية الاجتماعية في مقر البنك، بمشاركة منسوبين من القطاع غير الربحي والمهتمين بالتمويل الأصغر.',{pt:['بنك التنمية الاجتماعية'],place:'مقر بنك التنمية الاجتماعية'}),
+ ev('x-ev-ceo','2026-05-07','3 – 7 مايو 2026','برنامج المدير التنفيذي','برنامج تدريبي','برنامج تدريبي قدّمته أكاديمية الفوزان بالشراكة مع جمعية نماء، شارك فيه عدد من القيادات والعاملين في القطاع غير الربحي بالمنطقة، وتضمّن محاور تدريبية متخصصة في الإدارة التنفيذية.',{pt:['أكاديمية الفوزان','جمعية نماء']}),
+ ev('x-ev-participation','2026-05-05','5 مايو 2026','لقاء: المشاركة المجتمعية في القطاع غير الربحي','لقاء','لقاء توعوي بعنوان «المشاركة المجتمعية في القطاع غير الربحي.. شراكة فاعلة لتحقيق الأثر المستدام»، استعرض فيه الأستاذ محمد قايد أهمية المشاركة المجتمعية وتمكين المتطوعين بوصفهم شركاء في العمل.'),
+ ev('x-ev-athar2','2026-04-17','أبريل 2026','ملتقى أثر المجتمعي 2','ملتقى','النسخة الثانية من ملتقى أثر المجتمعي. وقّع المجلس خلاله اتفاقية شراكة استراتيجية مع شركة كرم للتقنيات المتقدمة، لتمكين الجمعيات من الاستدامة المالية بتحويل جزء من مشتريات المجتمع اليومية عبر منصة كرم إلى دعم للجمعيات.',{pt:['شركة كرم للتقنيات المتقدمة']}),
+ ev('x-ev-donors25','2025-10-28','أكتوبر 2025','ملتقى عسير للمانحين 2025','ملتقى','أقيم الملتقى تحت رعاية صاحب السمو الملكي الأمير تركي بن طلال بن عبدالعزيز أمير منطقة عسير، ونظّمه المجلس بالشراكة مع جمعية نماء لتنمية القطاع غير الربحي، لتعزيز التكامل بين الجهات المانحة والجهات العاملة في القطاع وتفعيل الشراكات التي تخدم التنمية في المنطقة.\n\nتضمّن الملتقى جلسات حوارية، وجلسات استشارية متخصصة، ومنصة مخصصة لتوقيع الشراكات والاتفاقيات بين الجهات المشاركة.',{pt:['جمعية نماء لتنمية القطاع غير الربحي'],feat:1,home:1,lead:'جسور بين المانحين والجمعيات تحت رعاية أمير المنطقة.'}),
+ ev('x-ev-impact','2025-09-07','سبتمبر 2025','برنامج قياس الأثر الاجتماعي','برنامج تدريبي','برنامج أقامه المجلس بالتعاون مع بنك التنمية الاجتماعية لتمكين الجمعيات من قياس الأثر الاجتماعي لبرامجها، واستفاد منه عدد من منسوبي الجمعيات الأهلية بالمنطقة.',{pt:['بنك التنمية الاجتماعية'],place:'جادة 30'}),
+ ev('x-ev-athar1','2025-08-11','أغسطس 2025','ملتقى أثر المجتمعي','ملتقى','وُقّعت ضمن فعاليات الملتقى اتفاقيتا شراكة: مع شركة عبدالله الجبر للاستشارات المهنية لتقديم خدماتها للجمعيات الأهلية في المنطقة، ومع أوقاف نورة الملاحي لتقديم التدريب التقني للجمعيات عبر عدة مسارات.',{pt:['شركة عبدالله الجبر للاستشارات المهنية','أوقاف نورة الملاحي']}),
+ ev('x-ev-portfolio','2025-08-07','أغسطس 2025','برنامج المحافظ التمويلية','برنامج تدريبي','برنامج نفّذه المجلس بالشراكة مع بنك التنمية الاجتماعية لعدد من جمعيات المنطقة، واختُتم في 7 أغسطس 2025.',{pt:['بنك التنمية الاجتماعية']}),
+ ev('x-ev-diploma','2025-09-02','2025','دبلوم الإدارة التنفيذية في المنظمات غير الربحية','دبلوم','دبلوم يقدّمه المجلس بالشراكة مع كلية ابن رشد للعلوم الإدارية، برسوم مخفّضة لمنسوبي الجمعيات الأهلية والمهتمين بالقطاع. فُتح التسجيل على عدة دفعات خلال 2025.',{pt:['كلية ابن رشد للعلوم الإدارية']}),
+ ev('x-ev-taathir','2025-04-28','أبريل 2025','مشروع «تأثير» لبناء قدرات القيادات النسائية','برنامج تدريبي','مشروع لبناء قدرات القيادات النسائية في القطاع غير الربحي، نُفّذ بدعم من بنك الجزيرة وبالشراكة مع شركة ركين للاستشارات وبناء القدرات، واحتفى المجلس بختامه في أبريل 2025.',{pt:['بنك الجزيرة','شركة ركين للاستشارات وبناء القدرات']}),
+ ev('x-ev-pmu','2025-02-02','فبراير 2025','برنامج استراتيجيات الاحتراف المهني','برنامج تدريبي','برنامج من خمسة أيام في أبها، أقامه المجلس بالتعاون مع جامعة الأمير مقرن بن عبدالعزيز ومركز القيادة والابتكار.',{pt:['جامعة الأمير مقرن بن عبدالعزيز','مركز القيادة والابتكار'],place:'أبها'}),
+ ev('x-ev-volday','2025-12-08','ديسمبر 2025','برنامج يوم التطوع السعودي في رجال ألمع','مبادرة','أقامت اللجنة الفرعية للمجلس بمحافظة رجال ألمع برنامجاً بمناسبة يوم التطوع السعودي.',{place:'رجال ألمع'}),
+ ev('x-ev-belqarn','2024-12-08','ديسمبر 2024','لقاء جمعيات بلقرن','لقاء','أقام المجلس بتنسيق مع لجنته الفرعية في محافظة بلقرن لقاءً لجمعيات المحافظة.',{place:'بلقرن'}),
+ ev('x-ev-enrich','2025-06-22','2024 – 2025','سلسلة اللقاءات الإثرائية','لقاء','سلسلة لقاءات إثرائية يقيمها المجلس للجمعيات، تناولت موضوعات منها: مفهوم الإسناد، وخطة الحملة الإعلامية، والنشاط الاتصالي للجمعيات.'),
+ ev('x-ev-strategy','2024-08-25','أغسطس 2024','ورشة بناء التوجهات الاستراتيجية للمجلس','ورشة عمل','ورشة عمل أقامها المجلس لبناء توجهاته الاستراتيجية.'),
+ ev('x-ev-tot','2024-07-09','يوليو 2024','مشروع تدريب المدربين لتمكين المتطوعين','برنامج تدريبي','مشروع أقامه المجلس لإعداد مدربين يسهمون في تمكين المتطوعين في جمعيات المنطقة.'),
+ nw('x-n-kku-visit','27 أكتوبر 2026','رئيس جامعة الملك خالد يستقبل رئيس المجلس وفريقه','استقبل رئيس جامعة الملك خالد الأستاذ الدكتور فالح بن رجاء الله السلمي رئيسَ المجلس المهندس علي المشيخي وفريق المجلس، بحضور وكيل الجامعة للأعمال والشراكة المجتمعية، لتعزيز التكامل بين الجامعة والقطاع غير الربحي في المنطقة.',{when:'2026-10-27',url:XS('2115173994500346048'),k:'زيارات',ic:'people',home:1}),
+ nw('x-n-hq','24 يوليو 2025','المجلس ينتقل إلى مقره الجديد بحي المنسك في أبها','انتقل المجلس إلى مقره الجديد بحي المنسك في أبها، ويرحّب بزيارة الجمعيات للمقر والاستفادة من خدماته.',{when:'2025-07-24',url:XS('1948278201802739725'),k:'المجلس',ic:'pin'}),
+ nw('x-n-elect2','16 مايو 2024','إعلان نتائج انتخابات مجلس الإدارة للدورة الثانية','أعلن المجلس نتائج انتخابات مجلس إدارته للدورة الثانية (1445هـ – 2024م)، بعد تصويت الجمعيات بين 12 و15 مايو 2024.',{when:'2024-05-16',k:'الانتخابات',ic:'shield'}),
+ nw('x-n-honor1','26 أغسطس 2024','تكريم أعضاء مجلس إدارة الدورة الأولى','أقام المجلس حفلاً لتكريم أعضاء مجلس إدارته في الدورة الأولى، تقديراً لجهودهم في خدمة الجمعيات الأهلية بالمنطقة.',{when:'2024-08-26',k:'المجلس',ic:'award'}),
+ nw('x-n-farsha','6 فبراير 2025','مجلس الإدارة يزور محافظ الفرشة وجمعيات المحافظة','زار رئيس وأعضاء مجلس الإدارة والرئيس التنفيذي للمجلس محافظ محافظة الفرشة لبحث سبل التعاون بما يخدم جمعيات المحافظة والمراكز التابعة لها، وزاروا مقر جمعية الخدمات الإنسانية بكحلا.',{when:'2025-02-06',c:'الجمعيات',k:'زيارات',ic:'pin'}),
+ nw('x-n-khamis','8 يوليو 2026','زيارة الجمعية الخيرية بخميس مشيط','زار المجلس الجمعية الخيرية بخميس مشيط واطّلع على برامجها ومبادراتها.',{when:'2026-07-08',c:'الجمعيات',k:'زيارات',ic:'pin'}),
+ nw('x-n-agreements2','2025 – 2026','ثماني اتفاقيات شراكة في الدورة الثانية','وقّع المجلس في دورته الثانية اتفاقيات ومذكرات تفاهم مع: شركة إنسايتكس لدراسة القدرات المؤسسية لجمعيات المنطقة وبناء الخطة الاستراتيجية للمجلس (يناير 2025)، ومؤسسة آثار التنموية لتعزيز الكفاءة المؤسسية للجمعيات، ومتقن «برنامج باسمح لتنمية المجتمع» لتنمية الجمعيات الشبابية (يوليو 2025)، وشركة عبدالله الجبر للاستشارات المهنية وأوقاف نورة الملاحي (أغسطس 2025)، وشركة منافذ السعودية لأتمتة خدمات المستفيدين في الجمعيات (سبتمبر 2025)، ومؤسسة سليمان الراجحي للتمويل التنموي (نوفمبر 2025)، وشركة كرم للتقنيات المتقدمة (أبريل 2026).',{when:'2026-04-18',k:'شراكات',ic:'award',home:1})];
+var CT_DEL=[];
+var CT=(()=>{let L=null;try{const o=JSON.parse(localStorage.getItem('asirContent')||'null');if(o&&Array.isArray(o.items)&&o.items.length){L=o.items;CT_DEL=o.del||[]}}catch(e){}L=L||ctSeed();
+ const miss=CT_ADD.filter(x=>!L.some(y=>y.id==x.id)&&!CT_DEL.includes(x.id)).map(x=>JSON.parse(JSON.stringify(x)));
+ L.unshift(...miss.filter(x=>x.type!='event').sort((a,b)=>(b.when||'').localeCompare(a.when||'')));L.push(...miss.filter(x=>x.type=='event'));return L})();
+var EVENTS=[];
 const ctKey=x=>x.id.replace(/^s-/,'');
 const ctFind=id=>CT.find(x=>x.id==id)||CT.find(x=>x.type=='story'&&ctKey(x)==id);
 const ctUrl=x=>location.origin+location.pathname+'#/read/'+encodeURIComponent(x.id);
 function ctApply(){const pub=CT.filter(x=>x.st=='pub');
- news.length=0;pub.filter(x=>x.type!='story').sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)).forEach(x=>news.push({id:x.id,c:x.type=='ann'?'إعلانات':x.c,t:x.t,d:x.body,lead:x.lead,dt:x.dt,ic:x.ic||'award',k:x.k||(x.type=='ann'?'إعلان':''),src:x.src,url:x.url,img:(x.imgs||[])[0]||'',home:!!x.home,feat:!!x.feat}));
+ news.length=0;pub.filter(x=>x.type=='news'||x.type=='ann').sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)).forEach(x=>news.push({id:x.id,c:x.type=='ann'?'إعلانات':x.c,t:x.t,d:x.body,lead:x.lead,dt:x.dt,ic:x.ic||'award',k:x.k||(x.type=='ann'?'إعلان':''),src:x.src,url:x.url,img:(x.imgs||[])[0]||'',home:!!x.home,feat:!!x.feat}));
+ EVENTS=pub.filter(x=>x.type=='event').slice().sort((a,b)=>(b.when||'').localeCompare(a.when||''));
  STORIES.length=0;pub.filter(x=>x.type=='story').sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)).forEach(x=>STORIES.push({k:ctKey(x),id:x.id,aid:x.aid,cat:x.c,ic:x.ic||'star',t:x.t,imgs:x.imgs||[],img:(x.imgs||[])[0]||'',y:x.dt,lead:x.lead,did:x.body,ch:x.ch,so:x.so,m:x.m||[],pt:x.pt||[],src:x.src,url:x.url,home:!!x.home,feat:!!x.feat}))}
-function ctSave(msg){SET('asirContent',JSON.stringify({v:1,items:CT}));ctApply();syncNews();renderStories();if(curPg=='read')renderRead(curPath.split('/')[1]);msg&&toast(msg)}
+function ctSave(msg){SET('asirContent',JSON.stringify({v:1,items:CT,del:CT_DEL}));ctApply();syncNews();renderStories();typeof renderEvents=='function'&&renderEvents();if(curPg=='read')renderRead(curPath.split('/')[1]);msg&&toast(msg)}
 ctApply();renderNews();
 const ctParas=s=>String(s||'').split(/\n\s*\n|\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
 function ctShare(x,small){const u=encodeURIComponent(ctUrl(x)),t=encodeURIComponent(x.t);
@@ -2969,12 +3041,14 @@ document.addEventListener('click',e=>{const c=e.target.closest('[data-copy]');if
 function renderRead(id){const R=$('#readPg');if(!R)return;const x=ctFind(decodeURIComponent(id||''));
  if(!x||(x.st!='pub'&&!(typeof ADM!='undefined'&&ADM.auth))){R.innerHTML=`<div class="phero"><div class="wrap"><h1>المحتوى غير متاح</h1><p>ربما أُزيل أو لم يُنشر بعد.</p><div style="display:flex;gap:10px;margin-top:16px"><a class="btn p" href="#/news">المركز الإعلامي</a><a class="btn o" href="#/stories">تجارب مميزة</a></div></div></div>`;document.title='المحتوى غير متاح — مجلس الجمعيات الأهلية بعسير';return}
  const a=x.aid?assoc.find(z=>z.id==x.aid):null,isS=x.type=='story',back=isS?['stories','تجارب مميزة']:['news','المركز الإعلامي'],imgs=x.imgs||[];
- const rel=CT.filter(z=>z.st=='pub'&&z.id!=x.id&&(z.type=='story')==isS).sort((p,q)=>(q.c==x.c)-(p.c==x.c)).slice(0,3);
+ const isE=x.type=='event',evf=isE?[['التاريخ',x.dt],['النوع',x.kind||x.c],['المكان',x.place]].filter(r=>r[1]):[];
+ const rel=CT.filter(z=>z.st=='pub'&&z.id!=x.id&&(z.type=='story')==isS&&(z.type=='event')==isE).sort((p,q)=>(q.c==x.c)-(p.c==x.c)).slice(0,3);
  R.innerHTML=`<header class="rdhero ${imgs[0]?'':'noimg'}">${imgs[0]?`<img src="${esc(imgs[0])}" alt="" onerror="this.parentNode.classList.add('noimg');this.remove()">`:''}<span class="rdic">${I(P[x.ic]||P.star,'width:64px;height:64px;stroke-width:1')}</span><div class="rdsh"></div>
   <div class="wrap"><nav class="crumb" aria-label="مسار التصفح"><a href="#/">الرئيسية</a> <span>/</span> <a href="#/${back[0]}">${back[1]}</a></nav>
   <div class="rdtags"><span>${CT_T[x.type]}</span>${x.c?`<span>${esc(x.c)}</span>`:''}${x.dt?`<time>${esc(x.dt)}</time>`:''}${x.st!='pub'?'<span class="draft">مسودة — لا تظهر للزوار</span>':''}</div>
   <h1>${esc(x.t)}</h1>${x.lead?`<p class="rdlead">${esc(x.lead)}</p>`:''}</div></header>
  <section class="rdbody"><div class="wrap rdgrid"><article class="rdart">
+  ${evf.length?`<div class="rdev">${evf.map(([k,v])=>`<div><small>${k}</small><b>${esc(v)}</b></div>`).join('')}</div>`:''}
   ${x.m&&x.m.length?`<div class="stmx">${x.m.map(([v,l])=>`<div><b>${isNaN(+v)?esc(v):(+v).toLocaleString('en')}</b><span>${esc(l)}</span></div>`).join('')}</div>`:''}
   ${isS&&x.body?'<h3>ما الذي قامت به الجمعية</h3>':''}${ctParas(x.body)||(isS?'':'<p>نص الخبر الكامل يُضاف من استوديو المحتوى.</p>')}
   ${x.ch||x.so?`<div class="stcs">${x.ch?`<div><h4>التحدي</h4><p>${esc(x.ch)}</p></div>`:''}${x.so?`<div><h4>الحل</h4><p>${esc(x.so)}</p></div>`:''}</div>`:''}
@@ -2983,10 +3057,10 @@ function renderRead(id){const R=$('#readPg');if(!R)return;const x=ctFind(decodeU
   ${x.src?`<p class="rdsrc">${I(P.info,'width:15px;height:15px;flex:none')}<span>المصدر: ${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.src)} ↗</a>`:esc(x.src)}</span></p>`:''}
  </article><aside class="rdside">
   ${a?`<a class="rdas" href="#/association/${a.lic}"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,26)}</span><span><small>الجهة المنفذة</small><b>${esc(a.n)}</b><em>${esc(a.gov)} · صفحة الجمعية ←</em></span></a>`:''}
-  <div class="rdbox"><h4>شارك ${isS?'التجربة':'الخبر'}</h4>${ctShare(x)}</div>
+  <div class="rdbox"><h4>شارك ${isS?'التجربة':isE?'الفعالية':'الخبر'}</h4>${ctShare(x)}</div>
   ${isS?`<div class="rdbox rdcta"><b>لدى جمعيتك تجربة تستحق أن تُروى؟</b><p>أرسلها لفريق المجلس ليراجعها قبل نشرها.</p><a class="btn o" href="#/contact">تواصل معنا</a></div>`:''}
  </aside></div></section>
- ${rel.length?`<section class="soft rdrel"><div class="wrap"><div class="head"><div><h2>${isS?'تجارب أخرى':'من المركز الإعلامي'}</h2></div><a class="btn o" href="#/${back[0]}">عرض الكل</a></div><div class="${isS?'stgrid home':'news3'}">${rel.map(z=>isS?stCard(STORIES.find(s=>s.id==z.id)||{}):newsCard(news.find(n=>n.id==z.id),news.findIndex(n=>n.id==z.id))).join('')}</div></div></section>`:''}`;
+ ${rel.length?`<section class="soft rdrel"><div class="wrap"><div class="head"><div><h2>${isS?'تجارب أخرى':isE?'فعاليات أخرى':'من المركز الإعلامي'}</h2></div><a class="btn o" href="#/${back[0]}">عرض الكل</a></div><div class="${isS?'stgrid home':isE?'evg':'news3'}">${rel.map(z=>isS?stCard(STORIES.find(s=>s.id==z.id)||{}):isE?evCard(z):newsCard(news.find(n=>n.id==z.id),news.findIndex(n=>n.id==z.id))).join('')}</div></div></section>`:''}`;
  document.title=x.t+' — مجلس الجمعيات الأهلية بعسير'}
 let stCat='الكل';
 const stA=x=>assoc.find(a=>a.id==x.aid);
@@ -3073,6 +3147,23 @@ function renderFounding(){const s=FD.step,d=FD.d,fields=[...new Set(assoc.map(a=
   try{const j=await cfPost({kind:'founding',name:d.name,phone:d.phone,email:d.email,governorate:d.governorate,website:d.website,message:'طلب مساعدة في تأسيس جمعية: '+d.idea+(d.notes?'\n\n'+d.notes:''),details:{idea:d.idea,field:d.field,target:d.target,stage:d.stage,founders:d.founders,help:d.help}});
    $('#modal').innerHTML=`<div class="fdw"><button class="x" onclick="closeAll()" aria-label="إغلاق">${I(P.x)}</button>${cfDone('وصل طلبك، شكراً لك','سيتواصل معك فريق المجلس لترتيب جلسة تعريفية بخطوات التأسيس.',j.id)}<div style="display:flex;justify-content:center;gap:10px;margin-top:14px"><a class="btn o" href="#/stories" onclick="closeAll()">تصفّح تجارب جمعيات عسير</a><button class="btn n" onclick="closeAll()">إغلاق</button></div></div>`}
   catch(x){er.textContent=x.message;btn.disabled=false;btn.classList.remove('busy')}}}
+/* ---------- الفعاليات والملتقيات ---------- */
+let evYear='الكل',evKind='الكل';
+const evDate=x=>{const d=x.when?new Date(x.when+'T12:00:00'):null;return d&&!isNaN(d)?{d:d.getDate(),m:d.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{month:'long'}),y:d.getFullYear()}:null};
+const evPts=()=>new Set(EVENTS.flatMap(x=>x.pt||[]));
+function evCard(x,small){const D=evDate(x),up=x.when&&new Date(x.when+'T00:00:00')>new Date();
+ return `<a class="evc ${small?'sm':''}" href="#/read/${encodeURIComponent(x.id)}"><span class="evd">${D?`<b>${x.dt&&/^\d/.test(x.dt)&&!/–/.test(x.dt)?D.d:'·'}</b><small>${D.m}</small><em>${D.y}</em>`:'<b>·</b>'}</span><span class="evb"><span class="evt"><i>${I(P[x.ic]||P.star,'width:13px;height:13px')}${esc(x.kind||x.c||'فعالية')}</i>${up?'<i class="up">قادمة</i>':''}${x.place?`<small>${I(P.pin,'width:12px;height:12px')}${esc(x.place)}</small>`:''}</span><b>${esc(x.t)}</b>${small?'':`<p>${esc(x.lead||String(x.body||'').split('\n')[0].slice(0,170))}</p>`}${(x.pt||[]).length&&!small?`<span class="evp">${x.pt.slice(0,3).map(p=>`<em>${esc(p)}</em>`).join('')}${x.pt.length>3?`<em>+${x.pt.length-3}</em>`:''}</span>`:''}</span></a>`}
+function renderEvents(){const L=EVENTS,St=$('#evStats');
+ if(St){const k=t=>L.filter(x=>x.kind==t).length;St.innerHTML=[[L.length,'فعالية موثّقة'],[k('ملتقى'),'ملتقيات'],[k('برنامج تدريبي')+k('دبلوم')+k('ورشة عمل'),'برامج وورش تدريبية'],[k('لقاء'),'لقاءات'],[evPts().size,'جهة شريكة فيها']].map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join('')}
+ const ys=['الكل',...[...new Set(L.map(x=>(x.when||'').slice(0,4)).filter(Boolean))].sort().reverse()];
+ const Y=$('#evYears');if(Y)Y.innerHTML=ys.map(y=>`<button class="pill ${y==evYear?'on':''}" data-evy="${y}">${y}</button>`).join('');
+ const ks=['الكل',...new Set(L.map(x=>x.kind).filter(Boolean))];const K=$('#evKinds');if(K)K.innerHTML=ks.map(k=>`<button class="${k==evKind?'on':''}" data-evk="${esc(k)}">${esc(k)}<em>${k=='الكل'?L.length:L.filter(x=>x.kind==k).length}</em></button>`).join('');
+ const F=L.filter(x=>(evYear=='الكل'||(x.when||'').startsWith(evYear))&&(evKind=='الكل'||x.kind==evKind));
+ const G=[...new Set(F.map(x=>(x.when||'').slice(0,4)))];const B=$('#evList');
+ if(B)B.innerHTML=F.length?G.map(y=>`<div class="evy"><h3>${y||'بدون تاريخ'}<small>${F.filter(x=>(x.when||'').startsWith(y)).length} فعالية</small></h3><div class="evg">${F.filter(x=>(x.when||'').slice(0,4)==y).map(x=>evCard(x)).join('')}</div></div>`).join(''):'<div class="empty">لا توجد فعاليات مطابقة</div>';
+ const H=$('#homeEvents');if(H){const h=L.filter(x=>x.home),S=(h.length?h:L).slice(0,3);H.innerHTML=S.length?`<div class="evhh"><h3>${I(P.people,'width:18px;height:18px')}أحدث الفعاليات والملتقيات</h3><a href="#/news" onclick="setTimeout(()=>{const e=document.getElementById('events');e&&window.scrollTo({top:e.getBoundingClientRect().top+scrollY-80})},120)">كل الفعاليات (${L.length}) ←</a></div><div class="evg3">${S.map(x=>evCard(x,1)).join('')}</div>`:''}}
+document.addEventListener('click',e=>{const y=e.target.closest('[data-evy]');if(y){evYear=y.dataset.evy;renderEvents();return}const k=e.target.closest('[data-evk]');if(k){evKind=k.dataset.evk;renderEvents()}});
+renderEvents();
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
@@ -3432,12 +3523,12 @@ $('#plats').innerHTML=plats.map(p=>`<a class="card pl pl2" href="${p[4]}" target
 /* ---------- gaps: missing facts registry (edited from the dashboard, rendered live) ---------- */
 const GAPS=[
  {k:'term1',g:'الدورات',t:'مدة الدورة الأولى',ty:'text',ph:'مثال: محرم 1441 – ذو الحجة 1445هـ',v:'1441 – 1445هـ',note:'مأخوذة من غلاف التقرير؛ يلزم تأكيد تاريخي البداية والنهاية بالضبط.',where:'الرئيسية › حصاد الدورة الأولى · عن المجلس › مجلس الإدارة',url:'about'},
- {k:'term2',g:'الدورات',t:'تاريخ انتخاب المجلس الحالي (الدورة الثانية)',ty:'text',ph:'مثال: 12 محرم 1446هـ',v:'',note:'',where:'عن المجلس › مجلس الإدارة',url:'about'},
+ {k:'term2',g:'الدورات',t:'تاريخ انتخاب المجلس الحالي (الدورة الثانية)',ty:'text',ph:'مثال: 12 محرم 1446هـ',v:'',auto:'مايو 2024م (1445هـ)',autoNote:'من حساب المجلس على X: التصويت 12–15 مايو 2024، وإعلان النتائج 16 مايو 2024.',note:'',where:'عن المجلس › مجلس الإدارة',url:'about'},
  {k:'resp96',g:'الأرقام',t:'تعريف «نسبة تجاوب الجمعيات 96%»',ty:'text',ph:'مثال: نسبة الجمعيات التي ردّت على استبيان الاحتياج',v:'نسبة تجاوب الجمعيات مع خدمات حاضنة جدارة للأعمال الاجتماعية، ضمن إحصائيات الحاضنة في تقرير الدورة الأولى',note:'يظهر التعريف عند تمرير المؤشر على الرقم. إن لم يوجد تعريف واضح يُستبدل الرقم بمؤشر آخر من التقرير.',where:'الرئيسية › حصاد الدورة الأولى',url:''},
  {k:'phone',g:'التواصل',t:'هاتف المجلس',ty:'tel',ph:'05xxxxxxxx',v:'',note:'',where:'الرئيسية › تواصل معنا · التذييل',url:'contact'},
- {k:'addr',g:'التواصل',t:'عنوان المقر',ty:'text',ph:'أبها، حي …، شارع …',v:'',note:'',where:'الرئيسية › تواصل معنا',url:'contact'},
+ {k:'addr',g:'التواصل',t:'عنوان المقر',ty:'text',ph:'أبها، حي …، شارع …',v:'',auto:'حي المنسك، أبها',autoNote:'من حساب المجلس على X (24 يوليو 2025): انتقال المجلس إلى مقره الجديد بحي المنسك في أبها. الشارع ورقم المبنى يحتاجان تأكيداً.',note:'',where:'الرئيسية › تواصل معنا',url:'contact'},
  {k:'hours',g:'التواصل',t:'ساعات العمل',ty:'text',ph:'الأحد – الخميس، 8 ص – 3 م',v:'',note:'',where:'الرئيسية › تواصل معنا',url:'contact'},
- {k:'x',g:'التواصل',t:'حساب X',ty:'text',ph:'@...',v:'',note:'',where:'الرئيسية › تواصل معنا',url:'contact'},
+ {k:'x',g:'التواصل',t:'حساب X',ty:'text',ph:'@...',v:'',auto:'@ngos_ase',autoNote:'الحساب الرسمي للمجلس على X منذ مارس 2020.',note:'',where:'الرئيسية › تواصل معنا',url:'contact'},
  {k:'email',g:'التواصل',t:'البريد الرسمي',ty:'email',ph:'info@…',v:'info.ase@ccsa.org.sa',note:'النطاق النهائي يحتاج تأكيداً من المجلس الرئيسي.',where:'تواصل معنا · التذييل',url:'contact'},
  {k:'member',g:'النصوص',t:'صيغة العضوية في الصفحة الرئيسية',ty:'text',ph:'كل جمعية مرخصة في عسير عضو في المجلس تلقائياً',v:'',note:'هل كل جمعية مرخصة عضو تلقائياً، أم توجد عضوية تُطلب؟ الجملة تظهر تحت نص الهيرو عند تسجيلها.',where:'الرئيسية › الهيرو',url:''},
  {k:'partners',g:'الشركاء',t:'شعارات الشركاء وإذن استخدامها',ty:'note',v:'',note:'تُعرض الأسماء نصاً حتى تصل الشعارات بإذن مكتوب.',where:'الرئيسية › حصاد الدورة الأولى',url:''},
@@ -3445,7 +3536,8 @@ const GAPS=[
  {k:'consultants',g:'الاستشارات',t:'أسماء وتخصصات المستشارين الفعليين',ty:'note',v:'',note:'الملفات الحالية توضيحية وبلا تقييمات.',where:'الاستشارات › مستشارو المجلس',url:'consult'},
  {k:'news_dates',g:'الأخبار',t:'تواريخ وصور فعاليات الدورة الأولى',ty:'note',v:'',note:'تاريخ كل خبر يُعدَّل من جدول الأخبار في «الأخبار والإعلانات».',where:'المركز الإعلامي',url:'news'}];
 const GAPI=Object.fromEntries(GAPS.map(g=>[g.k,g]));
-(()=>{try{const o=JSON.parse(localStorage.getItem('asirGaps')||'{}');Object.entries(o).forEach(([k,v])=>{if(GAPI[k])Object.assign(GAPI[k],v)})}catch(e){}})();
+(()=>{try{const o=JSON.parse(localStorage.getItem('asirGaps')||'{}');Object.entries(o).forEach(([k,v])=>{if(GAPI[k])Object.assign(GAPI[k],v)})}catch(e){}
+ GAPS.forEach(g=>{if(g.auto&&!String(g.v||'').trim()){g.v=g.auto;g.note=g.autoNote||g.note}})})();
 function saveGaps(){try{SET('asirGaps',JSON.stringify(Object.fromEntries(GAPS.map(g=>[g.k,{v:g.v,note:g.note,done:!!g.done,at:g.at||''}]))))}catch(e){}}
 const gapV=k=>(GAPI[k]&&GAPI[k].v||'').trim();
 const gapOpen=g=>!g.done&&(g.ty=='note'||!gapV(g.k));
@@ -3476,6 +3568,11 @@ let PARTNERS=[
  {id:13,n:'مجلس المؤسسات الأهلية',ty:'تعاون في مبادرة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'cof'},
  {id:14,n:'المركز الوطني لتنمية القطاع غير الربحي',ty:'زيارات ولقاءات',sec:'قطاع حكومي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'ncnp'},
  {id:15,n:'هيئة تطوير منطقة عسير',ty:'شريك تنموي في المنطقة',sec:'قطاع حكومي',st:'سارية',term:'الدورة الحالية',show:1,lg:'asda'}];
+
+const XSRC0='حساب المجلس على X (@ngos_ase)';
+const PX=(id,n,ty,sec,dt,o={})=>({id,n,ty,sec,st:o.st||'موقّعة',term:'الدورة الثانية',show:o.st?0:1,dt,src:XSRC0,...o});
+const PARTNERS_X=[PX(16,'شركة كرم للتقنيات المتقدمة','اتفاقية شراكة استراتيجية','قطاع خاص','أبريل 2026'),PX(17,'منافذ السعودية','اتفاقية شراكة','قطاع خاص','سبتمبر 2025'),PX(18,'شركة عبدالله الجبر للاستشارات المهنية','اتفاقية شراكة','قطاع خاص','أغسطس 2025'),PX(19,'أوقاف نورة الملاحي','اتفاقية شراكة','قطاع غير ربحي','أغسطس 2025'),PX(20,'مؤسسة آثار التنموية','اتفاقية شراكة','قطاع غير ربحي','يوليو 2025'),PX(21,'متقن — برنامج باسمح لتنمية المجتمع','اتفاقية شراكة','قطاع غير ربحي','يوليو 2025'),PX(22,'إنسايتكس','اتفاقية شراكة وتعاون','قطاع خاص','يناير 2025'),PX(23,'مؤسسة سليمان الراجحي للتمويل التنموي','مذكرة تفاهم','قطاع غير ربحي','نوفمبر 2025'),PX(24,'جامعة الملك خالد','تعاون في التدريب التعاوني','قطاع حكومي','أكتوبر 2026',{st:'تعاون'}),PX(25,'بنك التنمية الاجتماعية','تعاون في برامج تدريبية','قطاع حكومي','2025 – 2026',{st:'تعاون'}),PX(26,'جمعية نماء لتنمية القطاع غير الربحي','شريك في ملتقى وبرامج','جمعية أهلية','2025 – 2026',{st:'تعاون'}),PX(27,'بنك الجزيرة','دعم مشروع تأثير','قطاع خاص','2025',{st:'تعاون'}),PX(28,'شركة ركين للاستشارات وبناء القدرات','شريك تنفيذ مشروع تأثير','قطاع خاص','2025',{st:'تعاون'}),PX(29,'كلية ابن رشد للعلوم الإدارية','شريك دبلوم الإدارة التنفيذية','قطاع تعليمي','2025',{st:'تعاون'}),PX(30,'جامعة الأمير مقرن بن عبدالعزيز','تعاون في برنامج تدريبي','قطاع تعليمي','فبراير 2025',{st:'تعاون'}),PX(31,'أكاديمية الفوزان','شريك برنامج المدير التنفيذي','قطاع خاص','مايو 2026',{st:'تعاون'})];
+PARTNERS.push(...PARTNERS_X);
 const PDEF=JSON.parse(JSON.stringify(PARTNERS));
 function partMerge(L){PDEF.forEach(d=>{if(!L.some(x=>x.id==d.id))L.push(JSON.parse(JSON.stringify(d)))});L.forEach(x=>{const d=PDEF.find(y=>y.id==x.id);if(d&&!x.lg&&d.lg){x.lg=d.lg;if(d.wh)x.wh=1}});return L}
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirPartners')||'null');if(Array.isArray(o))PARTNERS=partMerge(o)}catch(e){}})();
@@ -4215,15 +4312,15 @@ AM.content=el=>{if(ADM.content=='news')ADM.content='studio';const tab=ADM.conten
   B.querySelectorAll('[data-sr]').forEach(b=>b.onclick=()=>{ADM.subs[+b.dataset.sr].st='مرفوض';toast('رُفض الطلب وأُشعرت الجمعية');renderAdmin()})}
 };
 const CS_IC=['award','star','heart','people','target','eye','hand','building','mega','shield','coin','chat','pin','grid','book','leaf','chart','globe'];
-const CS_WHERE={news:['المركز الإعلامي','الرئيسية: «من أعمال المجلس»'],story:['صفحة تجارب مميزة','الرئيسية: «قصص أثر»'],ann:['المركز الإعلامي (تصنيف إعلانات)','الرئيسية: «من أعمال المجلس»']};
-function csBlank(type,o){const d=new Date();return Object.assign({id:'c'+Date.now().toString(36),type,st:'draft',home:false,feat:false,t:'',c:type=='story'?'':type=='ann'?'إعلانات':'المجلس',k:'',dt:type=='story'?String(d.getFullYear()):d.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long',year:'numeric'}),ic:type=='story'?'star':type=='ann'?'mega':'award',lead:'',body:'',imgs:[],aid:null,m:[],pt:[],ch:'',so:'',src:'',url:''},o||{})}
+const CS_WHERE={event:['المركز الإعلامي › سجل الفعاليات','الرئيسية: «أحدث الفعاليات»'],news:['المركز الإعلامي','الرئيسية: «من أعمال المجلس»'],story:['صفحة تجارب مميزة','الرئيسية: «قصص أثر»'],ann:['المركز الإعلامي (تصنيف إعلانات)','الرئيسية: «من أعمال المجلس»']};
+function csBlank(type,o){const d=new Date();return Object.assign({id:'c'+Date.now().toString(36),type,st:'draft',home:false,feat:false,t:'',c:type=='story'?'':type=='ann'?'إعلانات':type=='event'?'لقاء':'المجلس',kind:type=='event'?'لقاء':'',when:type=='event'?new Date().toISOString().slice(0,10):'',place:'',k:'',dt:type=='story'?String(d.getFullYear()):d.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long',year:'numeric'}),ic:type=='story'?'star':type=='ann'?'mega':'award',lead:'',body:'',imgs:[],aid:null,m:[],pt:[],ch:'',so:'',src:'',url:''},o||{})}
 function csThumb(x){return x.imgs&&x.imgs[0]?`<img src="${esc(x.imgs[0])}" alt="" loading="lazy" onerror="this.remove()">`:''}
 function csList(B,el){const CS=ADM.cs,q=CS.q.trim();
  const cnt=f=>CT.filter(x=>f=='all'||(f=='draft'?x.st!='pub':x.type==f)).length;
  const L=CT.map((x,i)=>[x,i]).filter(([x])=>(CS.f=='all'||(CS.f=='draft'?x.st!='pub':x.type==CS.f))&&(!q||(x.t+' '+x.c+' '+(x.lead||'')).includes(q)));
- B.innerHTML=`<div class="cshead"><div class="csf">${[['all','الكل'],['news','الأخبار'],['story','التجارب'],['ann','الإعلانات'],['draft','المسودات']].map(([k,t])=>`<button class="${CS.f==k?'on':''}" data-csf="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span class="sp" style="flex:1"></span>
+ B.innerHTML=`<div class="cshead"><div class="csf">${[['all','الكل'],['news','الأخبار'],['event','الفعاليات'],['story','التجارب'],['ann','الإعلانات'],['draft','المسودات']].map(([k,t])=>`<button class="${CS.f==k?'on':''}" data-csf="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span class="sp" style="flex:1"></span>
   <label class="csq">${I(P.search,'width:15px;height:15px')}<input id="csQ" placeholder="ابحث في العناوين" value="${esc(CS.q)}"></label>
-  <div class="csnew"><button class="jbtn pri" id="csNew">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إنشاء</button><div class="csmenu" id="csMenu" hidden>${Object.entries(CT_T).map(([k,t])=>`<button data-csn="${k}">${I(P[{news:'news',story:'star',ann:'mega'}[k]],'width:16px;height:16px')}<span><b>${t}</b><small>${CS_WHERE[k][0]}</small></span></button>`).join('')}</div></div></div>
+  <div class="csnew"><button class="jbtn pri" id="csNew">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إنشاء</button><div class="csmenu" id="csMenu" hidden>${Object.entries(CT_T).map(([k,t])=>`<button data-csn="${k}">${I(P[{news:'news',story:'star',ann:'mega',event:'people'}[k]],'width:16px;height:16px')}<span><b>${t}</b><small>${CS_WHERE[k][0]}</small></span></button>`).join('')}</div></div></div>
  <div class="cslist">${L.length?L.map(([x,i])=>`<div class="csr ${x.st!='pub'?'draft':''}"><span class="csth">${I(P[x.ic]||P.star,'width:20px;height:20px')}${csThumb(x)}</span>
   <button class="csm" data-cse="${i}"><b>${esc(x.t)||'بدون عنوان'}</b><small>${CT_T[x.type]}${x.c?' · '+esc(x.c):''}${x.dt?' · '+esc(x.dt):''}</small></button>
   <span class="cstags">${x.st!='pub'?'<span class="pill2 p-mute">مسودة</span>':'<span class="pill2 p-ok">منشور</span>'}${x.home?'<span class="pill2 p-info">في الرئيسية</span>':''}${x.feat?'<span class="pill2 p-warn">مميز</span>':''}</span>
@@ -4256,6 +4353,8 @@ function csEditor(B,el){const CS=ADM.cs,d=CS.draft,isS=d.type=='story',isNew=CS.
   <label class="full">العنوان<input name="t" value="${esc(d.t)}" maxlength="140" placeholder="${isS?'مثال: «شفاء»: أجهزة طبية لـ210 أسر أيتام':'عنوان واضح ومختصر'}"></label>
   <label>التصنيف<input name="c" list="csCats" value="${esc(d.c)}" placeholder="${isS?'الصحة، الأسرة، التمكين…':'المجلس، الجمعيات، فعاليات'}"><datalist id="csCats">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></label>
   <label>${isS?'السنة':'التاريخ'}<input name="dt" value="${esc(d.dt)}"></label>
+  ${d.type=='event'?`<label>تاريخ الفعالية<input type="date" name="when" value="${esc(d.when||'')}"></label><label>نوع الفعالية<select name="kind">${EVK.map(k=>`<option ${d.kind==k?'selected':''}>${k}</option>`).join('')}</select></label><label class="full">المكان <small>اختياري</small><input name="place" value="${esc(d.place||'')}" placeholder="أبها، مقر المجلس…"></label>
+  <label class="full">الشركاء <small>افصل بينهم بفاصلة</small><input name="pt" value="${esc((d.pt||[]).join('، '))}"></label>`:''}
   ${!isS?`<label>وسم البطاقة <small>اختياري</small><input name="k" value="${esc(d.k)}" placeholder="ورشة عمل، ملتقى…"></label>`:''}
   <div class="full"><span class="csl">الأيقونة <small>تظهر حين لا توجد صورة</small></span><div class="csics">${CS_IC.map(k=>`<label title="${k}"><input type="radio" name="ic" value="${k}" ${d.ic==k?'checked':''}><span>${I(P[k],'width:18px;height:18px')}</span></label>`).join('')}</div></div>
   <label class="full">الجمعية المرتبطة <small>اختياري — تظهر بشعارها ورابط صفحتها</small><input name="an" list="csAs" value="${esc(an)}" placeholder="اكتب اسم الجمعية"><datalist id="csAs">${assoc.map(a=>`<option value="${esc(a.n)}">`).join('')}</datalist></label>
@@ -4269,13 +4368,13 @@ function csEditor(B,el){const CS=ADM.cs,d=CS.draft,isS=d.type=='story',isNew=CS.
   <div class="full cstg"><label class="cstog"><input type="checkbox" name="home" ${d.home?'checked':''}><span><b>عرض في الصفحة الرئيسية</b><small>${CS_WHERE[d.type][1]}</small></span></label><label class="cstog"><input type="checkbox" name="feat" ${d.feat?'checked':''}><span><b>عنصر مميز</b><small>يتصدر قسمه في الموقع</small></span></label></div>
  </form><aside class="csprev"><span class="csl">معاينة البطاقة</span><div id="csCard"></div><p class="cshelp">${I(P.info,'width:14px;height:14px;flex:none')}لكل عنصر منشور صفحة مستقلة برابط ثابت يمكن مشاركته.</p></aside></div></div>`;
  const F=$('#csF');
- const read=()=>{const f=new FormData(F);['t','c','dt','k','ic','lead','body','ch','so','src','url'].forEach(k=>{if(f.has(k))d[k]=String(f.get(k)).trim()});
+ const read=()=>{const f=new FormData(F);['t','c','dt','k','ic','lead','body','ch','so','src','url','when','kind','place'].forEach(k=>{if(f.has(k))d[k]=String(f.get(k)).trim()});
   const t=f.get('type');d.home=f.has('home');d.feat=f.has('feat');
   const nm=String(f.get('an')||'').trim(),a=nm?assoc.find(x=>x.n==nm):null;d.aid=a?a.id:null;
   if(f.has('pt'))d.pt=String(f.get('pt')).split(/[،,]/).map(s=>s.trim()).filter(Boolean);
   F.querySelectorAll('[data-mv]').forEach(i=>{const k=+i.dataset.mv;d.m[k]=[i.value.trim(),(F.querySelector(`[data-ml="${k}"]`)||{}).value||'']});
   return t};
- const prev=()=>{const x=d;$('#csCard').innerHTML=x.type=='story'?stCard({k:'preview',id:x.id,aid:x.aid,cat:x.c||'التصنيف',ic:x.ic,t:x.t||'عنوان التجربة',img:(x.imgs||[])[0]||'',lead:x.lead||'الافتتاحية تظهر هنا.',m:(x.m||[]).filter(m=>m[0]!==''&&m[1])}):newsCard({c:x.type=='ann'?'إعلانات':x.c,k:x.k,t:x.t||'عنوان الخبر',dt:x.dt,ic:x.ic,img:(x.imgs||[])[0]||''},0)};
+ const prev=()=>{const x=d;$('#csCard').innerHTML=x.type=='event'?evCard({...x,t:x.t||'عنوان الفعالية'}):x.type=='story'?stCard({k:'preview',id:x.id,aid:x.aid,cat:x.c||'التصنيف',ic:x.ic,t:x.t||'عنوان التجربة',img:(x.imgs||[])[0]||'',lead:x.lead||'الافتتاحية تظهر هنا.',m:(x.m||[]).filter(m=>m[0]!==''&&m[1])}):newsCard({c:x.type=='ann'?'إعلانات':x.c,k:x.k,t:x.t||'عنوان الخبر',dt:x.dt,ic:x.ic,img:(x.imgs||[])[0]||''},0)};
  prev();
  F.oninput=()=>{const t=read();if(t!=d.type){d.type=t;if(!d.c||['المجلس','إعلانات'].includes(d.c))d.c=t=='ann'?'إعلانات':t=='news'?'المجلس':'';csEditor(B,el);return}prev()};
  $('#csBack').onclick=()=>{CS.edit=null;AM.content(el)};
@@ -4288,13 +4387,14 @@ function csEditor(B,el){const CS=ADM.cs,d=CS.draft,isS=d.type=='story',isNew=CS.
   csEditor(B,el)};
  const save=st=>{read();if(!d.t){toast('اكتب العنوان أولاً',1);F.t.focus();return}
   d.m=(d.m||[]).filter(m=>String(m[0]).trim()&&String(m[1]).trim()).map(([v,l])=>[isNaN(+v)?v:+v,l]);
+  if(d.type=='event'&&d.kind)d.c=d.kind;
   d.st=st;const i=CT.findIndex(x=>x.id==d.id),wasNew=i<0;
   if(wasNew)CT.unshift(JSON.parse(JSON.stringify(d)));else CT[i]=JSON.parse(JSON.stringify(d));
   ctSave(st=='pub'?(wasNew?'نُشر في الموقع':'حُفظت التعديلات ونُشرت'):'حُفظت المسودة');alog((st=='pub'?'نشر ':'مسودة ')+CT_T[d.type]+': '+d.t,st=='pub'?'#14A37F':undefined);
   CS.edit=d.id;csEditor(B,el)};
  $('#csDraft').onclick=()=>save('draft');$('#csPub').onclick=()=>save('pub');
  $('#csDel')&&($('#csDel').onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent='تأكيد الحذف';setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent='حذف'}},4000);return}
-  const i=CT.findIndex(x=>x.id==d.id);if(i>=0){CT.splice(i,1);ctSave('حُذف العنصر');alog('حذف '+CT_T[d.type]+': '+d.t,'#B42318')}CS.edit=null;AM.content(el)})}
+  const i=CT.findIndex(x=>x.id==d.id);if(i>=0){CT.splice(i,1);if(!CT_DEL.includes(d.id))CT_DEL.push(d.id);ctSave('حُذف العنصر');alog('حذف '+CT_T[d.type]+': '+d.t,'#B42318')}CS.edit=null;AM.content(el)})}
 /* ---------- صندوق الوارد: رسائل التواصل وطلبات التأسيس ---------- */
 const MSG_K={general:['استفسار عام',P.info],consult:['طلب استشارة',P.chat],founding:['تأسيس جمعية',P.building],partner:['شراكة أو دعم',P.hand],suggest:['اقتراح',P.star]};
 const MSG_S={new:['جديد','p-warn'],progress:['قيد المتابعة','p-info'],done:['تمت المعالجة','p-ok'],archived:['مؤرشف','p-mute']};
@@ -4736,7 +4836,7 @@ AM.partners=el=>{const tab=ADM.pt.tab;const sv=()=>SS('asirPtUi',ADM.pt);
  el.querySelectorAll('[data-pt]').forEach(b=>b.onclick=()=>{ADM.pt.tab=b.dataset.pt;sv();AM.partners(el)});
  el.querySelectorAll('[data-vk]').forEach(b=>b.onclick=()=>{ADM.pt[b.dataset.vk]=b.dataset.vv;sv();AM.partners(el)});
  const B=$('#ptBody');
- if(tab=='council'){const STs=['قيد التفاوض','قيد التوقيع','سارية','منتهية'],stc={'سارية':'p-ok','منتهية':'p-mute','قيد التوقيع':'p-info','قيد التفاوض':'p-warn'};
+ if(tab=='council'){const STs=['قيد التفاوض','قيد التوقيع','موقّعة','سارية','تعاون','منتهية'],stc={'سارية':'p-ok','موقّعة':'p-ok','تعاون':'p-info','منتهية':'p-mute','قيد التوقيع':'p-info','قيد التفاوض':'p-warn'};
   const kp=`<div class="sgks" style="margin:14px 0 12px">${['سارية','قيد التوقيع','قيد التفاوض','منتهية'].map(x=>`<div class="sgk ${x=='سارية'?'ok':x=='منتهية'?'':'warn'}"><b>${PARTNERS.filter(p=>p.st==x).length}</b><small>${x}</small></div>`).join('')}<div class="sgk"><b>${PARTNERS.filter(p=>p.show).length}</b><small>ظاهرة في الموقع</small></div><div class="sgk"><b>${new Set(PARTNERS.map(p=>p.sec)).size}</b><small>قطاعات</small></div></div>`;
   B.innerHTML=kp+(ADM.pt.vc=='cards'?`<div class="pcards">${PARTNERS.map((x,i)=>`<div class="pcard"><div class="pct">${x.lg?`<span class="pclg">${pTile(x)}</span>`:`<span class="pmono">${esc(x.n.replace(/^(مركز|مؤسسة|جمعية|برنامج|منصة|شركة)\s+/,'').trim().charAt(0))}</span>`}<span class="pill2 ${stc[x.st]}">${x.st}</span></div><b>${esc(x.n)}</b><small>${esc(x.ty)} · ${esc(x.sec)}</small><div class="pcf"><span>${esc(x.term||'')}</span>${SESSION?`<label class="btn o" style="padding:4px 10px;font-size:12px;cursor:pointer">${x.lg?'تغيير الشعار':'رفع شعار'}<input type="file" hidden accept="image/png,image/svg+xml,image/jpeg,image/webp" data-plg="${i}"></label>`:''}<label class="psw"><button class="tg ${x.show?'on':''}" data-ps="${i}" aria-label="إظهار في الموقع"></button>في الموقع</label></div></div>`).join('')}</div>`
   :`<div class="panel"><div class="twrap"><table class="at" style="min-width:760px"><thead><tr><th class="ns">الجهة</th><th class="ns">نوع الشراكة</th><th class="ns">القطاع</th><th class="ns">الدورة</th><th class="ns">الحالة</th><th class="ns">في الموقع</th></tr></thead><tbody>${PARTNERS.map((x,i)=>`<tr><td><input data-pn="${i}" value="${esc(x.n)}" class="ain" style="width:240px"></td><td><select data-pf="${i},ty">${['اتفاقية شراكة','مذكرة تفاهم','منحة','تعاون في فعالية','رعاية'].map(o=>`<option ${x.ty==o?'selected':''}>${o}</option>`).join('')}</select></td><td><select data-pf="${i},sec">${['قطاع حكومي','قطاع خاص','قطاع غير ربحي','جمعية أهلية'].map(o=>`<option ${x.sec==o?'selected':''}>${o}</option>`).join('')}</select></td><td><input data-pf="${i},term" value="${esc(x.term||'')}" class="ain" style="width:110px"></td><td><select data-pf="${i},st">${STs.map(o=>`<option ${x.st==o?'selected':''}>${o}</option>`).join('')}</select></td><td><button class="tg ${x.show?'on':''}" data-ps="${i}" aria-label="إظهار في الموقع"></button></td></tr>`).join('')}</tbody></table></div><p class="d" style="margin-top:10px">${I(P.info,'width:14px;height:14px;vertical-align:-2px')} شعارات الشركاء تُرفع بعد الحصول على إذن مكتوب باستخدامها.</p></div>`);
@@ -5109,6 +5209,12 @@ AM.cset=el=>{const S=ADM.cset;
   events:[{t:'لقاء المحاسبين: إقفال السنة المالية',c:0,d:days[3],reg:34,cap:60,show:1},{t:'ورشة: بناء دليل الحوكمة',c:2,d:days[6],reg:22,cap:40,show:1},{t:'مجلس المدراء التنفيذيين الشهري',c:1,d:days[8],reg:18,cap:25,show:0},{t:'فرص تطوعية: موسم الشتاء',c:3,d:days[9],reg:71,cap:150,show:1}],
   members:[146,58,73,312,94,61,40,52]}})();
 const joinN=()=>ADM.mh.joins.filter(j=>j.st=='بانتظار المراجعة').length;
+/* أُقفلت البيانات التجريبية نهائياً قبل الإطلاق (نوفمبر 2026): العناصر الموسومة «تجريبي» لا تُحمَّل في اللوحة،
+   وتبقى الأقسام فارغة حتى تصل الطلبات الحقيقية من الموقع أو من قاعدة البيانات. */
+const DEMO_CLOSED=true;
+if(DEMO_CLOSED){['updates','consults','capps','subs'].forEach(k=>{if(Array.isArray(ADM[k]))ADM[k]=ADM[k].filter(x=>!x.demo)});
+ if(ADM.mh){ADM.mh.joins=(ADM.mh.joins||[]).filter(x=>!x.demo);ADM.mh.events=(ADM.mh.events||[]).filter(x=>!x.demo)}
+ if(APART.some(x=>x.demo)){APART=APART.filter(x=>!x.demo);setTimeout(()=>{try{SS('asirAPart',APART)}catch(e){}},2500)}}
 AM.communities=el=>{const M=ADM.mh.members;
  el.innerHTML=`<p class="alead">المجتمعات المهنية المعروضة في الموقع وسياسة الانضمام لكل مجتمع. العضوية والنقاشات تُدار في منصة محور، والأرقام هنا تأتي منها بعد الربط.</p>
  <div class="jq" style="grid-template-columns:repeat(4,1fr)">${[['المجتمعات',comms.length,'#1249FF'],['الأعضاء',M.slice(0,comms.length).reduce((a,b)=>a+b,0),'#14A37F'],['طلبات انضمام معلقة',joinN(),'#F5A524'],['فعاليات قادمة',ADM.mh.events.length,'#7A5AF8']].map(q=>`<div class="jqs"><i style="background:${q[2]}"></i><small>${q[0]}</small><b>${q[1]}</b></div>`).join('')}</div>
