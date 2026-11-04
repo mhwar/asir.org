@@ -33,4 +33,7 @@ src = src.replace('{{geo}}', open(P('data', 'geo.json'), encoding='utf8').read()
 out = P('dist', 'site', 'index.html') if DEPLOY else P('dist', 'asir-council-site.html')
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
+if DEPLOY:  # صور الأخبار تُخدم ملفات ثابتة من /news/
+    import shutil
+    shutil.copytree(P('src', 'news'), P('dist', 'site', 'news'), dirs_exist_ok=True)
 print(f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')
