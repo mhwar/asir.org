@@ -2468,6 +2468,49 @@ html[data-theme=dark] .chban{color:#FFC46B}html[data-theme=dark] .chban.ok{color
 .csdin .d-free{grid-column:1/-1}
 .cswd{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--mute);margin-top:22px}
 .cshint{margin:0;font-size:12.5px;color:var(--mute)}.cshint b{color:var(--hd)}
+
+/* v0.38 — تباين النمط الداكن: شارات الأنواع الفاتحة بنص داكن، وأسماء الجهات داخل مربعات الشعار الفاتحة */
+html[data-theme=dark] :is(.ty,.mct){color:#0D1117}
+html[data-theme=dark] a.cta{color:#0D1117}
+html[data-theme=dark] :is(.ptile,.pllg) :is(b,span,small){color:#1B1A3F}
+
+.ctic{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:8px;background:var(--ice);color:var(--blue);margin-inline-end:8px;vertical-align:middle}
+.icpick{display:flex;flex-wrap:wrap;gap:6px}.icpick input{display:none}.icpick span{display:grid;place-items:center;width:38px;height:38px;border-radius:10px;border:1px solid var(--line);color:var(--mute);cursor:pointer}.icpick input:checked+span{border-color:var(--blue);background:var(--ice);color:var(--blue)}
+
+/* v0.38 — الجمعيات المتعثرة */
+.trtypes{display:flex;flex-wrap:wrap;gap:6px;margin:14px 0 4px}
+.trtypes button{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:12.5px;color:var(--text);background:var(--sf)}
+.trtypes button b{font-size:11.5px;padding:1px 7px;border-radius:999px;background:var(--mist);color:var(--mute)}
+.trtypes button.on{border-color:#F04438;color:#B42318;background:rgba(240,68,56,.06)}
+.seg2{display:inline-flex;flex-wrap:wrap;gap:2px;padding:3px;border-radius:12px;background:var(--sf2,#F4F6FA)}
+.seg2 button{padding:6px 11px;border-radius:9px;font-size:13px;color:var(--mute);font-weight:600}.seg2 button small{font-size:11px;opacity:.75}
+.seg2 button.on{background:var(--sf,#fff);color:var(--hd);box-shadow:0 1px 3px rgba(16,24,40,.1)}
+.trchip{display:inline-block;margin:2px 0 2px 4px;padding:2px 9px;border-radius:999px;font-size:12px;background:rgba(240,68,56,.08);color:#B42318;border:1px solid rgba(240,68,56,.2)}
+.trfor{padding:10px 14px;border-radius:12px;background:var(--mist)}.trfor b{display:block;color:var(--hd)}.trfor small{color:var(--mute)}
+.trlab{display:block;margin-bottom:6px;color:var(--mute)}.trlab span{font-size:11.5px}
+.trpick{display:flex;flex-wrap:wrap;gap:6px}.trpick input{display:none}
+.trpick span{display:inline-block;padding:6px 12px;border-radius:999px;border:1px solid var(--line);font-size:13px;cursor:pointer;color:var(--text)}
+.trpick input:checked+span{border-color:#F04438;background:rgba(240,68,56,.08);color:#B42318;font-weight:700}
+.trsteps{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:6px}
+.trsteps div{display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:12px;background:var(--mist);color:var(--mute);font-size:13px;font-weight:600}
+.trsteps i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--sf);border:1px solid var(--line);font-style:normal;font-size:12px}
+.trsteps .done{color:#14804A}.trsteps .done i{background:#14A37F;border-color:#14A37F;color:#fff}
+.trsteps .cur{background:var(--ice);color:var(--hd)}.trsteps .cur i{border-color:var(--blue);color:var(--blue)}
+.trsteps .cur.closed{background:rgba(240,68,56,.08);color:#B42318}.trsteps .cur.closed i{background:#B42318;border-color:#B42318;color:#fff}
+.trsteps .cur.resolved i{background:#14A37F;border-color:#14A37F;color:#fff}
+.trtl{display:flex;flex-wrap:wrap}.trdet{margin:8px 0 0;line-height:1.9;color:var(--text);font-size:14px}
+.tredit summary{cursor:pointer;font-size:13px;color:var(--blue);margin-top:8px}
+.trd{display:grid;grid-template-columns:1fr 160px;gap:8px}.trd textarea{grid-column:1/-1}.trd .btn{grid-column:1/-1;justify-content:center}
+.trd select,.trd input,.trd textarea{border:1px solid var(--line);border-radius:10px;padding:9px 12px;font:inherit;font-size:14px;background:var(--sf);color:var(--text)}
+.trlog{display:flex;flex-direction:column;gap:2px;border-inline-start:2px solid var(--line);margin-inline-start:10px;padding-inline-start:14px}
+.trlog>div{display:flex;gap:10px;padding:8px 0;position:relative}
+.trlog i{position:absolute;inset-inline-start:-27px;top:9px;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;background:var(--sf);border:1px solid var(--line);color:var(--mute)}
+.trlog .dec i{color:var(--blue);border-color:var(--blue)}.trlog .st i{color:#14804A;border-color:#14A37F}
+.trlog b{font-size:13.5px;color:var(--hd)}.trlog p{margin:2px 0;font-size:13.5px;line-height:1.8;color:var(--text)}.trlog small{display:block;font-size:12px;color:var(--mute)}
+.trbar{display:flex;align-items:center;gap:10px;margin-top:14px;padding:10px 14px;border-radius:12px;background:rgba(240,68,56,.07);border:1px solid rgba(240,68,56,.25);color:#B42318;font-size:13.5px}.trbar span{flex:1}
+.adrawer.trw{width:min(680px,100%)}
+html[data-theme=dark] .trchip,html[data-theme=dark] .trpick input:checked+span,html[data-theme=dark] .trtypes button.on,html[data-theme=dark] .trbar{color:#FF8A80}
+html[data-theme=dark] .tg::after{background:#E6EDF3}
 /*{{darkadmin}}*/
 </style>
 </head>
@@ -2777,7 +2820,7 @@ html[data-theme=dark] .chban{color:#FFC46B}html[data-theme=dark] .chban.ok{color
       <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات المهنية</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h5>روابط</h5><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.37</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.38</span></div>
   </div>
 </footer>
 
@@ -2799,7 +2842,7 @@ html[data-theme=dark] .chban{color:#FFC46B}html[data-theme=dark] .chban.ok{color
    على المنصة يحقن الخادم STATE (آخر نسخة لكل وحدة)، فتُكتب في التخزين المحلي قبل أن تقرأها الوحدات،
    وكل حفظ يُرسل إلى /api/state مع رقم الإصدار. في النسخة المحلية (STATE=null) يبقى الحفظ في المتصفح فقط. */
 const STATE=/*@STATE*/null/*@END*/;
-const SHARED={asirContent:1,asirGaps:1,asirSegNotes:1,asirDec:1,asirDecX:1,asirAPart:1,asirPartners:1,asirBoard2:1,asirImpact:1,asirLaunchOff:1};
+const SHARED={asirCtypes:1,asirTrouble:1,asirContent:1,asirGaps:1,asirSegNotes:1,asirDec:1,asirDecX:1,asirAPart:1,asirPartners:1,asirBoard2:1,asirImpact:1,asirLaunchOff:1};
 const SYNC={on:!!STATE,ver:{},pend:{},t:{},busy:{},err:0};
 if(STATE){try{for(const k in SHARED){const o=STATE[k];if(o){localStorage.setItem(k,o.value);SYNC.ver[k]=o.version}else{const loc=localStorage.getItem(k);if(loc!=null){SYNC.ver[k]=0;setTimeout(()=>syncPut(k,loc),1500)}}}}catch(e){}}
 function SET(k,raw){try{localStorage.setItem(k,raw)}catch(e){}syncPut(k,raw)}
@@ -3554,7 +3597,7 @@ function renderMC(){const B=$('#mcBody');if(!B)return;const A=mcItems();
  const cnt=t=>A.filter(x=>x.type==t||(t=='news'&&x.type=='ann')).length;
  const N=$('#mcNums');if(N)N.innerHTML=[[cnt('news'),'خبر'],[cnt('event'),'فعالية وملتقى'],[cnt('agree'),'اتفاقية ومذكرة'],[new Set(A.flatMap(itemOrgs).filter(Boolean).map(n=>normO((orgOf(n)||{}).n||n))).size,'جهة شريكة']].map(([v,l])=>`<div><b>${v}</b><small>${l}</small></div>`).join('');
  const T=$('#mcTabs');if(T)T.innerHTML=Object.entries(MCT).map(([k,[t,ic]])=>`<button class="${mcTab==k?'on':''}" data-mct="${k}" role="tab" aria-selected="${mcTab==k}">${I(ic,'width:16px;height:16px')}${t}<em>${k=='all'?A.length:cnt(k)}</em></button>`).join('');
- const Ys=[...new Set(A.map(x=>(x.when||'').slice(0,4)).filter(Boolean))].sort().reverse();const Y=$('#mcY');if(Y)Y.innerHTML=`<option value="">كل السنوات</option>${Ys.map(y=>`<option ${mcYear==y?'selected':''}>${y}</option>`).join('')}<option value="t1" ${mcYear=='t1'?'selected':''}>2020 – 2024 (غير مؤرّخ بدقة)</option>`;
+ const Ys=[...new Set(A.map(x=>(x.when||'').slice(0,4)).filter(Boolean))].sort().reverse();const Y=$('#mcY');if(Y)Y.innerHTML=`<option value="">كل السنوات</option>${Ys.map(y=>`<option ${mcYear==y?'selected':''}>${y}</option>`).join('')}<option value="t1" ${mcYear=='t1'?'selected':''}>2020 – 2024 (الدورة الأولى)</option>`;
  const q=mcQ.trim();const flt=x=>(!q||(x.t+' '+(x.lead||'')+' '+(x.body||'')+' '+(x.pt||[]).join(' ')+' '+(x.party||'')).includes(q))&&(!mcYear||(mcYear=='t1'?(x.term=='t1'||/الدورة الأولى/.test(x.dt||'')):(x.when||'').startsWith(mcYear)));
  const L=A.filter(x=>(mcTab=='all'||x.type==mcTab||(mcTab=='news'&&x.type=='ann'))&&flt(x)).sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)||mcKey(b).localeCompare(mcKey(a)));
  const empty=`<div class="mcempty">${I(P.search,'width:28px;height:28px')}<b>لا توجد نتائج</b><p>جرّب كلمة أخرى أو سنة مختلفة.</p></div>`;
@@ -3593,7 +3636,7 @@ function renderHomeAssoc(){const el=$('#homeAssoc');if(!el)return;el.innerHTML=F
 renderDirFields();renderHomeAssoc();renderHomeFields();$('#hfSeg').onclick=e=>{const b=e.target.closest('button');if(b){HF=b.dataset.k;renderHomeFields()}};
 /* drawer */
 function openOv(){$('#ov').classList.add('on')}
-function closeAll(){const ad=$('#adrawer');ad&&ad.classList.remove('on');$('#modal').classList.remove('wide');$('#modal').classList.remove('xwide');$('#ov').style.zIndex='';$('#modal').style.zIndex='';$('#ov').classList.remove('on');$('#drawer').classList.remove('on');$('#modal').classList.remove('on')}
+function closeAll(){const ad=$('#adrawer');ad&&ad.classList.remove('on','trw');$('#modal').classList.remove('wide');$('#modal').classList.remove('xwide');$('#ov').style.zIndex='';$('#modal').style.zIndex='';$('#ov').classList.remove('on');$('#drawer').classList.remove('on');$('#modal').classList.remove('on')}
 $('#ov').onclick=closeAll;document.addEventListener('keydown',e=>{if(e.key=='Escape')closeAll()});
 function openAssoc(i){
  const a=assoc.find(x=>x.id==i);
@@ -3813,6 +3856,9 @@ const ctypes=[
  ['mega','الاتصال والإعلام','الهوية، المحتوى، التواصل مع المستفيدين'],
  ['chip','التحول الرقمي','الأنظمة والمنصات وأتمتة الأعمال'],
  ['scale','الشؤون القانونية','العقود، التراخيص، الأنظمة']];
+/* مجالات الاستشارة قابلة للتعديل والإضافة من «إعدادات الاستشارات» (asirCtypes، مشتركة وعامة). لا تُحذف المجالات حفاظاً على
+   ترقيم الطلبات والمستشارين؛ المجال غير المطلوب يُوقف فيختفي من صفحة الحجز. */
+const CTX=(()=>{try{const o=JSON.parse(localStorage.getItem('asirCtypes')||'null');if(o&&Array.isArray(o.list)&&o.list.length){o.list.forEach((x,i)=>{ctypes[i]=[x.ic||'star',x.t||'مجال',x.d||'']});return o.list}}catch(e){}return []})();
 const slotsAll=['9:00 ص','10:00 ص','11:00 ص','12:00 م','1:00 م','7:00 م','8:00 م'];
 /* Consultant profiles. Names are illustrative placeholders for the prototype.
  av = weekly availability: JS weekday (0=Sun..4=Thu) -> slot indexes in slotsAll. cal = calendar connection. */
@@ -3820,7 +3866,7 @@ const slotsAll=['9:00 ص','10:00 ص','11:00 ص','12:00 م','1:00 م','7:00 م','
    ما دام لا يوجد مستشار مُفعّل تظهر الاستشارات في الموقع «قريباً» تلقائياً. */
 const CONS=[];
 const consSoon=()=>!CONS.some(k=>k.on);
-const CTOFF=new Set();
+const CTOFF=new Set(CTX.map((x,i)=>x.on===0?i:-1).filter(i=>i>=0));
 const CONSI=Object.fromEntries(CONS.map(k=>[k.id,k]));
 const ini=n=>n.replace(/^(د|أ|م)\.\s*/,'').split(' ').map(w=>w.replace(/^ال/,'')[0]).slice(0,2).join(' ');
 const sameDay=(a,b)=>a&&b&&a.toDateString()==b.toDateString();
@@ -3948,7 +3994,7 @@ const GAPS=[
  {k:'partners',g:'الشركاء',t:'شعارات الشركاء وإذن استخدامها',ty:'note',v:'',note:'تُعرض الأسماء نصاً حتى تصل الشعارات بإذن مكتوب.',where:'الرئيسية › حصاد الدورة الأولى',url:''},
  {k:'board_photos',g:'مجلس الإدارة',t:'صور الأعضاء بخلفية موحدة وإطار دائري',ty:'note',v:'',done:true,note:'اعتُمدت الصور الجديدة لجميع الأعضاء (نوفمبر 2026).',where:'عن المجلس › مجلس الإدارة',url:'about'},
  {k:'consultants',g:'الاستشارات',t:'أسماء وتخصصات المستشارين الفعليين',ty:'note',v:'',note:'مؤجَّل: حُذفت الملفات التوضيحية وتظهر الاستشارات «قريباً» في الموقع حتى تُضاف الأسماء من لوحة التحكم.',where:'الاستشارات › مستشارو المجلس',url:'consult'},
- {k:'news_dates',g:'الأخبار',t:'تواريخ وصور فعاليات الدورة الأولى',ty:'note',v:'',done:true,note:'اعتُمد: الفترات القديمة يكفيها الشهر والسنة أو السنة فقط، وتُضبط من استوديو المحتوى (دقة التاريخ).',where:'المركز الإعلامي',url:'news'}];
+ {k:'news_dates',g:'الأخبار',t:'تواريخ وصور فعاليات الدورة الأولى',ty:'note',v:'',done:true,note:'عولجت: الفترات القديمة يكفيها الشهر والسنة أو السنة فقط. في استوديو المحتوى تبويب «بحاجة لتاريخ» يجمع العناصر غير المؤرخة، وما لم يُعرف تاريخه يظهر ضمن «الدورة الأولى (2020 – 2024)».',where:'المركز الإعلامي',url:'news'}];
 const GAPI=Object.fromEntries(GAPS.map(g=>[g.k,g]));
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirGaps')||'{}');Object.entries(o).forEach(([k,v])=>{if(GAPI[k])Object.assign(GAPI[k],v)})}catch(e){}
  GAPS.forEach(g=>{if(g.auto&&!String(g.v||'').trim()){g.v=g.auto;g.note=g.autoNote||g.note}})})();
@@ -4139,6 +4185,26 @@ drawHome();
  const lab=$('#hmLab');if(lab){lab.addEventListener('click',e=>{const a=e.target.closest('a[data-g]');if(!a)return;e.preventDefault();e.stopPropagation();open(a.dataset.g)});lab.addEventListener('pointerover',e=>{const a=e.target.closest('a[data-g]');if(a){svg.querySelector('.hmhl').setAttribute('d',svg.querySelector(`.g[data-g="${a.dataset.g}"]`).getAttribute('d'))}});lab.addEventListener('pointerout',()=>{const hl=svg.querySelector('.hmhl');hl&&hl.setAttribute('d','')})}
  let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>{if(curPage=='home')drawHome()},150)});
 })();
+/* حارس التباين في النمط الداكن: أي نص لونه قريب من خلفيته (رمادي على داكن، أو لون مكتوب داخل HTML مولَّد)
+   يُعدَّل لونه تلقائياً بنفس درجته اللونية حتى يصل تباينه 4.5:1، ويعود لونه الأصلي عند الرجوع للنمط الفاتح. */
+const DKG=(()=>{let t=null,busy=false;
+ const P=s=>{const m=s&&s.match(/rgba?\(([^)]+)\)/);if(!m)return null;const a=m[1].split(/[ ,\/]+/).filter(Boolean).map(parseFloat);return [a[0],a[1],a[2],a[3]??1]};
+ const L=c=>{const f=v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)};return .2126*f(c[0])+.7152*f(c[1])+.0722*f(c[2])};
+ const CR=(a,b)=>{const x=L(a),y=L(b);return (Math.max(x,y)+.05)/(Math.min(x,y)+.05)};
+ const bgOf=e=>{const st=[];for(let x=e;x&&x!=document.documentElement;x=x.parentElement){const cs=getComputedStyle(x);if(cs.backgroundImage!='none'){if(/url\(/.test(cs.backgroundImage))return null}const c=P(cs.backgroundColor);if(c&&c[3]>0){st.push(c);if(c[3]>=.95)break}}let o=P(getComputedStyle(document.body).backgroundColor)||[13,17,23,1];o=o.slice(0,3);for(const c of st.reverse())o=o.map((v,i)=>v*(1-c[3])+c[i]*c[3]);return o};
+ const hsl=([r,g,b])=>{r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let h=0,s=0;if(mx!=mn){const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);h=mx==r?(g-b)/d+(g<b?6:0):mx==g?(b-r)/d+2:(r-g)/d+4;h/=6}return [h,s,l]};
+ const rgb=([h,s,l])=>{if(!s)return [l*255,l*255,l*255];const q=l<.5?l*(1+s):l+s-l*s,p=2*l-q,f=t=>{t<0&&(t+=1);t>1&&(t-=1);return t<1/6?p+(q-p)*6*t:t<1/2?q:t<2/3?p+(q-p)*(2/3-t)*6:p};return [f(h+1/3)*255,f(h)*255,f(h-1/3)*255]};
+ function fix(e,bg,fg){const [h,s0,l0]=hsl(fg),dark=L(bg)<.35,s=Math.min(s0,.85);let l=l0;for(let i=0;i<24;i++){l=dark?Math.min(1,l+.04):Math.max(0,l-.04);const c=rgb([h,s,l]);if(CR(c,bg)>=4.5||l<=0||l>=1){return 'rgb('+c.map(Math.round).join(',')+')'}}return dark?'#E6EDF3':'#1B1A3F'}
+ function run(){if(document.documentElement.dataset.theme!='dark'||busy)return;busy=true;const els=document.querySelectorAll('body :not(script):not(style):not(svg *)');let n=0;
+  for(const e of els){if(n>4000)break;let txt=false;for(const c of e.childNodes)if(c.nodeType==3&&c.textContent.trim()){txt=true;break}if(!txt)continue;if(e.closest('.rpd,#rptDoc'))continue;const r=e.getClientRects();if(!r.length)continue;n++;
+   const cs=getComputedStyle(e);const fg=P(cs.color);if(!fg||fg[3]<.4)continue;const bg=bgOf(e);if(!bg)continue;if(CR(fg,bg)>=3.2)continue;
+   if(!('dkc' in e.dataset))e.dataset.dkc=e.style.getPropertyValue('color')+'|'+e.style.getPropertyPriority('color');e.style.setProperty('color',fix(e,bg,fg),'important')}
+  busy=false}
+ function restore(){document.querySelectorAll('[data-dkc]').forEach(e=>{const[v,pr]=e.dataset.dkc.split('|');v?e.style.setProperty('color',v,pr):e.style.removeProperty('color');delete e.dataset.dkc})}
+ const sched=()=>{clearTimeout(t);t=setTimeout(()=>(window.requestIdleCallback||setTimeout)(run),220)};
+ new MutationObserver(m=>{if(document.documentElement.dataset.theme=='dark'&&m.some(x=>x.type=='childList'))sched()}).observe(document.body,{childList:true,subtree:true});
+ new MutationObserver(()=>{document.documentElement.dataset.theme=='dark'?(restore(),sched()):restore()}).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+ addEventListener('load',sched);sched();return {run,restore}})();
 function setTheme(t){THEME=t;document.body.classList.toggle('maplight',t=='light');
  $$('.tseg button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));classify();drawHome();if(curAssoc&&$('#apMini'))miniMap($('#apMini'),curAssoc.gov)}
 /* site theme: light / dark / system (prefers-color-scheme), map follows the site */
@@ -4333,7 +4399,7 @@ function exportCSV(L){const cols=[['n','الاسم'],['lic','رقم الترخي
  const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
  const csv='﻿'+cols.map(c=>q(c[1])).join(',')+'\n'+L.map(o=>cols.map(c=>q(o[c[0]])).join(',')).join('\n');
  try{const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download=`جمعيات-عسير-${L.length}.csv`;document.body.appendChild(a);a.click();a.remove();toast(`تم تصدير ${L.length} جمعية`);alog(`تصدير ${L.length} سجلاً`)}catch(e){toast('التصدير غير متاح في هذه المعاينة')}}
-function openRec(id){const o=DBI[id];
+function openRec(id){const o=DBI[id];$('#adrawer').classList.remove('trw');
  const F=(l,v,full)=>`<div class="${full?'full':''}"><small>${l}</small><b>${v||'<span class="pill2 p-warn">ناقص</span>'}</b></div>`;
  $('#adrawer').innerHTML=`<div class="dh"><button class="x" onclick="$('#adrawer').classList.remove('on');$('#ov').classList.remove('on')">${I(P.x)}</button>${o.logo?`<img src="${o.logo}" alt="" style="width:54px;height:54px;object-fit:contain;background:#fff;border-radius:12px;padding:4px;float:left">`:''}<span class="pill2" style="background:rgba(255,255,255,.14);color:#fff">${o.grp}</span><h3>${esc(o.n)}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${stPill(o)}<span class="pill2 p-info">${o.gov}</span>${o.consent?'<span class="pill2 p-ok">موافقة نشر التواصل</span>':''}</div></div>
  ${o.closed?`<div class="closedbar">${I(P.lock,'width:16px;height:16px;flex:none')}<span><b>جمعية مغلقة نهائياً</b> منذ ${esc(o.closedOn)}${o.closeReason?' — '+esc(o.closeReason):''}. لا تظهر في الموقع العام ولا تُحسب في التراخيص.</span></div>`:''}
@@ -4341,7 +4407,7 @@ function openRec(id){const o=DBI[id];
  <h4>${I(P.shield,'width:16px;height:16px')}الترخيص</h4><div class="fl2">${F('تاريخ الإصدار',o.issued)}${F('تاريخ الانتهاء',o.exp)}${F('الحالة المحسوبة',stPill(o)+(o.days!=null?` <small style="display:inline">${o.days<0?'منذ '+(-o.days):'بعد '+o.days} يوماً</small>`:''))}${F('الحالة في الملف الأصلي',o.origSt)}</div>
  <h4>${I(P.chat,'width:16px;height:16px')}التواصل والقيادة ${compBar(o.comp)}</h4><div class="fl2">${F('بريد الجمعية',pv(o.email,'e'))}${F('جوال الجمعية',pv(o.mobile,'p'))}${F('رئيس مجلس الإدارة',pv(o.pres,'n'))}${F('بريد الرئيس',pv(o.presEmail,'e'))}${F('المفوض',pv(o.del,'n'))}${F('بريد المفوض',pv(o.delEmail,'e'))}</div>
  ${o.issues.length||SESSION?`<h4>${I(P.info,'width:16px;height:16px')}الملاحظات <span class="pill2 p-warn" style="margin-inline-start:4px">${o.issues.length}</span>${SESSION?`<button class="btn o" style="margin-inline-start:auto;padding:4px 12px;font-size:12.5px" onclick="closeAll();setTimeout(()=>recEdit(${o.id},'notes'),50)">سجل الملاحظات</button>`:''}</h4>`:''}${o.issues.length?`${o.issues.map(x=>`<div class="qi">${I(P.x,'width:14px;height:14px;flex:none;margin-top:3px')}${esc(x)}</div>`).join('')}`:''}
- <h4>${I(P.target,'width:16px;height:16px')}إجراءات</h4><div class="acts"><button class="btn n" onclick="${SESSION?`closeAll();goMod('updates');UPDX.tab='links';setTimeout(()=>updLink([${o.id}]),300)`:`toast('أُرسل رابط تحديث البيانات للجمعية (تجريبي)');alog('رابط تحديث: ${esc(o.n)}')`}">إرسال رابط تحديث</button>${o.st!='ساري'?`<button class="btn o" onclick="toast('أُرسل تذكير التجديد (تجريبي)');alog('تذكير تجديد: ${esc(o.n)}','#F5A524')">تذكير بالتجديد</button>`:''}<button class="btn o" onclick="go('association/${o.lic}')">الصفحة العامة</button><button class="btn o" onclick="closeAll();rpGo('assoc',${o.id})">تقرير الجمعية</button>${SESSION?`<button class="btn o" onclick="recEdit(${o.id})">تعديل البيانات</button><button class="btn o" style="color:${o.closed?'#14804A':'#B42318'}" onclick="recClose(${o.id})">${o.closed?'إلغاء الإغلاق':'تسجيل إغلاق الجمعية'}</button>`:''}</div>${o.about?`<h4>نبذة الجمعية</h4><p style="font-size:13.5px;line-height:1.8">${esc(o.about)}</p>`:''}
+ ${(()=>{const c=typeof trCase=='function'&&trCase(o.id);return c?`<div class="trbar">${I('<path d="M4 21V4h11l-1 4h6v9h-8l1-4H4"/>','width:16px;height:16px;flex:none')}<span><b>جمعية متعثرة · ${TR_ST[c.st][0]}</b> — ${c.types.map(esc).join('، ')}</span><button class="btn o" onclick="trOpen(${o.id})">متابعة الحالة</button></div>`:''})()}<h4>${I(P.target,'width:16px;height:16px')}إجراءات</h4><div class="acts"><button class="btn o" onclick="trFlag(${o.id})">${trCase(o.id)?'حالة التعثر':'تسجيل تعثر'}</button><button class="btn n" onclick="${SESSION?`closeAll();goMod('updates');UPDX.tab='links';setTimeout(()=>updLink([${o.id}]),300)`:`toast('أُرسل رابط تحديث البيانات للجمعية (تجريبي)');alog('رابط تحديث: ${esc(o.n)}')`}">إرسال رابط تحديث</button>${o.st!='ساري'?`<button class="btn o" onclick="toast('أُرسل تذكير التجديد (تجريبي)');alog('تذكير تجديد: ${esc(o.n)}','#F5A524')">تذكير بالتجديد</button>`:''}<button class="btn o" onclick="go('association/${o.lic}')">الصفحة العامة</button><button class="btn o" onclick="closeAll();rpGo('assoc',${o.id})">تقرير الجمعية</button>${SESSION?`<button class="btn o" onclick="recEdit(${o.id})">تعديل البيانات</button><button class="btn o" style="color:${o.closed?'#14804A':'#B42318'}" onclick="recClose(${o.id})">${o.closed?'إلغاء الإغلاق':'تسجيل إغلاق الجمعية'}</button>`:''}</div>${o.about?`<h4>نبذة الجمعية</h4><p style="font-size:13.5px;line-height:1.8">${esc(o.about)}</p>`:''}
  ${ADM.reveal?'':'<div class="demoNote">البيانات الشخصية مخفية. فعّل «إظهار البيانات الشخصية» من أعلى الصفحة لعرضها.</div>'}</div>`;
  $('#adrawer').classList.add('on');$('#ov').classList.add('on')}
 /* ---------- analytics v0.27: downloadable panels + expandable profiles ---------- */
@@ -4489,6 +4555,99 @@ AM.licenses=el=>{
  el.querySelectorAll('tr.cl').forEach(r=>r.onclick=()=>openRec(+r.dataset.id));
  $('#remAll').onclick=()=>{toast(`أُرسل التذكير إلى ${L.length} جمعية (تجريبي)`);alog(`تذكير جماعي: ${L.length} جمعية`,'#F5A524')};
 };
+/* ---------- الجمعيات المتعثرة: كل ترخيص منتهٍ يظهر تلقائياً، ويسجّل الفريق أي جمعية تواجه مشكلة من ملفها.
+   لكل حالة: نوع المشكلة، الأولوية، التفاصيل، القرارات والإجراءات، والحالة: مفتوحة ← قيد المعالجة ← عولجت، أو إغلاق نهائي
+   للجمعية (يُسجَّل في ملفها فتُصنَّف «مغلقة» وتختفي من الموقع العام). المخزن asirTrouble للفريق فقط ولا يُنشر. ---------- */
+const TR_TYPES=['ترخيص منتهي','ضعف الحوكمة أو مجلس الإدارة','تعثر مالي','توقف النشاط أو الخدمات','انقطاع التواصل وعدم التجاوب','نزاع أو شكوى','نقص الكوادر','مخالفة نظامية','أخرى'];
+const TR_DEC=['تواصل مع الجمعية','زيارة ميدانية','دعم فني أو استشارة','خطة معالجة بمهلة','تذكير بتجديد الترخيص','إحالة إلى الجهة المشرفة','رفع توصية بالإغلاق'];
+const TR_ST={new:['لم تُعالج','p-warn'],open:['مفتوحة','p-bad'],work:['قيد المعالجة','p-info'],resolved:['عولجت','p-ok'],closed:['مغلقة نهائياً','p-mute']};
+const TR_SEV={'عالية':'p-bad','متوسطة':'p-warn','منخفضة':'p-mute'};
+let TRB=LS('asirTrouble',{v:1,cases:[]});if(!Array.isArray(TRB.cases))TRB={v:1,cases:[]};
+const trWho=()=>(typeof SESSION!='undefined'&&SESSION&&SESSION.name)||ROLES[ADM.role][0];
+const trNow=()=>new Date().toISOString();
+const trDate=iso=>{if(!iso)return '';const d=new Date(iso);return d.getDate()+' '+AR_M[d.getMonth()]+' '+d.getFullYear()};
+const trSave=msg=>{SS('asirTrouble',TRB);msg&&toast(msg)};
+const trCase=aid=>TRB.cases.find(c=>c.aid==aid&&c.st!='resolved'&&c.st!='closed')||null;
+const trOpenN=()=>TRB.cases.filter(c=>c.st=='open'||c.st=='work').length;
+/* الصفوف: الحالات المسجّلة + كل ترخيص منتهٍ لا توجد له حالة بعد */
+function trRows(){const have=new Set(TRB.cases.map(c=>c.aid));const R=TRB.cases.map(c=>({...c,o:DBI[c.aid]})).filter(r=>r.o);
+ DB.filter(o=>o.st=='منتهي'&&!o.closed&&!have.has(o.id)).forEach(o=>R.push({id:null,aid:o.id,o,src:'auto',types:['ترخيص منتهي'],sev:'متوسطة',st:'new',det:o.days!=null?'انتهى الترخيص منذ '+(-o.days)+' يوماً':'',log:[]}));
+ R.forEach(r=>{if(r.o.closed&&r.st!='closed')r.st='closed'});return R}
+function trNew(aid,o){const c={id:'T'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),aid,src:o.src||'team',types:o.types||['أخرى'],sev:o.sev||'متوسطة',det:o.det||'',st:'open',at:trNow(),by:trWho(),upd:trNow(),log:[{at:trNow(),by:trWho(),k:'open',t:'فُتحت الحالة'+(o.src=='auto'?' من قائمة التراخيص المنتهية':'')}]};TRB.cases.unshift(c);return c}
+function trLog(c,k,t,d){c.log.unshift({at:trNow(),by:trWho(),k,t,...(d?{d}:{})});c.upd=trNow()}
+AM.trouble=el=>{const V=ADM.trv||(ADM.trv={tab:'cur',ty:'',gov:'',q:'',n:60});const R=trRows();
+ const cnt=k=>R.filter(r=>k=='cur'?['new','open','work'].includes(r.st):k=='all'?1:r.st==k).length;
+ const L=R.filter(r=>(V.tab=='cur'?['new','open','work'].includes(r.st):V.tab=='all'||r.st==V.tab)&&(!V.ty||r.types.includes(V.ty))&&(!V.gov||r.o.gov==V.gov)&&(!V.q||r.o.n.includes(V.q)||String(r.o.lic)==V.q))
+  .sort((a,b)=>({open:0,work:1,new:2,resolved:3,closed:4}[a.st]-{open:0,work:1,new:2,resolved:3,closed:4}[b.st])||(b.upd||'').localeCompare(a.upd||'')||((a.o.days??0)-(b.o.days??0)));
+ const team=R.filter(r=>r.src=='team'&&['open','work'].includes(r.st)).length,auto=R.filter(r=>r.st=='new').length;
+ const byT=TR_TYPES.map(t=>[t,R.filter(r=>['new','open','work'].includes(r.st)&&r.types.includes(t)).length]).filter(x=>x[1]);
+ el.innerHTML=`<p class="alead">كل جمعية انتهى ترخيصها تظهر هنا تلقائياً، ويمكن لفريق المجلس تسجيل أي جمعية تواجه مشكلة من ملفها مع نوع المشكلة وتفاصيلها، ثم متابعة القرارات والإجراءات حتى تُعالج أو تُغلق الجمعية نهائياً. هذه القائمة للفريق فقط ولا تظهر في الموقع.</p>
+ <div class="kpis"><button class="kpi ${cnt('open')?'bad':''}" data-trt="open"><small>حالات مفتوحة</small><b>${cnt('open')}</b><em>تحتاج قراراً أو إجراءً</em></button>
+ <button class="kpi" data-trt="work"><small>قيد المعالجة</small><b>${cnt('work')}</b><em style="color:var(--mute)">إجراءات جارية</em></button>
+ <button class="kpi warn" data-trt="new"><small>تراخيص منتهية لم تُعالج</small><b>${auto}</b><em>أُضيفت تلقائياً</em></button>
+ <button class="kpi" data-trt="cur"><small>سجّلها الفريق</small><b>${team}</b><em style="color:var(--mute)">حالات مفتوحة من الفريق</em></button>
+ <button class="kpi good" data-trt="resolved"><small>عولجت</small><b>${cnt('resolved')}</b><em>عادت لوضعها الطبيعي</em></button>
+ <button class="kpi" data-trt="closed"><small>أُغلقت نهائياً</small><b>${cnt('closed')}</b><em style="color:var(--mute)">مصنّفة «مغلقة»</em></button></div>
+ ${byT.length?`<div class="trtypes">${byT.map(([t,n])=>`<button class="${V.ty==t?'on':''}" data-trty="${esc(t)}">${esc(t)}<b>${n}</b></button>`).join('')}</div>`:''}
+ <div class="jtools"><div class="seg2">${[['cur','الحالية'],['open','مفتوحة'],['work','قيد المعالجة'],['new','لم تُعالج'],['resolved','عولجت'],['closed','مغلقة'],['all','الكل']].map(([k,t])=>`<button class="${V.tab==k?'on':''}" data-trt="${k}">${t} <small>${cnt(k)}</small></button>`).join('')}</div>
+  <label class="jsearch">${I(P.search,'width:16px;height:16px')}<input id="trq" placeholder="اسم الجمعية أو رقم الترخيص" value="${esc(V.q)}"></label>
+  <select id="trgov" class="jsel"><option value="">كل المحافظات</option>${ALLG.map(g=>`<option ${V.gov==g?'selected':''}>${g}</option>`).join('')}</select></div>
+ <div class="jtable"><table class="at" style="min-width:900px"><thead><tr><th class="ns">الجمعية</th><th class="ns">المشكلة</th><th class="ns">المصدر</th><th class="ns">الأولوية</th><th class="ns">الحالة</th><th class="ns">آخر إجراء</th><th class="ns"></th></tr></thead><tbody>
+ ${L.slice(0,V.n).map(r=>{const last=(r.log||[])[0];return `<tr class="clk" data-tra="${r.aid}"><td><b>${esc(r.o.n)}</b><small>${esc(r.o.gov)} · ترخيص ${esc(r.o.lic)}</small></td><td>${r.types.map(t=>`<span class="trchip">${esc(t)}</span>`).join('')}</td><td>${r.src=='auto'?'<span class="pill2 p-mute">تلقائي</span>':'<span class="pill2 p-info">الفريق</span>'}</td><td><span class="pill2 ${TR_SEV[r.sev]||'p-mute'}">${esc(r.sev)}</span></td><td><span class="pill2 ${TR_ST[r.st][1]}">${TR_ST[r.st][0]}</span></td><td><small style="color:var(--text)">${last?esc(last.t):esc(r.det||'—')}</small>${last?`<small>${trDate(last.at)}</small>`:''}</td><td><button class="jbtn ${r.st=='new'?'pri':''}">${r.st=='new'?'فتح حالة':'متابعة'}</button></td></tr>`}).join('')||`<tr><td colspan="7"><div class="empty">لا توجد حالات مطابقة</div></td></tr>`}</tbody></table></div>
+ ${L.length>V.n?`<button class="jbtn" id="trMore" style="margin-top:12px">عرض المزيد (${L.length-V.n} متبقية)</button>`:''}`;
+ el.querySelectorAll('[data-trt]').forEach(b=>b.onclick=()=>{V.tab=b.dataset.trt;V.n=60;AM.trouble(el)});
+ el.querySelectorAll('[data-trty]').forEach(b=>b.onclick=()=>{V.ty=V.ty==b.dataset.trty?'':b.dataset.trty;AM.trouble(el)});
+ $('#trq').oninput=e=>{V.q=e.target.value.trim();const p=e.target.selectionStart;AM.trouble(el);const i=$('#trq');i.focus();i.setSelectionRange(p,p)};
+ $('#trgov').onchange=e=>{V.gov=e.target.value;AM.trouble(el)};
+ $('#trMore')&&($('#trMore').onclick=()=>{V.n+=60;AM.trouble(el)});
+ el.querySelectorAll('[data-tra]').forEach(tr=>tr.onclick=()=>trOpen(+tr.dataset.tra))};
+/* نموذج تسجيل التعثر (من القائمة أو من ملف الجمعية) */
+function trFlag(aid){const o=aid?DBI[aid]:null,ex=aid?trCase(aid):null;if(ex){trOpen(aid);return}
+ recModal(`<div class="ic">${I('<path d="M4 21V4h11l-1 4h6v9h-8l1-4H4"/>')}</div><h3>تسجيل جمعية متعثرة</h3><p>تظهر الحالة في «الجمعيات المتعثرة» لمتابعتها حتى تُعالج أو تُغلق. للفريق فقط.</p>
+ <form class="form" id="trF" style="grid-template-columns:1fr;margin-top:14px">${o?`<input type="hidden" name="aid" value="${o.id}"><div class="trfor"><b>${esc(o.n)}</b><small>${esc(o.gov)} · ${esc(o.st||'')}</small></div>`:`<label>الجمعية<input name="an" list="trAL" required placeholder="اكتب اسم الجمعية"><datalist id="trAL">${DB.filter(x=>!x.closed).map(x=>`<option value="${esc(x.n)}">`).join('')}</datalist></label>`}
+ <div><small class="trlab">نوع المشكلة <span>(اختر واحداً أو أكثر)</span></small><div class="trpick">${TR_TYPES.map(t=>`<label><input type="checkbox" name="ty" value="${esc(t)}" ${o&&o.st=='منتهي'&&t=='ترخيص منتهي'?'checked':''}><span>${esc(t)}</span></label>`).join('')}</div></div>
+ <label>نوع آخر (اختياري)<input name="ty2" maxlength="60" placeholder="اكتب نوع المشكلة إن لم يكن في القائمة"></label>
+ <label>الأولوية<select name="sev"><option>عالية</option><option selected>متوسطة</option><option>منخفضة</option></select></label>
+ <label>التفاصيل<textarea name="det" rows="3" maxlength="800" placeholder="ما المشكلة؟ متى بدأت؟ ما الذي عُرف عنها حتى الآن؟"></textarea></label>
+ <button class="btn n" style="justify-content:center">تسجيل الحالة</button></form>`);
+ $('#trF').onsubmit=e=>{e.preventDefault();const F=new FormData(e.target);let id=+F.get('aid');if(!id){const a=DB.find(x=>x.n==String(F.get('an')||'').trim());if(!a){toast('اختر الجمعية من القائمة',1);return}id=a.id}
+  if(trCase(id)){closeAll();trOpen(id);return}
+  const types=F.getAll('ty').map(String);const t2=String(F.get('ty2')||'').trim();if(t2)types.push(t2);if(!types.length){toast('اختر نوع المشكلة',1);return}
+  trNew(id,{src:'team',types,sev:String(F.get('sev')),det:String(F.get('det')||'').trim()});trSave('سُجّلت الحالة');alog('تسجيل تعثر: '+DBI[id].n,'#F04438');closeAll();if(ADM.mod=='trouble')renderAdmin();setTimeout(()=>trOpen(id),60)}}
+/* درج الحالة: التفاصيل، المسار، القرارات والإجراءات، والسجل */
+function trOpen(aid){const o=DBI[aid];if(!o)return;let c=trCase(aid)||TRB.cases.find(x=>x.aid==aid);
+ if(!c){c=trNew(aid,{src:'auto',types:['ترخيص منتهي'],det:o.days!=null&&o.days<0?'انتهى الترخيص منذ '+(-o.days)+' يوماً':''});trSave()}
+ if(o.closed&&c.st!='closed'){c.st='closed';trLog(c,'st','سُجّلت الجمعية مغلقة في ملفها');trSave()}
+ const steps=[['open','مفتوحة'],['work','قيد المعالجة'],[c.st=='closed'?'closed':'resolved',c.st=='closed'?'مغلقة نهائياً':'عولجت']],si=c.st=='open'?0:c.st=='work'?1:2;
+ const KI={open:P.flag||P.info,note:P.chat,dec:P.target||P.star,st:P.check||P.info};
+ $('#adrawer').classList.remove('wide');$('#adrawer').classList.add('trw');
+ $('#adrawer').innerHTML=`<div class="dh"><button class="x" onclick="$('#adrawer').classList.remove('on','trw');$('#ov').classList.remove('on')">${I(P.x)}</button><span class="pill2" style="background:rgba(255,255,255,.14);color:#fff">${c.src=='auto'?'أُضيفت تلقائياً':'سجّلها '+esc(c.by||'الفريق')}</span><h3>${esc(o.n)}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${stPill(o)}<span class="pill2 p-info">${esc(o.gov)}</span><span class="pill2 ${TR_SEV[c.sev]||'p-mute'}">أولوية ${esc(c.sev)}</span><span class="pill2 ${TR_ST[c.st][1]}">${TR_ST[c.st][0]}</span></div></div>
+ <div class="db">
+  <div class="trsteps">${steps.map(([k,t],i)=>`<div class="${i<si?'done':i==si?'cur':''} ${k}"><i>${i<si||(i==si&&i==2)?I('<path d="m5 12 5 5 9-10"/>','width:14px;height:14px'):i+1}</i><span>${t}</span></div>`).join('')}</div>
+  <h4>${I(P.info,'width:16px;height:16px')}المشكلة</h4><div class="trtl">${c.types.map(t=>`<span class="trchip">${esc(t)}</span>`).join('')}</div>${c.det?`<p class="trdet">${esc(c.det)}</p>`:''}
+  <details class="tredit"><summary>تعديل النوع والأولوية والتفاصيل</summary><form id="trE" class="form" style="grid-template-columns:1fr;margin-top:10px"><div class="trpick">${[...new Set([...TR_TYPES,...c.types])].map(t=>`<label><input type="checkbox" name="ty" value="${esc(t)}" ${c.types.includes(t)?'checked':''}><span>${esc(t)}</span></label>`).join('')}</div>
+   <label>الأولوية<select name="sev">${['عالية','متوسطة','منخفضة'].map(x=>`<option ${c.sev==x?'selected':''}>${x}</option>`).join('')}</select></label><label>التفاصيل<textarea name="det" rows="3" maxlength="800">${esc(c.det||'')}</textarea></label><button class="btn o">حفظ</button></form></details>
+  ${c.st!='closed'&&c.st!='resolved'?`<h4>${I(P.target||P.star,'width:16px;height:16px')}قرار أو إجراء جديد</h4>
+  <form id="trD" class="trd"><select name="k">${TR_DEC.map(d=>`<option>${d}</option>`).join('')}<option value="note">ملاحظة فقط</option></select><input type="date" name="due" title="موعد المتابعة (اختياري)"><textarea name="t" rows="2" maxlength="600" placeholder="تفاصيل القرار أو ما تم، ومن المسؤول عنه"></textarea><button class="btn n">إضافة للسجل</button></form>`:''}
+  <h4>${I(P.flag||P.info,'width:16px;height:16px')}الحالة</h4><div class="acts">
+   ${c.st=='open'?`<button class="btn n" data-trs="work">بدء المعالجة</button>`:''}
+   ${['open','work'].includes(c.st)?`<button class="btn o" data-trs="resolved" style="color:#14804A;border-color:rgba(20,163,127,.4)">تمت المعالجة</button><button class="btn o" data-trs="closed" style="color:#B42318;border-color:rgba(240,68,56,.4)">إغلاق الجمعية نهائياً</button>`:''}
+   ${['resolved'].includes(c.st)||(c.st=='closed'&&!o.closed)?`<button class="btn o" data-trs="open">إعادة فتح الحالة</button>`:''}
+   <button class="btn o" onclick="openRec(${o.id})">ملف الجمعية</button></div>
+  <h4>${I(P.clock||P.info,'width:16px;height:16px')}سجل القرارات والإجراءات <span class="pill2 p-mute" style="margin-inline-start:4px">${c.log.length}</span></h4>
+  <div class="trlog">${c.log.map(l=>`<div class="${l.k}"><i>${I(KI[l.k]||P.info,'width:14px;height:14px')}</i><div><b>${esc(l.t)}</b>${l.d?`<p>${esc(l.d)}</p>`:''}<small>${trDate(l.at)} · ${esc(l.by||'')}${l.due?` · متابعة في ${trDate(l.due)}`:''}</small></div></div>`).join('')}</div>
+ </div>`;
+ $('#adrawer').classList.add('on');$('#ov').classList.add('on');
+ const E=$('#trE');E&&(E.onsubmit=e=>{e.preventDefault();const F=new FormData(E);const ty=F.getAll('ty').map(String);if(!ty.length){toast('اختر نوع المشكلة',1);return}c.types=ty;c.sev=String(F.get('sev'));c.det=String(F.get('det')||'').trim();trLog(c,'note','عُدّلت بيانات الحالة');trSave('حُفظ التعديل');trOpen(aid);ADM.mod=='trouble'&&AM.trouble($('#acontent'))});
+ const D=$('#trD');D&&(D.onsubmit=e=>{e.preventDefault();const F=new FormData(D),k=String(F.get('k')),t=String(F.get('t')||'').trim(),due=String(F.get('due')||'');if(k=='note'&&!t){toast('اكتب الملاحظة',1);return}
+  trLog(c,k=='note'?'note':'dec',k=='note'?t:'قرار: '+k,k=='note'?'':t);if(due)c.log[0].due=due;if(c.st=='open'&&k!='note'){c.st='work';trLog(c,'st','انتقلت الحالة إلى «قيد المعالجة»')}trSave('أُضيف إلى السجل');trOpen(aid);ADM.mod=='trouble'&&AM.trouble($('#acontent'))});
+ $$('#adrawer [data-trs]').forEach(b=>b.onclick=()=>{const to=b.dataset.trs;
+  if(to=='resolved'){const n=prompt('كيف عولجت المشكلة؟ (تُحفظ في السجل)','');if(n===null)return;c.st='resolved';trLog(c,'st','تمت معالجة الحالة',n.trim())}
+  else if(to=='closed'){if(!confirm(`إغلاق «${o.n}» نهائياً؟ تُصنَّف الجمعية «مغلقة» وتختفي من الموقع العام، وتبقى في اللوحة بكامل سجلها.`))return;c.st='closed';trLog(c,'st','قرار: إغلاق الجمعية نهائياً');trSave();
+   if(typeof SESSION!='undefined'&&SESSION){closeAll();setTimeout(()=>recClose(aid),60);return}o.closed=true;o.closedOn=new Date().toISOString().slice(0,10);o.closeReason='قرار من متابعة الجمعيات المتعثرة';o.st='مغلقة'}
+  else if(to=='work'){c.st='work';trLog(c,'st','بدأت المعالجة')}
+  else if(to=='open'){c.st='open';trLog(c,'st','أُعيد فتح الحالة')}
+  trSave('حُدّثت الحالة');alog('متعثرة · '+TR_ST[c.st][0]+': '+o.n,'#F5A524');trOpen(aid);ADM.mod=='trouble'&&AM.trouble($('#acontent'))})}
 AM.quality=el=>{const n=DB.length;
  const Q=[['test','بريد تجريبي (test.com)','يحوي رقماً يشبه رقم الهوية، ويُحذف من المصدر فوراً','p-bad',DB.filter(o=>o.hasTest).length],['mm','حالة الترخيص غير مطابقة','«مفعل» في الملف رغم انتهاء التاريخ','p-warn',DB.filter(o=>o.mismatch).length],['noemail','بلا بريد للجمعية','لا يمكن التواصل الرسمي إلكترونياً','p-warn',DB.filter(o=>!o.email).length],['nomobile','بلا جوال للجمعية','','p-warn',DB.filter(o=>!o.mobile).length],['none','بيانات التواصل فارغة تماماً','لا بريد ولا جوال ولا قيادة','p-bad',DB.filter(o=>o.comp==0).length],['consent','وافقت على نشر التواصل','تُعبّأ من بوابة الجمعيات','p-ok',DB.filter(o=>o.consent).length]];
  el.innerHTML=`<p class="alead">مشكلات البيانات التي تؤثر على التواصل والتحليل. اضغط أي بطاقة لعرض الجمعيات المعنية في الدليل.</p>
@@ -4753,14 +4912,15 @@ const CS_WHERE={agree:['المركز الإعلامي › الاتفاقيات �
 function csBlank(type,o){const d=new Date();return Object.assign({id:'c'+Date.now().toString(36),type,st:'draft',home:false,feat:false,t:'',c:type=='story'?'':type=='ann'?'إعلانات':type=='event'?'لقاء':type=='agree'?'مذكرة تفاهم':'المجلس',party:'',ax:[],sp:[],rel:[],axT:'',kind:type=='event'?'لقاء':'',when:type=='event'?new Date().toISOString().slice(0,10):'',place:'',k:'',dt:type=='story'?String(d.getFullYear()):d.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long',year:'numeric'}),ic:type=='story'?'star':type=='ann'?'mega':'award',lead:'',body:'',imgs:[],aid:null,m:[],pt:[],ch:'',so:'',src:'',url:''},o||{})}
 function csThumb(x){return x.imgs&&x.imgs[0]?`<img src="${esc(x.imgs[0])}" alt="" loading="lazy" onerror="this.remove()">`:''}
 function csList(B,el){const CS=ADM.cs,q=CS.q.trim();
- const cnt=f=>CT.filter(x=>f=='all'||(f=='draft'?x.st!='pub':x.type==f)).length;
- const L=CT.map((x,i)=>[x,i]).filter(([x])=>(CS.f=='all'||(CS.f=='draft'?x.st!='pub':x.type==CS.f))&&(!q||(x.t+' '+x.c+' '+(x.lead||'')).includes(q)));
- B.innerHTML=`<div class="cshead"><div class="csf">${[['all','الكل'],['news','الأخبار'],['event','الفعاليات'],['agree','الاتفاقيات'],['story','التجارب'],['ann','الإعلانات'],['draft','المسودات']].map(([k,t])=>`<button class="${CS.f==k?'on':''}" data-csf="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span class="sp" style="flex:1"></span>
+ const nodt=x=>x.type!='story'&&(!/^\d{4}-\d{2}-\d{2}$/.test(x.when||'')||/2020 – 2024|الدورة الأولى/.test(x.dt||'')),M=(x,f)=>f=='all'||(f=='draft'?x.st!='pub':f=='nodt'?nodt(x):x.type==f);
+ const cnt=f=>CT.filter(x=>M(x,f)).length;
+ const L=CT.map((x,i)=>[x,i]).filter(([x])=>M(x,CS.f)&&(!q||(x.t+' '+x.c+' '+(x.lead||'')).includes(q)));
+ B.innerHTML=`<div class="cshead"><div class="csf">${[['all','الكل'],['news','الأخبار'],['event','الفعاليات'],['agree','الاتفاقيات'],['story','التجارب'],['ann','الإعلانات'],['draft','المسودات'],...(cnt('nodt')?[['nodt','بحاجة لتاريخ']]:[])].map(([k,t])=>`<button class="${CS.f==k?'on':''}" data-csf="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span class="sp" style="flex:1"></span>
   <label class="csq">${I(P.search,'width:15px;height:15px')}<input id="csQ" placeholder="ابحث في العناوين" value="${esc(CS.q)}"></label>
   <div class="csnew"><button class="jbtn pri" id="csNew">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إنشاء</button><div class="csmenu" id="csMenu" hidden>${Object.entries(CT_T).map(([k,t])=>`<button data-csn="${k}">${I(P[{news:'news',story:'star',ann:'mega',event:'people',agree:'award'}[k]],'width:16px;height:16px')}<span><b>${t}</b><small>${CS_WHERE[k][0]}</small></span></button>`).join('')}</div></div></div>
- <div class="cslist">${L.length?L.map(([x,i])=>`<div class="csr ${x.st!='pub'?'draft':''}"><span class="csth">${I(P[x.ic]||P.star,'width:20px;height:20px')}${csThumb(x)}</span>
+ ${CS.f=='nodt'?`<div class="demoNote" style="margin:0 0 12px">${I(P.info,'width:16px;height:16px;flex:none')}عناصر من الدورة الأولى أو بلا تاريخ دقيق. افتح أي عنصر واختر في «التاريخ»: يوم محدد، أو شهر وسنة، أو سنة فقط — يكفي ما تعرفونه، وما لم يُعرف يبقى ضمن «الدورة الأولى (2020 – 2024)».</div>`:''}<div class="cslist">${L.length?L.map(([x,i])=>`<div class="csr ${x.st!='pub'?'draft':''}"><span class="csth">${I(P[x.ic]||P.star,'width:20px;height:20px')}${csThumb(x)}</span>
   <button class="csm" data-cse="${i}"><b>${esc(x.t)||'بدون عنوان'}</b><small>${CT_T[x.type]}${x.c?' · '+esc(x.c):''}${x.dt?' · '+esc(x.dt):''}</small></button>
-  <span class="cstags">${x.st!='pub'?'<span class="pill2 p-mute">مسودة</span>':'<span class="pill2 p-ok">منشور</span>'}${x.home?'<span class="pill2 p-info">في الرئيسية</span>':''}${x.feat?'<span class="pill2 p-warn">مميز</span>':''}</span>
+  <span class="cstags">${nodt(x)?'<span class="pill2 p-warn">بلا تاريخ دقيق</span>':''}${x.st!='pub'?'<span class="pill2 p-mute">مسودة</span>':'<span class="pill2 p-ok">منشور</span>'}${x.home?'<span class="pill2 p-info">في الرئيسية</span>':''}${x.feat?'<span class="pill2 p-warn">مميز</span>':''}</span>
   <span class="csa"><button class="jic sm" data-csu="${i}" title="تقديم" ${i?'':'disabled'}>${I('<path d="M12 19V5M5 12l7-7 7 7"/>','width:15px;height:15px')}</button><button class="jic sm" data-csd="${i}" title="تأخير" ${i==CT.length-1?'disabled':''}>${I('<path d="M12 5v14M19 12l-7 7-7-7"/>','width:15px;height:15px')}</button><button class="jic sm" data-csh="${i}" title="${x.home?'إزالة من الرئيسية':'عرض في الرئيسية'}">${I(P.home,'width:15px;height:15px')}</button><a class="jic sm" href="#/read/${encodeURIComponent(x.id)}" target="_blank" title="فتح الصفحة المستقلة">${I('<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>','width:15px;height:15px')}</a><button class="jbtn" data-cse="${i}">تحرير</button></span></div>`).join(''):'<div class="empty">لا توجد عناصر مطابقة</div>'}</div>
  <p class="cshelp">${I(P.info,'width:14px;height:14px;flex:none')}الترتيب هنا هو ترتيب الظهور في الموقع، والعنصر «المميز» يتصدر قسمه. أول ثلاثة عناصر مفعّل لها «في الرئيسية» تظهر في الصفحة الرئيسية.</p>`;
  B.querySelectorAll('[data-csf]').forEach(b=>b.onclick=()=>{ADM.cs.f=b.dataset.csf;csList(B,el)});
@@ -5370,7 +5530,7 @@ AM.demo=el=>{const L=demoSets();
 /* القائمة الجانبية: عنصر بثلاث خانات [المفتاح، الاسم، الأب] صفحة فرعية لا تظهر في القائمة، وتظهر تبويباً داخل صفحة أبيها. */
 const NAV=[
  {k:'home',ic:'home',t:'الرئيسية',solo:1,items:[['home','الرئيسية']]},
- {k:'data',ic:'db',t:'الجمعيات',items:[['overview','نظرة عامة'],['updates','طلبات تحديث البيانات','overview'],['quality','جودة البيانات','overview'],['directory','سجل الجمعيات'],['licenses','التراخيص']]},
+ {k:'data',ic:'db',t:'الجمعيات',items:[['overview','نظرة عامة'],['updates','طلبات تحديث البيانات','overview'],['quality','جودة البيانات','overview'],['directory','سجل الجمعيات'],['licenses','التراخيص'],['trouble','الجمعيات المتعثرة']]},
  {k:'insight',ic:'chart',t:'التحليل والتقارير',items:[['analytics','التحليلات'],['bysup','حسب الجهة الإشرافية','analytics'],['bygov','حسب المحافظة','analytics'],['decisions','القرارات'],['reports','مركز التقارير']]},
  {k:'comms',ic:'inbox',t:'التواصل والمحتوى',items:[['inbox','صندوق الوارد'],['content','استوديو المحتوى']]},
  {k:'camp',ic:'mega',t:'الحملات',solo:1,items:[['campaigns','الحملات']]},
@@ -5393,7 +5553,7 @@ P.cols='<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v1
 const MODS=NAV.flatMap(g=>g.items.filter(x=>typeof x!='string').map(x=>[x[0],x[1],g.k]));
 const modName=m=>(MODS.find(x=>x[0]==m)||[])[1]||'';
 const modGroup=m=>NAV.find(g=>g.items.some(x=>x[0]==m))||NAV[0];
-const ACCESS={admin:'*',content:['home','overview','inbox','content','campaigns','communities','mops','mset','board','partners','projects','reports','launch','gaps','plan'],consult:['home','overview','inbox','chub','consults','calendar','consultants','capps','cset','directory','reports','launch','gaps','plan'],analyst:['home','overview','directory','bysup','bygov','analytics','decisions','reports','licenses','quality','updates','campaigns','partners','projects','launch','plan']};
+const ACCESS={admin:'*',content:['home','overview','inbox','content','campaigns','communities','mops','mset','board','partners','projects','reports','launch','gaps','plan'],consult:['home','overview','inbox','chub','consults','calendar','consultants','capps','cset','directory','reports','launch','gaps','plan'],analyst:['home','overview','directory','trouble','bysup','bygov','analytics','decisions','reports','licenses','quality','updates','campaigns','partners','projects','launch','plan']};
 const isTmp=m=>(NAV.find(g=>g.tmp)||{items:[]}).items.some(x=>x[0]==m);
 const can=m=>(!ADM.launchOff||!isTmp(m))&&(ACCESS[ADM.role]=='*'||ACCESS[ADM.role].includes(m));
 ADM.mod='home';ADM.saved=['directory','analytics'];ADM.sideOpen=true;
@@ -5423,7 +5583,7 @@ function renderAdmin(){
   el.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{ADM.role=b.dataset.role;renderAdmin()});
   $('#admGo').onclick=()=>{ADM.auth=true;syncGaps();if(!can(ADM.mod))ADM.mod='home';alog('دخول '+ROLES[ADM.role][0],'#14A37F');renderAdmin()};return}
  if(!can(ADM.mod))ADM.mod='home';
- const G=modGroup(ADM.mod),badges={inbox:inboxN(),updates:pendingN(),consults:newConsultN(),capps:capN(),content:subsN(),mops:joinN(),gaps:gapsOpenN(),demo:demoN()};
+ const G=modGroup(ADM.mod),badges={inbox:inboxN(),updates:pendingN(),consults:newConsultN(),capps:capN(),content:subsN(),trouble:trOpenN(),mops:joinN(),gaps:gapsOpenN(),demo:demoN()};
  const gBadge=g=>g.items.reduce((s,x)=>s+(can(x[0])?(badges[x[0]]||0):0),0);
  const visG=NAV.filter(g=>g.items.some(x=>can(x[0])));
  if(!ADM.navOpen){try{ADM.navOpen=JSON.parse(localStorage.getItem('asirNavOpen')||'{}')||{}}catch(e){ADM.navOpen={}}}
@@ -5563,7 +5723,7 @@ const ago=d=>{const n=Math.round((d-today)/864e5),a=Math.abs(n),w=a==2?'يومي
  ADM.consults=S.map((x,i)=>({ref:'ASR-'+(20410+i*37),a:pick(30+i*41),t:x.t,cid:x.cid,pref:!!x.pref,dt:new Date(x.d),slot:slotsAll[x.cid&&CONSI[x.cid]?CONSI[x.cid].av[x.d.getDay()]?.[0]??x.s:x.s],mode:i%3?'عن بُعد':'حضوري',need:need[x.t],who:'منسق الجمعية',st:x.st,rt:x.rt,sum:x.sum,link:x.st=='مؤكد'&&i%3?meetLink():'',at:x.st=='جديد'?['قبل ساعة','قبل 3 ساعات','أمس','أمس'][i%4]:'',demo:1}));
  ADM.capps=[{n:'أ. منى العمري',email:'muna@example.org',ttl:'مستشارة موارد بشرية وتطوع',yrs:9,sp:[1,3],sk:['إدارة التطوع','الموارد البشرية','الاستقطاب'],cv:'https://linkedin.com/in/example',at:'أمس',st:'بانتظار المراجعة',demo:1},
   {n:'م. ماجد الحارثي',email:'majed@example.org',ttl:'مستشار أنظمة وبيانات',yrs:6,sp:[6],sk:['Power BI','أتمتة النماذج','حماية البيانات الشخصية'],cv:'https://linkedin.com/in/example',at:'قبل 4 أيام',st:'بانتظار المراجعة',demo:1}];
- ADM.cset={types:ctypes.map(()=>({on:1,dur:60})),lead:48,max:2,cancel:24,rem:['قبل يوم','قبل ساعة'],survey:1};
+ ADM.cset={types:ctypes.map((c,i)=>({on:CTX[i]&&CTX[i].on===0?0:1,dur:(CTX[i]&&CTX[i].dur)||60})),lead:48,max:2,cancel:24,rem:['قبل يوم','قبل ساعة'],survey:1};
  ADM.cview={f:'',q:'',wk:0,cf:''};
 })();
 const capN=()=>ADM.capps.filter(a=>a.st=='بانتظار المراجعة').length;
@@ -5664,6 +5824,7 @@ AM.chub=el=>{const C=ADM.consults,now=new Date();
  <div class="chg">${tile('consults','chat','طلبات الاستشارات','كل الطلبات بحالتها والمستشار والموعد، والتعيين والتأكيد.',nw,1)}${tile('capps','userplus','طلبات انضمام المستشارين','مراجعة المتقدمين واعتمادهم وإنشاء حساباتهم.',ap,1)}${tile('calendar','cal','التقويم والمواعيد','الجلسات المؤكدة أسبوعياً، والتعارضات والإتاحة.',up)}${tile('consultants','people','المستشارون','الملفات والمجالات والإتاحة وربط التقويم.',CONS.length)}${tile('cset','gear','إعدادات الاستشارات','المجالات المفعّلة، مدة الجلسة، الإلغاء والتذكيرات.')}</div>
  <h3 class="chh">مجالات الاستشارة</h3>
  <div class="jtable" style="margin-top:0"><table class="at" style="min-width:520px"><thead><tr><th class="ns">المجال</th><th class="ns">المستشارون</th><th class="ns">الطلبات</th><th class="ns">الحالة</th></tr></thead><tbody>${ctypes.map((c,i)=>{const k=CONS.filter(x=>x.on&&x.sp.includes(i)).length,r=C.filter(x=>x.t==i).length,off=S.types[i]&&!S.types[i].on;return `<tr><td><b>${c[1]}</b><small>${c[2]}</small></td><td>${k||'—'}</td><td>${r||'—'}</td><td>${off?'<span class="pill2 p-mute">موقوف</span>':k?'<span class="pill2 p-ok">متاح للحجز</span>':'<span class="pill2 p-warn">قريباً</span>'}</td></tr>`}).join('')}</tbody></table></div>`};
+HDR.trouble=()=>`<button class="jbtn pri" onclick="trFlag()">${I('<path d="M4 21V4h11l-1 4h6v9h-8l1-4H4"/>','width:16px;height:16px')}تسجيل جمعية متعثرة</button>`;
 HDR.chub=()=>`<button class="jbtn" onclick="go('consult')">${I(P.globe,'width:16px;height:16px')}صفحة الاستشارات العامة</button>`;
 AM.capps=el=>{
  el.innerHTML=`<p class="alead">طلبات الانضمام لشبكة المستشارين من صفحة الاستشارات في الموقع. عند الاعتماد يُنشأ حساب للمستشار ليكمل ملفه وأوقاته ويربط تقويمه، ولا يظهر في الموقع قبل ذلك.</p>
@@ -5677,6 +5838,17 @@ AM.capps=el=>{
 };
 
 /* ---------- consultation settings + tools ---------- */
+function ctTypesSave(){SS('asirCtypes',{v:1,list:ctypes.map((c,i)=>({ic:c[0],t:c[1],d:c[2],on:ADM.cset.types[i]?ADM.cset.types[i].on:1,dur:ADM.cset.types[i]?ADM.cset.types[i].dur:60}))});try{renderCtypes();renderBooking()}catch(e){}}
+function ctEdit(i,el){const c=i<0?['star','','']:ctypes[i],ICS=['shield','target','coin','hand','chart','mega','chip','scale','people','book','heart','leaf','building','award','globe','star','chat','users','home','cal'].filter(k=>P[k]);
+ recModal(`<div class="ic">${I(P.chat)}</div><h3>${i<0?'إضافة مجال استشارة':'تعديل المجال'}</h3><form class="form" id="ctF" style="grid-template-columns:1fr;margin-top:14px">
+ <label>اسم المجال<input name="t" required maxlength="40" value="${esc(c[1])}" placeholder="مثال: الموارد البشرية والتطوع"></label>
+ <label>وصف مختصر<input name="d" maxlength="70" value="${esc(c[2])}" placeholder="مثال: الاستقطاب، إدارة المتطوعين، السياسات"></label>
+ <div><small style="display:block;margin-bottom:6px;color:var(--mute)">الأيقونة</small><div class="icpick">${ICS.map(k=>`<label><input type="radio" name="ic" value="${k}" ${c[0]==k?'checked':''}><span>${I(P[k],'width:18px;height:18px')}</span></label>`).join('')}</div></div>
+ <button class="btn n" style="justify-content:center">${i<0?'إضافة المجال':'حفظ التعديل'}</button></form>`);
+ $('#ctF').onsubmit=e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));const t=String(f.t||'').trim();if(!t){toast('اكتب اسم المجال',1);return}
+  if(ctypes.some((x,k)=>k!=i&&x[1]==t)){toast('يوجد مجال بهذا الاسم',1);return}
+  const row=[f.ic||'star',t,String(f.d||'').trim()];if(i<0){ctypes.push(row);ADM.cset.types.push({on:1,dur:60})}else ctypes[i]=row;
+  ctTypesSave();alog((i<0?'إضافة مجال استشارة: ':'تعديل مجال استشارة: ')+t);closeAll();toast(i<0?'أُضيف المجال وسيظهر في صفحة الحجز':'حُفظ التعديل');AM.cset(el)}}
 AM.cset=el=>{const S=ADM.cset;
  const T=[
   ['Google Calendar + Google Meet','مجاني بحساب شخصي: صفحة حجز واحدة لكل حساب ومواعيد غير محدودة','صفحات حجز متعددة وتذكيرات بالبريد تحتاج اشتراكاً مؤهلاً','تقويم كل مستشار وروابط الجلسات','p-ok','الأساس'],
@@ -5686,15 +5858,17 @@ AM.cset=el=>{const S=ADM.cset;
   ['Microsoft Bookings','ضمن Microsoft 365؛ أسعار خاصة للقطاع غير الربحي','مناسب إن كان المجلس يعمل على Microsoft 365 وTeams','بديل للمنظومة الأخرى','p-mute','حسب المنظومة'],
   ['Calendly','مجاني بنوع حجز واحد؛ Standard 10$ وTeams 16$ للمقعد (سنوي)','تجربة مصقولة، لكن التكلفة لكل مقعد أعلى والتحكم أقل','—','p-mute','غير مرجّح']];
  el.innerHTML=`<p class="alead">إعدادات خدمة الاستشارات، والأدوات المقترحة لربط الحجز بالتقويم والاجتماعات.</p>
- <div class="agrid"><div class="panel span7"><h3>${I(P.chat,'width:18px;height:18px')}مجالات الاستشارة</h3><p class="d">المجال الموقوف يختفي من صفحة الحجز.</p>
- <div class="jtable" style="margin-top:0"><table class="at" style="min-width:460px"><tbody>${ctypes.map((c,i)=>`<tr><td><b>${c[1]}</b><small>${CONS.filter(k=>k.on&&k.sp.includes(i)).length} مستشارين نشطين</small></td><td><select class="jsel" data-du="${i}">${[30,45,60,90].map(m=>`<option value="${m}" ${S.types[i].dur==m?'selected':''}>${m} دقيقة</option>`).join('')}</select></td><td style="width:60px"><button class="tg ${S.types[i].on?'on':''}" data-to="${i}" aria-label="تفعيل ${c[1]}"></button></td></tr>`).join('')}</tbody></table></div></div>
+ <div class="agrid"><div class="panel span7"><h3>${I(P.chat,'width:18px;height:18px')}مجالات الاستشارة <span class="pill2 p-mute" style="margin-inline-start:6px">${ctypes.length}</span><button class="r jbtn pri" id="ctAdd" style="margin-inline-start:auto">${I('<path d="M12 5v14M5 12h14"/>','width:15px;height:15px')}إضافة مجال</button></h3><p class="d">أضف مجالات جديدة أو عدّل اسمها ووصفها. المجال الموقوف يختفي من صفحة الحجز ويبقى في سجل الطلبات.</p>
+ <div class="jtable" style="margin-top:0"><table class="at" style="min-width:460px"><tbody>${ctypes.map((c,i)=>`<tr><td><span class="ctic">${I(P[c[0]]||P.star,'width:16px;height:16px')}</span><b>${esc(c[1])}</b><small>${esc(c[2])} · ${CONS.filter(k=>k.on&&k.sp.includes(i)).length} مستشارين نشطين</small></td><td style="width:44px"><button class="jic sm" data-cte="${i}" title="تعديل المجال" aria-label="تعديل ${esc(c[1])}">${I(P.edit||'<path d="M4 20h4L19 9l-4-4L4 16v4z"/>','width:15px;height:15px')}</button></td><td><select class="jsel" data-du="${i}">${[30,45,60,90].map(m=>`<option value="${m}" ${S.types[i].dur==m?'selected':''}>${m} دقيقة</option>`).join('')}</select></td><td style="width:60px"><button class="tg ${S.types[i].on?'on':''}" data-to="${i}" aria-label="تفعيل ${c[1]}"></button></td></tr>`).join('')}</tbody></table></div></div>
  <div class="panel span5"><h3>${I(P.shield,'width:18px;height:18px')}سياسات الحجز</h3><p class="d">تُطبَّق على صفحة الحجز في النسخة الفعلية.</p>
  <div class="aform" style="grid-template-columns:1fr 1fr"><label>أقل مدة قبل الموعد<select><option>24 ساعة</option><option selected>48 ساعة</option><option>72 ساعة</option></select></label><label>حد الجلسات لكل جمعية<select><option>1 شهرياً</option><option selected>2 شهرياً</option><option>4 شهرياً</option></select></label><label>الإلغاء المجاني قبل<select><option>12 ساعة</option><option selected>24 ساعة</option></select></label><label>التذكيرات<select><option selected>قبل يوم وقبل ساعة</option><option>قبل يوم فقط</option></select></label><label class="full">بعد الجلسة<select><option selected>استبيان تقييم تلقائي + ملخص المستشار</option><option>ملخص المستشار فقط</option></select></label></div></div>
  <div class="panel span12"><h3>${I(P.plug,'width:18px;height:18px')}أدوات الحجز والمواعيد: المقارنة والتوصية</h3><p class="d">الأسعار كما في صفحات المزودين ومراجعات حديثة (نوفمبر 2026)، وتُراجع قبل التعاقد.</p>
  <div class="jtable" style="margin-top:0"><table class="at" style="min-width:900px"><thead><tr><th class="ns">الأداة</th><th class="ns">التكلفة</th><th class="ns">ما يميزها</th><th class="ns">دورها عندنا</th><th class="ns">التقييم</th></tr></thead><tbody>${T.map(t=>`<tr><td><b>${t[0]}</b></td><td><small style="font-size:12.5px;color:var(--text)">${t[1]}</small></td><td><small style="font-size:12.5px;color:var(--text)">${t[2]}</small></td><td>${t[3]}</td><td><span class="pill2 ${t[4]}">${t[5]}</span></td></tr>`).join('')}</tbody></table></div>
  <div class="rec"><div><span class="pill2 p-ok">التوصية</span><b>الحجز وملفات المستشارين داخل منصة المجلس، والتقويم والاجتماعات على Google</b><p>تبقى تجربة الحجز والبيانات والتقارير عندنا (كما في هذا النموذج)، ويُربط تقويم كل مستشار عبر واجهة Google Calendar: تُقرأ أوقات انشغاله، ويُكتب الحجز المؤكد في تقويمه برابط Meet. التكلفة الأساسية شبه معدومة، وتنخفض أكثر إن أُتيح Workspace for Nonprofits للمجلس.</p></div>
  <div><span class="pill2 p-info">إن أردنا أداة جاهزة</span><b>Cal.com</b><p>صفحة لكل مستشار وتوزيع دوري وWebhooks تغذي هذه اللوحة، بتكلفة معقولة أو مجاناً باستضافة ذاتية، مقابل تحكم أقل في التصميم العربي.</p></div></div></div></div>`;
- el.querySelectorAll('[data-to]').forEach(b=>b.onclick=()=>{const t=S.types[+b.dataset.to];t.on=t.on?0:1;b.classList.toggle('on');const ix=+b.dataset.to;t.on?CTOFF.delete(ix):CTOFF.add(ix);renderCtypes();toast(t.on?'فُعّل المجال في صفحة الحجز':'أُوقف المجال في صفحة الحجز')});
+ el.querySelectorAll('[data-to]').forEach(b=>b.onclick=()=>{const t=S.types[+b.dataset.to];t.on=t.on?0:1;setTimeout(ctTypesSave,0);b.classList.toggle('on');const ix=+b.dataset.to;t.on?CTOFF.delete(ix):CTOFF.add(ix);renderCtypes();toast(t.on?'فُعّل المجال في صفحة الحجز':'أُوقف المجال في صفحة الحجز')});
+ el.querySelectorAll('[data-du]').forEach(x=>x.addEventListener('change',()=>{S.types[+x.dataset.du].dur=+x.value;ctTypesSave()}));
+ $('#ctAdd').onclick=()=>ctEdit(-1,el);el.querySelectorAll('[data-cte]').forEach(b=>b.onclick=()=>ctEdit(+b.dataset.cte,el));
  el.querySelectorAll('[data-du]').forEach(s=>s.onchange=()=>{S.types[+s.dataset.du].dur=+s.value;toast('حُفظت مدة الجلسة')});
 };
 

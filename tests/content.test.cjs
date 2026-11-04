@@ -54,6 +54,12 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   // 6ج) الاستشارات «قريباً» ما دام لا يوجد مستشار مُفعّل
   const soon = await v.evaluate(() => { go('consult'); return [document.body.classList.contains('conssoon'), !!document.querySelector('#booking .soonchip')] });
   ok(soon[0] && soon[1], 'consult coming soon');
+  // 6د) الجمعيات المتعثرة: التراخيص المنتهية تلقائياً + تسجيل حالة وقرار ومعالجة
+  const tr = await p.evaluate(() => { goMod('trouble'); const auto = trRows().filter((r) => r.st == 'new').length; const o = DB.find((x) => x.st == 'ساري' && !trCase(x.id)); const c = trNew(o.id, { src: 'team', types: ['تعثر مالي'], det: 'اختبار' }); trLog(c, 'dec', 'قرار: زيارة ميدانية'); c.st = 'resolved'; const ok = TRB.cases.some((x) => x.id == c.id && x.st == 'resolved' && x.log.length == 2); TRB.cases = TRB.cases.filter((x) => x.id != c.id); return [auto, ok, auto == DB.filter((x) => x.st == 'منتهي' && !x.closed && !TRB.cases.some((y) => y.aid == x.id)).length] });
+  ok(tr[0] > 0 && tr[1] && tr[2], 'trouble cases ' + JSON.stringify(tr));
+  // 6هـ) مجالات الاستشارة قابلة للإضافة
+  const ct = await p.evaluate(() => { const n = ctypes.length; ctypes.push(['star', 'مجال اختبار', '']); ADM.cset.types.push({ on: 1, dur: 60 }); const has = JSON.stringify(ctypes).includes('مجال اختبار'); ctypes.pop(); ADM.cset.types.pop(); return [n, has] });
+  ok(ct[0] >= 8 && ct[1], 'ctypes editable');
   // 7) حذف العنصر التجريبي (تنظيف)
   await p.evaluate((id) => { const i = CT.findIndex((x) => x.id == id); CT.splice(i, 1); ctSave() }, st.id); await p.waitForTimeout(1200);
   // رفض الإرسال من مصدر آخر + حد المعدل يعمل

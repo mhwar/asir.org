@@ -14,6 +14,8 @@ export const STATE_KEYS = {
   asirImpact:    { module: 'board', public: true },
   asirLaunchOff: { module: 'launch' },
   asirContent:   { module: 'content', public: true },
+  asirCtypes:    { module: 'cset', public: true },     // مجالات الاستشارة (تظهر في صفحة الحجز)
+  asirTrouble:   { module: 'trouble' },                // الجمعيات المتعثرة — للفريق فقط
 };
 const MAX_BYTES = 256 * 1024;
 
