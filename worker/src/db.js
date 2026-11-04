@@ -138,30 +138,44 @@ export async function auditList(env, params) {
   return results;
 }
 
-// data-quality notes, recomputed on every load so they disappear once the data is fixed
-function dataIssues(a, c) {
+// data-quality checks, recomputed on every load so they disappear once the data is fixed.
+// Each issue names the portal field it concerns, so the association can jump straight to it.
+const TYPO = /@(gamail|gmial|gmai|gmal|gimai|gmil|gamil|hotmai|hotmil|hotmal|outlock|liv)\.|\.(con|cmo|om)$|@.*@|\+{2,}|^mailto/i;
+const BAD_NAME = /^(نقل بيانات|لا يوجد|-|—|\.|0)$/;
+const MOBILE_OK = (v) => /^(\+9665\d{8}|05\d{8})$/.test(String(v || '').replace(/[\s-]/g, ''));
+export function dataIssues(a, c) {
   const out = [];
+  const add = (f, t) => out.push({ f, t });
   if (!a.closed_on) {
-    if (!c.mobile) out.push('جوال الجمعية مفقود');
-    if (!c.email) out.push('بريد الجمعية مفقود');
-    if (a.registry_status === 'مفعل' && a.license_state === 'منتهي') out.push('الحالة "مفعل" رغم انتهاء تاريخ الترخيص');
+    if (!c.mobile) add('mobile', 'جوال الجمعية مفقود');
+    else if (!MOBILE_OK(c.mobile)) add('mobile', 'جوال الجمعية بصيغة غير صحيحة');
+    if (!c.email) add('email', 'بريد الجمعية مفقود');
+    else if (TYPO.test(c.email)) add('email', 'بريد الجمعية يبدو فيه خطأ كتابي');
+    if (!c.president_name || BAD_NAME.test(c.president_name.trim())) add('pres', 'اسم رئيس مجلس الإدارة مفقود');
+    if (c.president_email && TYPO.test(c.president_email)) add('presEmail', 'بريد الرئيس يبدو فيه خطأ كتابي');
+    if (!c.delegate_name || BAD_NAME.test(c.delegate_name.trim())) add('del', 'اسم المفوض مفقود أو غير صحيح');
+    if (c.delegate_email && TYPO.test(c.delegate_email)) add('delEmail', 'بريد المفوض يبدو فيه خطأ كتابي');
+    if (a.registry_status === 'مفعل' && a.license_state === 'منتهي') add('exp', 'الحالة "مفعل" رغم انتهاء تاريخ الترخيص');
   }
   for (const n of (c.import_notes || '').split('؛ ').filter(Boolean)) {
-    if (n.startsWith('بريد الرئيس') && c.president_email) continue;
-    if (n.startsWith('بريد المفوض') && c.delegate_email) continue;
-    out.push(n);
+    if (n.startsWith('بريد الرئيس')) { if (!c.president_email) add('presEmail', n); continue; }
+    if (n.startsWith('بريد المفوض')) { if (!c.delegate_email) add('delEmail', n); continue; }
+    add(null, n);
   }
-  return out.join('؛ ');
+  return out;
 }
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 export async function pagePayload(env) {
-  const [adm, meta, prof, con] = await env.DB.batch([
+  const [adm, meta, prof, con, nts] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
     env.DB.prepare("SELECT max(updated_at) AS synced FROM associations"),
     env.DB.prepare('SELECT association_id AS id, short_name, about, website, social, beneficiaries, programs, logo_key FROM association_profiles'),
     env.DB.prepare('SELECT * FROM association_contacts'),
+    env.DB.prepare("SELECT association_id AS id, text FROM association_notes WHERE status = 'open'"),
   ]);
+  const N = {};
+  for (const n of nts.results) (N[n.id] = N[n.id] || []).push('ملاحظة المجلس: ' + n.text);
   const C = Object.fromEntries(con.results.map((c) => [c.association_id, c]));
   const P = Object.fromEntries(prof.results.map((p) => [p.id, p]));
   const rows = adm.results;
@@ -172,7 +186,7 @@ export async function pagePayload(env) {
     a.founded_on || '', a.license_issued_on || '', a.license_expires_on || '', a.days_to_expiry ?? '',
     a.closed_on ? 'مغلقة' : a.registry_status, a.license_state || '',
     c.email || '', c.mobile || '', c.delegate_name || '', c.delegate_email || '', c.president_name || '', c.president_email || '',
-    a.contact_consent ? 'نعم' : 'لا', dataIssues(a, c),
+    a.contact_consent ? 'نعم' : 'لا', [...dataIssues(a, c).map((x) => x.t), ...(N[a.id] || [])].join('؛ '),
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
   ]; });
   // public list — published and not closed
@@ -187,6 +201,9 @@ export async function pagePayload(env) {
     if (p.social) o.soc = p.social;
     if (p.programs) o.pr = p.programs;
     if (p.beneficiaries) o.bn = JSON.parse(p.beneficiaries);
+    const c = C[a.id] || {};
+    if (a.contact_consent && c.email) o.em = c.email;      // published only with the association's consent
+    if (a.contact_consent && c.mobile) o.mo = c.mobile;
     return o;
   });
   return { raw, pub, synced: meta.results[0]?.synced || null };

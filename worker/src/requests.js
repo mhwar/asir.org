@@ -1,6 +1,6 @@
 // Association update links + update requests + council review.
 import { fail } from './http.js';
-import { audit, updateAssociation } from './db.js';
+import { audit, updateAssociation, dataIssues } from './db.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
 const enc = new TextEncoder();
@@ -141,7 +141,17 @@ export async function portalPayload(env, link) {
     "SELECT changes FROM update_requests WHERE association_id = ?1 AND status = 'pending'").bind(link.association_id).all();
   const pending = [...new Set(results.flatMap((r) => Object.keys(JSON.parse(r.changes))))];
   const { results: govs } = await env.DB.prepare('SELECT name_ar AS n FROM governorates ORDER BY sort').all();
-  return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n) };
+  // notes the association should fix: council notes (visible) + computed data-quality checks
+  const [ad, ct, nt] = await env.DB.batch([
+    env.DB.prepare('SELECT * FROM v_admin_associations WHERE id = ?1').bind(link.association_id),
+    env.DB.prepare('SELECT * FROM association_contacts WHERE association_id = ?1').bind(link.association_id),
+    env.DB.prepare("SELECT id, field, text, created_at FROM association_notes WHERE association_id = ?1 AND status = 'open' AND visible = 1 ORDER BY id").bind(link.association_id),
+  ]);
+  const notes = [
+    ...nt.results.map((n) => ({ f: n.field, t: n.text, src: 'council' })),
+    ...dataIssues(ad.results[0] || {}, ct.results[0] || {}).filter((x) => personal || !['mobile', 'email', 'pres', 'presEmail', 'del', 'delEmail'].includes(x.f)).map((x) => ({ ...x, src: 'check' })),
+  ];
+  return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n), notes };
 }
 
 // ─── PIN gate ────────────────────────────────────────────
@@ -310,6 +320,10 @@ export async function reviewRequest(env, req, user, id, body) {
   await env.DB.prepare(
     `UPDATE update_requests SET status = ?2, reviewed_by = ?3, reviewed_at = ${NOW}, review_note = ?4, applied = ?5 WHERE id = ?1 AND status = 'pending'`
   ).bind(id, status, user.email, note, JSON.stringify(apply)).run();
+  if (apply.length) // corrected fields close the council notes attached to them
+    await env.DB.prepare(
+      `UPDATE association_notes SET status = 'resolved', resolved_by = ?2, resolved_at = ${NOW} WHERE association_id = ?1 AND status = 'open' AND field IN (${apply.map((_, i) => `?${i + 3}`).join(',')})`
+    ).bind(r.association_id, user.email, ...apply).run();
   await audit(env, req, user.email, 'review', 'update_requests', id, null, { status, applied: apply, field_id: body.field_id || null });
   return { status, applied: apply };
 }

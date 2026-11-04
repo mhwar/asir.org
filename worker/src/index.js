@@ -161,6 +161,12 @@ async function api(req, env, url) {
       return json({ data: await db.getAssociation(env, id) }, 201);
     }
   }
+  const nm = path.match(/^\/api\/associations\/(\d+)\/notes(?:\/(\d+))?$/);
+  if (nm) {
+    requirePerm(user, 'directory', 'write');
+    if (m === 'POST' && !nm[2]) return json(await pf.addNote(env, req, user, idFrom(nm[1]), await readJson(req)), 201);
+    if (m === 'PATCH' && nm[2]) return json(await pf.setNote(env, req, user, idFrom(nm[1]), idFrom(nm[2]), await readJson(req)));
+  }
   const fm = path.match(/^\/api\/associations\/(\d+)\/(full|logo)$/);
   if (fm) {
     const id = idFrom(fm[1]);

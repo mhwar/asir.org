@@ -1,6 +1,6 @@
 // Full association record for the council: official data + public profile + contacts & leadership.
 import { fail } from './http.js';
-import { audit, updateAssociation, getAssociation } from './db.js';
+import { audit, updateAssociation, getAssociation, dataIssues } from './db.js';
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
@@ -30,8 +30,10 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
   const contacts = Object.fromEntries(Object.entries(CONTACT).map(([k, col]) => [k, ct[col] || '']));
   contacts.board = ct.board_json ? JSON.parse(ct.board_json) : [];
   contacts.consent = !!a.contact_consent;
+  const { results: notes } = await env.DB.prepare('SELECT id, field, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
+  const checks = dataIssues(a, ct);
   if (logReveal) await audit(env, req, user.email, 'reveal', 'association_contacts', id);
-  return { association: a, profile, contacts };
+  return { association: a, profile, contacts, notes, checks };
 }
 
 export async function saveFull(env, req, user, id, body) {
@@ -105,4 +107,28 @@ export async function setLogo(env, req, user, id, file) {
   ).bind(id, key).run();
   await audit(env, req, user.email, 'update', 'association_profiles', id, null, { logo_key: key });
   return { logo: `/u-logo/${id}?v=${Date.now()}` };
+}
+
+async function listNotes(env, id) {
+  const { results } = await env.DB.prepare('SELECT id, field, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
+  return results;
+}
+export async function addNote(env, req, user, id, body) {
+  await getAssociation(env, id);
+  const text = String(body.text || '').trim();
+  if (text.length < 3 || text.length > 500) fail(422, 'invalid', 'نص الملاحظة بين 3 و500 حرف');
+  const field = body.field ? String(body.field).slice(0, 30) : null;
+  const r = await env.DB.prepare('INSERT INTO association_notes (association_id, field, text, visible, created_by) VALUES (?1, ?2, ?3, ?4, ?5) RETURNING id')
+    .bind(id, field, text, body.visible === false ? 0 : 1, user.email).first();
+  await audit(env, req, user.email, 'create', 'association_notes', r.id, null, { association_id: id, field, text });
+  return { id: r.id, notes: await listNotes(env, id) };
+}
+export async function setNote(env, req, user, id, noteId, body) {
+  const st = body.status === 'resolved' ? 'resolved' : 'open';
+  const r = await env.DB.prepare(
+    `UPDATE association_notes SET status = ?3, resolved_by = CASE WHEN ?3 = 'resolved' THEN ?4 END, resolved_at = CASE WHEN ?3 = 'resolved' THEN ${NOW} END WHERE id = ?2 AND association_id = ?1`
+  ).bind(id, noteId, st, user.email).run();
+  if (!r.meta.changes) fail(404, 'not_found', 'الملاحظة غير موجودة');
+  await audit(env, req, user.email, 'update', 'association_notes', noteId, null, { status: st });
+  return { ok: true, notes: await listNotes(env, id) };
 }
