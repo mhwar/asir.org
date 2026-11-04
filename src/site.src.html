@@ -1008,6 +1008,15 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .rn li>div{flex:1;display:flex;flex-direction:column;gap:2px}.rn li b{font-weight:600;font-size:13.5px}.rn li small{color:var(--mute);font-size:12px}.rn li.resolved{opacity:.6;border-inline-start-color:#14804A}.rn li.resolved b{text-decoration:line-through}.rn li .btn{padding:4px 12px;font-size:12.5px}
 .rn-empty{color:var(--mute);font-size:13px;margin:4px 0}.rn-add{margin-top:10px;display:flex;flex-direction:column;gap:8px}.rn-add textarea{width:100%;box-sizing:border-box}.rn-add>div{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.rn-add select{flex:1;min-width:160px}
 .nmodal .th .nimg,.nc .th .nimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.nc .th .tag{z-index:1}.nc .th::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,81,.25),transparent 45%);pointer-events:none}
+
+.dbrowse{background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:24px;padding:18px 20px 20px;margin:0 0 18px;box-shadow:var(--shadow)}
+.dbh{display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:14px}.dbh>div b{display:block;color:var(--hd);font-size:16px}.dbh .hfseg{margin-top:8px}
+#dbAct{flex:1;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}.dbchip{background:var(--ice);color:var(--blue);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600}
+.dbmore{border:1px solid var(--line);border-radius:10px;padding:7px 14px;font-size:13px;font-weight:600;color:var(--hd);background:var(--sf)}
+.dbf.clip{overflow:hidden;-webkit-mask:linear-gradient(#000 78%,transparent);mask:linear-gradient(#000 78%,transparent)}
+.dbf .hf{background:var(--bg,var(--mist))}.dbf .hf.on{border-color:var(--blue);background:var(--ice);box-shadow:0 0 0 2px color-mix(in srgb,var(--blue) 25%,transparent)}
+.mapsec .head{margin-bottom:22px}
+@media(max-width:640px){.dbrowse{padding:14px;border-radius:18px}.dbh>div{width:100%}.hfseg{display:grid!important;grid-template-columns:repeat(3,1fr);width:100%;box-sizing:border-box}.hfseg button{padding:7px 4px;font-size:12px;line-height:1.35}}
 .closedbar{display:flex;gap:10px;align-items:flex-start;margin:14px 24px 0;padding:12px 14px;border-radius:12px;background:#F2F4F7;color:#344054;font-size:13px;line-height:1.7}
 .apabout{font-size:15px;line-height:1.9;color:var(--text)}.apchips2{display:flex;flex-wrap:wrap;gap:6px}.apchips2 span{padding:5px 12px;border-radius:999px;background:var(--ice);color:var(--hd);font-size:13px}
 .approgs{margin:0;padding-inline-start:20px;line-height:1.9}.aplinks{display:flex;flex-wrap:wrap;gap:12px}.aplinks a{color:var(--blue);font-weight:600}
@@ -1651,7 +1660,7 @@ h1,h2{text-wrap:balance}
 .thbtn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;border:1px solid rgba(255,255,255,.3)}
 .thbtn svg{width:19px;height:19px}
 header.top.solid .thbtn{color:var(--hd);border-color:var(--line)}
-.thbtn .ic-dark{display:none}
+.thbtn .ic-dark,.thbtn .ic-auto{display:none}html[data-pref=system] .thbtn .ic-auto{display:block!important}html[data-pref=system] .thbtn .ic-light,html[data-pref=system] .thbtn .ic-dark{display:none!important}.thm .thmenu{display:none!important}
 html[data-theme=dark] .thbtn .ic-dark{display:block}html[data-theme=dark] .thbtn .ic-light{display:none}
 .thmenu{display:none;position:absolute;top:48px;left:0;min-width:180px;padding:6px;border-radius:14px;background:var(--sf);border:1px solid var(--line);box-shadow:0 20px 44px -16px rgba(0,0,0,.35);z-index:60}
 .thm.open .thmenu{display:block}
@@ -1715,7 +1724,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <a href="#/contact" data-r="contact">تواصل معنا</a>
       <div class="nacts"><a href="#/consult" class="btn p">احجز استشارة</a><a href="#/portal" class="btn o" onclick="event.preventDefault();$('#nav').classList.remove('open');onScroll();openPortal()">دخول الجمعيات</a></div>
     </nav>
-    <div class="thm" id="thm"><button class="thbtn" id="thBtn" aria-haspopup="menu" aria-expanded="false" aria-label="نمط العرض"><svg class="i ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i ic-dark" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    <div class="thm" id="thm"><button class="thbtn" id="thBtn" aria-label="نمط العرض: حسب الجهاز" title="نمط العرض"><svg class="i ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i ic-dark" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i ic-auto" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M12 7v6" opacity=".5"/><path d="M12 7a3 3 0 0 0 0 6" fill="currentColor" stroke="none"/></svg></button>
       <div class="thmenu" role="menu" aria-label="نمط العرض"><button role="menuitemradio" data-p="light"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>فاتح</button><button role="menuitemradio" data-p="dark"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>داكن</button><button role="menuitemradio" data-p="system"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>حسب الجهاز</button></div></div>
     <button class="cta2" onclick="openPortal()"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>دخول الجمعيات</button>
     <a href="#/consult" class="cta">احجز استشارة</a>
@@ -1738,7 +1747,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <p class="hmem" id="hmem" data-gap-wrap="member"><svg class="i" viewBox="0 0 24 24" style="width:16px;height:16px"><path d="m5 12 5 5 9-10"/></svg><span data-gap="member"></span></p>
       <div class="btns">
         <a href="#/directory" class="btn p"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg>استكشف الخريطة والدليل</a>
-        <a href="#/about" class="btn o">عن المجلس وأدواره</a>
+        <a href="#" class="btn o" onclick="event.preventDefault();document.querySelector('.h-fields').scrollIntoView({behavior:'smooth',block:'start'})"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>تصفّح حسب التصنيف</a>
       </div>
     </div>
     <div class="hmmap" id="hmBox"><div class="hmlab" id="hmLab"></div><svg id="miniMap" role="group" aria-label="خريطة توزيع الجمعيات على محافظات عسير"></svg><div class="tip" id="hmTip"></div><div class="hmleg" id="hmLeg"></div><div class="hmx" id="hmX"></div><div class="hmhint">اضغط على محافظة أو اسمها لعرض جمعياتها · <a href="#/directory" style="color:var(--blue);font-weight:600">الخريطة الكاملة والدليل ←</a></div></div>
@@ -1899,6 +1908,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <div><span class="eyebrow" style="color:#8FD0FF">قاعدة بيانات الجمعيات</span><h2>خريطة الجمعيات الأهلية في عسير</h2></div>
       <p>دليل الجمعيات الأهلية المسجلة في منطقة عسير: ابحث بالاسم أو رقم الترخيص، وتصفّح حسب المحافظة والمجال والجهة المشرفة. <span class="tag" style="background:rgba(66,172,253,.15);color:#9FD6FF">تُعرض البيانات العامة فقط</span></p>
     </div>
+    <div class="dbrowse reveal" id="dbrowse"><div class="dbh"><div><b>تصفّح الدليل</b><div class="hfseg" id="dbSeg" role="tablist"><button class="on" data-k="grp">حسب مجال العمل</button><button data-k="sup">حسب الجهة الإشرافية</button><button data-k="gov">حسب المحافظة</button></div></div><span id="dbAct"></span><button type="button" class="dbmore" id="dbMore">عرض الكل</button></div><div class="hfields clip" id="dirFields"></div></div>
     <div class="fbar reveal" id="fbar">
       <span class="fl"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></svg>تصفية الخريطة والدليل</span>
       <label><span>المحافظة</span><select id="fGov"></select></label>
@@ -2300,7 +2310,7 @@ function fillFilters(){
  const tot=assoc.filter(match).length;
  $('#fchips').innerHTML=(FL.sup?`<span class="fsup">${supLogo(FL.sup,'xs')}${supShort(FL.sup)}</span>`:'')+(anyF()?`النتيجة: <b>${tot}</b> جمعية من ${assoc.length} في ${ALLG.filter(g=>ST[g]&&ST[g].n).length} محافظة`:'');
 }
-function applyFilters(){fillFilters();syncPct();classify();fillFilters();renderXgov();if(selGov)showCard(selGov);renderList();typeof renderAlt=='function'&&renderAlt()}
+function applyFilters(){fillFilters();syncPct();classify();fillFilters();renderXgov();if(selGov)showCard(selGov);renderList();typeof renderAlt=='function'&&renderAlt();typeof renderDirFields=='function'&&renderDirFields()}
 [['fGrp','grp'],['fS1','s1'],['fSupM','sup'],['fEra','era']].forEach(([id,k])=>$('#'+id).onchange=e=>{FL[k]=e.target.value;if(k=='grp')FL.s1='';applyFilters()});
 $('#freset').onclick=()=>{Object.keys(FL).forEach(k=>FL[k]='');applyFilters()};
 $('#fGov').onchange=e=>select(e.target.value||null);
@@ -2354,7 +2364,7 @@ function select(g){
  else{$('#sl').setAttribute('d','');zoomTo(FULL);$('#gcard').classList.remove('on')}
  if(hov)tip.innerHTML=tipHTML(hov);typeof renderAlt=='function'&&renderAlt();
  const fg=$('#fGov');if(fg){fg.value=g||'';fg.classList.toggle('act',!!g)}
- renderList();
+ renderList();typeof renderDirFields=='function'&&renderDirFields();
 }
 function showCard(g){const s=ST[g],mx=s.top[0]?s.top[0][1]:1;
  $('#gcard').innerHTML=`<div class="r1">${govIcon(g,34,'inv')}<h4>محافظة ${g}</h4><button class="x" aria-label="إغلاق" onclick="select(null)">${I(P.x,'width:16px;height:16px')}</button></div>
@@ -2415,6 +2425,24 @@ renderVtabs();
 let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>{renderLabels();typeof drawHome=='function'&&drawHome()},150)});
 
 
+
+/* ---------- directory: browse by field / supervisor / governorate ---------- */
+var DBK='grp',dbOpen=false;
+function dbActive(k,g){return k=='gov'?selGov==g:FL[k]==g}
+function dEsc(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c])}
+function renderDirFields(){const el=$('#dirFields');if(!el||!DBK)return;$$('#dbSeg button').forEach(b=>b.classList.toggle('on',b.dataset.k==DBK));
+ const L=cnt(assoc,DBK);el.className='hfields dbf'+(DBK=='sup'?' sup':DBK=='gov'?' gov':'')+(dbOpen?'':' clip');
+ el.innerHTML=L.map(([g,n])=>`<button class="hf ${DBK=='sup'?'hfs':DBK=='gov'?'hfg':''} ${dbActive(DBK,g)?'on':''}" data-g="${dEsc(g)}">${DBK=='grp'?`<span class="ic">${I(grpIcon(g),'width:22px;height:22px')}</span>`:DBK=='gov'?govIcon(g,48):supLogo(g)}<span><b>${DBK=='sup'?supShort(g):g}</b><small>${n} جمعية</small></span></button>`).join('');
+ const act=[FL.grp&&['grp',FL.grp],FL.sup&&['sup',supShort(FL.sup)],selGov&&['gov','محافظة '+selGov]].filter(Boolean);
+ $('#dbAct').innerHTML=act.map(([k,t])=>`<button type="button" class="dbchip" data-k="${k}">${dEsc(t)} ✕</button>`).join('');
+ const cols=getComputedStyle(el).gridTemplateColumns.split(' ').length,need=L.length>cols*2,h=el.firstElementChild?el.firstElementChild.offsetHeight:0;
+ el.classList.toggle('clip',need&&!dbOpen);el.style.maxHeight=need&&!dbOpen&&h?(2*h+12)+'px':'';$('#dbMore').hidden=!need;$('#dbMore').textContent=dbOpen?'عرض أقل':`عرض الكل (${L.length})`}
+$('#dbSeg').onclick=e=>{const b=e.target.closest('button');if(b){DBK=b.dataset.k;dbOpen=false;renderDirFields()}};
+$('#dbMore').onclick=()=>{dbOpen=!dbOpen;renderDirFields()};
+$('#dbAct').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;if(k=='gov')select(null);else{FL[k]='';if(k=='grp')FL.s1='';applyFilters()}renderDirFields()};
+$('#dirFields').onclick=e=>{const b=e.target.closest('[data-g]');if(!b)return;const g=b.dataset.g,on=dbActive(DBK,g);
+ if(DBK=='gov')select(on?null:g);else{FL[DBK]=on?'':g;if(DBK=='grp')FL.s1='';applyFilters()}
+ renderDirFields();if(!on)setTimeout(()=>$('#vtabs').scrollIntoView({behavior:'smooth',block:'start'}),60)};
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
@@ -2423,7 +2451,7 @@ function renderHomeFields(){const el=$('#homeFields');if(!el)return;const T=$('#
 const g0=x=>x;
 function renderHomeAssoc(){const el=$('#homeAssoc');if(!el)return;el.innerHTML=FEAT.map(id=>assoc.find(a=>a.id==id)).filter(Boolean).map(a=>`<button class="ha" data-l="${a.lic}"><span class="halg ${LOGO[a.id]?'hl':''}" style="${LOGO[a.id]?'':'background:var(--tile);color:var(--tilefg)'}">${LOGO[a.id]?`<img src="${LOGO[a.id]}" alt="شعار ${a.n}">`:`${I(grpIcon(a.grp),'width:30px;height:30px')}`}</span><b>${a.n}</b><small>${a.gov} · ${a.grp}</small></button>`).join('');
  el.onclick=e=>{const b=e.target.closest('.ha');if(b){go('association/'+b.dataset.l);window.scrollTo(0,0)}}}
-renderHomeAssoc();renderHomeFields();$('#hfSeg').onclick=e=>{const b=e.target.closest('button');if(b){HF=b.dataset.k;renderHomeFields()}};
+renderDirFields();renderHomeAssoc();renderHomeFields();$('#hfSeg').onclick=e=>{const b=e.target.closest('button');if(b){HF=b.dataset.k;renderHomeFields()}};
 /* drawer */
 function openOv(){$('#ov').classList.add('on')}
 function closeAll(){const ad=$('#adrawer');ad&&ad.classList.remove('on');$('#modal').classList.remove('wide');$('#modal').classList.remove('xwide');$('#ov').style.zIndex='';$('#modal').style.zIndex='';$('#ov').classList.remove('on');$('#drawer').classList.remove('on');$('#modal').classList.remove('on')}
@@ -2849,6 +2877,7 @@ function route(path){
  $$('.page').forEach(x=>x.classList.toggle('on',x.dataset.page==pg));
  $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.r==(r=='contact'?'contact':pg)));
  if(pg=='assoc')renderAssocPage(arg);
+ if(pg=='directory')setTimeout(renderDirFields,30);
  if(pg=='admin')adminEnter(arg);else adminLeave();
  document.title=(pg=='home'?'':(pg=='assoc'&&curAssoc?curAssoc.n:TITLES[pg])+' — ')+'مجلس الجمعيات الأهلية بعسير';
  const anchor={governance:'governance',board:'board',contact:'contact',platforms:'platforms'}[r];
@@ -2916,7 +2945,11 @@ function sitePref(){return document.documentElement.dataset.pref||'system'}
 function applyPref(p){const r=document.documentElement,d=p=='dark'||(p=='system'&&MQ&&MQ.matches);r.dataset.pref=p;r.dataset.theme=d?'dark':'light';try{localStorage.setItem('asirTheme',p)}catch(e){}
  $$('#thm [data-p]').forEach(b=>b.setAttribute('aria-checked',b.dataset.p==p));setTheme(d?'dark':'light')}
 MQ&&MQ.addEventListener&&MQ.addEventListener('change',()=>{if(sitePref()=='system')applyPref('system')});
-$('#thBtn').onclick=e=>{e.stopPropagation();const m=$('#thm'),o=!m.classList.contains('open');m.classList.toggle('open',o);$('#thBtn').setAttribute('aria-expanded',o)};
+// ضغطة واحدة تنقل بين الأنماط: فاتح ← داكن ← حسب الجهاز ← فاتح
+const THL={light:'فاتح',dark:'داكن',system:'حسب الجهاز'};
+function thLabel(){const p=sitePref(),b=$('#thBtn');b.setAttribute('aria-label','نمط العرض: '+THL[p]+' — اضغط للتبديل');b.title='نمط العرض: '+THL[p]}
+$('#thBtn').onclick=e=>{e.stopPropagation();const o=['light','dark','system'],n=o[(o.indexOf(sitePref())+1)%3];applyPref(n);thLabel();
+ toast(n=='system'?`نمط العرض: حسب الجهاز (${MQ&&MQ.matches?'داكن':'فاتح'} الآن)`:'نمط العرض: '+THL[n])};thLabel();
 $$('#thm [data-p]').forEach(b=>b.onclick=()=>{applyPref(b.dataset.p);$('#thm').classList.remove('open');$('#thBtn').setAttribute('aria-expanded','false')});
 document.addEventListener('click',e=>{if(!e.target.closest('#thm'))$('#thm').classList.remove('open')});
 

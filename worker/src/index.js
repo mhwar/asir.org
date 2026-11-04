@@ -9,6 +9,7 @@ import * as db from './db.js';
 import { readState, writeState } from './state.js';
 import * as rq from './requests.js';
 import * as pf from './profile.js';
+import { brandApi, serveBrand } from './brand.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -237,10 +238,13 @@ export default {
   async fetch(req, env) {
     const url = new URL(req.url);
     try {
+      if (url.pathname.startsWith('/api/brand')) { const r = await brandApi(req, env, url); if (r) return r; }
       if (url.pathname.startsWith('/api/')) return await api(req, env, url);
       if (url.pathname.startsWith('/auth/')) return (await authRoutes(req, env, url)) || json({ error: { code: 'not_found' } }, 404);
       const pm = url.pathname.match(/^\/u\/([A-Za-z0-9_-]{20,64})\/?$/);
       if (pm) return await servePortal(req, env, pm[1]);
+      const bm = url.pathname.match(/^\/brand\/([a-z0-9-]+)$/);
+      if (bm) return withHeaders(await serveBrand(env, bm[1]));
       const lg = url.pathname.match(/^\/u-logo\/(\d+)$/);
       if (lg) { const k = await rq.logoKey(env, Number(lg[1])); if (!k) return json({ error: { code: 'not_found' } }, 404); return withHeaders(await rq.serveFile(env, k)); }
       if (url.pathname === '/robots.txt') return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } });
