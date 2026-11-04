@@ -1054,6 +1054,43 @@ html[data-theme=dark] .ptile{background:#F4F6FB;border-color:transparent}
 html[data-theme=dark] .pllg{background:#F4F6FB;border-color:transparent}
 @media(max-width:1100px){#platforms .plats{grid-template-columns:1fr 1fr}}@media(max-width:640px){#platforms .plats{grid-template-columns:1fr}#platforms .pl small{display:block}.pllg{width:78px;height:54px}}
 .pclg .ptile{width:110px;height:56px;border-radius:12px}
+
+/* ---- directory v3 ---- */
+.mapsec.dir2{overflow:clip}
+.dir2 .head{margin-bottom:18px}
+.dsrch{display:flex;align-items:center;gap:12px;background:var(--sf);border:1px solid var(--line);border-radius:18px;padding:6px 18px;box-shadow:var(--shadow);margin-bottom:18px}
+.dsrch svg{width:22px;height:22px;color:#8C99C2;flex:none}.dsrch input{flex:1;border:0;background:transparent;font:inherit;font-size:16px;padding:12px 0;color:var(--text);outline:0;min-width:0}.dsrch span{color:var(--mute);font-size:13px;white-space:nowrap}
+.dlay{display:grid;grid-template-columns:272px minmax(0,1fr);gap:18px;align-items:start}
+.dfac{position:sticky;top:88px;max-height:calc(100vh - 104px);overflow:auto;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:16px;scrollbar-width:thin}
+.dfh{display:flex;align-items:center;gap:8px;margin-bottom:6px}.dfh b{color:var(--hd);font-size:15px;flex:1}.dfh button{font-size:12.5px;color:var(--blue);font-weight:600}.dfx,.dfapply{display:none!important}
+.dfg{padding:12px 0;border-top:1px solid var(--line)}.dfg:first-of-type{border-top:0}.dfg h5{margin:0 0 8px;font-size:12.5px;color:var(--mute);font-weight:600}
+.dfl{display:flex;flex-direction:column;gap:2px}.dfi{display:flex;align-items:center;gap:8px;width:100%;padding:7px 8px;border-radius:10px;text-align:start;font-size:13.5px;color:var(--text);transition:.15s}
+.dfi:hover{background:var(--mist)}.dfi span{flex:1;line-height:1.45}.dfi em{font-style:normal;font-size:12px;color:var(--mute);background:var(--mist);border-radius:999px;padding:1px 8px;min-width:22px;text-align:center}
+.dfi.on{background:var(--ice);color:var(--blue);font-weight:600}.dfi.on em{background:var(--blue);color:#fff}.dfi.zero{opacity:.45}
+.dfic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--tile);color:var(--tilefg);flex:none}.dfi .slogo.xs{width:40px;height:24px}
+.dfm{margin-top:4px;font-size:12.5px;color:var(--blue);font-weight:600;padding:4px 8px}
+.dfc{display:flex;flex-wrap:wrap;gap:6px}.dfc button{border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:12.5px;color:var(--text)}.dfc button em{font-style:normal;color:var(--mute)}.dfc button.on{background:var(--blue);border-color:var(--blue);color:#fff}.dfc button.on em{color:#DCE6FF}
+.dres{min-width:0;display:flex;flex-direction:column;gap:14px}
+.dtool{position:sticky;top:76px;z-index:5;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:0 6px 20px -14px rgba(9,9,81,.4)}
+.dcnt{font-size:14px;color:var(--mute)}.dcnt b{color:var(--hd);font-size:18px}
+.dchips{display:flex;gap:6px;flex-wrap:wrap}.dchip{background:var(--ice);color:var(--blue);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600}.dchip b{font-weight:400;margin-inline-start:2px}
+.dsp{flex:1}.dsort{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mute)}.dsort select{border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--sf);color:var(--text);font:inherit;font-size:13px}
+.dseg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:var(--mist);border:1px solid var(--line)}.dseg button{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9px;font-size:13px;font-weight:600;color:var(--mute)}.dseg button.on{background:var(--sf);color:var(--hd);box-shadow:0 1px 3px rgba(9,9,81,.14)}
+.dmapb{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--hd)}.dmapb[aria-pressed=true]{background:var(--navy,#13205B);color:#fff;border-color:transparent}.dmapb svg{width:16px;height:16px}
+.dfopen{display:none;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--hd)}.dfopen svg{width:16px;height:16px}.dfopen em{font-style:normal;background:var(--blue);color:#fff;border-radius:999px;padding:0 7px;font-size:11.5px}.dfopen em:empty{display:none}
+.dir2 .dmap{grid-template-columns:1fr!important}.dir2 .dmap .dir{display:none}.dir2 .altv{display:block}
+.dir2 .atbl{min-width:800px}.dir2 .tlic{font-size:11px;padding:1px 7px;margin-inline-end:4px;opacity:1}.dir2 .atbl td:first-child{width:32%;min-width:240px}.dir2 .atbl td:nth-child(4){min-width:220px}.dir2 .tsup{white-space:normal;line-height:1.45;font-size:12.5px}.dir2 .atbl td:last-child{padding-inline-end:16px}.dir2 #map{height:100%;width:100%;display:block}.dir2 .atbl td{vertical-align:middle}.dir2 .mstage{height:min(520px,62vh)}.dir2 .dmap .mapbox{min-height:0}
+.atbl thead th{position:sticky;top:0;z-index:1;background:var(--sf2,#171A45)}
+.tnm{display:flex;align-items:center;gap:10px}.tnm .lg{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;overflow:hidden}.tnm .lg img{width:80%;height:80%;object-fit:contain}.tnm small{display:block;font-size:11.5px;opacity:.7;margin-top:1px}
+.tgrp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.tgrp i{width:8px;height:8px;border-radius:50%;flex:none}.tlic{font-size:12px;padding:2px 8px;border-radius:8px;background:rgba(66,172,253,.12);white-space:nowrap}
+.atbl tbody tr{cursor:pointer;transition:background .15s}.atbl tbody tr:hover,.atbl tbody tr:focus{background:rgba(66,172,253,.08);outline:0}
+body.maplight .atbl thead th{background:#F4F6FB}body.maplight .tlic{color:var(--blue)}
+@media(max-width:1100px){.dlay{grid-template-columns:1fr}.dfopen{display:inline-flex}
+ .dfac{position:fixed;inset:auto 0 0 0;top:auto;max-height:86vh;border-radius:22px 22px 0 0;z-index:120;transform:translateY(105%);transition:transform .3s;box-shadow:0 -20px 60px rgba(9,9,81,.35);padding-bottom:84px}
+ .dfac.open{transform:none}.dfx{display:block!important;font-size:18px;color:var(--mute)!important}.dfapply{display:flex!important;position:fixed;bottom:14px;inset-inline:16px;justify-content:center}
+ body.dfmodal::after{content:'';position:fixed;inset:0;background:rgba(9,9,81,.45);z-index:110}}
+@media(max-width:640px){.dir2 .atw{border-radius:16px}.dir2 .atbl{min-width:0}.dir2 .atbl thead{display:none}.dir2 .atbl,.dir2 .atbl tbody,.dir2 .atbl tr{display:block}.dir2 .atbl tr{padding:12px 14px;border-top:1px solid var(--line)}.dir2 .atbl td{display:inline-block;border:0;padding:4px 0 0;font-size:12px;width:auto!important;min-width:0!important;max-width:none}.dir2 .atbl td:first-child{display:block;padding:0}.dir2 .atbl td:not(:first-child):not(:last-child)::after{content:'·';margin:0 6px;opacity:.5}.dir2 .atbl td:nth-child(4) .slogo{display:none}.dir2 .atbl td:nth-child(n+2){padding-inline-start:44px}.dir2 .atbl td:nth-child(n+3){padding-inline-start:0}
+.dtool{top:64px;padding:8px}.dseg button span{display:none}.dsort span{display:none}.dcnt{width:auto}.dsrch input{font-size:15px}.dsrch span{display:none}}
 .closedbar{display:flex;gap:10px;align-items:flex-start;margin:14px 24px 0;padding:12px 14px;border-radius:12px;background:#F2F4F7;color:#344054;font-size:13px;line-height:1.7}
 .apabout{font-size:15px;line-height:1.9;color:var(--text)}.apchips2{display:flex;flex-wrap:wrap;gap:6px}.apchips2 span{padding:5px 12px;border-radius:999px;background:var(--ice);color:var(--hd);font-size:13px}
 .approgs{margin:0;padding-inline-start:20px;line-height:1.9}.aplinks{display:flex;flex-wrap:wrap;gap:12px}.aplinks a{color:var(--blue);font-weight:600}
@@ -1942,28 +1979,27 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 </div>
 <div class="page" data-page="directory">
 <!-- ============ MAP + DIRECTORY ============ -->
-<section id="directory" class="mapsec">
+<section id="directory" class="mapsec dir2">
   <div class="wrap" style="position:relative">
     <div class="note"><b>دليل الجمعيات (بيانات المجلس الفعلية):</b> فلاتر موحّدة للخريطة والقائمة: المجال، التصنيف الفرعي، الجهة المشرفة، فترة التأسيس، مع عرض «المجال الغالب» وخيار النسبة من جمعيات المحافظة.  539 جمعية بعد إزالة 11 سجلاً مكرراً. يُعرض للزوار: الاسم، رقم الترخيص، سنة التأسيس، المحافظة، المجال والتصنيف، الجهة المشرفة. يبقى داخلياً للوحة التحكم: الرقم الموحد، تواريخ الترخيص وحالته، بريد وجوال الجمعية، أسماء وبريد الرئيس والمفوض. التواصل يمر عبر المجلس، ويظهر مباشرة فقط للجمعيات التي توافق على النشر. بوابة الجمعيات (زر «دخول الجمعيات» أعلى الصفحة أو «حدّث بياناتها» في بطاقة أي جمعية): دخول برقم الترخيص ورمز لمرة واحدة، ثم ملف الجمعية مع نسبة الاكتمال ورفع الشعار. محافظات البرك والأمواه والفرشة غير موجودة في طبقة الحدود المفتوحة، فتظهر كأزرار أسفل الخريطة.</div>
     <div class="head reveal">
-      <div><span class="eyebrow" style="color:#8FD0FF">قاعدة بيانات الجمعيات</span><h2>خريطة الجمعيات الأهلية في عسير</h2></div>
-      <p>دليل الجمعيات الأهلية المسجلة في منطقة عسير: ابحث بالاسم أو رقم الترخيص، وتصفّح حسب المحافظة والمجال والجهة المشرفة. <span class="tag" style="background:rgba(66,172,253,.15);color:#9FD6FF">تُعرض البيانات العامة فقط</span></p>
+      <div><span class="eyebrow" style="color:#8FD0FF">قاعدة بيانات الجمعيات</span><h2>دليل الجمعيات الأهلية في عسير</h2></div>
+      <p>ابحث بالاسم أو رقم الترخيص، وصفِّ النتائج بالمحافظة والمجال والجهة الإشرافية. <span class="tag" style="background:rgba(66,172,253,.15);color:#9FD6FF">تُعرض البيانات العامة فقط</span></p>
     </div>
-    <div class="dbrowse reveal" id="dbrowse"><div class="dbh"><div><b>تصفّح الدليل</b><div class="hfseg" id="dbSeg" role="tablist"><button class="on" data-k="grp">حسب مجال العمل</button><button data-k="sup">حسب الجهة الإشرافية</button><button data-k="gov">حسب المحافظة</button></div></div><span id="dbAct"></span><button type="button" class="dbmore" id="dbMore">عرض الكل</button></div><div class="hfields clip" id="dirFields"></div></div>
-    <div class="fbar reveal" id="fbar">
-      <span class="fl"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></svg>تصفية الخريطة والدليل</span>
-      <label><span>المحافظة</span><select id="fGov"></select></label>
-      <label><span>الجهة الإشرافية</span><select id="fSupM"></select></label>
-      <label><span>المجال (النشاط)</span><select id="fGrp"></select></label>
-      <label><span>التصنيف الفرعي</span><select id="fS1" disabled></select></label>
-      <label><span>فترة التأسيس</span><select id="fEra"></select></label>
-      <label><span>الترتيب</span><select id="fSort"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
-      <button class="freset" id="freset" hidden>مسح الفلاتر ✕</button>
-      <div class="fchips" id="fchips"></div>
-    </div>
-    <div class="vtabs reveal" role="tablist" aria-label="طريقة عرض الدليل" id="vtabs"></div>
-    <div class="altv" id="altView" hidden><div class="altbar"><div class="f"><svg class="i" viewBox="0 0 24 24" style="color:#8C99C2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" placeholder="ابحث بالاسم أو رقم الترخيص أو التصنيف..."></div><span id="altInfo"></span></div><div id="altBody"></div></div>
-    <div class="mapgrid reveal">
+    <div class="dsrch reveal"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" type="search" placeholder="ابحث باسم الجمعية أو رقم الترخيص أو التصنيف…" autocomplete="off"><span id="dsTot"></span></div>
+    <div class="dlay">
+      <aside class="dfac" id="dfac" aria-label="تصفية الدليل"><div class="dfh"><b>تصفية النتائج</b><button type="button" id="dfReset" hidden>مسح الكل</button><button type="button" class="dfx" id="dfClose" aria-label="إغلاق">✕</button></div><div id="dfBody"></div><button type="button" class="btn p dfapply" id="dfApply">عرض النتائج</button></aside>
+      <div class="dres">
+        <div class="dtool" id="dtool">
+          <button type="button" class="dfopen" id="dfOpen"><svg class="i" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></svg>الفلاتر <em id="dfN"></em></button>
+          <div class="dcnt" id="altInfo"></div>
+          <div class="dchips" id="dChips"></div>
+          <span class="dsp"></span>
+          <label class="dsort"><span>ترتيب</span><select id="fSort2"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
+          <div class="dseg" id="vtabs" role="tablist" aria-label="طريقة العرض"></div>
+          <button type="button" class="dmapb" id="dMapBtn" aria-pressed="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>إخفاء الخريطة</span></button>
+        </div>
+        <div class="mapgrid dmap" id="dMap">
       <div class="mapbox" id="mapbox">
         <div class="mbar">
           <div class="seg" id="view" role="tablist" aria-label="طريقة التلوين"><button class="on" data-v="count">عدد الجمعيات</button><button data-v="dom">المجال الغالب</button></div><button class="pctb" id="pctb" aria-pressed="false" hidden>كنسبة من جمعيات المحافظة %</button>
@@ -1985,15 +2021,11 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
         <div class="xgov" id="xgov"></div>
         <div class="legend" id="legend"></div>
       </div>
-      <div class="dir">
-        <div class="search">
-          <div class="f"><svg class="i" viewBox="0 0 24 24" style="color:#8C99C2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" placeholder="ابحث بالاسم أو رقم الترخيص أو التصنيف..."></div>
-          
         </div>
-        <div class="selgov"><span id="govLabel">كل المحافظات</span><button id="clearGov" style="display:none">عرض الكل ✕</button></div>
-        <div class="list" id="list"></div>
+        <div class="altv" id="altView"><div id="altBody"></div></div>
       </div>
     </div>
+    <div hidden id="dLegacy"><select id="fGov"></select><select id="fSupM"></select><select id="fGrp"></select><select id="fS1"></select><select id="fEra"></select><select id="fSort"></select><button id="freset"></button><div id="fchips"></div><input id="q"><div id="list"></div><span id="govLabel"></span><button id="clearGov"></button></div>
   </div>
 </section>
 
@@ -2435,15 +2467,15 @@ $('#list').addEventListener('pointerleave',()=>{if(!hov)$('#hl').classList.remov
 document.addEventListener('keydown',e=>{if(e.key=='Escape'&&selGov&&!$('#drawer').classList.contains('on'))select(null)});
 applyFilters();
 /* ---------- multiple views of the directory (shared filters + search) ---------- */
-const VIEWS=[['map','الخريطة','pin'],['tiles','المحافظات','grid'],['cards','بطاقات','building'],['table','جدول','file'],['stats','إحصاءات','chart']];
-var DV='map',altShown=60,tSort={k:'n',d:1};
+const VIEWS=[['table','جدول','file'],['cards','بطاقات','building'],['tiles','المحافظات','grid'],['stats','إحصاءات','chart']];
+var DV='table',altShown=60,tSort={k:'n',d:1};
 // schematic tile layout of the 19 governorates (row,col: north→south, west→east). Approximate, not to scale.
 const TILE={'الأمواه':[0,2],'بيشة':[0,3],'بلقرن':[1,0],'النماص':[1,1],'تنومة':[1,2],'تثليث':[1,4],'طريب':[1,5],'المجاردة':[2,0],'بارق':[2,1],'أبها':[2,2],'خميس مشيط':[2,3],'محايل عسير':[3,0],'رجال ألمع':[3,1],'أحد رفيدة':[3,3],'سراة عبيدة':[3,4],'الفرشة':[3,5],'البرك':[4,0],'ظهران الجنوب':[4,4],'الحرجة':[4,5]};
 const altRows=()=>{const q=norm(($('#q2')||{value:''}).value.trim());return assoc.filter(a=>(!selGov||a.gov==selGov)&&match(a)&&(!q||a.lic==q||norm(a.n).includes(q)||norm(a.gov).includes(q)||norm(a.s1+' '+a.s2).includes(q)))};
-function renderVtabs(){$('#vtabs').innerHTML=VIEWS.map(v=>`<button class="${DV==v[0]?'on':''}" data-v="${v[0]}">${I(P[v[2]],'width:17px;height:17px')}${v[1]}</button>`).join('')}
-function setDV(v){DV=v;altShown=60;renderVtabs();const m=v=='map';$('.mapgrid').hidden=!m;$('#altView').hidden=m;if(!m){$('#q2').value=$('#q').value;renderAlt()}else{$('#q').value=$('#q2').value;renderList();renderLabels&&renderLabels()}}
+function renderVtabs(){$('#vtabs').innerHTML=VIEWS.map(v=>`<button class="${DV==v[0]?'on':''}" data-v="${v[0]}" title="${v[1]}">${I(P[v[2]],'width:16px;height:16px')}<span>${v[1]}</span></button>`).join('')}
+function setDV(v){if(v=='map'){setMap(true);v='table'}DV=v;altShown=60;renderVtabs();renderAlt()}
 function renderAlt(){if(!DV||DV=='map'||!$('#altView'))return;const L=altRows(),B=$('#altBody');
- $('#altInfo').innerHTML=(selGov?`محافظة <b>${selGov}</b> <button class="xsel" onclick="select(null)">✕</button> · `:'')+`${L.length} جمعية`+(anyF()?' <span style="color:var(--sky)">(مع الفلاتر)</span>':'');
+ $('#altInfo').innerHTML=`<b>${L.length}</b> ${L.length==assoc.length?'جمعية':'نتيجة من '+assoc.length}`;
  if(DV=='tiles'){const mx=Math.max(1,...ALLG.map(g=>ST[g].n)),tot=ALLG.reduce((a,g)=>a+ST[g].n,0);
   const L=ALLG.slice().sort((a,b)=>ST[b].n-ST[a].n||a.localeCompare(b,'ar'));
   B.innerHTML=`<div class="gcards">${L.map((g,i)=>{const s=ST[g],pc=tot?Math.round(s.n/tot*100):0;return `<button class="gcd ${selGov==g?'on':''} ${s.n?'':'zero'}" data-g="${g}"><div class="r1">${govIcon(g,46)}<span class="nm"><b>${g}</b><small class="rk2">#${i+1}</small></span><strong>${s.n}</strong></div><div class="bar"><i style="width:${Math.round(s.n/mx*100)}%"></i></div><div class="r2"><small>${pc}% من ${anyF()?'النتائج':'جمعيات المنطقة'}</small>${s.top.slice(0,2).map(t=>`<em>${I(grpIcon(t[0]),'width:13px;height:13px')}${t[0]} <b>${t[1]}</b></em>`).join('')}</div></button>`}).join('')}</div>
@@ -2452,7 +2484,7 @@ function renderAlt(){if(!DV||DV=='map'||!$('#altView'))return;const L=altRows(),
  if(DV=='cards'){B.innerHTML=L.length?`<div class="acards">${L.slice(0,altShown).map(a=>`<button class="acard" data-id="${a.id}"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,20)}</span><b>${a.n}</b><small>${a.gov} · ${a.y||'—'}</small><span class="g" style="color:${GC[a.grp]}">${a.grp}</span><span class="s">${a.s1||''}</span><span class="f"><em>ترخيص ${a.lic}</em></span><span class="cs">${supLogo(a.sup,'xs')}<small>${supShort(a.sup)}</small></span></button>`).join('')}</div>${L.length>altShown?`<button class="more" id="amore">عرض المزيد (${L.length-altShown} متبقية)</button>`:''}`:'<div class="empty">لا توجد نتائج مطابقة</div>';}
  if(DV=='table'){const k=tSort.k,d=tSort.d,S=[...L].sort((x,y)=>{const a=x[k]??'',b=y[k]??'';return (typeof a=='number'&&typeof b=='number'?a-b:String(a).localeCompare(String(b),'ar'))*d});
   const th=(key,t)=>`<th><button data-s="${key}" class="${k==key?'on':''}">${t}${k==key?(d>0?' ▲':' ▼'):''}</button></th>`;
-  B.innerHTML=`<div class="atw"><table class="atbl"><thead><tr>${th('n','الجمعية')}${th('gov','المحافظة')}${th('grp','المجال')}${th('s1','التصنيف الفرعي')}${th('sup','الجهة الإشرافية')}${th('y','التأسيس')}${th('lic','الترخيص')}</tr></thead><tbody>${S.slice(0,altShown).map(a=>`<tr data-id="${a.id}"><td><b>${a.n}</b></td><td>${a.gov}</td><td><i style="background:${GC[a.grp]}"></i>${a.grp}</td><td>${a.s1||'—'}</td><td><span class="tsup">${supLogo(a.sup,'xs')}${supShort(a.sup)}</span></td><td>${a.y||'—'}</td><td class="ltr">${a.lic}</td></tr>`).join('')}</tbody></table></div>${S.length>altShown?`<button class="more" id="amore">عرض المزيد (${S.length-altShown} متبقية)</button>`:''}`}
+  B.innerHTML=`<div class="atw"><table class="atbl"><thead><tr>${th('n','الجمعية')}${th('gov','المحافظة')}${th('grp','المجال')}${th('sup','الجهة الإشرافية')}${th('y','التأسيس')}</tr></thead><tbody>${S.slice(0,altShown).map(a=>`<tr data-id="${a.id}" tabindex="0"><td><span class="tnm"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,16)}</span><span><b>${a.n}</b><small><span class="tlic">ترخيص ${a.lic}</span>${a.s1?' '+a.s1:''}</small></span></span></td><td>${a.gov}</td><td><span class="tgrp"><i style="background:${GC[a.grp]}"></i>${a.grp}</span></td><td><span class="tsup">${supLogo(a.sup,'xs')}${supShort(a.sup)}</span></td><td>${a.y||'—'}</td></tr>`).join('')}</tbody></table></div>${S.length>altShown?`<button class="more" id="amore">عرض المزيد (${S.length-altShown} متبقية)</button>`:''}`}
  if(DV=='stats'){const bar=(rows,tot,col)=>rows.map(([k,v])=>`<div class="sb"><span>${k}</span><i><em style="width:${(v/rows[0][1]*100).toFixed(1)}%;background:${col?col(k):'var(--sky)'}"></em></i><b>${v}</b><small>${Math.round(v/tot*100)}%</small></div>`).join('');
   const n=L.length||1,eras=ERAS.slice(1).map(e=>[e[1],L.filter(a=>eraOf(a.y)==e[0]).length]);
   B.innerHTML=L.length?`<div class="sgrid"><div class="sp2"><h4>حسب المحافظة</h4>${bar(cnt(L,'gov'),n)}</div><div class="sp2"><h4>حسب المجال</h4>${bar(cnt(L,'grp'),n,k=>GC[k])}</div><div class="sp2"><h4>حسب الجهة الإشرافية</h4>${bar(cnt(L,'sup').map(([k,v])=>[k.replace('وزارة ',''),v]).slice(0,8),n,()=>'#7FFFFF')}</div><div class="sp2"><h4>حسب فترة التأسيس</h4>${bar(eras.filter(e=>e[1]).sort((a,b)=>b[1]-a[1]),n,()=>'#A78BFA')}</div></div><p class="altnote">${I(P.info,'width:15px;height:15px;flex:none')}كل الأرقام تتبع الفلاتر والبحث والمحافظة المختارة.</p>`:'<div class="empty">لا توجد نتائج مطابقة</div>'}
@@ -2462,28 +2494,40 @@ function renderAlt(){if(!DV||DV=='map'||!$('#altView'))return;const L=altRows(),
 }
 $('#vtabs').onclick=e=>{const b=e.target.closest('[data-v]');if(b)setDV(b.dataset.v)};
 $('#q2').oninput=()=>{altShown=60;renderAlt()};
-renderVtabs();
+renderVtabs();renderAlt();
 let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>{renderLabels();typeof drawHome=='function'&&drawHome()},150)});
 
 
 
-/* ---------- directory: browse by field / supervisor / governorate ---------- */
-var DBK='grp',dbOpen=false;
-function dbActive(k,g){return k=='gov'?selGov==g:FL[k]==g}
+/* ---------- directory v3: facet panel + toolbar + collapsible map ---------- */
+var DBK=1,dfOpenG={};
 function dEsc(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c])}
-function renderDirFields(){const el=$('#dirFields');if(!el||!DBK)return;$$('#dbSeg button').forEach(b=>b.classList.toggle('on',b.dataset.k==DBK));
- const L=cnt(assoc,DBK);el.className='hfields dbf'+(DBK=='sup'?' sup':DBK=='gov'?' gov':'')+(dbOpen?'':' clip');
- el.innerHTML=L.map(([g,n])=>`<button class="hf ${DBK=='sup'?'hfs':DBK=='gov'?'hfg':''} ${dbActive(DBK,g)?'on':''}" data-g="${dEsc(g)}">${DBK=='grp'?`<span class="ic">${I(grpIcon(g),'width:22px;height:22px')}</span>`:DBK=='gov'?govIcon(g,48):supLogo(g)}<span><b>${DBK=='sup'?supShort(g):g}</b><small>${n} جمعية</small></span></button>`).join('');
- const act=[FL.grp&&['grp',FL.grp],FL.sup&&['sup',supShort(FL.sup)],selGov&&['gov','محافظة '+selGov]].filter(Boolean);
- $('#dbAct').innerHTML=act.map(([k,t])=>`<button type="button" class="dbchip" data-k="${k}">${dEsc(t)} ✕</button>`).join('');
- const cols=getComputedStyle(el).gridTemplateColumns.split(' ').length,need=L.length>cols*2,h=el.firstElementChild?el.firstElementChild.offsetHeight:0;
- el.classList.toggle('clip',need&&!dbOpen);el.style.maxHeight=need&&!dbOpen&&h?(2*h+12)+'px':'';$('#dbMore').hidden=!need;$('#dbMore').textContent=dbOpen?'عرض أقل':`عرض الكل (${L.length})`}
-$('#dbSeg').onclick=e=>{const b=e.target.closest('button');if(b){DBK=b.dataset.k;dbOpen=false;renderDirFields()}};
-$('#dbMore').onclick=()=>{dbOpen=!dbOpen;renderDirFields()};
-$('#dbAct').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;if(k=='gov')select(null);else{FL[k]='';if(k=='grp')FL.s1='';applyFilters()}renderDirFields()};
-$('#dirFields').onclick=e=>{const b=e.target.closest('[data-g]');if(!b)return;const g=b.dataset.g,on=dbActive(DBK,g);
- if(DBK=='gov')select(on?null:g);else{FL[DBK]=on?'':g;if(DBK=='grp')FL.s1='';applyFilters()}
- renderDirFields();if(!on)setTimeout(()=>$('#vtabs').scrollIntoView({behavior:'smooth',block:'start'}),60)};
+function fBase(k){return assoc.filter(a=>(k=='gov'||!selGov||a.gov==selGov)&&Object.entries(FL).every(([fk,fv])=>fk==k||(fk=='s1'&&k=='grp')||!fv||(fk=='era'?eraOf(a.y)==fv:a[fk]==fv)))}
+function renderDirFields(){const B=$('#dfBody');if(!B||!DBK)return;
+ const grp=(k,title,rows,lim,item)=>{const open=dfOpenG[k],more=rows.length>lim;return `<div class="dfg"><h5>${title}</h5><div class="dfl">${(open?rows:rows.slice(0,lim)).map(item).join('')}</div>${more?`<button type="button" class="dfm" data-more="${k}">${open?'عرض أقل':'عرض الكل ('+rows.length+')'}</button>`:''}</div>`};
+ const row=(k,v,n,on,ic)=>`<button type="button" class="dfi ${on?'on':''} ${n?'':'zero'}" data-k="${k}" data-v="${dEsc(v)}">${ic||''}<span>${dEsc(k=='sup'?supShort(v):v)}</span><em>${n}</em></button>`;
+ const govs=ALLG.map(g=>[g,fBase('gov').filter(a=>a.gov==g).length]).sort((x,y)=>y[1]-x[1]||x[0].localeCompare(y[0],'ar'));
+ let h=grp('gov','المحافظة',govs,8,([g,n])=>row('gov',g,n,selGov==g));
+ h+=grp('grp','مجال العمل',cnt(fBase('grp'),'grp'),12,([g,n])=>row('grp',g,n,FL.grp==g,`<i class="dfic">${I(grpIcon(g),'width:15px;height:15px')}</i>`));
+ if(FL.grp)h+=grp('s1','التصنيف الفرعي',cnt(fBase('s1'),'s1'),6,([g,n])=>row('s1',g,n,FL.s1==g));
+ h+=grp('sup','الجهة الإشرافية',cnt(fBase('sup'),'sup'),6,([g,n])=>row('sup',g,n,FL.sup==g,supLogo(g,'xs')));
+ const eb=fBase('era');h+=`<div class="dfg"><h5>فترة التأسيس</h5><div class="dfc">${ERAS.slice(1).map(([v,t])=>`<button type="button" class="${FL.era==v?'on':''}" data-k="era" data-v="${v}">${t} <em>${eb.filter(a=>eraOf(a.y)==v).length}</em></button>`).join('')}</div></div>`;
+ B.innerHTML=h;
+ const act=[selGov&&['gov',selGov],FL.grp&&['grp',FL.grp],FL.s1&&['s1',FL.s1],FL.sup&&['sup',supShort(FL.sup)],FL.era&&['era',(ERAS.find(e=>e[0]==FL.era)||[])[1]]].filter(Boolean);
+ $('#dChips').innerHTML=act.map(([k,t])=>`<button type="button" class="dchip" data-k="${k}">${dEsc(t)} <b>✕</b></button>`).join('');
+ $('#dfN').textContent=act.length||'';$('#dfReset').hidden=!act.length;
+ $('#dsTot').textContent=assoc.length+' جمعية';}
+function dfSet(k,v){if(k=='gov'){select(selGov==v?null:v);return}FL[k]=FL[k]==v?'':v;if(k=='grp')FL.s1='';applyFilters()}
+$('#dfBody').onclick=e=>{const m=e.target.closest('[data-more]');if(m){dfOpenG[m.dataset.more]=!dfOpenG[m.dataset.more];renderDirFields();return}const b=e.target.closest('[data-k]');if(b)dfSet(b.dataset.k,b.dataset.v)};
+$('#dChips').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;if(k=='gov')select(null);else{FL[k]='';if(k=='grp')FL.s1='';applyFilters()}};
+$('#dfReset').onclick=()=>{Object.keys(FL).forEach(k=>FL[k]='');selGov=null;select(null);applyFilters()};
+const dfSheet=o=>{$('#dfac').classList.toggle('open',o);document.body.classList.toggle('dfmodal',o)};
+$('#dfOpen').onclick=()=>dfSheet(true);$('#dfClose').onclick=$('#dfApply').onclick=()=>dfSheet(false);
+$('#fSort2').onchange=e=>{SORT=e.target.value;tSort={k:{n:'n',y:'y',yo:'y',gov:'gov'}[SORT],d:SORT=='y'?-1:1};renderAlt()};
+// map show / hide (remembered per browser)
+var MAPON=(()=>{try{const v=localStorage.getItem('asirDirMap');return v==null?innerWidth>760:v=='1'}catch(e){return true}})();
+function setMap(on){MAPON=on;try{localStorage.setItem('asirDirMap',on?'1':'0')}catch(e){}$('#dMap').hidden=!on;const b=$('#dMapBtn');b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?'إخفاء الخريطة':'إظهار الخريطة';if(on)setTimeout(()=>{renderLabels&&renderLabels()},30)}
+$('#dMapBtn').onclick=()=>setMap(!MAPON);setMap(MAPON);
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
@@ -2878,7 +2922,7 @@ let PARTNERS=[
  {id:4,n:'مركز تمكين للدراسات والبحوث',ty:'اتفاقية شراكة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:5,n:'جمعية أفق لتطوير العمل الخيري والتطوعي',ty:'مذكرة تفاهم',sec:'جمعية أهلية',st:'منتهية',term:'الدورة الأولى',show:1,lg:'ofuq',wh:1},
  {id:6,n:'مؤسسة سليمان الراجحي للتمويل التنموي',ty:'تعاون في فعالية',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
- {id:7,n:'منصة تنافس',ty:'تعاون في فعالية',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1},
+ {id:7,n:'منصة تنافس',ty:'تعاون في فعالية',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1,lg:'tanafos'},
  {id:8,n:'برنامج أهالينا للاستثمار الاجتماعي',ty:'منحة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1}];
 const PDEF=JSON.parse(JSON.stringify(PARTNERS));
 function partMerge(L){L.forEach(x=>{const d=PDEF.find(y=>y.id==x.id);if(d&&!x.lg&&d.lg){x.lg=d.lg;if(d.wh)x.wh=1}});return L}
@@ -3021,7 +3065,7 @@ document.addEventListener('click',e=>{if(!e.target.closest('#thm'))$('#thm').cla
 
 
 
-$('#hmForm').onsubmit=e=>{e.preventDefault();const v=$('#hq').value.trim();go('directory');$('#q').value=v;renderList()};
+$('#hmForm').onsubmit=e=>{e.preventDefault();const v=$('#hq').value.trim();go('directory');$('#q').value=v;$('#q2').value=v;altShown=60;renderAlt()};
 /* association public page */
 let curAssoc=null;
 function renderAssocPage(lic){
