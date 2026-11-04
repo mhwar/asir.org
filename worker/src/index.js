@@ -43,6 +43,12 @@ async function servePage(req, env, user) {
 async function servePortal(req, env, token) {
   const link = await rq.resolveLink(env, req, token);
   if (!link) return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط التحديث غير صالح أو انتهت مدته.</p><p>تواصل مع فريق المجلس لإرسال رابط جديد.</p>`, 404);
+  if (req.method === 'POST') {
+    const r = await rq.verifyPin(env, req, link, token);
+    if (!r.ok) return pinForm(r.message, r.locked ? 429 : 401);
+    return withHeaders(new Response(null, { status: 303, headers: { Location: `/u/${token}`, 'Set-Cookie': r.cookie, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
+  }
+  if (!(await rq.pinOk(env, req, link))) return pinForm();
   const asset = await env.ASSETS.fetch(new Request(new URL('/', req.url), { headers: req.headers }));
   let html = await asset.text();
   // public directory fields only (what the public site will show); internal data stays out
@@ -77,6 +83,12 @@ function previewForm(msg = '', status = 401) {
   return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>نسخة معاينة لفريق المجلس. أدخل رمز المعاينة.</p>
 <form method="post" action="/auth/preview"><input name="code" type="password" autocomplete="current-password" inputmode="text" required autofocus aria-label="رمز المعاينة">
 <button type="submit">دخول</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">للفريق فقط — لا يُنشر</div>`, status);
+}
+
+function pinForm(msg = '', status = 200) {
+  return shell(`<h1>تحديث بيانات الجمعية</h1><p>أدخل رمز الدخول المكوّن من 6 أرقام، المرسل لكم مع الرابط من مجلس الجمعيات الأهلية بعسير.</p>
+<form method="post"><input name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus aria-label="رمز الدخول" placeholder="••••••">
+<button type="submit">متابعة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لم يصلكم الرمز؟ تواصلوا مع فريق المجلس.</div>`, status, { 'Referrer-Policy': 'no-referrer' });
 }
 
 async function deniedPage(err, env) {
@@ -124,6 +136,7 @@ async function api(req, env, url) {
   if (um && m === 'POST') {
     const link = await rq.resolveLink(env, req, um[1]);
     if (!link) fail(404, 'invalid_link', 'رابط التحديث غير صالح أو انتهت مدته');
+    if (!(await rq.pinOk(env, req, link))) fail(401, 'pin_required', 'انتهت الجلسة. أعد فتح الرابط وأدخل رمز الدخول.');
     return json(await rq.submitRequest(env, req, link), 201);
   }
 

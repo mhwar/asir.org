@@ -32,6 +32,10 @@ export const UFIELDS = {
   s1:        { l: 'التصنيف الفرعي', kind: 'note', v: txt(120) },
   exp:       { l: 'تاريخ انتهاء الترخيص', kind: 'assoc', col: 'license_expires_on', v: date },
   licFile:   { l: 'صورة الترخيص الساري', kind: 'doc', file: { max: 10, types: ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'] } },
+  // corrections to official fields (locked in the portal; sent as «طلب تصحيح» with an optional document)
+  n:         { l: 'اسم الجمعية الرسمي (تصحيح)', kind: 'assoc', col: 'name_ar', v: txt(200), fix: true },
+  lic:       { l: 'رقم الترخيص (تصحيح)', kind: 'assoc', col: 'license_no', v: (x) => { x = String(x ?? '').trim(); if (!/^\d{1,20}$/.test(x)) fail(422, 'invalid', 'رقم الترخيص أرقام فقط'); return x; }, fix: true },
+  fixDoc:    { l: 'مستند داعم للتصحيح', kind: 'doc', file: { max: 10, types: ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'] } },
   // personal — accepted only when settings.collect_personal = '1'
   email:     { l: 'البريد الرسمي للجمعية', kind: 'contact', col: 'email', v: email, personal: true },
   mobile:    { l: 'جوال الجمعية', kind: 'contact', col: 'mobile', v: mobile, personal: true },
@@ -80,12 +84,14 @@ export async function createLinks(env, req, user, body) {
   const { results: names } = await env.DB.prepare(
     `SELECT a.id, a.name_ar AS name, a.license_no AS lic, g.name_ar AS gov FROM associations a JOIN governorates g ON g.id = a.governorate_id
       WHERE a.deleted_at IS NULL AND a.id IN (${ids.map(() => '?').join(',')})`).bind(...ids).all();
+  const withPin = body.pin !== false;
   for (const a of names) {
     const token = newToken();
+    const pin = withPin ? String(crypto.getRandomValues(new Uint32Array(1))[0] % 900000 + 100000) : null;
     stmts.push(env.DB.prepare(
-      `INSERT INTO update_links (association_id, token_hash, created_by, expires_at) VALUES (?1, ?2, ?3, strftime('%Y-%m-%dT%H:%M:%SZ','now', ?4))`
-    ).bind(a.id, await sha256(token), user.email, `+${days} days`));
-    rows.push({ association_id: a.id, name: a.name, lic: a.lic, gov: a.gov, url: `${origin}/u/${token}` });
+      `INSERT INTO update_links (association_id, token_hash, pin_hash, created_by, expires_at) VALUES (?1, ?2, ?3, ?4, strftime('%Y-%m-%dT%H:%M:%SZ','now', ?5))`
+    ).bind(a.id, await sha256(token), pin ? await sha256(token + ':' + pin) : null, user.email, `+${days} days`));
+    rows.push({ association_id: a.id, name: a.name, lic: a.lic, gov: a.gov, url: `${origin}/u/${token}`, pin });
   }
   if (body.replace !== false) // one active link per association: revoke older ones
     stmts.unshift(env.DB.prepare(`UPDATE update_links SET revoked_at = ${NOW} WHERE revoked_at IS NULL AND association_id IN (${names.map(() => '?').join(',')})`).bind(...names.map((a) => a.id)));
@@ -97,7 +103,7 @@ export async function createLinks(env, req, user, body) {
 export async function listLinks(env, params) {
   const id = Number(params.get('association_id')) || null;
   const { results } = await env.DB.prepare(
-    `SELECT l.id, l.association_id, a.name_ar AS name, l.created_by, l.created_at, l.expires_at, l.revoked_at, l.last_opened_at, l.opens, l.submissions,
+    `SELECT l.id, l.association_id, a.name_ar AS name, l.created_by, l.created_at, l.expires_at, l.revoked_at, l.last_opened_at, l.opens, l.submissions, (l.pin_hash IS NOT NULL) AS has_pin,
             CASE WHEN l.revoked_at IS NOT NULL THEN 'revoked' WHEN l.expires_at < ${NOW} THEN 'expired' ELSE 'active' END AS state
        FROM update_links l JOIN associations a ON a.id = l.association_id
       ${id ? 'WHERE l.association_id = ?1' : ''} ORDER BY l.id DESC LIMIT 1000`).bind(...(id ? [id] : [])).all();
@@ -117,7 +123,7 @@ export async function resolveLink(env, req, token) {
     `SELECT count(*) AS n FROM audit_log WHERE action = 'link_invalid' AND ip = ?1 AND at > strftime('%Y-%m-%dT%H:%M:%SZ','now','-15 minutes')`).bind(ip).first();
   if (bad.n >= 20) fail(429, 'rate_limited', 'محاولات كثيرة. حاول لاحقاً.');
   const l = await env.DB.prepare(
-    `SELECT id, association_id, expires_at FROM update_links WHERE token_hash = ?1 AND revoked_at IS NULL AND expires_at > ${NOW}`
+    `SELECT id, association_id, expires_at, pin_hash FROM update_links WHERE token_hash = ?1 AND revoked_at IS NULL AND expires_at > ${NOW}`
   ).bind(await sha256(token)).first();
   if (!l) {
     await env.DB.prepare("INSERT INTO audit_log (actor_email, action, entity, ip) VALUES ('anonymous','link_invalid','update_links',?1)").bind(ip).run();
@@ -136,6 +142,49 @@ export async function portalPayload(env, link) {
   const pending = [...new Set(results.flatMap((r) => Object.keys(JSON.parse(r.changes))))];
   const { results: govs } = await env.DB.prepare('SELECT name_ar AS n FROM governorates ORDER BY sort').all();
   return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n) };
+}
+
+// ─── PIN gate ────────────────────────────────────────────
+async function sessionKey(env) {
+  let r = await env.DB.prepare("SELECT value FROM settings WHERE key = 'session_key'").first();
+  if (!r) {
+    await env.DB.prepare("INSERT OR IGNORE INTO settings (key, value) VALUES ('session_key', ?1)").bind(hex(crypto.getRandomValues(new Uint8Array(32)))).run();
+    r = await env.DB.prepare("SELECT value FROM settings WHERE key = 'session_key'").first();
+  }
+  return r.value;
+}
+async function sign(env, msg) {
+  const k = await crypto.subtle.importKey('raw', Uint8Array.from((await sessionKey(env)).match(/../g).map((x) => parseInt(x, 16))), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']);
+  return hex(await crypto.subtle.sign('HMAC', k, enc.encode(msg)));
+}
+const eqs = (a, b) => { if (a.length !== b.length) return false; let x = 0; for (let i = 0; i < a.length; i++) x |= a.charCodeAt(i) ^ b.charCodeAt(i); return x === 0; };
+const UCOOKIE = 'asir_u', UHOURS = 12;
+
+export async function pinOk(env, req, link) {
+  if (!link.pin_hash) return true;
+  const m = (req.headers.get('Cookie') || '').match(/(?:^|;\s*)asir_u=([^;]+)/);
+  if (!m) return false;
+  const [id, exp, sig] = m[1].split('.');
+  if (Number(id) !== link.id || !exp || Number(exp) < Date.now() / 1000 || !sig) return false;
+  return eqs(await sign(env, `u.${id}.${exp}`), sig);
+}
+
+export async function verifyPin(env, req, link, token) {
+  const f = await env.DB.prepare(
+    `SELECT count(*) AS n FROM audit_log WHERE action = 'pin_failed' AND entity = 'update_links' AND entity_id = ?1 AND at > strftime('%Y-%m-%dT%H:%M:%SZ','now','-30 minutes')`
+  ).bind(String(link.id)).first();
+  if (f.n >= 5) return { ok: false, locked: true, message: 'أُوقف الدخول مؤقتاً بعد 5 محاولات خاطئة. حاول بعد 30 دقيقة أو اطلب رمزاً جديداً من المجلس.' };
+  const form = await req.formData();
+  const pin = String(form.get('pin') || '').replace(/\D/g, '');
+  if (pin.length !== 6 || !eqs(await sha256(token + ':' + pin), link.pin_hash)) {
+    await env.DB.prepare("INSERT INTO audit_log (actor_email, action, entity, entity_id, ip) VALUES ('anonymous','pin_failed','update_links',?1,?2)")
+      .bind(String(link.id), req.headers.get('CF-Connecting-IP')).run();
+    const left = 4 - f.n;
+    return { ok: false, message: left > 0 ? `رمز الدخول غير صحيح. متبقٍ ${left} ${left > 2 ? 'محاولات' : 'محاولة'}.` : 'رمز الدخول غير صحيح.' };
+  }
+  const exp = Math.floor(Date.now() / 1000) + UHOURS * 3600;
+  const sig = await sign(env, `u.${link.id}.${exp}`);
+  return { ok: true, cookie: `${UCOOKIE}=${link.id}.${exp}.${sig}; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=${UHOURS * 3600}` };
 }
 
 // ─── submission (multipart: data = JSON, submitter_name, submitter_role, note, files logo / licFile) ───

@@ -58,6 +58,8 @@ const EDITABLE = {
   license_expires_on: (v) => dateOrNull(v, 'license_expires_on'),
   registry_status: (v) => { if (!['مفعل', 'منتهي', 'موقوف'].includes(v)) fail(422, 'invalid', 'حالة السجل غير صالحة', { field: 'registry_status' }); return v; },
   is_published: (v) => (v ? 1 : 0),
+  closed_on: (v) => dateOrNull(v, 'closed_on'),
+  closure_reason: (v) => { v = String(v ?? '').trim(); if (v.length > 300) fail(422, 'invalid', 'سبب الإغلاق أطول من 300 حرف', { field: 'closure_reason' }); return v || null; },
 };
 function intRef(v, field) { const n = Number(v); if (!Number.isInteger(n) || n < 1) fail(422, 'invalid', 'قيمة غير صالحة', { field }); return n; }
 function dateOrNull(v, field) { if (v == null || v === '') return null; if (!DATE.test(v) || isNaN(Date.parse(v))) fail(422, 'invalid', 'تاريخ غير صالح (YYYY-MM-DD)', { field }); return v; }
@@ -92,6 +94,8 @@ export async function updateAssociation(env, id, body) {
   if (!before) fail(404, 'not_found', 'الجمعية غير موجودة');
   const patch = clean(body);
   await checkField(env, patch.field_id);
+  if (patch.closed_on && !(patch.closure_reason || before.closure_reason)) fail(422, 'required', 'اذكر سبب الإغلاق', { field: 'closure_reason' });
+  if ('closed_on' in patch && !patch.closed_on) patch.closure_reason = null;
   const cols = Object.keys(patch);
   try {
     await env.DB.prepare(
@@ -135,21 +139,34 @@ export async function auditList(env, params) {
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 export async function pagePayload(env) {
-  const [adm, meta] = await env.DB.batch([
+  const [adm, meta, prof] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
     env.DB.prepare("SELECT max(updated_at) AS synced FROM associations"),
+    env.DB.prepare('SELECT association_id AS id, short_name, about, website, social, beneficiaries, programs, logo_key FROM association_profiles'),
   ]);
+  const P = Object.fromEntries(prof.results.map((p) => [p.id, p]));
   const rows = adm.results;
-  // RAW (internal) — 23 columns; personal columns (3, 15-20, 22) stay empty until the contacts decision
+  // RAW (internal) — 23 columns as in 0.28, then: 23 closed_on, 24 closure_reason, 25 logo url, 26 about
+  // personal columns (3, 15-20, 22) stay empty until the contacts decision
   const raw = rows.map((a) => [
     a.id, a.name, a.license_no, '', a.governorate, a.field_group, a.field_category, a.field_subcategory, a.supervisor,
-    a.founded_on || '', a.license_issued_on || '', a.license_expires_on || '', a.days_to_expiry ?? '', a.registry_status,
-    a.license_state || '', '', '', '', '', '', '', a.contact_consent ? 'نعم' : 'لا', '',
+    a.founded_on || '', a.license_issued_on || '', a.license_expires_on || '', a.days_to_expiry ?? '',
+    a.closed_on ? 'مغلقة' : a.registry_status, a.license_state || '', '', '', '', '', '', '', a.contact_consent ? 'نعم' : 'لا', '',
+    a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
   ]);
-  // public list — published only
-  const pub = rows.filter((a) => a.is_published).map((a) => ({
-    id: a.id, n: a.name, lic: a.license_no, y: a.founded_on ? Number(a.founded_on.slice(0, 4)) : null,
-    sup: a.supervisor, gov: a.governorate, grp: a.field_group, s1: a.field_category, s2: a.field_subcategory,
-  }));
+  // public list — published and not closed
+  const pub = rows.filter((a) => a.is_published && !a.closed_on).map((a) => {
+    const p = P[a.id] || {};
+    const o = { id: a.id, n: a.name, lic: a.license_no, y: a.founded_on ? Number(a.founded_on.slice(0, 4)) : null,
+      sup: a.supervisor, gov: a.governorate, grp: a.field_group, s1: a.field_category, s2: a.field_subcategory };
+    if (p.logo_key) o.lg = `/u-logo/${a.id}`;
+    if (p.about) o.ab = p.about;
+    if (p.short_name) o.sh = p.short_name;
+    if (p.website) o.web = p.website;
+    if (p.social) o.soc = p.social;
+    if (p.programs) o.pr = p.programs;
+    if (p.beneficiaries) o.bn = JSON.parse(p.beneficiaries);
+    return o;
+  });
   return { raw, pub, synced: meta.results[0]?.synced || null };
 }
