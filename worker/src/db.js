@@ -138,6 +138,22 @@ export async function auditList(env, params) {
   return results;
 }
 
+// data-quality notes, recomputed on every load so they disappear once the data is fixed
+function dataIssues(a, c) {
+  const out = [];
+  if (!a.closed_on) {
+    if (!c.mobile) out.push('جوال الجمعية مفقود');
+    if (!c.email) out.push('بريد الجمعية مفقود');
+    if (a.registry_status === 'مفعل' && a.license_state === 'منتهي') out.push('الحالة "مفعل" رغم انتهاء تاريخ الترخيص');
+  }
+  for (const n of (c.import_notes || '').split('؛ ').filter(Boolean)) {
+    if (n.startsWith('بريد الرئيس') && c.president_email) continue;
+    if (n.startsWith('بريد المفوض') && c.delegate_email) continue;
+    out.push(n);
+  }
+  return out.join('؛ ');
+}
+
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 export async function pagePayload(env) {
   const [adm, meta, prof, con] = await env.DB.batch([
@@ -156,7 +172,7 @@ export async function pagePayload(env) {
     a.founded_on || '', a.license_issued_on || '', a.license_expires_on || '', a.days_to_expiry ?? '',
     a.closed_on ? 'مغلقة' : a.registry_status, a.license_state || '',
     c.email || '', c.mobile || '', c.delegate_name || '', c.delegate_email || '', c.president_name || '', c.president_email || '',
-    a.contact_consent ? 'نعم' : 'لا', '',
+    a.contact_consent ? 'نعم' : 'لا', dataIssues(a, c),
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
   ]; });
   // public list — published and not closed
