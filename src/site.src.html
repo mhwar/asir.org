@@ -1812,10 +1812,11 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 @media (prefers-reduced-motion:reduce){body{transition:none}}
 /* ---------- dashboard sidebar v2: one labeled sidebar, accordion groups ---------- */
 .j{--side:268px}
+@media (min-width:901px){
 .jbody{grid-template-columns:var(--side) minmax(0,1fr)}
 .j.noside .jbody{grid-template-columns:72px minmax(0,1fr)}
 .j.noside .jside{display:flex}
-.j.noside .jcard{border-radius:18px 0 0 18px}
+.j.noside .jcard{border-radius:18px 0 0 18px}}
 .jside{padding:12px 10px 10px;gap:0;scrollbar-width:thin}
 .jnav{display:flex;flex-direction:column;gap:2px}
 .jgrp{position:relative}
@@ -2008,7 +2009,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 .csprev{position:sticky;top:132px;align-self:start}
 .csprev .stc,.csprev .nc{pointer-events:none}
 @media (max-width:1100px){.csgrid{grid-template-columns:1fr}.csprev{position:static;max-width:380px}}
-@media (max-width:760px){.csr{grid-template-columns:52px minmax(0,1fr)}.csth{width:52px;height:42px}.cstags,.csa{grid-column:1/-1;justify-content:flex-start}.cstg{grid-template-columns:1fr}.csq input{width:120px}}
+@media (max-width:760px){.csf{flex-wrap:nowrap;overflow-x:auto;max-width:100%;scrollbar-width:none}.csf button{white-space:nowrap}.cshead>.sp{display:none}.csq{flex:1}.csq input{width:100%}.csr{grid-template-columns:52px minmax(0,1fr)}.csth{width:52px;height:42px}.cstags,.csa{grid-column:1/-1;justify-content:flex-start}.cstg{grid-template-columns:1fr}.csq input{width:120px}}
 /* ---------- inbox ---------- */
 .ibsel{height:38px;padding:0 10px;border:1px solid #E4E7EE;border-radius:11px;background:#fff;font:inherit;font-size:13px;color:var(--hd)}
 .iblist{display:flex;flex-direction:column;border:1px solid #E4E7EE;border-radius:16px;overflow:hidden;background:#fff}
