@@ -5,7 +5,7 @@ import { json, fail } from './http.js';
 import { requireUser, can } from './auth.js';
 import { audit } from './db.js';
 
-const SLUG = /^[a-z0-9-]{2,40}$/;
+const SLUG = /^[a-z0-9-]{2,60}$/;
 const TYPES = { 'image/png': 1, 'image/svg+xml': 1, 'image/jpeg': 1, 'image/webp': 1 };
 const MAX = 2 * 1024 * 1024;
 const CORS = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'PUT, OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type, X-Brand-Drop', 'Access-Control-Max-Age': '600' };
@@ -33,7 +33,9 @@ export async function brandApi(req, env, url) {
     actor = 'brand-drop';
   } else {
     const user = await requireUser(req, env);
-    if (!can(user, 'partners', 'write')) fail(403, 'forbidden', 'لا تملك صلاحية لهذا الإجراء');
+    // صور المحتوى (c-*) لمحرر المحتوى، وبقية الشعارات لصلاحية الشركاء
+    const mod = /^c-/.test(m[1] || '') ? 'content' : 'partners';
+    if (!can(user, mod, 'write')) fail(403, 'forbidden', 'لا تملك صلاحية لهذا الإجراء');
     actor = user.email;
   }
   const slug = m[1];

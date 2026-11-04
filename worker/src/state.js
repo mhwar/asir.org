@@ -13,6 +13,7 @@ export const STATE_KEYS = {
   asirBoard2:    { module: 'board', public: true },
   asirImpact:    { module: 'board', public: true },
   asirLaunchOff: { module: 'launch' },
+  asirContent:   { module: 'content', public: true },
 };
 const MAX_BYTES = 256 * 1024;
 

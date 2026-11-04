@@ -10,6 +10,7 @@ import { readState, writeState } from './state.js';
 import * as rq from './requests.js';
 import * as pf from './profile.js';
 import { brandApi, serveBrand } from './brand.js';
+import * as msg from './messages.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -133,6 +134,13 @@ async function api(req, env, url) {
     return json(await db.lookups(env), 200, { 'Cache-Control': 'public, max-age=3600' });
   }
 
+  // Contact form / founding help: open to visitors, rate-limited, honeypot-guarded
+  if (path === '/api/public/contact' && m === 'POST') {
+    const origin = req.headers.get('Origin');
+    if (origin && origin !== url.origin) fail(403, 'bad_origin', 'مصدر الطلب غير مسموح');
+    return json(await msg.submitMessage(env, req, await readJson(req)), 201);
+  }
+
   // Association update link (no account: the link itself is the credential)
   const um = path.match(/^\/api\/u\/([A-Za-z0-9_-]{20,64})$/);
   if (um && m === 'POST') {
@@ -149,6 +157,10 @@ async function api(req, env, url) {
     const origin = req.headers.get('Origin');
     if (origin && origin !== url.origin) fail(403, 'bad_origin', 'مصدر الطلب غير مسموح');
   }
+
+  if (path === '/api/messages' && m === 'GET') { requirePerm(user, 'inbox'); return json({ data: await msg.listMessages(env) }); }
+  const mm = path.match(/^\/api\/messages\/(\d+)$/);
+  if (mm && m === 'PATCH') { requirePerm(user, 'inbox', 'write'); return json(await msg.updateMessage(env, req, user, idFrom(mm[1]), await readJson(req))); }
 
   if (path === '/api/me') return json({ email: user.email, name: user.name, role: user.role, roleName: user.roleName, permissions: Object.fromEntries(user.perms) });
   if (path === '/api/lookups') return json(await db.lookups(env));

@@ -1172,10 +1172,10 @@ body.maplight .atbl thead th{background:#F4F6FB}body.maplight .tlic{color:var(--
 .jside{background:var(--sf);border:1px solid #E4E7EE;border-left:0;border-radius:0 18px 18px 0;padding:16px 10px;display:flex;flex-direction:column;gap:2px;overflow:auto;max-height:calc(100vh - 78px);position:sticky;top:62px}
 .jgt{font-size:15px;font-weight:700;color:var(--hd);padding:4px 12px 10px}
 .jside h6,.jfly h6{font-size:11.5px;font-weight:600;color:#9AA2BB;margin:12px 12px 4px}
-.jside button,.jfly button{display:flex;align-items:center;gap:8px;width:100%;text-align:start;padding:9px 12px;border-radius:10px;color:#3D4462;font-size:13.5px;font-weight:500;position:relative}
-.jside button:hover,.jfly button:hover{background:#F3F4F7}
-.jside button.on,.jfly button.on{background:#EEF0F5;color:var(--hd);font-weight:700}
-.jside button.on::after{content:"";position:absolute;right:-10px;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--navy)}
+.jfly button{display:flex;align-items:center;gap:8px;width:100%;text-align:start;padding:9px 12px;border-radius:10px;color:#3D4462;font-size:13.5px;font-weight:500;position:relative}
+.jfly button:hover{background:#F3F4F7}
+.jfly button.on{background:#EEF0F5;color:var(--hd);font-weight:700}
+.jfly button.on::after{display:none;content:"";position:absolute;right:-10px;top:8px;bottom:8px;width:2px;border-radius:2px;background:var(--navy)}
 .jside .bd,.jfly .bd{margin-inline-start:auto;min-width:20px;height:20px;padding:0 6px;border-radius:99px;background:#F04438;color:#fff;font-size:11px;font-weight:700;display:grid;place-items:center}
 .jmob{display:none}.jsh{display:none}.jbd{display:none}
 .jcard{padding:0;background:var(--sf);border:1px solid #E4E7EE;border-radius:18px 0 0 18px;min-width:0;display:flex;flex-direction:column}
@@ -1810,6 +1810,224 @@ html[data-theme=dark] body.inadmin .p-ok{background:#E5F8EE;color:#14804A}html[d
 html[data-theme=dark] body.inadmin .demo{color:#9A6B00;background:#FFF6DD;border-color:#F5E2A8}
 html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 @media (prefers-reduced-motion:reduce){body{transition:none}}
+/* ---------- dashboard sidebar v2: one labeled sidebar, accordion groups ---------- */
+.j{--side:268px}
+.jbody{grid-template-columns:var(--side) minmax(0,1fr)}
+.j.noside .jbody{grid-template-columns:72px minmax(0,1fr)}
+.j.noside .jside{display:flex}
+.j.noside .jcard{border-radius:18px 0 0 18px}
+.jside{padding:12px 10px 10px;gap:0;scrollbar-width:thin}
+.jnav{display:flex;flex-direction:column;gap:2px}
+.jgrp{position:relative}
+.jng{display:flex;align-items:center;gap:10px;width:100%;min-height:40px;padding:8px 10px;border-radius:11px;color:#3D4462;font-size:13.5px;font-weight:600;text-align:start;transition:background .15s,color .15s}
+.jng>svg:first-child{color:#7A829E;flex:none}
+.jng>span:not(.bd){flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.jng>svg:last-child{color:#A3ABC4;flex:none;transform:scaleX(-1);transition:transform .2s}
+.jgrp.open>.jng>svg:last-child{transform:rotate(90deg)}
+.jng:hover{background:#F3F4F7;color:var(--hd)}
+.jng:focus-visible,.jni:focus-visible,.jcol:focus-visible{outline:2px solid var(--sky);outline-offset:1px}
+.jgrp.cur>.jng{color:var(--hd)}.jgrp.cur>.jng>svg:first-child{color:var(--navy)}
+.jgrp.solo .jng.on{background:var(--navy);color:#fff}.jgrp.solo .jng.on svg{color:#fff}
+.jside .bd.gb:empty{display:none}.jgrp.open>.jng .bd.gb{display:none}
+.jnis{display:none;flex-direction:column;gap:1px;margin:2px 19px 8px 0;padding-inline-start:10px;border-inline-start:1px solid #E4E7EE}
+.jgrp.open>.jnis{display:flex;animation:jnin .18s ease-out}
+@keyframes jnin{from{opacity:0;transform:translateY(-3px)}}
+.jni{display:flex;align-items:center;gap:8px;width:100%;text-align:start;padding:7px 10px;border-radius:9px;color:#4A5272;font-size:13px;font-weight:500;position:relative;min-height:34px}
+.jni>span:first-child{flex:1;min-width:0}
+.jni:hover{background:#F3F4F7;color:var(--hd)}
+.jni.on{background:#EEF1FA;color:var(--navy);font-weight:700}
+.jnis .jni.on::before{content:"";position:absolute;inset-inline-start:-11px;top:7px;bottom:7px;width:2px;border-radius:2px;background:var(--navy)}
+.jpins{margin-top:12px;padding-top:10px;border-top:1px solid #EEF0F4;display:flex;flex-direction:column;gap:1px}
+.jpins h6{display:flex;align-items:center;gap:6px;margin:0 10px 6px!important}
+.jfoot{margin-top:auto;padding-top:10px;border-top:1px solid #EEF0F4;display:flex;flex-direction:column;gap:2px}
+.jgrp.tmp>.jng{color:#8A5300;background:#FFF8E6}.jgrp.tmp>.jng>svg:first-child{color:#A35E00}
+.jgrp.tmp .jnis{border-color:#F0DDB0}
+.jtmp{margin:2px 10px 6px;font-size:11.5px;color:#A35E00;line-height:1.6}
+.jcol{display:flex;align-items:center;gap:10px;width:100%;min-height:38px;padding:8px 10px;border-radius:11px;color:#6B7393;font-size:12.5px;font-weight:600}
+.jcol:hover{background:#F3F4F7;color:var(--hd)}
+.jfly{display:none}
+@media (min-width:901px){
+ .j.noside .jside{padding:12px 8px;overflow:visible;z-index:30}
+ .j.noside .jng,.j.noside .jcol{justify-content:center;padding:10px 0}
+ .j.noside .jng>span:not(.bd),.j.noside .jng>svg:last-child,.j.noside .jnis,.j.noside .jpins,.j.noside .jcol span,.j.noside .jtmp{display:none!important}
+ .j.noside .jng .bd{position:absolute;top:4px;left:6px;min-width:16px;height:16px;font-size:10px;padding:0 4px}
+ .j.noside .jgrp.open>.jng .bd.gb:not(:empty){display:grid}
+ .j.noside .jcol svg{transform:scaleX(-1)}
+ .j.noside .jgrp.cur>.jng{background:var(--navy)}.j.noside .jgrp.cur>.jng svg{color:#fff!important}
+ .j.noside .jgrp:hover>.jfly,.j.noside .jgrp:focus-within>.jfly{display:block;position:absolute;top:-6px;right:calc(100% + 10px);width:240px;padding:10px;border-radius:16px;background:var(--sf);border:1px solid #E4E7EE;box-shadow:0 18px 40px -12px rgba(9,9,81,.22);z-index:40}
+ .j.noside .jfly::before{content:"";position:absolute;top:0;right:-14px;width:16px;height:100%}
+ .jfly>b{display:block;font-size:13.5px;color:var(--hd);padding:4px 10px 8px}
+}
+@media (max-width:900px){
+ .jside{gap:0}
+ .jng{min-height:46px;font-size:14.5px}.jni{min-height:42px;font-size:14px}
+ .jcol{display:none}
+}
+/* ---------- standalone read page (#/read/<id>) ---------- */
+.rdhero{position:relative;min-height:min(62vh,560px);display:flex;align-items:flex-end;background:var(--deep);color:#fff;overflow:hidden;padding:120px 0 40px}
+.rdhero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rdhero .rdsh{position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,81,.25) 0%,rgba(9,9,81,.55) 45%,rgba(9,9,81,.94) 100%)}
+.rdhero .rdic{position:absolute;inset:0;display:none;place-items:center;color:rgba(255,255,255,.14)}
+.rdhero.noimg{min-height:auto;padding-top:140px;background:radial-gradient(120% 120% at 100% 0,#1818A0 0,var(--deep) 60%)}
+.rdhero.noimg .rdic{display:grid;justify-items:end;padding-inline-end:8%}
+.rdhero .wrap{position:relative;z-index:1}
+.rdhero .crumb a,.rdhero .crumb span{color:rgba(255,255,255,.75)}
+.rdhero h1{font-size:clamp(26px,3.6vw,46px);line-height:1.3;max-width:900px;margin:12px 0 0;color:#fff;text-wrap:balance}
+.rdlead{max-width:760px;margin-top:14px;font-size:clamp(15.5px,1.4vw,18.5px);line-height:1.9;color:rgba(255,255,255,.88)}
+.rdtags{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:18px}
+.rdtags span{padding:5px 12px;border-radius:999px;background:rgba(255,255,255,.14);backdrop-filter:blur(6px);font-size:12.5px;font-weight:600}
+.rdtags span:first-child{background:var(--cyan);color:var(--deep)}
+.rdtags .draft{background:#FFC46B!important;color:#4A2C00!important}
+.rdtags time{font-size:13px;color:rgba(255,255,255,.75)}
+.rdbody{padding:44px 0 56px}
+.rdgrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:clamp(24px,4vw,64px);align-items:start}
+.rdart{max-width:780px;font-size:16.5px;line-height:2;color:var(--text);display:flex;flex-direction:column;gap:14px}
+.rdart h3{font-size:20px;color:var(--hd);margin-top:6px}.rdart h4{font-size:16px;color:var(--hd);margin-top:8px}
+.rdart p{margin:0}
+.rdart .stmx{margin-bottom:8px}.rdart .stmx b{font-size:30px}
+.rdgal{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:6px}.rdgal img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:16px;background:var(--mist)}
+.rdsrc{display:flex;gap:8px;align-items:flex-start;font-size:13.5px;color:var(--mute);padding-top:14px;border-top:1px solid var(--line)}.rdsrc a{color:var(--blue);font-weight:600}
+.rdside{position:sticky;top:90px;display:flex;flex-direction:column;gap:14px}
+.rdas{display:flex;gap:14px;align-items:center;padding:16px;border-radius:20px;border:1px solid var(--line);background:var(--sf);transition:.2s}
+.rdas:hover{border-color:var(--sky);box-shadow:var(--shadow)}
+.rdas .lg{width:58px;height:58px;border-radius:16px;display:grid;place-items:center;flex:none;overflow:hidden;border:1px solid var(--line)}.rdas .lg img{width:100%;height:100%;object-fit:contain;padding:5px}
+.rdas small{display:block;font-size:12px;color:var(--mute)}.rdas b{display:block;color:var(--hd);font-size:15px;line-height:1.5}.rdas em{font-style:normal;font-size:12.5px;color:var(--blue);font-weight:600}
+.rdbox{padding:18px;border-radius:20px;background:var(--mist);border:1px solid var(--line)}.rdbox h4{font-size:14.5px;color:var(--hd);margin-bottom:12px}
+.rdcta b{display:block;color:var(--hd)}.rdcta p{font-size:13.5px;color:var(--mute);margin:6px 0 12px}
+.rdsb{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.rdsb>*{display:flex;align-items:center;justify-content:center;gap:7px;padding:10px;border-radius:12px;background:var(--sf);border:1px solid var(--line);color:var(--hd);font-size:13px;font-weight:600;transition:.15s}
+.rdsb>*:hover{border-color:var(--sky);color:var(--blue)}
+.rdsb.sm{display:flex;flex-wrap:wrap;gap:6px}.rdsb.sm>*{padding:8px 12px}.rdsb.sm span{display:none}
+.rdsb.sm>*:first-child span{display:inline}
+.rdrel{padding:48px 0}
+.stft{flex-wrap:wrap;align-items:center}
+.nmbody{display:flex;flex-direction:column;gap:10px;margin-top:12px;line-height:1.95}
+@media (max-width:980px){.rdgrid{grid-template-columns:1fr}.rdside{position:static}.rdhero{min-height:420px}}
+/* ---------- contact v2 ---------- */
+.ctx .head{margin-bottom:22px}
+.ctgrid{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:22px;align-items:stretch}
+.ctside{display:flex;flex-direction:column;gap:14px}
+.ctfound{position:relative;overflow:hidden;display:flex;flex-direction:column;gap:14px;padding:26px;border-radius:24px;color:#fff;background:radial-gradient(130% 120% at 100% 0,#1818A0 0,var(--deep) 62%)}
+.ctfound::after{content:"";position:absolute;width:220px;height:220px;border-radius:50%;left:-70px;bottom:-90px;border:38px solid rgba(127,255,255,.08)}
+.ctfound b{font-size:19px;display:block;margin-bottom:4px}.ctfound p{color:rgba(255,255,255,.8);font-size:14px;line-height:1.85;margin:0}
+.ctfound .btn{align-self:flex-start;position:relative;z-index:1}
+.ctfic{width:48px;height:48px;border-radius:15px;display:grid;place-items:center;background:rgba(127,255,255,.14);color:var(--cyan);flex:none}.ctfic svg{width:24px;height:24px}
+.ctcards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,230px),1fr));gap:10px}
+.ctcards .cline{padding:14px;border-radius:18px;align-items:flex-start;flex-direction:column;gap:10px;background:var(--sf);transition:.2s}
+.ctcards a.cline:hover{border-color:var(--sky);transform:translateY(-2px)}
+.ctcards .cline small{color:var(--mute)!important;font-size:12px}.ctcards .cline b{font-size:14px;word-break:break-word}
+.ctcards .cline{flex-direction:row!important;align-items:center!important}.form .full{grid-column:1/-1}
+.ctform{padding:28px!important;border-radius:24px!important}
+.ctform>h3{color:var(--hd);font-size:20px;margin-bottom:14px}
+.cftopics{display:flex;flex-wrap:wrap;gap:8px}
+.cftopics button{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:999px;border:1px solid var(--line);background:var(--mist);color:var(--text);font-size:13.5px;font-weight:600;transition:.15s}
+.cftopics button:hover{border-color:var(--sky)}
+.cftopics button.on{background:var(--navy);border-color:var(--navy);color:#fff}
+.cfhint{font-size:13px;color:var(--mute);margin:12px 0 16px;min-height:20px}.cfhint a,.lnk{color:var(--blue);font-weight:600;font-size:inherit}
+.hpot{position:absolute!important;inset:0 auto auto 0;width:1px!important;height:1px!important;padding:0!important;border:0!important;overflow:hidden;clip-path:inset(50%);opacity:0;pointer-events:none}#cfF,#fdF{position:relative}
+.cferr{color:#B42318;font-size:13px;font-weight:600;margin:0;min-height:0}.cferr:empty{display:none}
+.cfft{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:4px}.cfft small{display:flex;gap:6px;align-items:center;color:var(--mute);font-size:12.5px}
+.btn.busy{opacity:.6;pointer-events:none}
+.cfdone h3{color:var(--hd);font-size:20px}.cfdone p{color:var(--mute);margin-top:6px}
+.cfref{display:inline-block;margin-top:12px;padding:6px 14px;border-radius:999px;background:var(--ice);color:var(--blue);font-size:13px}
+@media (max-width:980px){.ctgrid{grid-template-columns:1fr}}
+@media (max-width:520px){.ctcards{grid-template-columns:1fr}.ctcards .cline{flex-direction:row;align-items:center}.ctform{padding:20px!important}}
+.fstrip{display:flex;align-items:center;gap:18px;margin-top:18px;padding:18px 22px;border-radius:22px;background:var(--sf);border:1px solid var(--line)}
+.fstrip .ctfic{background:var(--ice);color:var(--blue)}
+.fstrip>div{flex:1;min-width:0}.fstrip b{color:var(--hd);font-size:16px}.fstrip p{color:var(--mute);font-size:13.5px;margin:4px 0 0}
+@media (max-width:760px){.fstrip{flex-direction:column;align-items:flex-start}}
+/* founding wizard */
+.fdw{position:relative;padding:6px 4px}
+.fdw>.x{position:absolute;top:-4px;left:-4px}
+.fdh{display:flex;gap:14px;align-items:flex-start;padding-inline-end:36px}
+.fdh .ctfic{background:var(--ice);color:var(--blue)}
+.fdh h2{font-size:21px;color:var(--hd)}.fdh p{color:var(--mute);font-size:14px;margin-top:4px}
+.fdsteps{display:flex;gap:6px;list-style:none;padding:0;margin:20px 0 18px;counter-reset:s}
+.fdsteps li{flex:1;display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:14px;background:var(--mist);color:var(--mute);font-size:13px;font-weight:600}
+.fdsteps i{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-size:12px;background:var(--sf);border:1px solid var(--line);flex:none}
+.fdsteps li.on{background:var(--navy);color:#fff}.fdsteps li.on i{background:#fff;color:var(--navy);border-color:#fff}
+.fdsteps li.done{color:#14804A}.fdsteps li.done i{background:#14804A;color:#fff;border-color:#14804A}
+.fdl{display:block;font-size:13.5px;color:var(--mute);font-weight:500;margin-bottom:8px}.fdl small{color:var(--mute);opacity:.8}
+.fdopts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.fdo,.fdc{cursor:pointer}.fdo input,.fdc input{position:absolute;opacity:0;pointer-events:none}
+.fdo span{display:block;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:var(--mist);font-size:13.5px;color:var(--text);transition:.15s}
+.fdo input:checked+span{border-color:var(--blue);background:var(--ice);color:var(--hd);font-weight:700;box-shadow:inset 0 0 0 1px var(--blue)}
+.fdchips{display:flex;flex-wrap:wrap;gap:8px}
+.fdc span{display:inline-block;padding:8px 13px;border-radius:999px;border:1px solid var(--line);background:var(--mist);font-size:13px;color:var(--text);transition:.15s}
+.fdc input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.fdo input:focus-visible+span,.fdc input:focus-visible+span{outline:2px solid var(--sky);outline-offset:2px}
+.fdnav{display:flex;justify-content:space-between;gap:10px;margin-top:6px}
+.fdnote{display:flex;gap:8px;align-items:flex-start;margin-top:16px;padding:12px 14px;border-radius:14px;background:var(--mist);font-size:12.5px;color:var(--mute);line-height:1.8}
+.fdsum{display:flex;flex-wrap:wrap;gap:6px}.fdsum:empty{display:none}.fdsum span{padding:4px 10px;border-radius:999px;background:var(--ice);color:var(--blue);font-size:12px;font-weight:600;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media (max-width:560px){.fdopts{grid-template-columns:1fr}.fdsteps li{font-size:0;justify-content:center}.fdsteps li i{font-size:12px}}
+/* ---------- content studio ---------- */
+.cshead{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.csf{display:flex;gap:4px;padding:4px;border-radius:12px;background:#F1F3F7;flex-wrap:wrap}
+.csf button{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border-radius:9px;font-size:13px;font-weight:600;color:#5B6380}
+.csf button em{font-style:normal;font-size:11.5px;color:#9AA2BB}
+.csf button.on{background:#fff;color:var(--hd);box-shadow:0 1px 3px rgba(9,9,81,.12)}.csf button.on em{color:var(--blue)}
+.csq{display:flex;align-items:center;gap:6px;padding:0 10px;height:38px;border:1px solid #E4E7EE;border-radius:11px;background:#fff;color:#7A829E}.csq input{border:0;outline:0;background:none;font:inherit;font-size:13px;width:180px}
+.csnew{position:relative}
+.csmenu{position:absolute;top:calc(100% + 6px);left:0;width:260px;padding:6px;border-radius:14px;background:#fff;border:1px solid #E4E7EE;box-shadow:0 18px 40px -12px rgba(9,9,81,.25);z-index:30}
+.csmenu button{display:flex;gap:10px;align-items:center;width:100%;padding:10px;border-radius:10px;text-align:start;color:var(--navy)}.csmenu button:hover{background:#F3F4F7}
+.csmenu b{display:block;font-size:13.5px;color:var(--hd)}.csmenu small{display:block;font-size:11.5px;color:#6B7393}
+.cslist{display:flex;flex-direction:column;border:1px solid #E4E7EE;border-radius:16px;overflow:hidden;background:#fff}
+.csr{display:grid;grid-template-columns:64px minmax(0,1fr) auto auto;gap:14px;align-items:center;padding:10px 14px;border-top:1px solid #EEF0F4}
+.csr:first-child{border-top:0}.csr:hover{background:#FAFBFD}
+.csr.draft .csm b{color:#6B7393}
+.csth{position:relative;width:64px;height:48px;border-radius:10px;overflow:hidden;background:var(--tile);color:#7A8BC0;display:grid;place-items:center}
+.csth img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.csm{text-align:start;min-width:0}.csm b{display:block;color:var(--hd);font-size:14px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.csm small{display:block;color:#6B7393;font-size:12px;margin-top:2px}
+.csm:hover b{color:var(--blue)}
+.cstags{display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end}
+.csa{display:flex;gap:2px;align-items:center}.csa .jic[disabled]{opacity:.3;pointer-events:none}.csa .jbtn{margin-inline-start:6px}
+.cshelp{display:flex;gap:7px;align-items:flex-start;font-size:12.5px;color:#6B7393;margin-top:12px;line-height:1.7}
+.csed{background:#fff;border:1px solid #E4E7EE;border-radius:18px}
+.cseh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:12px 16px;border-bottom:1px solid #EEF0F4;position:sticky;top:62px;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);z-index:5;border-radius:18px 18px 0 0}
+.cseh [hidden]{display:none!important}.cseh b{display:block;color:var(--hd);font-size:15px}.cseh small{display:block;color:#6B7393;font-size:12px}
+.csgrid{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:20px;padding:18px 16px}
+.csform{align-content:start}.csform .full{grid-column:1/-1}.csics{display:flex;flex-wrap:wrap;gap:6px}.csics label{cursor:pointer}.csics input{position:absolute;opacity:0}.csics span{width:38px;height:38px;border-radius:10px;border:1px solid #E4E7EE;display:grid;place-items:center;color:#5B6380}.csics input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}.csics input:focus-visible+span{outline:2px solid var(--sky)}.ibr.open .ibm em{display:none}
+.csform small{color:#9AA2BB;font-weight:400;font-size:11.5px}
+.csseg{display:flex;gap:4px;padding:4px;border-radius:12px;background:#F1F3F7;width:max-content;max-width:100%}
+.csseg label{cursor:pointer}.csseg input{position:absolute;opacity:0}.csseg span{display:block;padding:7px 16px;border-radius:9px;font-size:13px;font-weight:600;color:#5B6380}
+.csseg input:checked+span{background:#fff;color:var(--hd);box-shadow:0 1px 3px rgba(9,9,81,.12)}.csseg input:focus-visible+span{outline:2px solid var(--sky)}
+.csl{display:block;font-size:13px;color:#6B7393;font-weight:500;margin-bottom:8px}
+.csm2{display:flex;flex-direction:column;gap:6px}.csm2>div{display:grid;grid-template-columns:110px minmax(0,1fr) 32px;gap:6px}.csm2 .jbtn{align-self:flex-start}
+.csimgs{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
+.csim{position:relative;aspect-ratio:4/3;border-radius:12px;overflow:hidden;background:var(--tile)}.csim img{width:100%;height:100%;object-fit:cover}
+.csim>span{position:absolute;inset:auto 6px 6px 6px;display:flex;gap:4px;justify-content:space-between;align-items:center}
+.csim em{font-style:normal;font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;background:var(--navy);color:#fff}
+.csim button{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--hd);margin-inline-start:auto}
+.csim button+button{margin-inline-start:0}
+.csadd{aspect-ratio:4/3;border:1.5px dashed #C9D0E0;border-radius:12px;display:flex!important;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:#6B7393;cursor:pointer;font-size:12.5px;font-weight:600}
+.csadd:hover{border-color:var(--blue);color:var(--blue)}.csadd.busy{opacity:.6;pointer-events:none}
+.cstg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.cstog{flex-direction:row!important;align-items:flex-start;gap:10px!important;padding:12px;border:1px solid #E4E7EE;border-radius:12px;cursor:pointer}
+.cstog input{margin-top:3px;accent-color:var(--navy);width:16px;height:16px}.cstog b{display:block;color:var(--hd);font-size:13.5px}.cstog small{display:block}
+.cstog:has(input:checked){border-color:var(--navy);background:#F5F7FD}
+.csprev{position:sticky;top:132px;align-self:start}
+.csprev .stc,.csprev .nc{pointer-events:none}
+@media (max-width:1100px){.csgrid{grid-template-columns:1fr}.csprev{position:static;max-width:380px}}
+@media (max-width:760px){.csr{grid-template-columns:52px minmax(0,1fr)}.csth{width:52px;height:42px}.cstags,.csa{grid-column:1/-1;justify-content:flex-start}.cstg{grid-template-columns:1fr}.csq input{width:120px}}
+/* ---------- inbox ---------- */
+.ibsel{height:38px;padding:0 10px;border:1px solid #E4E7EE;border-radius:11px;background:#fff;font:inherit;font-size:13px;color:var(--hd)}
+.iblist{display:flex;flex-direction:column;border:1px solid #E4E7EE;border-radius:16px;overflow:hidden;background:#fff}
+.ibr{border-top:1px solid #EEF0F4}.ibr:first-child{border-top:0}
+.ibh{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;width:100%;padding:12px 14px;text-align:start}
+.ibh:hover{background:#FAFBFD}.ibr.open .ibh{background:#F5F7FD}
+.ibic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#F1F3F7;color:#5B6380}
+.ibr.unread .ibic{background:var(--ice);color:var(--blue)}
+.ibm{min-width:0}.ibm b{display:block;color:var(--hd);font-size:14px}.ibm b small{font-weight:500;color:#6B7393}.ibm>small{display:block;color:#6B7393;font-size:12px}.ibm em{display:block;font-style:normal;color:#4A5272;font-size:13px;margin-top:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ibr.unread .ibm b::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--blue);margin-inline-end:6px;vertical-align:middle}
+.ibb{padding:4px 66px 16px 16px;display:flex;flex-direction:column;gap:12px}
+.ibmsg{white-space:pre-wrap;line-height:1.9;color:var(--text);font-size:14px;margin:0}
+.ibdl{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin:0}.ibdl div{padding:10px 12px;border-radius:12px;background:#F5F7FB}.ibdl dt{font-size:11.5px;color:#6B7393}.ibdl dd{margin:2px 0 0;font-size:13.5px;color:var(--hd);font-weight:600}
+.ibc{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.ibst{display:flex;align-items:center;gap:8px;font-size:12.5px;color:#6B7393}.ibst select{height:36px;padding:0 10px;border:1px solid #E4E7EE;border-radius:10px;font:inherit;font-size:13px;background:#fff}
+.ibnote{display:flex;flex-direction:column;gap:6px;font-size:12.5px;color:#6B7393}.ibnote textarea{padding:10px 12px;border:1px solid #E4E7EE;border-radius:12px;font:inherit;font-size:13px;resize:vertical}
+.ibu{color:#9AA2BB;font-size:11.5px}
+@media (max-width:760px){.ibb{padding:4px 14px 16px}.ibh{grid-template-columns:36px minmax(0,1fr)}.ibh .pill2{grid-column:2;justify-self:start}}
+html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:checked+span,html[data-theme=dark] .fdsteps li.on{background:var(--blue);border-color:var(--blue)}html[data-theme=dark] .fdsteps li.on i{color:var(--blue)}
 </style>
 </head>
 <body>
@@ -1880,6 +2098,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <button class="srv2" onclick="openPortal()"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div><b>بوابة الجمعيات</b><p>حدّث بيانات جمعيتك، وارفع شعارها، وأكمل ملفها برقم الترخيص ورمز دخول دون كلمة مرور.</p><em>دخول برقم الترخيص ورمز تحقق</em><span class="go2">دخول الجمعيات <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span></button>
       <a class="srv2" href="#/about"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg></div><b>اللجان الفرعية</b><p>لجان في المحافظات تقرّب خدمات المجلس من الجمعيات وتتابع احتياجها على الأرض.</p><em>لجنة قريبة منك في محافظتك</em><span class="go2">تعرّف على المجلس <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></span></a>
     </div>
+    <div class="fstrip reveal"><span class="ctfic"><svg class="i" viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13M9 21v-6h6v6"/></svg></span><div><b>تفكّر في تأسيس جمعية في منطقة عسير؟</b><p>أخبرنا عن فكرتك، ويرشدك فريق المجلس لخطوات التأسيس ومتطلباته، ويعرّفك بجمعيات مماثلة.</p></div><button class="btn p" type="button" onclick="openFounding()">اطلب المساعدة في التأسيس</button></div>
   </div>
 </section>
 
@@ -1923,28 +2142,25 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
   </div>
 </section>
 <!-- ============ CONTACT ============ -->
-<section id="contact">
+<section id="contact" class="ctx">
   <div class="wrap">
-    <div class="contact reveal">
-      <div class="cbox">
-        <span class="eyebrow" style="color:#8FD0FF">تواصل معنا</span>
-        <h2>نسعد بخدمة جمعيات المنطقة</h2>
-        <a class="cline" data-gap-href="mailto:" data-gap-wrap="email" href="mailto:info.ase@ccsa.org.sa"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></div><div><small>البريد الإلكتروني</small><b style="direction:ltr;display:block" data-gap="email"></b></div></a>
-        <a class="cline" data-gap-wrap="phone" data-gap-href="tel:" href="#"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><small>الهاتف</small><b style="direction:ltr;display:block" data-gap="phone"></b></div></a>
-        <div class="cline"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><small>المقر</small><b data-gap="addr" data-fb="منطقة عسير — المملكة العربية السعودية"></b></div></div>
-        <div class="cline" data-gap-wrap="hours"><div class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><small>ساعات العمل</small><b data-gap="hours"></b></div></div>
-        <a class="cline" data-gap-wrap="x" data-gap-href="https://x.com/" href="#" target="_blank" rel="noopener"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></div><div><small>حساب X</small><b style="direction:ltr;display:block" data-gap="x"></b></div></a>
+    <div class="head reveal"><div><span class="eyebrow">تواصل معنا</span><h2>نسعد بخدمة جمعيات المنطقة وأهلها</h2><p class="hsub">اختر موضوع رسالتك لتصل إلى الفريق المختص مباشرة.</p></div></div>
+    <div class="ctgrid reveal">
+      <div class="ctside">
+        <div class="ctfound">
+          <span class="ctfic"><svg class="i" viewBox="0 0 24 24"><path d="M12 3v4M12 17v4M3 12h4M17 12h4"/><circle cx="12" cy="12" r="4"/></svg></span>
+          <div><b>تفكّر في تأسيس جمعية؟</b><p>يرافقك فريق المجلس من الفكرة إلى التسجيل: اختيار المجال، وفهم المتطلبات، وتجهيز ملف التأسيس.</p></div>
+          <button class="btn p" type="button" onclick="openFounding()">اطلب المساعدة في التأسيس <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+        </div>
+        <div class="ctcards">
+          <a class="cline" data-gap-href="mailto:" data-gap-wrap="email" href="mailto:info.ase@ccsa.org.sa"><div class="ic"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/></svg></div><div><small>البريد الإلكتروني</small><b style="direction:ltr;display:block" data-gap="email"></b></div></a>
+          <a class="cline" data-gap-wrap="phone" data-gap-href="tel:" href="#"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg></div><div><small>الهاتف</small><b style="direction:ltr;display:block" data-gap="phone"></b></div></a>
+          <div class="cline"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 21s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9" r="2.5"/></svg></div><div><small>المقر</small><b data-gap="addr" data-fb="منطقة عسير — المملكة العربية السعودية"></b></div></div>
+          <div class="cline" data-gap-wrap="hours"><div class="ic"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><div><small>ساعات العمل</small><b data-gap="hours"></b></div></div>
+          <a class="cline" data-gap-wrap="x" data-gap-href="https://x.com/" href="#" target="_blank" rel="noopener"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M4 4l16 16M20 4 4 20"/></svg></div><div><small>حساب X</small><b style="direction:ltr;display:block" data-gap="x"></b></div></a>
+        </div>
       </div>
-      <div class="card" style="padding:30px">
-        <h3 style="color:var(--hd);font-size:20px;margin-bottom:16px">أرسل رسالة</h3>
-        <form class="form" onsubmit="event.preventDefault();this.innerHTML='<div class=\'done\' style=\'grid-column:1/-1\'><div class=\'ok\'><svg class=\'i\' viewBox=\'0 0 24 24\'><path d=\'m5 12 5 5 9-10\'/></svg></div><h3 style=\'color:var(--hd)\'>وصلت رسالتك</h3><p style=\'color:var(--mute)\'>سيتواصل معك فريق المجلس قريباً.</p></div>'">
-          <label>الاسم<input required placeholder="الاسم الكامل"></label>
-          <label>الجهة<input placeholder="اسم الجمعية (اختياري)"></label>
-          <label class="full">البريد الإلكتروني<input type="email" required placeholder="name@example.com" style="direction:ltr;text-align:right"></label>
-          <label class="full">الرسالة<textarea rows="4" required placeholder="اكتب رسالتك..."></textarea></label>
-          <button class="btn n" style="grid-column:1/-1;justify-content:center">إرسال</button>
-        </form>
-      </div>
+      <div class="ctform card" id="ctForm"></div>
     </div>
   </div>
 </section>
@@ -2026,6 +2242,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
   <div class="ncta reveal"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg></div><p><b>لدى جمعيتك تجربة تستحق أن تُروى؟</b> وثّقها في منصة سجام أو أرسلها للمجلس، وسيراجعها الفريق قبل نشرها هنا.</p><a class="btn p" href="https://sijam.ccsa.org.sa/" target="_blank" rel="noopener">منصة سجام ↗</a></div>
 </div></section>
 </div>
+<div class="page" data-page="read"><div id="readPg"></div></div>
 <div class="page" data-page="directory">
 <!-- ============ MAP + DIRECTORY ============ -->
 <section id="directory" class="mapsec dir2">
@@ -2126,8 +2343,8 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
   <div class="wrap">
     <div class="fgrid">
       <div><img src="{{logo_white}}" alt="" style="height:52px;margin-bottom:14px"><p>المجلس الفرعي للجمعيات الأهلية بمنطقة عسير — مسجَّل لدى المركز الوطني لتنمية القطاع غير الربحي.</p></div>
-      <div><h5>المجلس</h5><ul><li><a href="#/about">عن المجلس</a></li><li><a href="#/governance">الحوكمة</a></li><li><a href="#/news">الأخبار</a></li></ul></div>
-      <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات المهنية</a></li></ul></div>
+      <div><h5>المجلس</h5><ul><li><a href="#/about">عن المجلس</a></li><li><a href="#/governance">الحوكمة</a></li><li><a href="#/news">الأخبار</a></li><li><a href="#/stories">تجارب مميزة</a></li></ul></div>
+      <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات المهنية</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h5>روابط</h5><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a href="https://mhwar.com" target="_blank" rel="noopener">منصة محور</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
     <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><span>نموذج أولي للعرض — النسخة 0.17</span></div>
@@ -2152,7 +2369,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
    على المنصة يحقن الخادم STATE (آخر نسخة لكل وحدة)، فتُكتب في التخزين المحلي قبل أن تقرأها الوحدات،
    وكل حفظ يُرسل إلى /api/state مع رقم الإصدار. في النسخة المحلية (STATE=null) يبقى الحفظ في المتصفح فقط. */
 const STATE=/*@STATE*/null/*@END*/;
-const SHARED={asirGaps:1,asirSegNotes:1,asirDec:1,asirDecX:1,asirAPart:1,asirPartners:1,asirBoard2:1,asirImpact:1,asirLaunchOff:1};
+const SHARED={asirContent:1,asirGaps:1,asirSegNotes:1,asirDec:1,asirDecX:1,asirAPart:1,asirPartners:1,asirBoard2:1,asirImpact:1,asirLaunchOff:1};
 const SYNC={on:!!STATE,ver:{},pend:{},t:{},busy:{},err:0};
 if(STATE){try{for(const k in SHARED){const o=STATE[k];if(o){localStorage.setItem(k,o.value);SYNC.ver[k]=o.version}else{const loc=localStorage.getItem(k);if(loc!=null){SYNC.ver[k]=0;setTimeout(()=>syncPut(k,loc),1500)}}}}catch(e){}}
 function SET(k,raw){try{localStorage.setItem(k,raw)}catch(e){}syncPut(k,raw)}
@@ -2281,17 +2498,18 @@ const news=[
 {c:'المجلس',t:'اجتماع مع وزير الموارد البشرية والتنمية الاجتماعية',d:'ضمن اجتماعات الدورة الأولى، التقى المجلس وزير الموارد البشرية والتنمية الاجتماعية، إلى جانب اجتماعات مجلس الإدارة واجتماعات مع الجهات الخيرية في المنطقة.',dt:'الدورة الأولى · 1441–1445هـ',ic:'people',k:'الاجتماعات',img:'/news/minister.webp',src:'تقرير منجزات المجلس في دورته الأولى'}];
 let nf='الكل';
 function renderNews(){
- $('#nfilters').innerHTML=['الكل','المجلس','الجمعيات','فعاليات'].map(f=>`<button class="pill ${f==nf?'on':''}">${f}</button>`).join('');
+ $('#nfilters').innerHTML=['الكل',...new Set(news.map(n=>n.c).filter(Boolean))].map(f=>`<button class="pill ${f==nf?'on':''}">${f}</button>`).join('');
  const L=news.filter(n=>(nf=='الكل'||n.c==nf)&&!n.hidden);
- $('#newsGrid').innerHTML=L.map((n,i)=>`<article class="card nc ${i==0&&L.length>2?'big':''}"><div class="th" style="background:${grads[news.indexOf(n)%grads.length]}"><span class="tag">${n.c}</span><div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.25)">${I(P[n.ic],'width:'+(i==0&&L.length>2?120:70)+'px;height:auto;stroke-width:1')}</div>${nImg(n)}</div><div class="bd"><time>${n.dt}</time><h3>${n.t}</h3>${n.d?`<p>${n.d}</p>`:''}<button onclick="openNews(${news.indexOf(n)})" style="color:var(--blue);font-weight:600;font-size:14px;margin-top:auto;text-align:start">اقرأ المزيد ←</button></div></article>`).join('');
+ $('#newsGrid').innerHTML=L.map((n,i)=>`<article class="card nc ${i==0&&L.length>2?'big':''}"><div class="th" style="background:${grads[news.indexOf(n)%grads.length]}"><span class="tag">${n.c}</span><div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.25)">${I(P[n.ic],'width:'+(i==0&&L.length>2?120:70)+'px;height:auto;stroke-width:1')}</div>${nImg(n)}</div><div class="bd"><time>${n.dt}</time><h3>${n.t}</h3>${n.lead||n.d?`<p>${esc(n.lead||n.d)}</p>`:''}<button onclick="openNews(${news.indexOf(n)})" style="color:var(--blue);font-weight:600;font-size:14px;margin-top:auto;text-align:start">اقرأ المزيد ←</button></div></article>`).join('');
 }
 $('#nfilters').onclick=e=>{if(e.target.matches('.pill')){nf=e.target.textContent;renderNews()}};
 renderNews();
-function newsCard(n,i){return `<article class="card nc"><div class="th" style="background:${grads[i%grads.length]}"><span class="tag">${n.k||n.c}</span><div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.25)">${I(P[n.ic],'width:64px;height:auto;stroke-width:1')}</div>${nImg(n)}</div><div class="bd"><time>${n.dt}</time><h3>${n.t}</h3><button onclick="openNews(${i})" style="color:var(--blue);font-weight:600;font-size:14px;margin-top:auto;text-align:start">اقرأ المزيد ←</button></div></article>`}
-$('#homeNews').innerHTML=news.slice(0,3).map((n,i)=>newsCard(n,i)).join('');
+function newsCard(n,i){return `<article class="card nc"><div class="th" style="background:${grads[i%grads.length]}"><span class="tag">${n.k||n.c}</span><div style="position:absolute;inset:0;display:grid;place-items:center;color:rgba(255,255,255,.25)">${I(P[n.ic],'width:64px;height:auto;stroke-width:1')}</div>${nImg(n)}</div><div class="bd"><time>${n.dt}</time><h3>${esc(n.t)}</h3><button onclick="openNews(${i})" style="color:var(--blue);font-weight:600;font-size:14px;margin-top:auto;text-align:start">اقرأ المزيد ←</button></div></article>`}
+function homeNewsList(){const L=news.filter(n=>!n.hidden),h=L.filter(n=>n.home);return (h.length?h:L).slice(0,3)}
+$('#homeNews').innerHTML=homeNewsList().map(n=>newsCard(n,news.indexOf(n))).join('');
 function openNews(i){const n=news[i];
  $('#modal').classList.add('wide');
- $('#modal').innerHTML=`<div class="nmodal"><div class="th" style="background:${grads[i%grads.length]};position:relative;overflow:hidden">${I(P[n.ic],'width:80px;height:auto;stroke-width:1')}${nImg(n)}</div><span class="tag" style="margin-top:14px">${n.c}</span> ${n.src?`<span class="demo" style="background:#E5F8EE;color:#14804A;border-color:#BFE8D1">المصدر: ${n.src}</span>`:'<span class="demo">خبر توضيحي</span>'}<h2>${n.t}</h2><time style="color:var(--mute);font-size:13px">${n.dt}</time><p style="margin-top:12px">${n.d||'نص الخبر الكامل يُضاف من لوحة التحكم عند النشر، مع الصور والروابط ذات العلاقة.'}</p><div style="display:flex;gap:10px;margin-top:20px"><button class="btn o" onclick="closeAll()">إغلاق</button></div></div>`;
+ $('#modal').innerHTML=`<div class="nmodal"><div class="th" style="background:${grads[i%grads.length]};position:relative;overflow:hidden">${I(P[n.ic],'width:80px;height:auto;stroke-width:1')}${nImg(n)}</div><span class="tag" style="margin-top:14px">${n.c}</span> ${n.src?`<span class="demo" style="background:#E5F8EE;color:#14804A;border-color:#BFE8D1">المصدر: ${n.src}</span>`:'<span class="demo">خبر توضيحي</span>'}<h2>${esc(n.t)}</h2><time style="color:var(--mute);font-size:13px">${esc(n.dt)}</time>${n.lead?`<p style="margin-top:12px;font-weight:600;color:var(--hd)">${esc(n.lead)}</p>`:''}<div class="nmbody">${ctParas(n.d)||'<p>نص الخبر الكامل يُضاف من استوديو المحتوى.</p>'}</div><div class="stft" style="margin-top:20px">${n.id?`<a class="btn p" href="#/read/${encodeURIComponent(n.id)}">الصفحة الكاملة</a>${ctShare(ctFind(n.id)||n,1)}`:''}<button class="btn o" onclick="closeAll()">إغلاق</button></div></div>`;
  openOv();$('#modal').classList.add('on')}
 
 
@@ -2612,20 +2830,63 @@ const STORIES=[
   lead:'من أبها، نافست جمعية صحية تطوعية أكثر من 200 منظمة غير ربحية في المملكة على جائزة الملك خالد.',
   did:'حققت جمعية الكوثر الصحية بعسير المركز الثالث في جائزة الملك خالد، فرع التميز للمنظمات غير الربحية لعام 2017م. والجمعية تقدّم خدمات علاجية ووقائية لسكان المنطقة، وتشجّع التطوع في المجال الصحي.',
   m:[[3,'المركز في جائزة الملك خالد 2017'],[200,'منظمة نافستها']],pt:['جائزة الملك خالد'],src:'جائزة الملك خالد — الفائزون السابقون',url:'https://kka.kkf.org.sa/ar/PreviousWinners/Pages/default.aspx'}];
+/* ---------- استوديو المحتوى: الأخبار والتجارب والإعلانات في مخزن واحد مشترك (asirContent) ----------
+   كل عنصر: {id,type:news|story|ann,st:pub|draft,home,feat,t,c,k,dt,ic,lead,body,imgs[],aid,m[[v,l]],pt[],ch,so,src,url}
+   يُبنى منه مصفوفتا news وSTORIES فتعمل كل واجهات العرض كما هي، ولكل عنصر صفحة مستقلة #/read/<id>. */
+const CT_T={news:'خبر',story:'تجربة مميزة',ann:'إعلان'};
+function ctSeed(){let h=0;
+ return [...news.map((n,i)=>({id:'n'+(i+1),type:'news',st:'pub',home:i<3,feat:i==0,t:n.t,c:n.c,k:n.k||'',dt:n.dt,ic:n.ic||'award',lead:'',body:n.d||'',imgs:n.img?[n.img]:[],aid:null,m:[],pt:[],ch:'',so:'',src:n.src||'',url:''})),
+  ...STORIES.map(s=>({id:'s-'+s.k,type:'story',st:'pub',home:!!s.img&&h++<3,feat:0,t:s.t,c:s.cat,k:'',dt:s.y,ic:s.ic,lead:s.lead,body:s.did,imgs:s.img?['/brand/'+s.img+'-1','/brand/'+s.img+'-2']:[],aid:s.aid,m:s.m||[],pt:s.pt||[],ch:s.ch||'',so:s.so||'',src:s.src||'',url:s.url||''}))]}
+var CT=(()=>{try{const o=JSON.parse(localStorage.getItem('asirContent')||'null');if(o&&Array.isArray(o.items)&&o.items.length)return o.items}catch(e){}return ctSeed()})();
+const ctKey=x=>x.id.replace(/^s-/,'');
+const ctFind=id=>CT.find(x=>x.id==id)||CT.find(x=>x.type=='story'&&ctKey(x)==id);
+const ctUrl=x=>location.origin+location.pathname+'#/read/'+encodeURIComponent(x.id);
+function ctApply(){const pub=CT.filter(x=>x.st=='pub');
+ news.length=0;pub.filter(x=>x.type!='story').sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)).forEach(x=>news.push({id:x.id,c:x.type=='ann'?'إعلانات':x.c,t:x.t,d:x.body,lead:x.lead,dt:x.dt,ic:x.ic||'award',k:x.k||(x.type=='ann'?'إعلان':''),src:x.src,url:x.url,img:(x.imgs||[])[0]||'',home:!!x.home,feat:!!x.feat}));
+ STORIES.length=0;pub.filter(x=>x.type=='story').sort((a,b)=>(b.feat?1:0)-(a.feat?1:0)).forEach(x=>STORIES.push({k:ctKey(x),id:x.id,aid:x.aid,cat:x.c,ic:x.ic||'star',t:x.t,imgs:x.imgs||[],img:(x.imgs||[])[0]||'',y:x.dt,lead:x.lead,did:x.body,ch:x.ch,so:x.so,m:x.m||[],pt:x.pt||[],src:x.src,url:x.url,home:!!x.home,feat:!!x.feat}))}
+function ctSave(msg){SET('asirContent',JSON.stringify({v:1,items:CT}));ctApply();syncNews();renderStories();if(curPg=='read')renderRead(curPath.split('/')[1]);msg&&toast(msg)}
+ctApply();renderNews();
+const ctParas=s=>String(s||'').split(/\n\s*\n|\n/).map(t=>t.trim()).filter(Boolean).map(t=>`<p>${esc(t)}</p>`).join('');
+function ctShare(x,small){const u=encodeURIComponent(ctUrl(x)),t=encodeURIComponent(x.t);
+ return `<div class="rdsb ${small?'sm':''}"><button type="button" data-copy="${esc(ctUrl(x))}">${I('<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>','width:16px;height:16px')}<span>نسخ الرابط</span></button><a href="https://x.com/intent/post?text=${t}&url=${u}" target="_blank" rel="noopener">${I('<path d="M4 4l16 16M20 4 4 20"/>','width:15px;height:15px')}<span>X</span></a><a href="https://wa.me/?text=${t}%0A${u}" target="_blank" rel="noopener">${I('<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/>','width:16px;height:16px')}<span>واتساب</span></a><a href="https://www.linkedin.com/sharing/share-offsite/?url=${u}" target="_blank" rel="noopener">${I('<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 10v7M8 7v.01M12 17v-4a2 2 0 0 1 4 0v4M12 10v7"/>','width:15px;height:15px')}<span>لينكدإن</span></a>${navigator.share?`<button type="button" data-nshare="${esc(x.id)}">${I('<path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-5"/>','width:16px;height:16px')}<span>مشاركة</span></button>`:''}</div>`}
+document.addEventListener('click',e=>{const c=e.target.closest('[data-copy]');if(c){const v=c.dataset.copy;(navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).then(()=>toast('نُسخ الرابط'),()=>{prompt('انسخ الرابط',v)});return}
+ const n=e.target.closest('[data-nshare]');if(n){const x=ctFind(n.dataset.nshare);x&&navigator.share({title:x.t,text:x.lead||x.t,url:ctUrl(x)}).catch(()=>{})}});
+function renderRead(id){const R=$('#readPg');if(!R)return;const x=ctFind(decodeURIComponent(id||''));
+ if(!x||(x.st!='pub'&&!(typeof ADM!='undefined'&&ADM.auth))){R.innerHTML=`<div class="phero"><div class="wrap"><h1>المحتوى غير متاح</h1><p>ربما أُزيل أو لم يُنشر بعد.</p><div style="display:flex;gap:10px;margin-top:16px"><a class="btn p" href="#/news">المركز الإعلامي</a><a class="btn o" href="#/stories">تجارب مميزة</a></div></div></div>`;document.title='المحتوى غير متاح — مجلس الجمعيات الأهلية بعسير';return}
+ const a=x.aid?assoc.find(z=>z.id==x.aid):null,isS=x.type=='story',back=isS?['stories','تجارب مميزة']:['news','المركز الإعلامي'],imgs=x.imgs||[];
+ const rel=CT.filter(z=>z.st=='pub'&&z.id!=x.id&&(z.type=='story')==isS).sort((p,q)=>(q.c==x.c)-(p.c==x.c)).slice(0,3);
+ R.innerHTML=`<header class="rdhero ${imgs[0]?'':'noimg'}">${imgs[0]?`<img src="${esc(imgs[0])}" alt="" onerror="this.parentNode.classList.add('noimg');this.remove()">`:''}<span class="rdic">${I(P[x.ic]||P.star,'width:64px;height:64px;stroke-width:1')}</span><div class="rdsh"></div>
+  <div class="wrap"><nav class="crumb" aria-label="مسار التصفح"><a href="#/">الرئيسية</a> <span>/</span> <a href="#/${back[0]}">${back[1]}</a></nav>
+  <div class="rdtags"><span>${CT_T[x.type]}</span>${x.c?`<span>${esc(x.c)}</span>`:''}${x.dt?`<time>${esc(x.dt)}</time>`:''}${x.st!='pub'?'<span class="draft">مسودة — لا تظهر للزوار</span>':''}</div>
+  <h1>${esc(x.t)}</h1>${x.lead?`<p class="rdlead">${esc(x.lead)}</p>`:''}</div></header>
+ <section class="rdbody"><div class="wrap rdgrid"><article class="rdart">
+  ${x.m&&x.m.length?`<div class="stmx">${x.m.map(([v,l])=>`<div><b>${isNaN(+v)?esc(v):(+v).toLocaleString('en')}</b><span>${esc(l)}</span></div>`).join('')}</div>`:''}
+  ${isS&&x.body?'<h3>ما الذي قامت به الجمعية</h3>':''}${ctParas(x.body)||(isS?'':'<p>نص الخبر الكامل يُضاف من استوديو المحتوى.</p>')}
+  ${x.ch||x.so?`<div class="stcs">${x.ch?`<div><h4>التحدي</h4><p>${esc(x.ch)}</p></div>`:''}${x.so?`<div><h4>الحل</h4><p>${esc(x.so)}</p></div>`:''}</div>`:''}
+  ${imgs.length>1?`<div class="rdgal">${imgs.slice(1).map(s=>`<img src="${esc(s)}" alt="" loading="lazy" onerror="this.remove()">`).join('')}</div>`:''}
+  ${x.pt&&x.pt.length?`<h4>الشركاء والداعمون</h4><div class="stpt">${x.pt.map(t=>`<span>${esc(t)}</span>`).join('')}</div>`:''}
+  ${x.src?`<p class="rdsrc">${I(P.info,'width:15px;height:15px;flex:none')}<span>المصدر: ${x.url?`<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.src)} ↗</a>`:esc(x.src)}</span></p>`:''}
+ </article><aside class="rdside">
+  ${a?`<a class="rdas" href="#/association/${a.lic}"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,26)}</span><span><small>الجهة المنفذة</small><b>${esc(a.n)}</b><em>${esc(a.gov)} · صفحة الجمعية ←</em></span></a>`:''}
+  <div class="rdbox"><h4>شارك ${isS?'التجربة':'الخبر'}</h4>${ctShare(x)}</div>
+  ${isS?`<div class="rdbox rdcta"><b>لدى جمعيتك تجربة تستحق أن تُروى؟</b><p>أرسلها لفريق المجلس ليراجعها قبل نشرها.</p><a class="btn o" href="#/contact">تواصل معنا</a></div>`:''}
+ </aside></div></section>
+ ${rel.length?`<section class="soft rdrel"><div class="wrap"><div class="head"><div><h2>${isS?'تجارب أخرى':'من المركز الإعلامي'}</h2></div><a class="btn o" href="#/${back[0]}">عرض الكل</a></div><div class="${isS?'stgrid home':'news3'}">${rel.map(z=>isS?stCard(STORIES.find(s=>s.id==z.id)||{}):newsCard(news.find(n=>n.id==z.id),news.findIndex(n=>n.id==z.id))).join('')}</div></div></section>`:''}`;
+ document.title=x.t+' — مجلس الجمعيات الأهلية بعسير'}
 let stCat='الكل';
 const stA=x=>assoc.find(a=>a.id==x.aid);
-function stCard(x,i){const a=stA(x);return `<article class="stc" tabindex="0" data-sk="${x.k}"><div class="stimg ${x.img?'':'noimg'}">${x.img?`<img src="/brand/${x.img}-1" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`:''}<span class="stic">${I(P[x.ic],'width:18px;height:18px')}</span><span class="stcat">${x.cat}</span></div>
+function stCard(x,i){if(!x||!x.k)return '';const a=stA(x);return `<article class="stc" tabindex="0" data-sk="${x.k}"><div class="stimg ${x.img?'':'noimg'}">${x.img?`<img src="${esc(x.img)}" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`:''}<span class="stic">${I(P[x.ic],'width:18px;height:18px')}</span><span class="stcat">${x.cat}</span></div>
  <div class="stbd">${a?`<div class="stas"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,16)}</span><span>${a.n}</span></div>`:''}<h3>${x.t}</h3><p>${x.lead}</p>
  <div class="stm">${x.m.slice(0,2).map(([v,l])=>`<span><b>${v.toLocaleString('en')}</b>${l}</span>`).join('')}</div><span class="stgo">اقرأ التجربة ←</span></div></article>`}
 function renderStories(){const cats=['الكل',...new Set(STORIES.map(x=>x.cat))];const F=$('#stFilters');if(F)F.innerHTML=cats.map(c=>`<button class="pill ${c==stCat?'on':''}">${c}</button>`).join('');
  const L=STORIES.filter(x=>stCat=='الكل'||x.cat==stCat);const G=$('#stGrid');if(G)G.innerHTML=L.map(stCard).join('');
- const H=$('#homeStories');if(H)H.innerHTML=STORIES.filter(x=>x.img).slice(0,3).map(stCard).join('')}
+ const H=$('#homeStories');if(H){const hs=STORIES.filter(x=>x.home);H.innerHTML=(hs.length?hs:STORIES.filter(x=>x.img)).slice(0,3).map(stCard).join('')}}
 document.addEventListener('click',e=>{const f=e.target.closest('#stFilters .pill');if(f){stCat=f.textContent;renderStories();return}const c=e.target.closest('.stc');if(c)openStory(c.dataset.sk)});
 document.addEventListener('keydown',e=>{if(e.key=='Enter'){const c=e.target.closest&&e.target.closest('.stc');if(c)openStory(c.dataset.sk)}});
 function openStory(k){const x=STORIES.find(s=>s.k==k);if(!x)return;const a=stA(x);
  $('#modal').classList.add('wide');
  $('#modal').innerHTML=`<div class="stm2"><button class="x" onclick="closeAll()" aria-label="إغلاق">${I(P.x)}</button>
- ${x.img?`<div class="stgal"><img src="/brand/${x.img}-1" alt="" onerror="const g=this.parentNode;this.remove();if(!g.querySelector('img'))g.classList.add('noimg')"><img src="/brand/${x.img}-2" alt="" onerror="const g=this.parentNode;this.remove();if(!g.querySelector('img'))g.classList.add('noimg')"></div>`:`<div class="stgal noimg"><span>${I(P[x.ic],'width:56px;height:56px;stroke-width:1.2')}</span></div>`}
+ ${x.imgs&&x.imgs.length?`<div class="stgal">${x.imgs.slice(0,2).map(u=>`<img src="${esc(u)}" alt="" onerror="const g=this.parentNode;this.remove();if(!g.querySelector('img'))g.classList.add('noimg')">`).join('')}</div>`:`<div class="stgal noimg"><span>${I(P[x.ic],'width:56px;height:56px;stroke-width:1.2')}</span></div>`}
  <div class="stmb"><div class="sttags"><span class="tag">${x.cat}</span><span class="demo" style="background:#E5F8EE;color:#14804A;border-color:#BFE8D1">المصدر: ${x.src}</span><small>${x.y}</small></div>
  <h2>${x.t}</h2>${a?`<button class="stas big" onclick="closeAll();go('association/${a.lic}')"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,22)}</span><span><b>${a.n}</b><small>${a.gov} · صفحة الجمعية ←</small></span></button>`:''}
  <p class="stlead">${x.lead}</p>
@@ -2633,9 +2894,70 @@ function openStory(k){const x=STORIES.find(s=>s.k==k);if(!x)return;const a=stA(x
  <h4>ما الذي قامت به الجمعية</h4><p>${x.did}</p>
  ${x.ch?`<div class="stcs"><div><h4>التحدي</h4><p>${x.ch}</p></div><div><h4>الحل</h4><p>${x.so}</p></div></div>`:''}
  ${x.pt&&x.pt.length?`<h4>الشركاء والداعمون</h4><div class="stpt">${x.pt.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
- <div class="stft"><a class="btn o" href="${x.url}" target="_blank" rel="noopener">عرض المصدر ↗</a><button class="btn n" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.origin+location.pathname+'#/stories/${x.k}');toast('نُسخ رابط التجربة')">نسخ الرابط</button></div></div></div>`;
+ <div class="stft"><a class="btn p" href="#/read/${encodeURIComponent(x.id)}">${I('<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>','width:16px;height:16px')}الصفحة الكاملة</a>${x.url?`<a class="btn o" href="${esc(x.url)}" target="_blank" rel="noopener">عرض المصدر ↗</a>`:''}${ctShare(ctFind(x.id)||x,1)}</div></div></div>`;
  openOv();$('#modal').classList.add('on')}
 renderStories();
+/* ---------- التواصل وطلب المساعدة في تأسيس جمعية (POST /api/public/contact → صندوق الوارد في اللوحة) ---------- */
+const CF_KINDS=[['general','استفسار عام',P.info],['consult','طلب استشارة',P.chat],['founding','تأسيس جمعية',P.building],['partner','شراكة أو دعم',P.hand],['suggest','اقتراح أو ملاحظة',P.star]];
+const CF_HINT={general:'سؤال عن المجلس أو خدماته أو الجمعيات في المنطقة.',consult:'للحجز المباشر مع مستشار استخدم صفحة الاستشارات، أو صف حاجتك هنا ونوجّهك.',founding:'لطلب أكمل، استخدم نموذج المساعدة في التأسيس.',partner:'جهة مانحة أو شركة أو جهة حكومية تريد التعاون مع جمعيات المنطقة.',suggest:'ملاحظة على الموقع أو فكرة لخدمة جديدة.'};
+let cfKind='general';
+async function cfPost(body){const r=await fetch('/api/public/contact',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error((j.error&&j.error.message)||'تعذّر الإرسال، حاول مرة أخرى');return j}
+const cfDone=(t,p,id)=>`<div class="done cfdone"><div class="ok">${I('<path d="m5 12 5 5 9-10"/>')}</div><h3>${t}</h3><p>${p}</p>${id?`<span class="cfref">رقم المتابعة: <b dir="ltr">#${id}</b></span>`:''}</div>`;
+function renderContactForm(){const F=$('#ctForm');if(!F)return;
+ F.innerHTML=`<h3>أرسل رسالة</h3><div class="cftopics" role="radiogroup" aria-label="موضوع الرسالة">${CF_KINDS.map(([k,t,ic])=>`<button type="button" role="radio" aria-checked="${k==cfKind}" class="${k==cfKind?'on':''}" data-cfk="${k}">${I(ic,'width:16px;height:16px')}${t}</button>`).join('')}</div>
+ <p class="cfhint" id="cfHint">${CF_HINT[cfKind]}${cfKind=='consult'?' <a href="#/consult">صفحة الاستشارات ←</a>':''}${cfKind=='founding'?' <button type="button" class="lnk" onclick="openFounding()">افتح نموذج التأسيس ←</button>':''}</p>
+ <form class="form" id="cfF" novalidate><label>الاسم<input name="name" required autocomplete="name" placeholder="الاسم الكامل"></label><label>الجهة<input name="org" autocomplete="organization" placeholder="اسم الجمعية أو الجهة (اختياري)"></label>
+  <label>البريد الإلكتروني<input name="email" type="email" autocomplete="email" placeholder="name@example.com" dir="ltr"></label><label>الجوال<input name="phone" type="tel" autocomplete="tel" placeholder="05XXXXXXXX" dir="ltr"></label>
+  <label class="full">الرسالة<textarea name="message" rows="4" required placeholder="اكتب رسالتك..."></textarea></label>
+  <input name="website" class="hpot" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <p class="cferr full" id="cfErr" role="alert"></p>
+  <div class="full cfft"><small>${I(P.lock,'width:14px;height:14px;flex:none')}تصل رسالتك لفريق المجلس فقط، ولا تُنشر.</small><button class="btn n">إرسال الرسالة ${I('<path d="M19 12H5M11 6l-6 6 6 6"/>','width:18px;height:18px')}</button></div></form>`;
+ F.querySelectorAll('[data-cfk]').forEach(b=>b.onclick=()=>{cfKind=b.dataset.cfk;renderContactForm();if(cfKind=='founding')openFounding()});
+ $('#cfF').onsubmit=async e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target)),er=$('#cfErr'),btn=e.target.querySelector('.btn');er.textContent='';
+  if(!f.name.trim())return er.textContent='اكتب الاسم';if(!f.email.trim()&&!f.phone.trim())return er.textContent='اكتب البريد أو الجوال لنتواصل معك';if(f.message.trim().length<5)return er.textContent='اكتب نص الرسالة';
+  btn.disabled=true;btn.classList.add('busy');
+  try{const j=await cfPost({...f,kind:cfKind});F.innerHTML=cfDone('وصلت رسالتك','سيتواصل معك فريق المجلس في أقرب وقت.',j.id)+`<button class="btn o" style="margin:14px auto 0;display:flex" onclick="renderContactForm()">رسالة أخرى</button>`}
+  catch(x){er.textContent=x.message;btn.disabled=false;btn.classList.remove('busy')}}}
+renderContactForm();
+/* معالج تأسيس جمعية: ثلاث خطوات قصيرة ثم يُرسل كطلب «تأسيس» */
+const FD_STAGE=['فكرة فقط','لدينا مجموعة مؤسسين','أعددنا مسودة اللائحة الأساسية','بدأنا التسجيل في منصة المركز الوطني'];
+const FD_HELP=['فهم متطلبات التأسيس وخطواته','اختيار المجال والجهة الإشرافية المناسبة','صياغة اللائحة الأساسية','إعداد الخطة والميزانية للسنة الأولى','التسجيل في منصة المركز الوطني لتنمية القطاع غير الربحي','التعرف على جمعيات مماثلة في المنطقة','الاحتضان والدعم في السنوات الأولى'];
+let FD={step:0,d:{help:[]}};
+function openFounding(){FD={step:0,d:{help:[]}};$('#modal').classList.add('wide');renderFounding();openOv();$('#modal').classList.add('on')}
+function renderFounding(){const s=FD.step,d=FD.d,fields=[...new Set(assoc.map(a=>a.grp).filter(Boolean))].sort((a,b)=>a.localeCompare(b,'ar'));
+ const steps=['الفكرة','الجاهزية','التواصل'];
+ const val=k=>esc(d[k]||'');
+ let body='';
+ if(s==0)body=`<label class="full">ما فكرة الجمعية؟<textarea name="idea" rows="3" placeholder="مثال: جمعية تعنى بتأهيل الشباب في المهن السياحية بالمحافظة">${val('idea')}</textarea></label>
+  <label>مجال العمل المتوقع<select name="field"><option value="">اختر المجال</option>${fields.map(f=>`<option ${d.field==f?'selected':''}>${esc(f)}</option>`).join('')}<option ${d.field=='غير محدد بعد'?'selected':''}>غير محدد بعد</option></select></label>
+  <label>المحافظة<select name="governorate"><option value="">اختر المحافظة</option>${GN.map(g=>`<option ${d.governorate==g?'selected':''}>${g}</option>`).join('')}</select></label>
+  <label class="full">الفئة المستفيدة<input name="target" value="${val('target')}" placeholder="مثال: الأسر المنتجة، ذوو الإعاقة، الشباب الباحثون عن عمل"></label>`;
+ if(s==1)body=`<div class="full"><span class="fdl">أين وصلتم؟</span><div class="fdopts">${FD_STAGE.map(t=>`<label class="fdo"><input type="radio" name="stage" value="${t}" ${d.stage==t?'checked':''}><span>${t}</span></label>`).join('')}</div></div>
+  <label>عدد المؤسسين حتى الآن<input name="founders" type="number" min="0" max="500" inputmode="numeric" value="${val('founders')}" placeholder="0"></label><span></span>
+  <div class="full"><span class="fdl">بماذا تحتاج المساعدة؟ <small>اختر ما يناسب</small></span><div class="fdchips">${FD_HELP.map(t=>`<label class="fdc"><input type="checkbox" name="help" value="${t}" ${d.help.includes(t)?'checked':''}><span>${t}</span></label>`).join('')}</div></div>`;
+ if(s==2)body=`<label>الاسم<input name="name" autocomplete="name" value="${val('name')}" required></label><label>الجوال<input name="phone" type="tel" dir="ltr" autocomplete="tel" value="${val('phone')}" placeholder="05XXXXXXXX"></label>
+  <label class="full">البريد الإلكتروني<input name="email" type="email" dir="ltr" autocomplete="email" value="${val('email')}" placeholder="name@example.com"></label>
+  <label class="full">ملاحظات إضافية<textarea name="notes" rows="2" placeholder="أي تفاصيل تساعدنا قبل التواصل معك">${val('notes')}</textarea></label>
+  <input name="website" class="hpot" tabindex="-1" autocomplete="off" aria-hidden="true">
+  <div class="fdsum full">${[d.idea,d.field,d.governorate,d.stage].filter(Boolean).map(t=>`<span>${esc(t)}</span>`).join('')}</div>`;
+ $('#modal').innerHTML=`<div class="fdw"><button class="x" onclick="closeAll()" aria-label="إغلاق">${I(P.x)}</button>
+  <div class="fdh"><span class="ctfic">${I(P.building,'width:22px;height:22px')}</span><div><h2>المساعدة في تأسيس جمعية</h2><p>أخبرنا عن فكرتك في دقيقتين، ويتواصل معك فريق المجلس ليرشدك للخطوات المناسبة.</p></div></div>
+  <ol class="fdsteps">${steps.map((t,i)=>`<li class="${i<s?'done':i==s?'on':''}"><i>${i<s?I('<path d="m5 12 5 5 9-10"/>','width:13px;height:13px'):i+1}</i>${t}</li>`).join('')}</ol>
+  <form class="form" id="fdF" novalidate>${body}<p class="cferr full" id="fdErr" role="alert"></p>
+  <div class="full fdnav">${s?'<button type="button" class="btn o" id="fdBack">السابق</button>':'<span></span>'}<button class="btn ${s==2?'p':'n'}">${s==2?'إرسال الطلب':'التالي'}</button></div></form>
+  <p class="fdnote">${I(P.info,'width:14px;height:14px;flex:none')}يتم التسجيل الرسمي للجمعيات عبر منصة المركز الوطني لتنمية القطاع غير الربحي، ودور المجلس الإرشاد والمرافقة.</p></div>`;
+ const F=$('#fdF');
+ const grab=()=>{const fd=new FormData(F);for(const [k,v] of fd.entries())if(k!='help')d[k]=v;if(s==1)d.help=fd.getAll('help')};
+ $('#fdBack')&&($('#fdBack').onclick=()=>{grab();FD.step--;renderFounding()});
+ F.onsubmit=async e=>{e.preventDefault();grab();const er=$('#fdErr');er.textContent='';
+  if(s==0&&(!d.idea||d.idea.trim().length<5))return er.textContent='اكتب فكرة الجمعية باختصار';
+  if(s==0&&!d.governorate)return er.textContent='اختر المحافظة';
+  if(s<2){FD.step++;renderFounding();const m=$('#modal');m.scrollTop=0;return}
+  if(!d.name||!d.name.trim())return er.textContent='اكتب الاسم';if(!(d.phone||'').trim()&&!(d.email||'').trim())return er.textContent='اكتب الجوال أو البريد لنتواصل معك';
+  const btn=F.querySelector('.btn.p');btn.disabled=true;btn.classList.add('busy');
+  try{const j=await cfPost({kind:'founding',name:d.name,phone:d.phone,email:d.email,governorate:d.governorate,website:d.website,message:'طلب مساعدة في تأسيس جمعية: '+d.idea+(d.notes?'\n\n'+d.notes:''),details:{idea:d.idea,field:d.field,target:d.target,stage:d.stage,founders:d.founders,help:d.help}});
+   $('#modal').innerHTML=`<div class="fdw"><button class="x" onclick="closeAll()" aria-label="إغلاق">${I(P.x)}</button>${cfDone('وصل طلبك، شكراً لك','سيتواصل معك فريق المجلس لترتيب جلسة تعريفية بخطوات التأسيس.',j.id)}<div style="display:flex;justify-content:center;gap:10px;margin-top:14px"><a class="btn o" href="#/stories" onclick="closeAll()">تصفّح تجارب جمعيات عسير</a><button class="btn n" onclick="closeAll()">إغلاق</button></div></div>`}
+  catch(x){er.textContent=x.message;btn.disabled=false;btn.classList.remove('busy')}}}
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
@@ -3090,8 +3412,8 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 $('#burger').onclick=()=>{$('#nav').classList.toggle('open');onScroll()};
 $('#nav').onclick=e=>{if(e.target.matches('a')){$('#nav').classList.remove('open');onScroll()}};
 /* ---------- router (hash pages) ---------- */
-const ROUTES={'':'home','home':'home','about':'about','governance':'about','board':'about','news':'news','stories':'stories','directory':'directory','consult':'consult','communities':'communities','contact':'home','platforms':'home','association':'assoc','admin':'admin'};
-const TITLES={home:'مجلس الجمعيات الأهلية بمنطقة عسير',about:'عن المجلس والحوكمة',news:'المركز الإعلامي',stories:'تجارب مميزة من جمعيات عسير',directory:'دليل الجمعيات وخريطتها',consult:'الاستشارات',communities:'المجتمعات المهنية',assoc:'صفحة جمعية',admin:'لوحة التحكم'};
+const ROUTES={'':'home','home':'home','about':'about','governance':'about','board':'about','news':'news','stories':'stories','directory':'directory','consult':'consult','communities':'communities','contact':'home','platforms':'home','association':'assoc','admin':'admin','read':'read','found':'home'};
+const TITLES={home:'مجلس الجمعيات الأهلية بمنطقة عسير',about:'عن المجلس والحوكمة',news:'المركز الإعلامي',stories:'تجارب مميزة من جمعيات عسير',directory:'دليل الجمعيات وخريطتها',consult:'الاستشارات',communities:'المجتمعات المهنية',assoc:'صفحة جمعية',admin:'لوحة التحكم',read:'المركز الإعلامي'};
 let curPage=null;
 let curPath=null;
 function go(path){path=String(path).replace(/^#?\/?/,'');try{history.pushState(null,'','#/'+path)}catch(e){}route(path)}
@@ -3104,9 +3426,11 @@ function route(path){
  if(pg=='assoc')renderAssocPage(arg);
  if(pg=='directory')setTimeout(renderDirFields,30);
  if(pg=='stories'){renderStories();if(arg)setTimeout(()=>openStory(arg),60)}
+ if(pg=='read')renderRead(arg);
+ if(r=='found')setTimeout(()=>openFounding(),80);
  if(pg=='admin')adminEnter(arg);else adminLeave();
- document.title=(pg=='home'?'':(pg=='assoc'&&curAssoc?curAssoc.n:TITLES[pg])+' — ')+'مجلس الجمعيات الأهلية بعسير';
- const anchor={governance:'governance',board:'board',contact:'contact',platforms:'platforms'}[r];
+ if(pg!='read')document.title=(pg=='home'?'':(pg=='assoc'&&curAssoc?curAssoc.n:TITLES[pg])+' — ')+'مجلس الجمعيات الأهلية بعسير';
+ const anchor={governance:'governance',board:'board',contact:'contact',platforms:'platforms',found:'contact'}[r];
  requestAnimationFrame(()=>{if(anchor){const el=document.getElementById(anchor);if(el){window.scrollTo(0,0);setTimeout(()=>window.scrollTo({top:el.getBoundingClientRect().top+scrollY-70,behavior:'auto'}),80)}}else window.scrollTo(0,0);
   if(pg=='directory'){renderLabels();}
   if(pg=='home'&&typeof drawHome=='function')drawHome();
@@ -3263,7 +3587,7 @@ const ADM={auth:false,role:'admin',mod:'overview',reveal:false,
 const CONSULTANTS=['مستشار الحوكمة','مستشار التخطيط','مستشار المالية','مستشار الموارد','مستشار الأثر','مستشار الاتصال','مستشار التقنية','مستشار قانوني'];
 const ROLES={admin:['مدير النظام','كل الصلاحيات'],content:['محرر المحتوى','المحتوى والمجتمعات والحملات'],consult:['منسق الاستشارات','الطلبات والمستشارين والمواعيد'],analyst:['محلل البيانات','الدليل والتحليلات']};
 
-const esc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
+function esc(v){return String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c])}
 const maskE=v=>{if(!v)return '';const [u,d]=v.split('@');return u.slice(0,2)+'•••@'+(d||'')};
 const maskP=v=>v?v.replace(/\d(?=\d{2})/g,'•'):'';
 const maskN=v=>v?v.split(' ')[0]+' •••':'';
@@ -3756,30 +4080,134 @@ AM.consults=el=>{const C=ADM.consults,f=ADM.cf||'';
  el.querySelectorAll('[data-cc]').forEach(s=>s.onchange=()=>{const c=C[+s.dataset.cc];c.c=s.value;if(c.st=='جديد'&&s.value)c.st='مجدول';alog(`تعيين ${s.value} لطلب ${c.ref}`);toast('تم التعيين وإشعار الجمعية');renderAdmin()});
  el.querySelectorAll('[data-cs]').forEach(s=>s.onchange=()=>{const c=C[+s.dataset.cs];c.st=s.value;alog(`حالة ${c.ref}: ${s.value}`);renderAdmin()});
 };
-AM.content=el=>{const tab=ADM.content;
- el.innerHTML=`<p class="alead">ما يُنشر في الموقع العام: الأخبار، وشريط الإعلانات، وأخبار الجمعيات المرسلة للمراجعة. التغييرات هنا تظهر في الموقع فوراً.</p>
- <div class="tabs2"><button class="${tab=='news'?'on':''}" data-ct="news">الأخبار (${news.length})</button><button class="${tab=='ann'?'on':''}" data-ct="ann">الإعلانات</button><button class="${tab=='subs'?'on':''}" data-ct="subs">طلبات النشر من الجمعيات${subsN()?`<em>${subsN()}</em>`:''}</button></div>
- <div class="panel" id="ctBody"></div>`;
- el.querySelectorAll('[data-ct]').forEach(b=>b.onclick=()=>{ADM.content=b.dataset.ct;AM.content(el)});
+AM.content=el=>{if(ADM.content=='news')ADM.content='studio';const tab=ADM.content;
+ const CS=ADM.cs||(ADM.cs={f:'all',q:'',edit:null,draft:null});
+ el.innerHTML=`<div class="tabs2"><button class="${tab=='studio'?'on':''}" data-ct="studio">الأخبار والتجارب (${CT.length})</button><button class="${tab=='ann'?'on':''}" data-ct="ann">شريط الإعلان</button><button class="${tab=='subs'?'on':''}" data-ct="subs">طلبات النشر من الجمعيات${subsN()?`<em>${subsN()}</em>`:''}</button></div>
+ <div id="ctBody" style="margin-top:14px"></div>`;
+ el.querySelectorAll('[data-ct]').forEach(b=>b.onclick=()=>{ADM.content=b.dataset.ct;CS.edit=null;AM.content(el)});
  const B=$('#ctBody');
- if(tab=='news'){B.innerHTML=`<div class="tbar"><b style="color:var(--hd)">الأخبار المنشورة</b><span style="flex:1"></span><button class="btn p" id="nNew">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}خبر جديد</button></div>
-  <div id="nForm"></div><div class="twrap"><table class="at" style="min-width:640px"><thead><tr><th class="ns">العنوان</th><th class="ns">التصنيف</th><th class="ns">التاريخ</th><th class="ns">الحالة</th><th class="ns"></th></tr></thead><tbody>${news.map((n,i)=>`<tr><td><b>${esc(n.t)}</b></td><td>${n.c}</td><td><input data-nd="${i}" value="${esc(n.dt)}" style="width:160px;padding:5px 8px;border:1px solid var(--line);border-radius:8px;font-size:12.5px;background:var(--sf);color:var(--text)"></td><td><span class="pill2 ${n.hidden?'p-mute':'p-ok'}">${n.hidden?'مخفي':'منشور'}</span></td><td><button class="btn o" style="padding:6px 12px;font-size:12.5px" data-nh="${i}">${n.hidden?'نشر':'إخفاء'}</button></td></tr>`).join('')}</tbody></table></div>`;
-  B.querySelectorAll('[data-nh]').forEach(b=>b.onclick=()=>{const n=news[+b.dataset.nh];n.hidden=!n.hidden;syncNews();alog((n.hidden?'إخفاء خبر: ':'نشر خبر: ')+n.t);AM.content(el)});
-  B.querySelectorAll('[data-nd]').forEach(i=>i.onchange=()=>{const n=news[+i.dataset.nd];n.dt=i.value.trim();syncNews();toast('حُدّث تاريخ الخبر في الموقع');alog('تاريخ خبر: '+n.t)});
-
-  $('#nNew').onclick=()=>{$('#nForm').innerHTML=`<form class="aform" id="nf" style="margin-bottom:16px;padding:16px;border-radius:16px;background:var(--mist)"><label class="full">عنوان الخبر<input name="t" required></label><label>التصنيف<select name="c"><option>المجلس</option><option>الجمعيات</option><option>فعاليات</option></select></label><label>تاريخ النشر<input name="dt" value="${TODAY.getDate()} نوفمبر ${TODAY.getFullYear()}"></label><label class="full">نص الخبر<textarea name="d" rows="3"></textarea></label><div class="full" style="display:flex;gap:8px"><button class="btn p">نشر في الموقع</button><button type="button" class="btn o" onclick="$('#nForm').innerHTML=''">إلغاء</button></div></form>`;
-   $('#nf').onsubmit=e=>{e.preventDefault();const f=Object.fromEntries(new FormData(e.target));news.unshift({c:f.c,t:f.t,d:f.d,dt:f.dt,ic:{المجلس:'award',الجمعيات:'heart',فعاليات:'star'}[f.c]});syncNews();alog('نشر خبر: '+f.t,'#14A37F');toast('نُشر الخبر في الموقع');AM.content(el)}}}
- if(tab=='ann'){B.innerHTML=`<h3 style="color:var(--hd);font-size:15.5px">شريط الإعلانات في الصفحة الرئيسية</h3><p class="d" style="color:var(--mute);font-size:12.5px;margin:4px 0 14px">إعلان قصير يظهر أعلى الصفحة الرئيسية، مثل فتح التسجيل في فعالية أو موعد مهم.</p>
+ if(tab=='studio'){CS.edit?csEditor(B,el):csList(B,el);return}
+ B.classList.add('panel');
+ if(tab=='ann'){B.innerHTML=`<h3 style="color:var(--hd);font-size:15.5px">شريط الإعلان أعلى الصفحة الرئيسية</h3><p class="d" style="color:var(--mute);font-size:12.5px;margin:4px 0 14px">سطر قصير يظهر أعلى الصفحة الرئيسية، مثل فتح التسجيل في فعالية أو موعد مهم. للإعلانات المفصّلة أنشئ «إعلاناً» من تبويب الأخبار والتجارب.</p>
   <div class="aform"><label class="full">نص الإعلان<input id="annT" value="${esc(ADM.ann.text)}"></label></div>
   <div style="display:flex;align-items:center;gap:12px;margin:14px 0"><button class="tg ${ADM.ann.on?'on':''}" id="annOn" aria-label="تفعيل الإعلان"></button><span style="font-size:14px;color:var(--hd);font-weight:600">${ADM.ann.on?'الإعلان ظاهر في الموقع':'الإعلان غير ظاهر'}</span></div>
   <div class="annprev">${esc(ADM.ann.text)}</div>`;
   $('#annT').oninput=e=>{ADM.ann.text=e.target.value;B.querySelector('.annprev').textContent=e.target.value;syncAnn()};
   $('#annOn').onclick=()=>{ADM.ann.on=!ADM.ann.on;syncAnn();alog(ADM.ann.on?'تفعيل إعلان الصفحة الرئيسية':'إيقاف الإعلان');AM.content(el)}}
- if(tab=='subs'){B.innerHTML=`<div class="twrap"><table class="at" style="min-width:640px"><thead><tr><th class="ns">الجمعية</th><th class="ns">عنوان الخبر</th><th class="ns">الوقت</th><th class="ns">الحالة</th><th class="ns"></th></tr></thead><tbody>${ADM.subs.map((s,i)=>`<tr><td><b>${esc(s.a.n)}</b><small>${s.a.gov}</small></td><td>${esc(s.t)}</td><td>${s.at} <span class="demo">تجريبي</span></td><td>${SP(s.st)}</td><td>${s.st=='بانتظار المراجعة'?`<button class="btn n" style="padding:6px 12px;font-size:12.5px" data-sp="${i}">نشر</button> <button class="btn o" style="padding:6px 12px;font-size:12.5px" data-sr="${i}">رفض</button>`:''}</td></tr>`).join('')}</tbody></table></div>`;
-  B.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{const s=ADM.subs[+b.dataset.sp];s.st='منشور';news.unshift({c:'الجمعيات',t:s.t,d:`خبر من ${s.a.n}.`,dt:`${TODAY.getDate()} نوفمبر ${TODAY.getFullYear()}`,ic:'heart'});syncNews();alog('نشر خبر جمعية: '+s.t,'#14A37F');toast('نُشر الخبر');renderAdmin()});
+ if(tab=='subs'){B.innerHTML=`<div class="twrap"><table class="at" style="min-width:640px"><thead><tr><th class="ns">الجمعية</th><th class="ns">عنوان الخبر</th><th class="ns">الوقت</th><th class="ns">الحالة</th><th class="ns"></th></tr></thead><tbody>${ADM.subs.map((s,i)=>`<tr><td><b>${esc(s.a.n)}</b><small>${s.a.gov}</small></td><td>${esc(s.t)}</td><td>${s.at} <span class="demo">تجريبي</span></td><td>${SP(s.st)}</td><td>${s.st=='بانتظار المراجعة'?`<button class="btn n" style="padding:6px 12px;font-size:12.5px" data-sp="${i}">مراجعة في المحرر</button> <button class="btn o" style="padding:6px 12px;font-size:12.5px" data-sr="${i}">رفض</button>`:''}</td></tr>`).join('')}</tbody></table></div>`;
+  B.querySelectorAll('[data-sp]').forEach(b=>b.onclick=()=>{const s=ADM.subs[+b.dataset.sp];s.st='منشور';ADM.content='studio';CS.edit='new';CS.draft=csBlank('news',{c:'الجمعيات',t:s.t,body:`خبر من ${s.a.n}.`,aid:s.a.id,ic:'heart'});AM.content(el)});
   B.querySelectorAll('[data-sr]').forEach(b=>b.onclick=()=>{ADM.subs[+b.dataset.sr].st='مرفوض';toast('رُفض الطلب وأُشعرت الجمعية');renderAdmin()})}
 };
-function syncNews(){renderNews();$('#homeNews').innerHTML=news.filter(n=>!n.hidden).slice(0,3).map(n=>newsCard(n,news.indexOf(n))).join('')}
+const CS_IC=['award','star','heart','people','target','eye','hand','building','mega','shield','coin','chat','pin','grid','book','leaf','chart','globe'];
+const CS_WHERE={news:['المركز الإعلامي','الرئيسية: «من أعمال المجلس»'],story:['صفحة تجارب مميزة','الرئيسية: «قصص أثر»'],ann:['المركز الإعلامي (تصنيف إعلانات)','الرئيسية: «من أعمال المجلس»']};
+function csBlank(type,o){const d=new Date();return Object.assign({id:'c'+Date.now().toString(36),type,st:'draft',home:false,feat:false,t:'',c:type=='story'?'':type=='ann'?'إعلانات':'المجلس',k:'',dt:type=='story'?String(d.getFullYear()):d.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long',year:'numeric'}),ic:type=='story'?'star':type=='ann'?'mega':'award',lead:'',body:'',imgs:[],aid:null,m:[],pt:[],ch:'',so:'',src:'',url:''},o||{})}
+function csThumb(x){return x.imgs&&x.imgs[0]?`<img src="${esc(x.imgs[0])}" alt="" loading="lazy" onerror="this.remove()">`:''}
+function csList(B,el){const CS=ADM.cs,q=CS.q.trim();
+ const cnt=f=>CT.filter(x=>f=='all'||(f=='draft'?x.st!='pub':x.type==f)).length;
+ const L=CT.map((x,i)=>[x,i]).filter(([x])=>(CS.f=='all'||(CS.f=='draft'?x.st!='pub':x.type==CS.f))&&(!q||(x.t+' '+x.c+' '+(x.lead||'')).includes(q)));
+ B.innerHTML=`<div class="cshead"><div class="csf">${[['all','الكل'],['news','الأخبار'],['story','التجارب'],['ann','الإعلانات'],['draft','المسودات']].map(([k,t])=>`<button class="${CS.f==k?'on':''}" data-csf="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span class="sp" style="flex:1"></span>
+  <label class="csq">${I(P.search,'width:15px;height:15px')}<input id="csQ" placeholder="ابحث في العناوين" value="${esc(CS.q)}"></label>
+  <div class="csnew"><button class="jbtn pri" id="csNew">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إنشاء</button><div class="csmenu" id="csMenu" hidden>${Object.entries(CT_T).map(([k,t])=>`<button data-csn="${k}">${I(P[{news:'news',story:'star',ann:'mega'}[k]],'width:16px;height:16px')}<span><b>${t}</b><small>${CS_WHERE[k][0]}</small></span></button>`).join('')}</div></div></div>
+ <div class="cslist">${L.length?L.map(([x,i])=>`<div class="csr ${x.st!='pub'?'draft':''}"><span class="csth">${I(P[x.ic]||P.star,'width:20px;height:20px')}${csThumb(x)}</span>
+  <button class="csm" data-cse="${i}"><b>${esc(x.t)||'بدون عنوان'}</b><small>${CT_T[x.type]}${x.c?' · '+esc(x.c):''}${x.dt?' · '+esc(x.dt):''}</small></button>
+  <span class="cstags">${x.st!='pub'?'<span class="pill2 p-mute">مسودة</span>':'<span class="pill2 p-ok">منشور</span>'}${x.home?'<span class="pill2 p-info">في الرئيسية</span>':''}${x.feat?'<span class="pill2 p-warn">مميز</span>':''}</span>
+  <span class="csa"><button class="jic sm" data-csu="${i}" title="تقديم" ${i?'':'disabled'}>${I('<path d="M12 19V5M5 12l7-7 7 7"/>','width:15px;height:15px')}</button><button class="jic sm" data-csd="${i}" title="تأخير" ${i==CT.length-1?'disabled':''}>${I('<path d="M12 5v14M19 12l-7 7-7-7"/>','width:15px;height:15px')}</button><button class="jic sm" data-csh="${i}" title="${x.home?'إزالة من الرئيسية':'عرض في الرئيسية'}">${I(P.home,'width:15px;height:15px')}</button><a class="jic sm" href="#/read/${encodeURIComponent(x.id)}" target="_blank" title="فتح الصفحة المستقلة">${I('<path d="M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>','width:15px;height:15px')}</a><button class="jbtn" data-cse="${i}">تحرير</button></span></div>`).join(''):'<div class="empty">لا توجد عناصر مطابقة</div>'}</div>
+ <p class="cshelp">${I(P.info,'width:14px;height:14px;flex:none')}الترتيب هنا هو ترتيب الظهور في الموقع، والعنصر «المميز» يتصدر قسمه. أول ثلاثة عناصر مفعّل لها «في الرئيسية» تظهر في الصفحة الرئيسية.</p>`;
+ B.querySelectorAll('[data-csf]').forEach(b=>b.onclick=()=>{ADM.cs.f=b.dataset.csf;csList(B,el)});
+ $('#csQ').oninput=e=>{ADM.cs.q=e.target.value;clearTimeout(csList._t);csList._t=setTimeout(()=>{csList(B,el);const i=$('#csQ');i.focus();i.setSelectionRange(i.value.length,i.value.length)},220)};
+ $('#csNew').onclick=e=>{e.stopPropagation();const m=$('#csMenu');m.hidden=!m.hidden};
+ document.addEventListener('click',()=>{const m=$('#csMenu');m&&(m.hidden=true)},{once:true});
+ B.querySelectorAll('[data-csn]').forEach(b=>b.onclick=()=>{ADM.cs.edit='new';ADM.cs.draft=csBlank(b.dataset.csn);AM.content(el)});
+ B.querySelectorAll('[data-cse]').forEach(b=>b.onclick=()=>{const x=CT[+b.dataset.cse];ADM.cs.edit=x.id;ADM.cs.draft=JSON.parse(JSON.stringify(x));AM.content(el)});
+ const mv=(i,d)=>{const j=i+d;if(j<0||j>=CT.length)return;[CT[i],CT[j]]=[CT[j],CT[i]];ctSave();csList(B,el)};
+ B.querySelectorAll('[data-csu]').forEach(b=>b.onclick=()=>mv(+b.dataset.csu,-1));
+ B.querySelectorAll('[data-csd]').forEach(b=>b.onclick=()=>mv(+b.dataset.csd,1));
+ B.querySelectorAll('[data-csh]').forEach(b=>b.onclick=()=>{const x=CT[+b.dataset.csh];x.home=!x.home;ctSave(x.home?'سيظهر في الصفحة الرئيسية':'أزيل من الصفحة الرئيسية');alog((x.home?'عرض في الرئيسية: ':'إزالة من الرئيسية: ')+x.t);csList(B,el)})}
+async function csUpload(file,id){
+ const bmp=await createImageBitmap(file),sc=Math.min(1,1800/bmp.width),cv=document.createElement('canvas');cv.width=Math.round(bmp.width*sc);cv.height=Math.round(bmp.height*sc);cv.getContext('2d').drawImage(bmp,0,0,cv.width,cv.height);
+ let blob=await new Promise(r=>cv.toBlob(r,'image/webp',.86));if(!blob||blob.type!='image/webp')blob=await new Promise(r=>cv.toBlob(r,'image/jpeg',.86));
+ if(!SESSION)return URL.createObjectURL(blob);
+ const slug=('c-'+id+'-'+Date.now().toString(36)).toLowerCase().replace(/[^a-z0-9-]/g,'').slice(0,60);
+ const r=await fetch('/api/brand/'+slug,{method:'PUT',headers:{'Content-Type':blob.type},body:blob});const j=await r.json().catch(()=>({}));
+ if(!r.ok)throw new Error((j.error&&j.error.message)||'تعذّر رفع الصورة');return '/brand/'+slug}
+function csEditor(B,el){const CS=ADM.cs,d=CS.draft,isS=d.type=='story',isNew=CS.edit=='new';
+ const cats=[...new Set(CT.filter(x=>x.type==d.type).map(x=>x.c).filter(Boolean))];
+ const an=d.aid?(assoc.find(a=>a.id==d.aid)||{}).n||'':'';
+ B.innerHTML=`<div class="csed"><div class="cseh"><button class="jic sm" id="csBack" title="العودة للقائمة">${I(P.chev,'width:16px;height:16px')}</button><div><b>${isNew?'إنشاء '+CT_T[d.type]:'تحرير '+CT_T[d.type]}</b><small>يظهر في: ${CS_WHERE[d.type][0]}${d.home?' · '+CS_WHERE[d.type][1]:''}</small></div><span style="flex:1"></span>
+  ${!isNew?`<button class="jbtn" id="csDel" style="color:#B42318">حذف</button>`:''}<a class="jbtn" href="#/read/${encodeURIComponent(d.id)}" target="_blank" id="csPrev" ${isNew?'hidden':''}>معاينة الصفحة</a><button class="jbtn" id="csDraft">حفظ كمسودة</button><button class="jbtn pri" id="csPub">${d.st=='pub'&&!isNew?'حفظ التعديلات':'نشر'}</button></div>
+ <div class="csgrid"><form class="aform csform" id="csF" onsubmit="return false">
+  <div class="full csseg">${Object.entries(CT_T).map(([k,t])=>`<label><input type="radio" name="type" value="${k}" ${d.type==k?'checked':''}><span>${t}</span></label>`).join('')}</div>
+  <label class="full">العنوان<input name="t" value="${esc(d.t)}" maxlength="140" placeholder="${isS?'مثال: «شفاء»: أجهزة طبية لـ210 أسر أيتام':'عنوان واضح ومختصر'}"></label>
+  <label>التصنيف<input name="c" list="csCats" value="${esc(d.c)}" placeholder="${isS?'الصحة، الأسرة، التمكين…':'المجلس، الجمعيات، فعاليات'}"><datalist id="csCats">${cats.map(c=>`<option value="${esc(c)}">`).join('')}</datalist></label>
+  <label>${isS?'السنة':'التاريخ'}<input name="dt" value="${esc(d.dt)}"></label>
+  ${!isS?`<label>وسم البطاقة <small>اختياري</small><input name="k" value="${esc(d.k)}" placeholder="ورشة عمل، ملتقى…"></label>`:''}
+  <div class="full"><span class="csl">الأيقونة <small>تظهر حين لا توجد صورة</small></span><div class="csics">${CS_IC.map(k=>`<label title="${k}"><input type="radio" name="ic" value="${k}" ${d.ic==k?'checked':''}><span>${I(P[k],'width:18px;height:18px')}</span></label>`).join('')}</div></div>
+  <label class="full">الجمعية المرتبطة <small>اختياري — تظهر بشعارها ورابط صفحتها</small><input name="an" list="csAs" value="${esc(an)}" placeholder="اكتب اسم الجمعية"><datalist id="csAs">${assoc.map(a=>`<option value="${esc(a.n)}">`).join('')}</datalist></label>
+  <label class="full">${isS?'الافتتاحية: الحاجة أو القصة في سطرين':'ملخص قصير'} <small>يظهر في البطاقة</small><textarea name="lead" rows="2" maxlength="320">${esc(d.lead)}</textarea></label>
+  <label class="full">${isS?'ما الذي قامت به الجمعية':'نص الخبر'} <small>سطر فارغ = فقرة جديدة</small><textarea name="body" rows="7">${esc(d.body)}</textarea></label>
+  ${isS?`<label>التحدي<textarea name="ch" rows="2">${esc(d.ch)}</textarea></label><label>الحل<textarea name="so" rows="2">${esc(d.so)}</textarea></label>
+  <div class="full"><span class="csl">أرقام الأثر</span><div class="csm2" id="csM">${(d.m||[]).map(([v,l],i)=>`<div><input data-mv="${i}" value="${esc(v)}" placeholder="210" inputmode="numeric"><input data-ml="${i}" value="${esc(l)}" placeholder="أسرة مستفيدة"><button type="button" class="jic sm" data-mx="${i}" aria-label="حذف">${I(P.x,'width:14px;height:14px')}</button></div>`).join('')}<button type="button" class="jbtn" id="csMAdd">${I('<path d="M12 5v14M5 12h14"/>','width:14px;height:14px')}إضافة رقم</button></div></div>
+  <label class="full">الشركاء والداعمون <small>افصل بينهم بفاصلة</small><input name="pt" value="${esc((d.pt||[]).join('، '))}"></label>`:''}
+  <div class="full"><span class="csl">الصور <small>الأولى غلاف البطاقة والصفحة</small></span><div class="csimgs" id="csImgs">${(d.imgs||[]).map((u,i)=>`<div class="csim"><img src="${esc(u)}" alt=""><span>${i?'':'<em>الغلاف</em>'}${i?`<button type="button" data-ic="${i}" title="جعلها الغلاف">${I(P.star,'width:13px;height:13px')}</button>`:''}<button type="button" data-ix="${i}" title="حذف">${I(P.x,'width:13px;height:13px')}</button></span></div>`).join('')}<label class="csadd">${I('<path d="M12 5v14M5 12h14"/>','width:20px;height:20px')}<span>رفع صورة</span><input type="file" accept="image/png,image/jpeg,image/webp" multiple hidden id="csFile"></label></div></div>
+  <label>المصدر <small>اختياري</small><input name="src" value="${esc(d.src)}" placeholder="منصة سجام، تقرير المجلس…"></label><label>رابط المصدر<input name="url" value="${esc(d.url)}" dir="ltr" placeholder="https://"></label>
+  <div class="full cstg"><label class="cstog"><input type="checkbox" name="home" ${d.home?'checked':''}><span><b>عرض في الصفحة الرئيسية</b><small>${CS_WHERE[d.type][1]}</small></span></label><label class="cstog"><input type="checkbox" name="feat" ${d.feat?'checked':''}><span><b>عنصر مميز</b><small>يتصدر قسمه في الموقع</small></span></label></div>
+ </form><aside class="csprev"><span class="csl">معاينة البطاقة</span><div id="csCard"></div><p class="cshelp">${I(P.info,'width:14px;height:14px;flex:none')}لكل عنصر منشور صفحة مستقلة برابط ثابت يمكن مشاركته.</p></aside></div></div>`;
+ const F=$('#csF');
+ const read=()=>{const f=new FormData(F);['t','c','dt','k','ic','lead','body','ch','so','src','url'].forEach(k=>{if(f.has(k))d[k]=String(f.get(k)).trim()});
+  const t=f.get('type');d.home=f.has('home');d.feat=f.has('feat');
+  const nm=String(f.get('an')||'').trim(),a=nm?assoc.find(x=>x.n==nm):null;d.aid=a?a.id:null;
+  if(f.has('pt'))d.pt=String(f.get('pt')).split(/[،,]/).map(s=>s.trim()).filter(Boolean);
+  F.querySelectorAll('[data-mv]').forEach(i=>{const k=+i.dataset.mv;d.m[k]=[i.value.trim(),(F.querySelector(`[data-ml="${k}"]`)||{}).value||'']});
+  return t};
+ const prev=()=>{const x=d;$('#csCard').innerHTML=x.type=='story'?stCard({k:'preview',id:x.id,aid:x.aid,cat:x.c||'التصنيف',ic:x.ic,t:x.t||'عنوان التجربة',img:(x.imgs||[])[0]||'',lead:x.lead||'الافتتاحية تظهر هنا.',m:(x.m||[]).filter(m=>m[0]!==''&&m[1])}):newsCard({c:x.type=='ann'?'إعلانات':x.c,k:x.k,t:x.t||'عنوان الخبر',dt:x.dt,ic:x.ic,img:(x.imgs||[])[0]||''},0)};
+ prev();
+ F.oninput=()=>{const t=read();if(t!=d.type){d.type=t;if(!d.c||['المجلس','إعلانات'].includes(d.c))d.c=t=='ann'?'إعلانات':t=='news'?'المجلس':'';csEditor(B,el);return}prev()};
+ $('#csBack').onclick=()=>{CS.edit=null;AM.content(el)};
+ $('#csMAdd')&&($('#csMAdd').onclick=()=>{read();d.m.push(['','']);csEditor(B,el)});
+ F.querySelectorAll('[data-mx]').forEach(b=>b.onclick=()=>{read();d.m.splice(+b.dataset.mx,1);csEditor(B,el)});
+ F.querySelectorAll('[data-ix]').forEach(b=>b.onclick=()=>{read();d.imgs.splice(+b.dataset.ix,1);csEditor(B,el)});
+ F.querySelectorAll('[data-ic]').forEach(b=>b.onclick=()=>{read();const [u]=d.imgs.splice(+b.dataset.ic,1);d.imgs.unshift(u);csEditor(B,el)});
+ $('#csFile').onchange=async e=>{read();const fs=[...e.target.files].slice(0,6);if(!fs.length)return;const lb=e.target.closest('.csadd');lb.classList.add('busy');lb.querySelector('span').textContent='جارٍ الرفع…';
+  try{for(const f of fs){if(f.size>15e6){toast('الصورة أكبر من 15 ميجابايت',1);continue}d.imgs.push(await csUpload(f,d.id))}if(!SESSION)toast('معاينة فقط: الرفع الفعلي يتطلب الدخول بحساب الفريق',1)}catch(x){toast(x.message,1)}
+  csEditor(B,el)};
+ const save=st=>{read();if(!d.t){toast('اكتب العنوان أولاً',1);F.t.focus();return}
+  d.m=(d.m||[]).filter(m=>String(m[0]).trim()&&String(m[1]).trim()).map(([v,l])=>[isNaN(+v)?v:+v,l]);
+  d.st=st;const i=CT.findIndex(x=>x.id==d.id),wasNew=i<0;
+  if(wasNew)CT.unshift(JSON.parse(JSON.stringify(d)));else CT[i]=JSON.parse(JSON.stringify(d));
+  ctSave(st=='pub'?(wasNew?'نُشر في الموقع':'حُفظت التعديلات ونُشرت'):'حُفظت المسودة');alog((st=='pub'?'نشر ':'مسودة ')+CT_T[d.type]+': '+d.t,st=='pub'?'#14A37F':undefined);
+  CS.edit=d.id;csEditor(B,el)};
+ $('#csDraft').onclick=()=>save('draft');$('#csPub').onclick=()=>save('pub');
+ $('#csDel')&&($('#csDel').onclick=e=>{const b=e.currentTarget;if(!b.dataset.sure){b.dataset.sure=1;b.textContent='تأكيد الحذف';setTimeout(()=>{if(b.isConnected){delete b.dataset.sure;b.textContent='حذف'}},4000);return}
+  const i=CT.findIndex(x=>x.id==d.id);if(i>=0){CT.splice(i,1);ctSave('حُذف العنصر');alog('حذف '+CT_T[d.type]+': '+d.t,'#B42318')}CS.edit=null;AM.content(el)})}
+/* ---------- صندوق الوارد: رسائل التواصل وطلبات التأسيس ---------- */
+const MSG_K={general:['استفسار عام',P.info],consult:['طلب استشارة',P.chat],founding:['تأسيس جمعية',P.building],partner:['شراكة أو دعم',P.hand],suggest:['اقتراح',P.star]};
+const MSG_S={new:['جديد','p-warn'],progress:['قيد المتابعة','p-info'],done:['تمت المعالجة','p-ok'],archived:['مؤرشف','p-mute']};
+ADM.inbox={rows:null,f:'open',k:'',open:null,err:''};
+const inboxN=()=>(ADM.inbox.rows||[]).filter(m=>m.status=='new').length;
+async function inboxLoad(){const X=ADM.inbox;if(!SESSION){X.rows=[];return}
+ try{const r=await fetch('/api/messages');const j=await r.json();if(!r.ok)throw new Error((j.error&&j.error.message)||'تعذّر التحميل');X.rows=j.data;X.err=''}catch(e){X.err=e.message;X.rows=X.rows||[]}}
+AM.inbox=el=>{const X=ADM.inbox;
+ if(X.rows==null){el.innerHTML='<div class="empty">جارٍ تحميل الرسائل…</div>';inboxLoad().then(()=>ADM.mod=='inbox'&&renderAdmin());return}
+ const R=X.rows,cnt=f=>R.filter(m=>f=='open'?['new','progress'].includes(m.status):f=='all'||m.status==f).length;
+ const L=R.filter(m=>(X.f=='all'||(X.f=='open'?['new','progress'].includes(m.status):m.status==X.f))&&(!X.k||m.kind==X.k));
+ const dt=s=>s?new Date(s).toLocaleString('ar-SA-u-nu-latn-ca-gregory',{dateStyle:'medium',timeStyle:'short'}):'';
+ const det=m=>{const d=m.details||{};return [d.idea&&['الفكرة',d.idea],d.field&&['المجال',d.field],d.target&&['الفئة المستفيدة',d.target],d.stage&&['المرحلة',d.stage],d.founders&&['عدد المؤسسين',d.founders],d.help&&d.help.length&&['المساعدة المطلوبة',d.help.join('، ')]].filter(Boolean)};
+ const pv=v=>ADM.reveal?esc(v):esc(String(v).replace(/^(.{2}).*(.{2})$/,'$1•••$2'));
+ el.innerHTML=`<p class="alead">رسائل نموذج «تواصل معنا» وطلبات المساعدة في تأسيس الجمعيات من الموقع العام. بيانات التواصل مخفية حتى تُظهرها من زر البيانات الشخصية.</p>${X.err?`<div class="demoNote" style="color:#B42318">${esc(X.err)}</div>`:''}${!SESSION?'<div class="demoNote">صندوق الوارد يعمل عند الدخول بحساب الفريق على الموقع المنشور.</div>':''}
+ <div class="cshead"><div class="csf">${[['open','المفتوحة'],['new','الجديدة'],['done','المعالجة'],['archived','المؤرشفة'],['all','الكل']].map(([k,t])=>`<button class="${X.f==k?'on':''}" data-if="${k}">${t}<em>${cnt(k)}</em></button>`).join('')}</div><span style="flex:1"></span>
+ <select id="ibK" class="ibsel"><option value="">كل المواضيع</option>${Object.entries(MSG_K).map(([k,v])=>`<option value="${k}" ${X.k==k?'selected':''}>${v[0]}</option>`).join('')}</select><button class="jbtn" id="ibR">${I('<path d="M21 12a9 9 0 1 1-3-6.7L21 8M21 3v5h-5"/>','width:15px;height:15px')}تحديث</button></div>
+ <div class="iblist">${L.length?L.map(m=>{const k=MSG_K[m.kind]||MSG_K.general,s=MSG_S[m.status]||MSG_S.new,o=X.open==m.id;return `<div class="ibr ${o?'open':''} ${m.status=='new'?'unread':''}"><button class="ibh" data-io="${m.id}"><span class="ibic">${I(k[1],'width:17px;height:17px')}</span><span class="ibm"><b>${esc(m.name)}${m.org?` <small>· ${esc(m.org)}</small>`:''}</b><small>${k[0]}${m.governorate?' · '+esc(m.governorate):''} · ${dt(m.created_at)}</small><em>${esc(m.message.slice(0,140))}</em></span><span class="pill2 ${s[1]}">${s[0]}</span></button>
+  ${o?`<div class="ibb"><p class="ibmsg">${esc(m.message)}</p>${det(m).length?`<dl class="ibdl">${det(m).map(([a,b])=>`<div><dt>${a}</dt><dd>${esc(b)}</dd></div>`).join('')}</dl>`:''}
+  <div class="ibc">${m.email?`<a class="jbtn" href="${ADM.reveal?'mailto:'+esc(m.email):'#'}" dir="ltr">${I(P.mail||'<rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3 7 9 6 9-6"/>','width:15px;height:15px')}${pv(m.email)}</a>`:''}${m.phone?`<a class="jbtn" href="${ADM.reveal?'tel:'+esc(m.phone):'#'}" dir="ltr">${pv(m.phone)}</a>`:''}<span style="flex:1"></span><label class="ibst">الحالة<select data-is="${m.id}">${Object.entries(MSG_S).map(([k,v])=>`<option value="${k}" ${m.status==k?'selected':''}>${v[0]}</option>`).join('')}</select></label></div>
+  <label class="ibnote">ملاحظة داخلية<textarea data-in="${m.id}" rows="2" placeholder="ما الذي تم، ومن يتابع">${esc(m.note||'')}</textarea></label>${m.updated_at?`<small class="ibu">آخر تحديث ${dt(m.updated_at)}</small>`:''}</div>`:''}</div>`}).join(''):`<div class="empty">${R.length?'لا توجد رسائل مطابقة':'لا توجد رسائل بعد. تصل هنا رسائل نموذج التواصل وطلبات التأسيس.'}</div>`}</div>`;
+ el.querySelectorAll('[data-if]').forEach(b=>b.onclick=()=>{X.f=b.dataset.if;AM.inbox(el)});
+ $('#ibK').onchange=e=>{X.k=e.target.value;AM.inbox(el)};
+ $('#ibR').onclick=()=>{X.rows=null;AM.inbox(el)};
+ const patch=async(id,body,msg)=>{try{const r=await fetch('/api/messages/'+id,{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});const j=await r.json().catch(()=>({}));if(!r.ok)throw new Error((j.error&&j.error.message)||'تعذّر الحفظ');const m=R.find(x=>x.id==id);Object.assign(m,body,{updated_at:new Date().toISOString()});msg&&toast(msg);return true}catch(e){toast(e.message,1)}};
+ el.querySelectorAll('[data-io]').forEach(b=>b.onclick=async()=>{const id=+b.dataset.io;X.open=X.open==id?null:id;const m=R.find(x=>x.id==id);if(X.open&&m.status=='new'&&SESSION){await patch(id,{status:'progress'})}renderAdmin()});
+ el.querySelectorAll('[data-is]').forEach(s=>s.onchange=async()=>{if(await patch(+s.dataset.is,{status:s.value},'حُدّثت الحالة'))renderAdmin()});
+ el.querySelectorAll('[data-in]').forEach(t=>t.onchange=()=>patch(+t.dataset.in,{note:t.value},'حُفظت الملاحظة'))};
+function syncNews(){renderNews();$('#homeNews').innerHTML=homeNewsList().map(n=>newsCard(n,news.indexOf(n))).join('')}
 function syncAnn(){let b=$('#annbar');if(!b){b=document.createElement('div');b.id='annbar';b.className='annbar';const h=$('.hero .in');h&&h.insertBefore(b,h.firstChild)}b.style.display=ADM.ann.on?'flex':'none';b.innerHTML=`${I(P.mega,'width:18px;height:18px;flex:none;color:#7FFFFF')}<span><b>إعلان:</b> ${esc(ADM.ann.text)}</span>`}
 AM.communities=el=>{
  el.innerHTML=`<p class="alead">المجتمعات المهنية المعروضة في الموقع، وإعدادات ربطها بمنصة محور حيث تُدار العضويات والفعاليات.</p>
@@ -4019,16 +4447,16 @@ AM.demo=el=>{const L=demoSets();
  <p class="d" style="margin-top:10px">ملفات المستشارين التوضيحية تُستبدل من «دليل المستشارين» عند وصول البيانات الفعلية.</p></div>`;
  el.querySelectorAll('[data-dc]').forEach(b=>b.onclick=()=>{const k=b.dataset.dc;if(k=='apart'){APART=APART.filter(x=>!x.demo);SS('asirAPart',APART)}else ADM[k]=ADM[k].filter(x=>!x.demo);alog('إزالة بيانات تجريبية: '+k);toast('أُزيلت العناصر التجريبية');renderAdmin()})};
 const NAV=[
- {k:'home',ic:'home',t:'الرئيسية',items:[['home','الرئيسية']]},
- {k:'data',ic:'db',t:'الجمعيات',items:[['overview','نظرة عامة'],'الدليل',['directory','دليل الجمعيات'],['bysup','حسب الجهة الإشرافية'],['bygov','حسب المحافظة'],'المتابعة',['licenses','التراخيص'],['updates','طلبات تحديث البيانات'],['quality','جودة البيانات'],'التحليل',['analytics','التحليلات'],['decisions','القرارات']]},
- {k:'reports',ic:'file',t:'التقارير',items:[['reports','مركز التقارير']]},
- {k:'consult',ic:'chat',t:'الاستشارات',items:[['consults','طلبات الاستشارات'],['calendar','التقويم والمواعيد'],'المستشارون',['consultants','دليل المستشارين'],['capps','طلبات الانضمام'],'الإعداد',['cset','الإعدادات والأدوات']]},
+ {k:'home',ic:'home',t:'الرئيسية',solo:1,items:[['home','الرئيسية']]},
+ {k:'data',ic:'db',t:'الجمعيات',items:[['overview','نظرة عامة'],['directory','دليل الجمعيات'],['licenses','التراخيص'],['updates','طلبات تحديث البيانات'],['quality','جودة البيانات']]},
+ {k:'insight',ic:'chart',t:'التحليل والتقارير',items:[['analytics','التحليلات'],['bysup','حسب الجهة الإشرافية'],['bygov','حسب المحافظة'],['decisions','القرارات'],['reports','مركز التقارير']]},
+ {k:'comms',ic:'inbox',t:'التواصل والمحتوى',items:[['inbox','صندوق الوارد'],['content','استوديو المحتوى'],['campaigns','الحملات']]},
+ {k:'consult',ic:'chat',t:'الاستشارات',items:[['consults','طلبات الاستشارات'],['calendar','التقويم والمواعيد'],['consultants','دليل المستشارين'],['capps','طلبات انضمام المستشارين'],['cset','إعدادات الاستشارات']]},
  {k:'partner',ic:'hshake',t:'الشراكات والمشاريع',items:[['partners','الشراكات'],['projects','المشاريع']]},
  {k:'mhwar',ic:'people',t:'المجتمعات ومحور',items:[['communities','المجتمعات المهنية'],['mops','العمليات اليومية'],['mset','الربط مع محور']]},
- {k:'content',ic:'mega',t:'المحتوى والتواصل',items:[['content','الأخبار والإعلانات'],['campaigns','الحملات']]},
- {k:'gov',ic:'shield',t:'الحوكمة',items:[['board','مجلس الإدارة والوثائق']]},
- {k:'sys',ic:'gear',t:'الإعدادات',items:[['roles','المستخدمون والصلاحيات'],['apps','التطبيقات والتكاملات']]},
+ {k:'sys',ic:'gear',t:'الحوكمة والإعدادات',items:[['board','مجلس الإدارة والوثائق'],['roles','المستخدمون والصلاحيات'],['apps','التطبيقات والتكاملات']]},
  {k:'launch',ic:'flag',t:'مركز الإطلاق · مؤقت',tmp:1,items:[['launch','نظرة على الإطلاق'],['gaps','النواقص والملاحظات'],['demo','البيانات التجريبية'],['plan','خطة بناء اللوحة']]}];
+P.inbox='<path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1z"/>';
 P.home='<path d="M3 11 12 4l9 7v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-9z"/>';
 P.gear='<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>';
 P.bell='<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.7 21a2 2 0 0 1-3.4 0"/>';
@@ -4040,13 +4468,13 @@ P.cols='<rect x="3" y="4" width="18" height="16" rx="2"/><path d="M9 4v16M15 4v1
 const MODS=NAV.flatMap(g=>g.items.filter(x=>typeof x!='string').map(x=>[x[0],x[1],g.k]));
 const modName=m=>(MODS.find(x=>x[0]==m)||[])[1]||'';
 const modGroup=m=>NAV.find(g=>g.items.some(x=>x[0]==m))||NAV[0];
-const ACCESS={admin:'*',content:['home','overview','content','campaigns','communities','mops','mset','board','partners','projects','reports','launch','gaps','plan'],consult:['home','overview','consults','calendar','consultants','capps','cset','directory','reports','launch','gaps','plan'],analyst:['home','overview','directory','bysup','bygov','analytics','decisions','reports','licenses','quality','updates','campaigns','partners','projects','launch','plan']};
+const ACCESS={admin:'*',content:['home','overview','inbox','content','campaigns','communities','mops','mset','board','partners','projects','reports','launch','gaps','plan'],consult:['home','overview','inbox','consults','calendar','consultants','capps','cset','directory','reports','launch','gaps','plan'],analyst:['home','overview','directory','bysup','bygov','analytics','decisions','reports','licenses','quality','updates','campaigns','partners','projects','launch','plan']};
 const isTmp=m=>(NAV.find(g=>g.tmp)||{items:[]}).items.some(x=>x[0]==m);
 const can=m=>(!ADM.launchOff||!isTmp(m))&&(ACCESS[ADM.role]=='*'||ACCESS[ADM.role].includes(m));
 ADM.mod='home';ADM.saved=['directory','analytics'];ADM.sideOpen=true;
 const HDR={
  directory:()=>`<button class="jbtn pri" onclick="exportCSV(dirRows())">${I(P.dl,'width:16px;height:16px')}تصدير النتائج</button><button class="jbtn" onclick="goMod('quality')">حملة تحديث البيانات</button>`,
- content:()=>`<button class="jbtn pri" onclick="ADM.content='news';renderAdmin();setTimeout(()=>$('#nNew')&&$('#nNew').click(),30)">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}خبر جديد</button>`,
+ content:()=>`<a class="jbtn" href="#/news" target="_blank">${I(P.globe,'width:16px;height:16px')}المركز الإعلامي</a><a class="jbtn" href="#/stories" target="_blank">تجارب مميزة</a>`,
  licenses:()=>`<button class="jbtn pri" onclick="$('#remAll')&&$('#remAll').click()">تذكير القائمة الحالية</button>`,
  board:()=>`<button class="jbtn pri" onclick="toast('إضافة عضو متاحة في النسخة الفعلية')">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إضافة عضو</button>`};
 HDR.decisions=HDR_DEC;
@@ -4062,7 +4490,7 @@ function sessAvatar(){
 function renderAdmin(){
  document.body.classList.remove('mnavopen');
  const el=$('#adminRoot');
- if(!ADM.auth&&SESSION){ADM.auth=true;ADM.role=ROLES[SESSION.role]?SESSION.role:'admin';syncGaps();ADM.updates=[];updLoad(true)}
+ if(!ADM.auth&&SESSION){ADM.auth=true;ADM.role=ROLES[SESSION.role]?SESSION.role:'admin';syncGaps();ADM.updates=[];updLoad(true);inboxLoad().then(()=>{if(curPg=='admin')renderAdmin()})}
  if(!ADM.auth){el.innerHTML=`<div class="jlogin"><div class="card alog"><img src="${$('header.top .logo .d').src}" alt="" style="height:46px;margin:0 auto 14px"><h2 style="color:var(--hd)">لوحة تحكم فريق المجلس</h2><p>دخول تجريبي. في النسخة الفعلية: حساب لكل عضو في الفريق برمز تحقق، وصلاحيات حسب الدور.</p>
   <div style="font-size:13px;color:var(--hd);font-weight:600;text-align:start">ادخل بدور:</div><div class="roles">${Object.entries(ROLES).map(([k,v])=>`<button class="${ADM.role==k?'on':''}" data-role="${k}">${v[0]}<small>${v[1]}</small></button>`).join('')}</div>
   <button class="jbtn pri" style="width:100%;justify-content:center;margin-top:10px;padding:13px" id="admGo">دخول اللوحة</button><button class="jbtn" style="width:100%;justify-content:center;margin-top:8px;padding:12px" onclick="go('')">العودة للموقع</button>
@@ -4070,33 +4498,45 @@ function renderAdmin(){
   el.querySelectorAll('[data-role]').forEach(b=>b.onclick=()=>{ADM.role=b.dataset.role;renderAdmin()});
   $('#admGo').onclick=()=>{ADM.auth=true;syncGaps();if(!can(ADM.mod))ADM.mod='home';alog('دخول '+ROLES[ADM.role][0],'#14A37F');renderAdmin()};return}
  if(!can(ADM.mod))ADM.mod='home';
- const G=modGroup(ADM.mod),badges={updates:pendingN(),consults:newConsultN(),capps:capN(),content:subsN(),mops:joinN(),gaps:gapsOpenN(),demo:demoN()};
- const gBadge=g=>g.items.reduce((s,x)=>s+(typeof x!='string'&&can(x[0])?(badges[x[0]]||0):0),0);
- const visG=NAV.filter(g=>g.items.some(x=>typeof x!='string'&&can(x[0])));
- const sideItems=g=>g.items.map(x=>typeof x=='string'?`<h6>${x}</h6>`:can(x[0])?`<button class="${ADM.mod==x[0]?'on':''}" data-m="${x[0]}">${x[1]}${badges[x[0]]?`<span class="bd">${badges[x[0]]}</span>`:''}</button>`:'').join('');
+ const G=modGroup(ADM.mod),badges={inbox:inboxN(),updates:pendingN(),consults:newConsultN(),capps:capN(),content:subsN(),mops:joinN(),gaps:gapsOpenN(),demo:demoN()};
+ const gBadge=g=>g.items.reduce((s,x)=>s+(can(x[0])?(badges[x[0]]||0):0),0);
+ const visG=NAV.filter(g=>g.items.some(x=>can(x[0])));
+ if(!ADM.navOpen){try{ADM.navOpen=JSON.parse(localStorage.getItem('asirNavOpen')||'{}')||{}}catch(e){ADM.navOpen={}}}
+ const isOpen=g=>ADM.navOpen[g.k]!==undefined?!!ADM.navOpen[g.k]:g==G;
+ const bdg=n=>n?`<span class="bd">${n}</span>`:'';
+ const itemBtn=x=>`<button class="jni ${ADM.mod==x[0]?'on':''}" data-m="${x[0]}"${ADM.mod==x[0]?' aria-current="page"':''}><span>${x[1]}</span>${bdg(badges[x[0]])}</button>`;
+ const items=g=>g.items.filter(x=>can(x[0])).map(itemBtn).join('');
+ const grpHtml=g=>g.solo?`<div class="jgrp solo"><button class="jng ${g==G?'on':''}" data-m="${g.items[0][0]}" title="${g.t}">${I(P[g.ic],'width:18px;height:18px')}<span>${g.t}</span>${bdg(gBadge(g))}</button></div>`
+  :`<div class="jgrp ${isOpen(g)?'open':''} ${g==G?'cur':''} ${g.tmp?'tmp':''}" data-gk="${g.k}"><button class="jng" data-gt="${g.k}" aria-expanded="${isOpen(g)}" title="${g.t}">${I(P[g.ic],'width:18px;height:18px')}<span>${g.t}</span><span class="bd gb">${gBadge(g)||''}</span>${I(P.chev,'width:14px;height:14px')}</button><div class="jnis">${g.tmp?'<p class="jtmp">قسم مؤقت يُغلق بعد اكتمال الإطلاق.</p>':''}${items(g)}</div><div class="jfly"><b>${g.t}</b>${items(g)}</div></div>`;
+ const SV=ADM.saved.filter(m=>can(m)&&MODS.some(x=>x[0]==m));
+ const sideHtml=`<aside class="jside" id="jside" aria-label="أقسام اللوحة"><div class="jsh"><img src="${$('header.top .logo .d').src}" alt=""><button class="jic" onclick="mnav(false)" aria-label="إغلاق القائمة">${I(P.x,'width:18px;height:18px')}</button></div>
+  <nav class="jnav">${visG.filter(g=>!g.tmp).map(grpHtml).join('')}</nav>
+  ${SV.length?`<div class="jpins"><h6>${I(P.bookmark,'width:12px;height:12px')}الصفحات المحفوظة</h6>${SV.map(m=>itemBtn([m,modName(m)])).join('')}</div>`:''}
+  <div class="jfoot">${visG.filter(g=>g.tmp).map(grpHtml).join('')}<button class="jcol" onclick="ADM.sideOpen=!ADM.sideOpen;renderAdmin()" title="${ADM.sideOpen?'طي القائمة':'توسيع القائمة'}">${I(P.panel,'width:17px;height:17px')}<span>طي القائمة</span></button></div></aside>`;
  const saved=ADM.saved.includes(ADM.mod);
  el.innerHTML=`<div class="j ${ADM.sideOpen?'':'noside'}">
  <header class="jtop"><button class="jic jmenu" onclick="mnav()" aria-label="القائمة" aria-controls="jside">${I('<path d="M4 7h16M4 12h16M4 17h10"/>')}</button><img src="${$('header.top .logo .d').src}" alt="" class="jlogo"><span class="jorg">لوحة تحكم مجلس الجمعيات الأهلية بعسير</span><div class="jgs">${I(P.search,'width:16px;height:16px')}<input id="jsq" placeholder="ابحث عن جمعية أو مستشار أو صفحة" oninput="adminSearch(this.value.trim())" onfocus="this.value&&adminSearch(this.value.trim())"><kbd>/</kbd><div class="jres" id="jres"></div></div><span class="sp"></span>
   ${SESSION?'<span id="syncSt" class="syncst" data-st="ok" title="كل التعديلات محفوظة في قاعدة البيانات"><i></i><b>محفوظ</b></span>':''}
   <button class="jpriv ${ADM.reveal?'on':''}" id="privtg" title="إظهار أو إخفاء البيانات الشخصية">${I(ADM.reveal?P.eye:P.lock,'width:16px;height:16px')}<span>${ADM.reveal?'البيانات الشخصية ظاهرة':'البيانات الشخصية مخفية'}</span></button>
-  <button class="jic" onclick="goMod('home')" title="الإجراءات المطلوبة" aria-label="الإشعارات">${I(P.bell,'width:20px;height:20px')}${pendingN()+newConsultN()+subsN()+capN()+joinN()?'<i class="jdot"></i>':''}</button>
+  <button class="jic" onclick="goMod('home')" title="الإجراءات المطلوبة" aria-label="الإشعارات">${I(P.bell,'width:20px;height:20px')}${pendingN()+newConsultN()+subsN()+capN()+joinN()+inboxN()?'<i class="jdot"></i>':''}</button>
   <button class="jic" onclick="go('')" title="عرض الموقع العام" aria-label="الموقع العام">${I(P.globe,'width:20px;height:20px')}</button>
   ${sessAvatar()}</header>
  <div class="jbody">
-  <nav class="jrail" aria-label="الأقسام">${visG.map(g=>`<div class="jr ${g.tmp?'tmp':''}"><button class="${g==G?'on':''}" data-g="${g.k}" aria-label="${g.t}">${I(P[g.ic],'width:20px;height:20px')}${gBadge(g)?'<i class="jdot"></i>':''}</button><div class="jfly"><b>${g.t}</b>${sideItems(g)}</div></div>`).join('')}</nav>
   <div class="jbd" onclick="mnav(false)"></div>
-  <aside class="jside" id="jside"><div class="jsh"><img src="${$('header.top .logo .d').src}" alt=""><button class="jic" onclick="mnav(false)" aria-label="إغلاق القائمة">${I(P.x,'width:18px;height:18px')}</button></div><div class="jgt ${G.items.length==1?'one':''}">${G.t}</div>${G.tmp?'<p class="jtmp">يختفي هذا القسم بعد اكتمال بنوده وإغلاقه.</p>':''}${sideItems(G)}<div class="jmob">${visG.filter(g=>g!=G).map(g=>`<div class="jgt ${g.items.length==1?'one':''}" style="margin-top:14px">${g.t}</div>${sideItems(g)}`).join('')}</div></aside>
+  ${sideHtml}
   <section class="jcard"><div class="jcrumb"><button class="jic sm" onclick="ADM.sideOpen=!ADM.sideOpen;renderAdmin()" title="إظهار أو إخفاء القائمة الجانبية">${I(P.panel,'width:16px;height:16px')}</button><span>${G.t}</span>${G.items.length>1?`${I(P.chev,'width:14px;height:14px;transform:scaleX(-1);color:#A3ABC4')}<span class="cur">${modName(ADM.mod)}</span>`:''}<button class="jic sm ${saved?'on':''}" id="bmk" title="${saved?'إزالة من الصفحات المحفوظة':'حفظ الصفحة'}">${I(P.bookmark,'width:15px;height:15px')}</button></div>
    <div class="jpage"><div class="jph"><h1>${ADM.mod=='home'?'':modName(ADM.mod)}</h1><div class="acts2">${HDR[ADM.mod]?HDR[ADM.mod]():''}</div></div><div class="acontent" id="acontent"></div></div></section>
  </div></div>`;
  el.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>goMod(b.dataset.m));
- el.querySelectorAll('.jrail [data-g]').forEach(b=>b.onclick=()=>{const g=NAV.find(x=>x.k==b.dataset.g),f=g.items.find(x=>typeof x!='string'&&can(x[0]));f&&goMod(f[0])});
+ el.querySelectorAll('.jside [data-gt]').forEach(b=>b.onclick=()=>{const g=NAV.find(x=>x.k==b.dataset.gt);
+  if(!ADM.sideOpen&&innerWidth>900){const f=g.items.find(x=>can(x[0]));f&&goMod(f[0]);return}
+  const w=b.parentNode,o=!w.classList.contains('open');w.classList.toggle('open',o);b.setAttribute('aria-expanded',o);ADM.navOpen[g.k]=o;try{localStorage.setItem('asirNavOpen',JSON.stringify(ADM.navOpen))}catch(e){}});
  $('#privtg').onclick=()=>{ADM.reveal=!ADM.reveal;alog(ADM.reveal?'إظهار البيانات الشخصية':'إخفاء البيانات الشخصية','#F5A524');renderAdmin()};
  $('#bmk').onclick=()=>{const i=ADM.saved.indexOf(ADM.mod);i<0?ADM.saved.push(ADM.mod):ADM.saved.splice(i,1);toast(i<0?'حُفظت الصفحة في الرئيسية':'أُزيلت من الصفحات المحفوظة');renderAdmin()};
  if(ADM.mod=='home')$('.jph').remove();
  (AM[ADM.mod]||AM.home)($('#acontent'));
 }
-function goMod(m,dirPatch){if(dirPatch){Object.assign(ADM.dir,{q:'',gov:'',grp:'',sup:'',st:'',comp:'',iss:'',page:0},dirPatch)}ADM.mod=m;try{history.replaceState(null,'','#/admin/'+m)}catch(e){}renderAdmin();window.scrollTo(0,0)}
+function goMod(m,dirPatch){const g0=modGroup(m);if(ADM.navOpen&&g0)ADM.navOpen[g0.k]=true;if(dirPatch){Object.assign(ADM.dir,{q:'',gov:'',grp:'',sup:'',st:'',comp:'',iss:'',page:0},dirPatch)}ADM.mod=m;try{history.replaceState(null,'','#/admin/'+m)}catch(e){}renderAdmin();window.scrollTo(0,0)}
 
 /* ---------- home: greeting + required actions + saved pages ---------- */
 HDR.gaps=()=>`<button class="jbtn" onclick="go('')">${I(P.globe,'width:16px;height:16px')}تصفح الموقع مع التعليم</button>`;
@@ -4111,6 +4551,7 @@ AM.home=el=>{
  if(capN()&&can('capps'))A.push({t:'مستشارون يطلبون الانضمام',d:ADM.capps.filter(a=>a.st=='بانتظار المراجعة').map(a=>a.ttl).join(' · '),chip:[capN()+' طلبات','p-mute'],btn:['مراجعة الطلبات',`goMod('capps')`]});
  if(joinN()&&can('mops'))A.push({t:'طلبات انضمام للمجتمعات تحتاج تحققاً',d:'تُطابق مع دليل الجمعيات قبل القبول',chip:[joinN()+' طلبات','p-mute'],btn:['مراجعة الطلبات',`ADM.mh.tab='join';goMod('mops')`]});
  if(gapsOpenN()&&can('launch'))A.push({t:'معلومات ناقصة في الموقع',d:GAPS.filter(gapOpen).slice(0,3).map(g=>g.t).join(' · '),chip:[gapsOpenN()+' نواقص','p-warn',P.flag],btn:['فتح مركز الإطلاق',`goMod('launch')`]});
+ if(inboxN()&&can('inbox'))A.push({t:'رسائل جديدة في صندوق الوارد',d:ADM.inbox.rows.filter(m=>m.status=='new').slice(0,2).map(m=>(MSG_K[m.kind]||MSG_K.general)[0]+': '+m.name).join(' · '),chip:[inboxN()+' رسائل','p-warn',P.inbox],btn:['فتح صندوق الوارد',`goMod('inbox')`]});
  if(subsN()&&can('content'))A.push({t:'أخبار من الجمعيات بانتظار النشر',d:ADM.subs.find(s=>s.st=='بانتظار المراجعة').t,chip:[subsN()+' أخبار','p-mute'],btn:['مراجعة الأخبار',`ADM.content='subs';goMod('content')`]});
  if(can('licenses'))A.push({t:'تراخيص تنتهي خلال 90 يوماً',d:'تذكير الجمعيات قبل الانتهاء يقلل التراخيص المنتهية',chip:[`${soon.length} جمعية`,'p-warn',P.shield],btn:['مراجعة وتذكير الجمعيات',`ADM.lic='soon';goMod('licenses')`]});
  if(can('directory'))A.push({t:'ملفات تواصل ناقصة',d:'بريد أو جوال أو بيانات الرئيس والمفوض',chip:[`${miss.length} جمعية`,'p-mute'],btn:['تحديد وإرسال رابط التحديث',`goMod('directory',{comp:'part'})`]});
