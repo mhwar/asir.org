@@ -1017,6 +1017,43 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .dbf .hf{background:var(--bg,var(--mist))}.dbf .hf.on{border-color:var(--blue);background:var(--ice);box-shadow:0 0 0 2px color-mix(in srgb,var(--blue) 25%,transparent)}
 .mapsec .head{margin-bottom:22px}
 @media(max-width:640px){.dbrowse{padding:14px;border-radius:18px}.dbh>div{width:100%}.hfseg{display:grid!important;grid-template-columns:repeat(3,1fr);width:100%;box-sizing:border-box}.hfseg button{padding:7px 4px;font-size:12px;line-height:1.35}}
+
+/* ---- impact v2 ---- */
+.imp2 .imbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:16px}.imper{display:inline-flex;align-items:center;gap:7px;padding:7px 14px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);color:#DCE6FF;font-size:13px;font-weight:600}
+.imp2 select{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:6px 10px;font:inherit;font-size:13px}.imp2 select option{color:#000}
+.imsrc{margin-inline-start:auto;color:rgba(255,255,255,.55);font-size:12px}
+.imgrid{display:grid;grid-template-columns:1.25fr 1fr 1fr;gap:14px}
+.imcard{border-radius:22px;padding:22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);display:flex;flex-direction:column;gap:16px;min-width:0}
+.imcard.imlead{background:linear-gradient(160deg,rgba(66,172,253,.22),rgba(255,255,255,.04) 60%);border-color:rgba(127,208,255,.3)}
+.imcard header{display:flex;gap:12px;align-items:flex-start}.imic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(127,208,255,.14);color:#7FD0FF;flex:none}
+.imcard h3{margin:0;color:#fff;font-size:17px}.imcard header p{margin:3px 0 0;color:rgba(255,255,255,.68);font-size:12.5px;line-height:1.7}
+.imbig{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}.imbig b{font-size:64px;line-height:1;color:#fff;font-weight:800;letter-spacing:-1px}.imbig span{color:#DCE6FF;font-size:16px;font-weight:600}.imbig small{display:block;color:rgba(255,255,255,.6);font-size:12.5px;font-weight:400}
+.imrow{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(255,255,255,.12)}.imrow div{display:flex;flex-direction:column;gap:3px}.imrow b{font-size:28px;color:#fff;line-height:1.1}.imrow span{color:rgba(255,255,255,.72);font-size:12.5px}
+.imbarm{display:block;height:4px;border-radius:4px;background:rgba(255,255,255,.12);margin-top:4px;overflow:hidden}.imbarm i{display:block;height:100%;background:#7FD0FF;border-radius:4px}
+.imlist{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}.imlist li{display:flex;align-items:baseline;gap:12px;padding:10px 0;border-top:1px solid rgba(255,255,255,.09)}.imlist li:first-child{border-top:0;padding-top:0}
+.imlist b{font-size:28px;color:#fff;min-width:54px;line-height:1.1}.imlist span{color:rgba(255,255,255,.78);font-size:13.5px}
+@media(max-width:1100px){.imgrid{grid-template-columns:1fr 1fr}.imcard.imlead{grid-column:1/-1}}
+@media(max-width:640px){.imgrid{grid-template-columns:1fr}.imbig b{font-size:52px}.imrow b,.imlist b{font-size:24px}.imsrc{margin-inline-start:0;width:100%}}
+/* ---- partners marquee ---- */
+.h-partners{padding:56px 0 64px;overflow:hidden}.h-partners .phd{text-align:center;margin-bottom:24px}.h-partners .phd .eyebrow{justify-content:center}.h-partners h2{margin:6px 0 4px}.h-partners .phd p{color:var(--mute);margin:0}
+.pmarq{display:flex;overflow:hidden;gap:0;--dur:40s;mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);-webkit-mask:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);width:100%}
+.pmq{display:flex;gap:14px;padding-inline-end:14px;flex:none;animation:pmq var(--dur) linear infinite}.pmarq:hover .pmq{animation-play-state:paused}
+@keyframes pmq{to{transform:translateX(-100%)}}
+.ptile{width:190px;height:92px;flex:none;border-radius:16px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;position:relative;transition:.25s}
+.ptile img{max-width:74%;max-height:58%;object-fit:contain;filter:grayscale(1) contrast(1.08);opacity:.78;transition:.25s}.ptile:hover img{filter:none;opacity:1}
+.ptile.wh i{position:absolute;inset:22% 13%;background:#4F5563;-webkit-mask:var(--m) center/contain no-repeat;mask:var(--m) center/contain no-repeat;opacity:.82;transition:.25s}.ptile.wh:hover i{background:#13205B;opacity:1}
+.ptile.tx{padding:10px 16px;text-align:center}.ptile.tx b{font-size:13px;line-height:1.6;color:#4F5563;font-weight:700}.ptile.tx:hover b{color:#13205B}
+html[data-theme=dark] .ptile{background:#F4F6FB;border-color:transparent}
+@media(prefers-reduced-motion:reduce){.pmq{animation:none}.pmq[aria-hidden]{display:none}.pmarq{flex-wrap:wrap;justify-content:center;mask:none;-webkit-mask:none}.pmq{flex-wrap:wrap;justify-content:center}}
+@media(max-width:640px){.ptile{width:150px;height:76px}}
+/* ---- platforms v2 ---- */
+#platforms .plats{grid-template-columns:repeat(3,1fr)}#platforms .pl2{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:14px;padding:16px}
+.pllg{width:96px;height:64px;border-radius:14px;background:#fff;border:1px solid var(--line);display:grid;place-items:center;flex:none;overflow:hidden}.pllg img{max-width:82%;max-height:70%;object-fit:contain}
+.pllg.none{background:var(--tile)}.plmono{width:28px;height:28px;background:var(--tilefg);-webkit-mask:url('/brand/ccsa') center/contain no-repeat;mask:url('/brand/ccsa') center/contain no-repeat}
+.pltx{display:flex;flex-direction:column;gap:2px;min-width:0}.pltx b{font-size:15px}.pltx>span{color:var(--mute);font-size:12.5px;line-height:1.6}.pltx small{font-size:11.5px}
+html[data-theme=dark] .pllg{background:#F4F6FB;border-color:transparent}
+@media(max-width:1100px){#platforms .plats{grid-template-columns:1fr 1fr}}@media(max-width:640px){#platforms .plats{grid-template-columns:1fr}#platforms .pl small{display:block}.pllg{width:78px;height:54px}}
+.pclg .ptile{width:110px;height:56px;border-radius:12px}
 .closedbar{display:flex;gap:10px;align-items:flex-start;margin:14px 24px 0;padding:12px 14px;border-radius:12px;background:#F2F4F7;color:#344054;font-size:13px;line-height:1.7}
 .apabout{font-size:15px;line-height:1.9;color:var(--text)}.apchips2{display:flex;flex-wrap:wrap;gap:6px}.apchips2 span{padding:5px 12px;border-radius:999px;background:var(--ice);color:var(--hd);font-size:13px}
 .approgs{margin:0;padding-inline-start:20px;line-height:1.9}.aplinks{display:flex;flex-wrap:wrap;gap:12px}.aplinks a{color:var(--blue);font-weight:600}
@@ -1780,10 +1817,14 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
   <div class="motif tr" aria-hidden="true"></div>
   <div class="wrap">
     <div class="head reveal"><div><span class="eyebrow" style="color:#8FD0FF">أثر المجلس</span><h2>ما أنجزه المجلس منذ تأسيسه</h2><p class="hsub">من تقرير منجزات المجلس في دورته الأولى (1441 – 1445هـ)، وتُضاف أرقام كل دورة عند صدور تقريرها.</p></div><a class="btn g" href="#/about">التقارير والإفصاح <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
-    <div class="tseg2 reveal" id="impTerms" role="tablist"></div>
-    <div class="imp reveal" id="impGrid"></div>
-    <div class="partners reveal"><span>شركاء المجلس</span><div class="ptiles" id="ptiles"></div></div>
+    <div class="imp2 reveal" id="impGrid"></div>
   </div>
+</section>
+
+<!-- ============ PARTNERS ============ -->
+<section class="h-partners">
+  <div class="wrap"><div class="phd reveal"><span class="eyebrow">شركاء النجاح</span><h2>جهات شاركتنا الأثر</h2><p>اتفاقيات ومذكرات تفاهم وتعاون في فعاليات وبرامج للجمعيات.</p></div></div>
+  <div class="pmarq reveal" id="ptiles" dir="ltr"></div>
 </section>
 
 <!-- ============ NEWS ============ -->
@@ -2791,8 +2832,13 @@ renderComms();
 (()=>{const n=k=>comms.filter(c=>c[3]==k).length;$('#cstats').innerHTML=`<div><b>${comms.length}</b><small>مجتمعات مهنية</small></div><div><b>${n('open')}</b><small>مفتوحة للجميع</small></div><div><b>${n('appr')}</b><small>بموافقة المشرف</small></div><div><b>${n('mem')}</b><small>لمنسوبي الجمعيات</small></div><p>تُدار المجتمعات وفعالياتها على منصة <a href="https://mhwar.com" target="_blank" rel="noopener">محور ↗</a></p>`;$('#hsComm').textContent=comms.length})();
 
 /* ---------- platforms ---------- */
-const plats=[['people','نظام العضويات والانتخابات','system.ccsa.org.sa','https://system.ccsa.org.sa/'],['award','منصة جدارة','jadarah.tech','https://jadarah.tech/'],['coin','ديم للمنح التنموي','deem-ngos.org','https://deem-ngos.org/'],['grid','منصة وسق','ccsa-wasaq.com','https://ccsa-wasaq.com/csa/home'],['link','منصة سجام','sijam.ccsa.org.sa','https://sijam.ccsa.org.sa/'],['star','جائزة التميز في العمل الأهلي','jaezah.com','https://jaezah.com/']];
-$('#plats').innerHTML=plats.map(p=>`<a class="card pl" href="${p[3]}" target="_blank" rel="noopener"><div class="ic">${I(P[p[0]])}</div><div><b>${p[1]}</b><small>${p[2]}</small></div><span class="go">${I(P.arrow,'width:18px;height:18px')}</span></a>`).join('');
+const plats=[['ccsa','نظام العضويات والانتخابات','تسجيل عضوية الجمعيات في المجلس والمشاركة في انتخاباته','system.ccsa.org.sa','https://system.ccsa.org.sa/'],
+ ['jadarah','منصة جدارة','حاضنة الأعمال الاجتماعية لتمكين الجمعيات وتطويرها','jadarah.tech','https://jadarah.tech/'],
+ ['deem','ديم للمنح التنموي','منصة المنح التنموية للجمعيات الأهلية','deem-ngos.org','https://deem-ngos.org/'],
+ ['wasaq','منصة وسق','التأمين الصحي لمنسوبي الجمعيات الأهلية','ccsa-wasaq.com','https://ccsa-wasaq.com/csa/home'],
+ ['sijam-hero','منصة سجام','توثيق منجزات الجمعيات الأهلية وأثرها','sijam.ccsa.org.sa','https://sijam.ccsa.org.sa/'],
+ ['jaezah-alt','جائزة التميز في العمل الأهلي','تكريم الجمعيات والمشاريع الأهلية المتميزة','jaezah.com','https://jaezah.com/']];
+$('#plats').innerHTML=plats.map(p=>`<a class="card pl pl2" href="${p[4]}" target="_blank" rel="noopener"><span class="pllg"><img src="/brand/${p[0]}" alt="شعار ${p[1]}" loading="lazy" onerror="this.parentNode.classList.add('none');this.replaceWith(Object.assign(document.createElement('i'),{className:'plmono'}))"></span><span class="pltx"><b>${p[1]}</b><span>${p[2]}</span><small>${p[3]}</small></span><span class="go">${I(P.arrow,'width:18px;height:18px')}</span></a>`).join('');
 
 /* ---------- gaps: missing facts registry (edited from the dashboard, rendered live) ---------- */
 const GAPS=[
@@ -2826,17 +2872,21 @@ syncGaps();
 
 /* ---------- partnerships (managed from the dashboard) ---------- */
 let PARTNERS=[
- {id:1,n:'ماكسيموس السعودية',ty:'اتفاقية شراكة',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1},
+ {id:1,n:'ماكسيموس السعودية',ty:'اتفاقية شراكة',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1,lg:'maximus'},
  {id:2,n:'مركز الاستثمار الأمثل للدراسات والبحوث والوصايا',ty:'اتفاقية شراكة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:3,n:'مركز خدمات المانحين',ty:'اتفاقية شراكة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:4,n:'مركز تمكين للدراسات والبحوث',ty:'اتفاقية شراكة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
- {id:5,n:'جمعية أفق',ty:'مذكرة تفاهم',sec:'جمعية أهلية',st:'منتهية',term:'الدورة الأولى',show:1},
+ {id:5,n:'جمعية أفق لتطوير العمل الخيري والتطوعي',ty:'مذكرة تفاهم',sec:'جمعية أهلية',st:'منتهية',term:'الدورة الأولى',show:1,lg:'ofuq',wh:1},
  {id:6,n:'مؤسسة سليمان الراجحي للتمويل التنموي',ty:'تعاون في فعالية',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:7,n:'منصة تنافس',ty:'تعاون في فعالية',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:8,n:'برنامج أهالينا للاستثمار الاجتماعي',ty:'منحة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1}];
-(()=>{try{const o=JSON.parse(localStorage.getItem('asirPartners')||'null');if(Array.isArray(o))PARTNERS=o}catch(e){}})();
+const PDEF=JSON.parse(JSON.stringify(PARTNERS));
+function partMerge(L){L.forEach(x=>{const d=PDEF.find(y=>y.id==x.id);if(d&&!x.lg&&d.lg){x.lg=d.lg;if(d.wh)x.wh=1}});return L}
+(()=>{try{const o=JSON.parse(localStorage.getItem('asirPartners')||'null');if(Array.isArray(o))PARTNERS=partMerge(o)}catch(e){}})();
 function savePartners(){try{SET('asirPartners',JSON.stringify(PARTNERS))}catch(e){}}
-function renderPartnersStrip(){const el=$('#ptiles');if(!el)return;const L=PARTNERS.filter(x=>x.show);el.innerHTML=L.map(x=>`<em>${x.n.replace(/[<>&]/g,'')}</em>`).join('');el.closest('.partners').hidden=!L.length}
+function pTile(x){const n=x.n.replace(/[<>&"]/g,'');return x.lg?`<span class="ptile ${x.wh?'wh':''}" title="${n}">${x.wh?`<i style="--m:url('/brand/${x.lg}')"></i>`:`<img src="/brand/${x.lg}" alt="${n}" loading="lazy" onerror="const t=this.parentNode;t.classList.add('tx');t.innerHTML='<b>'+t.title+'</b>'">`}</span>`:`<span class="ptile tx" title="${n}"><b>${n}</b></span>`}
+function renderPartnersStrip(){const el=$('#ptiles');if(!el)return;const L=PARTNERS.filter(x=>x.show);const sec=el.closest('.h-partners');if(sec)sec.hidden=!L.length;if(!L.length)return;
+ const row=L.map(pTile).join('');el.innerHTML=`<div class="pmq">${row}</div><div class="pmq" aria-hidden="true">${row}</div>`;el.style.setProperty('--dur',Math.max(24,L.length*5)+'s')}
 renderPartnersStrip();
 /* ---------- impact across terms ---------- */
 // المؤشرات الرئيسية (h:1) تظهر كبطاقات، والبقية مسارات المنجزات أسفلها. المصدر: تقرير منجزات المجلس في دورته الأولى 1441–1445هـ
@@ -2850,12 +2900,28 @@ const impMerge=L=>{const t=L.find(x=>x.k==IMP_DEF.k);if(t){t.m=t.m||{};for(const
 function saveImpact(){try{SET('asirImpact',JSON.stringify(IMPACT))}catch(e){}}
 let impSel='all';
 function impVal(k,agg,terms){const v=terms.map(t=>+t.m[k]||0);return agg=='sum'?v.reduce((a,b)=>a+b,0):(v.filter(Boolean).at(-1)||0)}
-function renderImpact(){const T=$('#impTerms'),G=$('#impGrid');if(!T||!G)return;const terms=IMPACT.filter(t=>Object.values(t.m||{}).some(Boolean));
- T.hidden=IMPACT.length<2;T.innerHTML=(terms.length>1?`<button class="${impSel=='all'?'on':''}" data-t="all">الإجمالي</button>`:'')+IMPACT.map(t=>`<button class="${impSel==t.k?'on':''}" data-t="${t.k}" ${terms.includes(t)?'':'disabled title="يُضاف عند صدور التقرير"'}>${t.t}</button>`).join('');
- const use=impSel=='all'?terms:IMPACT.filter(t=>t.k==impSel);
- const tr=IMP_ITEMS.filter(x=>!x[4]).map(([k,l,agg])=>[impVal(k,agg,use),l]).filter(x=>x[0]);
- G.innerHTML=IMP_ITEMS.filter(x=>x[4]).map(([k,l,agg,u])=>{const v=impVal(k,agg,use);return v?`<div ${k=='resp'?'data-gap-title="resp96"':''}><b>${v}${u||''}</b><span>${l}</span></div>`:''}).join('')+(tr.length?`<p class="imptr">${tr.map(([v,l])=>`<span><b>${v}</b>${l}</span>`).join('')}</p>`:'')+`<div class="src">${impSel=='all'?'المصدر: '+terms.map(t=>t.src||t.t).join('، '):(use[0]&&(use[0].sub?use[0].sub+' · ':'')+(use[0].src||''))}</div>`;
- T.querySelectorAll('button[data-t]').forEach(b=>b.onclick=()=>{impSel=b.dataset.t;renderImpact()});typeof syncGaps=='function'&&syncGaps()}
+const IMP_GROUPS=[['enable','تمكين الجمعيات','award','حاضنة جدارة للأعمال الاجتماعية تساند الجمعيات الناشئة والمتعثرة بالاستشارات والدعم الفني',['hours','sessions','part','resp']],
+ ['reach','الحضور في المنطقة','pin','لجان فرعية وزيارات وشراكات تقرّب المجلس من جمعيات المحافظات',['comm','visits','agree','events']],
+ ['progs','البرامج والمبادرات','target','ورش ولقاءات وبرامج تطويرية ومبادرات تطوعية',['work','enrich','dev','init','youth','dates']]];
+const IMP_SHORT={hours:'ساعة استشارية',sessions:'جلسة استشارية',part:'مشاركاً من الجمعيات',resp:'تجاوب الجمعيات',comm:'لجنة فرعية',visits:'زيارة',agree:'اتفاقية ومذكرة تفاهم',events:'مشاركة وملتقى',work:'ورش عمل',enrich:'ندوة ولقاء إثرائي',dev:'لقاءات تطويرية',init:'مبادرات تطوعية',youth:'شاباً وشابة في برنامج التمكين',dates:'طناً من التمور'};
+function renderImpact(){const G=$('#impGrid');if(!G)return;const terms=IMPACT.filter(t=>Object.values(t.m||{}).some(Boolean));if(!terms.length){G.innerHTML='';return}
+ if(impSel!='all'&&!terms.some(t=>t.k==impSel))impSel='all';const use=impSel=='all'?terms:terms.filter(t=>t.k==impSel);
+ const it=Object.fromEntries(IMP_ITEMS.map(x=>[x[0],x])),val=k=>it[k]?impVal(k,it[k][2],use):0,u=k=>(it[k]&&it[k][3])||'';
+ const label=impSel=='all'?(terms.length>1?`${terms.length} دورات · ${terms[0].sub?terms[0].sub.split('–')[0].trim():''}${terms.at(-1).sub?' – '+terms.at(-1).sub.split('–').at(-1).trim():''}`:`${terms[0].t}${terms[0].sub?' · '+terms[0].sub:''}`):`${use[0].t}${use[0].sub?' · '+use[0].sub:''}`;
+ const num=(k,cls='')=>`<b class="cnt ${cls}" data-to="${val(k)}" data-u="${u(k)}">${val(k)}${u(k)}</b>`;
+ const hero=IMP_GROUPS[0],rest=hero[4].slice(1).filter(val);
+ G.innerHTML=`<div class="imbar"><span class="imper">${I(P.calendar||P.clock||P.file,'width:15px;height:15px')}${label}</span>${terms.length>1?`<select id="impSel" aria-label="اختر الدورة"><option value="all" ${impSel=='all'?'selected':''}>كل الدورات</option>${terms.map(t=>`<option value="${t.k}" ${impSel==t.k?'selected':''}>${t.t}</option>`).join('')}</select>`:''}<span class="imsrc">المصدر: ${impSel=='all'?terms.map(t=>t.src||t.t).join('، '):use[0].src||use[0].t}</span></div>
+ <div class="imgrid">
+  <article class="imcard imlead"><header><span class="imic">${I(P[hero[2]],'width:20px;height:20px')}</span><div><h3>${hero[1]}</h3><p>${hero[3]}</p></div></header>
+   ${val('hours')?`<div class="imbig">${num('hours','xl')}<span>${IMP_SHORT.hours}<small> قدّمها المجلس للجمعيات</small></span></div>`:''}
+   <div class="imrow">${rest.map(k=>`<div ${k=='resp'?'data-gap-title="resp96"':''}>${num(k)}<span>${IMP_SHORT[k]}</span>${k=='resp'?`<i class="imbarm"><i style="width:${val(k)}%"></i></i>`:''}</div>`).join('')}</div></article>
+  ${IMP_GROUPS.slice(1).map(g=>{const ks=g[4].filter(val);return ks.length?`<article class="imcard"><header><span class="imic">${I(P[g[2]],'width:20px;height:20px')}</span><div><h3>${g[1]}</h3><p>${g[3]}</p></div></header><ul class="imlist">${ks.map(k=>`<li>${num(k)}<span>${IMP_SHORT[k]}</span></li>`).join('')}</ul></article>`:''}).join('')}
+ </div>`;
+ const sl=$('#impSel');if(sl)sl.onchange=()=>{impSel=sl.value;renderImpact()};
+ impCount(G);typeof syncGaps=='function'&&syncGaps()}
+function impCount(G){const els=[...G.querySelectorAll('.cnt')];if(matchMedia('(prefers-reduced-motion: reduce)').matches||!('IntersectionObserver' in window))return;
+ const run=e=>{const to=+e.dataset.to,t0=performance.now(),d=1100;const f=t=>{const p=Math.min(1,(t-t0)/d),v=Math.round(to*(1-Math.pow(1-p,3)));e.textContent=v+e.dataset.u;if(p<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+ const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){run(x.target);io.unobserve(x.target)}}),{threshold:.1});els.forEach(e=>{const r=e.getBoundingClientRect();if(r.top>innerHeight||r.bottom<0){e.textContent='0'+e.dataset.u;io.observe(e)}})}
 renderImpact();
 /* ---------- chrome ---------- */
 const hdr=$('#top');
@@ -3737,10 +3803,14 @@ AM.partners=el=>{const tab=ADM.pt.tab;const sv=()=>SS('asirPtUi',ADM.pt);
  const B=$('#ptBody');
  if(tab=='council'){const STs=['قيد التفاوض','قيد التوقيع','سارية','منتهية'],stc={'سارية':'p-ok','منتهية':'p-mute','قيد التوقيع':'p-info','قيد التفاوض':'p-warn'};
   const kp=`<div class="sgks" style="margin:14px 0 12px">${['سارية','قيد التوقيع','قيد التفاوض','منتهية'].map(x=>`<div class="sgk ${x=='سارية'?'ok':x=='منتهية'?'':'warn'}"><b>${PARTNERS.filter(p=>p.st==x).length}</b><small>${x}</small></div>`).join('')}<div class="sgk"><b>${PARTNERS.filter(p=>p.show).length}</b><small>ظاهرة في الموقع</small></div><div class="sgk"><b>${new Set(PARTNERS.map(p=>p.sec)).size}</b><small>قطاعات</small></div></div>`;
-  B.innerHTML=kp+(ADM.pt.vc=='cards'?`<div class="pcards">${PARTNERS.map((x,i)=>`<div class="pcard"><div class="pct"><span class="pmono">${esc(x.n.replace(/^(مركز|مؤسسة|جمعية|برنامج|منصة|شركة)\s+/,'').trim().charAt(0))}</span><span class="pill2 ${stc[x.st]}">${x.st}</span></div><b>${esc(x.n)}</b><small>${esc(x.ty)} · ${esc(x.sec)}</small><div class="pcf"><span>${esc(x.term||'')}</span><label class="psw"><button class="tg ${x.show?'on':''}" data-ps="${i}" aria-label="إظهار في الموقع"></button>في الموقع</label></div></div>`).join('')}</div>`
+  B.innerHTML=kp+(ADM.pt.vc=='cards'?`<div class="pcards">${PARTNERS.map((x,i)=>`<div class="pcard"><div class="pct">${x.lg?`<span class="pclg">${pTile(x)}</span>`:`<span class="pmono">${esc(x.n.replace(/^(مركز|مؤسسة|جمعية|برنامج|منصة|شركة)\s+/,'').trim().charAt(0))}</span>`}<span class="pill2 ${stc[x.st]}">${x.st}</span></div><b>${esc(x.n)}</b><small>${esc(x.ty)} · ${esc(x.sec)}</small><div class="pcf"><span>${esc(x.term||'')}</span>${SESSION?`<label class="btn o" style="padding:4px 10px;font-size:12px;cursor:pointer">${x.lg?'تغيير الشعار':'رفع شعار'}<input type="file" hidden accept="image/png,image/svg+xml,image/jpeg,image/webp" data-plg="${i}"></label>`:''}<label class="psw"><button class="tg ${x.show?'on':''}" data-ps="${i}" aria-label="إظهار في الموقع"></button>في الموقع</label></div></div>`).join('')}</div>`
   :`<div class="panel"><div class="twrap"><table class="at" style="min-width:760px"><thead><tr><th class="ns">الجهة</th><th class="ns">نوع الشراكة</th><th class="ns">القطاع</th><th class="ns">الدورة</th><th class="ns">الحالة</th><th class="ns">في الموقع</th></tr></thead><tbody>${PARTNERS.map((x,i)=>`<tr><td><input data-pn="${i}" value="${esc(x.n)}" class="ain" style="width:240px"></td><td><select data-pf="${i},ty">${['اتفاقية شراكة','مذكرة تفاهم','منحة','تعاون في فعالية','رعاية'].map(o=>`<option ${x.ty==o?'selected':''}>${o}</option>`).join('')}</select></td><td><select data-pf="${i},sec">${['قطاع حكومي','قطاع خاص','قطاع غير ربحي','جمعية أهلية'].map(o=>`<option ${x.sec==o?'selected':''}>${o}</option>`).join('')}</select></td><td><input data-pf="${i},term" value="${esc(x.term||'')}" class="ain" style="width:110px"></td><td><select data-pf="${i},st">${STs.map(o=>`<option ${x.st==o?'selected':''}>${o}</option>`).join('')}</select></td><td><button class="tg ${x.show?'on':''}" data-ps="${i}" aria-label="إظهار في الموقع"></button></td></tr>`).join('')}</tbody></table></div><p class="d" style="margin-top:10px">${I(P.info,'width:14px;height:14px;vertical-align:-2px')} شعارات الشركاء تُرفع بعد الحصول على إذن مكتوب باستخدامها.</p></div>`);
   B.querySelectorAll('[data-pn]').forEach(i=>i.onchange=()=>{PARTNERS[+i.dataset.pn].n=i.value.trim();savePartners();renderPartnersStrip();toast('حُفظ')});
   B.querySelectorAll('[data-pf]').forEach(i=>i.onchange=()=>{const [n,k]=i.dataset.pf.split(',');PARTNERS[+n][k]=i.value;savePartners();renderPartnersStrip();toast('حُفظ');AM.partners(el)});
+  B.querySelectorAll('[data-plg]').forEach(inp=>inp.onchange=async()=>{const x=PARTNERS[+inp.dataset.plg];let f=inp.files[0];if(!f)return;f=await logoEditor(f,{z:98});if(!f)return;
+   const slug='p-'+String(x.id).replace(/[^0-9a-z]/gi,'').toLowerCase().slice(0,30);
+   try{const r=await fetch('/api/brand/'+slug,{method:'PUT',headers:{'Content-Type':f.type},body:f});const j=await r.json();if(!r.ok)throw new Error(j.error&&j.error.message||'تعذّر الرفع');
+    x.lg=slug+'?v='+Date.now();delete x.wh;savePartners();renderPartnersStrip();toast('رُفع الشعار وظهر في شريط الشركاء');AM.partners(el)}catch(e){toast(e.message,1)}});
   B.querySelectorAll('[data-ps]').forEach(b=>b.onclick=()=>{const x=PARTNERS[+b.dataset.ps];x.show=x.show?0:1;savePartners();renderPartnersStrip();toast(x.show?'ظهرت في شريط الشركاء':'أُخفيت من الموقع');AM.partners(el)});
   $('#ptAdd').onclick=()=>{PARTNERS.unshift({id:Date.now(),n:'جهة جديدة',ty:'اتفاقية شراكة',sec:'قطاع خاص',st:'قيد التفاوض',term:'الدورة الحالية',show:0});ADM.pt.vc='list';sv();savePartners();AM.partners(el);setTimeout(()=>{const f=$('[data-pn="0"]');f&&(f.focus(),f.select())},30)}}
  else{const card=x=>`<div class="kcard2" data-ap="${x.id}"><b>${esc(x.t)}</b><small>${esc(x.ty)}${x.doc?' · موثّقة':''}${x.demo?' · <span class="demo" style="padding:0 6px">تجريبي</span>':''}</small><div class="kas">${x.a.slice(0,3).map(a=>`<span>${esc(a)}</span>`).join('')}${x.a.length>3?`<span>+${x.a.length-3}</span>`:''}</div>${x.from||x.to?`<small>${esc(x.from||'')} → ${esc(x.to||'')}</small>`:''}<div class="kmv">${PTST.indexOf(x.st)>0?`<button class="jbtn sm" data-mv="${x.id},-1" title="المرحلة السابقة">→</button>`:''}${PTST.indexOf(x.st)<4?`<button class="jbtn sm" data-mv="${x.id},1">التالية ←</button>`:''}</div></div>`;
