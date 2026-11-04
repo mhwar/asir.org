@@ -2029,6 +2029,120 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 .ibu{color:#9AA2BB;font-size:11.5px}
 @media (max-width:760px){.ibb{padding:4px 14px 16px}.ibh{grid-template-columns:36px minmax(0,1fr)}.ibh .pill2{grid-column:2;justify-self:start}}
 html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:checked+span,html[data-theme=dark] .fdsteps li.on{background:var(--blue);border-color:var(--blue)}html[data-theme=dark] .fdsteps li.on i{color:var(--blue)}
+/* ---------- منظومة التقارير v2 ---------- */
+.rpb{display:flex;flex-direction:column;gap:12px;margin-bottom:16px}
+.rpkinds{display:flex;gap:6px;flex-wrap:wrap;padding:5px;border-radius:14px;background:#F1F3F7;width:max-content;max-width:100%}
+.rpkinds button{display:inline-flex;align-items:center;gap:7px;padding:9px 14px;border-radius:10px;font-size:13.5px;font-weight:600;color:#5B6380}
+.rpkinds button.on{background:#fff;color:var(--hd);box-shadow:0 1px 4px rgba(9,9,81,.14)}.rpkinds button.on svg{color:var(--blue)}
+.rpscope{display:flex;gap:10px;align-items:center;flex-wrap:wrap;min-height:40px}
+.rpsel{display:flex;align-items:center;gap:10px;font-size:13px;color:#6B7393;font-weight:600}
+.rpsel select,.rpsel input{height:40px;min-width:280px;padding:0 12px;border:1px solid #E4E7EE;border-radius:11px;background:#fff;font:inherit;font-size:14px;color:var(--hd)}
+.rpsel.wide input{min-width:min(460px,70vw)}
+.rpsn{display:flex;gap:7px;align-items:center;color:#6B7393;font-size:13px;margin:0}
+.rpcmp{display:flex;flex-direction:column;gap:10px;width:100%}
+.rpck{display:flex;flex-wrap:wrap;gap:6px;max-height:150px;overflow:auto;padding:2px}
+.rpck label{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:999px;border:1px solid #E4E7EE;background:#fff;font-size:12.5px;color:#3D4462;cursor:pointer}
+.rpck label input{position:absolute;opacity:0;pointer-events:none}.rpck label em{font-style:normal;color:#9AA2BB;font-size:11.5px}
+.rpck label.on{background:var(--navy);border-color:var(--navy);color:#fff}.rpck label.on em{color:#B9C3F5}
+.rpck label:focus-within{outline:2px solid var(--sky)}
+.rplay{display:grid;grid-template-columns:260px minmax(0,1fr);gap:18px;align-items:start}
+.rpside{position:sticky;top:76px;display:flex;flex-direction:column;gap:12px;padding:14px;border:1px solid #E4E7EE;border-radius:16px;background:#fff}
+.rpside h5{font-size:13px;color:var(--hd);margin:0}
+.rpsecs{display:flex;flex-direction:column;gap:2px}
+.rpsecs label{display:flex;gap:9px;align-items:center;padding:7px 8px;border-radius:9px;font-size:13px;color:#3D4462;cursor:pointer}
+.rpsecs label:hover{background:#F5F7FB}.rpsecs input{accent-color:var(--navy);width:16px;height:16px}.rpsecs label.dis{opacity:.45;cursor:default}
+.rpdl{display:flex;flex-direction:column;gap:6px;padding-top:10px;border-top:1px solid #EEF0F4}.rpdl .jbtn{justify-content:center}
+.rpwhat{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px;font-size:12px;color:#6B7393;line-height:1.7}.rpwhat b{color:var(--hd)}
+.rpview{background:#E9EDF4;border-radius:18px;padding:22px;min-width:0;overflow:auto}
+.rpquick{margin-top:18px;border:1px solid #E4E7EE;border-radius:16px;background:#fff;padding:0 16px}
+.rpquick summary{display:flex;align-items:center;gap:8px;padding:14px 0;cursor:pointer;font-weight:700;color:var(--hd);font-size:14px}.rpquick summary em{font-style:normal;font-size:12px;color:#6B7393;font-weight:600}
+.rpquick[open]{padding-bottom:16px}
+@media (max-width:1100px){.rplay{grid-template-columns:1fr}.rpside{position:static}.rpdl{flex-direction:row}}
+@media (max-width:760px){.rpsecs{flex-direction:row;flex-wrap:wrap;gap:6px}.rpsecs label{padding:6px 10px;border:1px solid #E4E7EE;border-radius:999px;font-size:12.5px}.rpwhat{display:none}.rpkinds{width:100%;flex-wrap:nowrap;overflow-x:auto}.rpkinds button{white-space:nowrap}.rpsel{flex-direction:column;align-items:stretch;width:100%}.rpsel select,.rpsel input{min-width:0;width:100%}.rpview{padding:8px;border-radius:12px}}
+/* الوثيقة نفسها (معاينة + طباعة) */
+.rpd{--rn:#111182;--rd:#090951;--rb:#1249FF;--rm:#6B7393;--rl:#E3E8F2;--rz:#F5F7FC;font-family:inherit;color:#1E2340;font-size:13px;line-height:1.75;background:#fff;text-align:start}
+.rpview .rpd{max-width:900px;margin:0 auto;border-radius:6px;box-shadow:0 10px 40px -18px rgba(9,9,81,.35);overflow:hidden}
+.rpd *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.rpcov{position:relative;display:flex;flex-direction:column;gap:26px;padding:44px 52px 34px;background:linear-gradient(180deg,#fff 0,#fff 60%,var(--rz) 100%);border-bottom:1px solid var(--rl);overflow:hidden}
+.rpcov::before{content:"";position:absolute;inset:0 0 auto auto;width:9px;height:100%;background:linear-gradient(180deg,var(--rn),#42ACFD)}
+.rpcl{display:flex;align-items:center;justify-content:space-between;gap:14px}.rpcl img{height:54px}.rpcl span{font-size:11.5px;color:var(--rm);font-weight:600}
+.rpct{padding:22px 0 4px}
+.rpey{display:inline-block;padding:4px 12px;border-radius:999px;background:#EAF0FF;color:var(--rb);font-size:11.5px;font-weight:700}
+.rpct h1{font-size:30px;line-height:1.4;color:var(--rn);margin:12px 0 6px;text-wrap:balance}
+.rpsc{font-size:15px;color:#3D4462;font-weight:600;margin:0}.rpdt{font-size:12.5px;color:var(--rm);margin:4px 0 0}
+.rpch{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.rpch div{padding:14px;border-radius:12px;background:#fff;border:1px solid var(--rl);border-top:3px solid var(--rn)}
+.rpch b{display:block;font-size:24px;color:var(--rn);line-height:1.2}.rpch small{font-size:11.5px;color:var(--rm)}
+.rptoc{columns:2;column-gap:28px;margin:0;padding:0 18px 0 0;font-size:12.5px;color:#3D4462}.rptoc li{padding:2px 0;break-inside:avoid}.rptoc li::marker{color:var(--rb);font-weight:700}
+.rpcf{margin:0;padding-top:12px;border-top:1px solid var(--rl);font-size:11px;color:var(--rm)}
+.rps{padding:26px 52px 8px}
+.rps h2{display:flex;align-items:center;gap:10px;font-size:18px;color:var(--rn);margin:0 0 6px;padding-bottom:8px;border-bottom:2px solid var(--rl)}
+.rps h2 i{font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--rn);color:#fff;font-size:13px;flex:none}
+.rpi{font-size:12.5px;color:var(--rm);margin:0 0 12px}
+.rps>*+*{margin-top:14px}
+.rk{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.rkc{padding:12px 14px;border:1px solid var(--rl);border-radius:12px;background:#fff;break-inside:avoid}
+.rkc small{display:block;font-size:11.5px;color:var(--rm);line-height:1.5}.rkc>b{display:block;font-size:24px;color:var(--rn);line-height:1.3;margin-top:2px}.rkc>b i{font-style:normal;font-size:12px;color:var(--rm);font-weight:600}
+.rkc p{margin:6px 0 0;font-size:11.5px;color:#4A5272;line-height:1.7}.rkc p b{color:var(--rn)}
+.rkc em{display:inline-block;margin-top:6px;padding:2px 8px;border-radius:999px;background:#EAF0FF;color:var(--rb);font-style:normal;font-size:11px;font-weight:700}
+.rk.sm .rkc>b{font-size:19px}
+.rf{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:0;margin:0;border:1px solid var(--rl);border-radius:12px;overflow:hidden}
+.rf.c2{grid-template-columns:1fr 1fr}
+.rf div{display:flex;justify-content:space-between;gap:10px;padding:9px 14px;border-bottom:1px solid var(--rl);background:#fff}.rf div:nth-child(4n+3),.rf div:nth-child(4n+4){background:var(--rz)}
+.rf dt{color:var(--rm);font-size:12.5px}.rf dd{margin:0;font-weight:700;color:var(--rn);text-align:end}
+.rch{display:flex;flex-wrap:wrap;gap:6px}.rch span{display:inline-flex;flex-direction:column;padding:7px 12px;border-radius:10px;border:1px solid var(--rl);background:#fff;font-size:12.5px}.rch span small{color:var(--rm);font-size:11px}
+.rch span.on{border-color:#BFE8D1;background:#F1FBF5}.rch span.on small{color:#14804A}.rch span.off{border-color:#F6D3CF;background:#FFF6F5}.rch span.off small{color:#B42318}
+.rs{break-inside:avoid}.rsh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}.rsh b{color:var(--rn);font-size:13.5px}.rsh small{color:var(--rm);font-size:11.5px}
+.rsb{display:flex;height:26px;border-radius:7px;overflow:hidden;gap:2px;background:#fff}.rsb i{display:grid;place-items:center;color:#fff;font-style:normal;font-size:11px;font-weight:700;min-width:3px}
+.rsl{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:7px;font-size:12px;color:#3D4462}.rsl span{display:inline-flex;align-items:center;gap:6px}.rsl span>i{width:10px;height:10px;border-radius:3px}.rsl small{color:var(--rm)}
+.rb2{display:grid;grid-template-columns:minmax(120px,190px) minmax(0,1fr) 56px 46px;gap:0 10px;align-items:center;font-size:12.5px;break-inside:auto}
+.rb2.cmp{grid-template-columns:minmax(120px,190px) minmax(0,1fr) 56px 46px 52px}
+.rbh,.rbr,.rbk{display:contents}
+.rbh span{font-size:11px;color:var(--rm);font-weight:600;padding-bottom:4px;text-align:center}.rbh span:first-child{text-align:start}
+.rbr>*{padding:4px 0;border-bottom:1px solid #F0F2F7}
+.rbr .l{color:#1E2340;line-height:1.45}
+.rbr .t{position:relative;display:flex;flex-direction:column;justify-content:center;gap:2px;height:100%}
+.rbr .t i,.rbr .t u{display:block;height:11px;border-radius:3px;background:var(--rb);min-width:2px}.rb2.cmp .rbr .t i{height:9px;background:var(--rn)}.rbr .t u{height:6px;background:#9DBBFF;text-decoration:none}
+.rb2.warn .rbr .t i{background:#E58A00}.rb2.warn.cmp .rbr .t i{background:#C26A00}.rb2.warn .rbr .t u{background:#F5C97A}
+.rbr b{text-align:center;color:var(--rn)}.rbr em{font-style:normal;text-align:center;color:#3D4462}.rbr em.q{color:var(--rm)}
+.rbr.oth .l{color:var(--rm)}
+.rbk span{grid-column:span 2;display:inline-flex;gap:6px;align-items:center;font-size:11px;color:var(--rm);padding-top:6px}.rbk i,.rbk u{display:inline-block;width:14px;height:8px;border-radius:2px;background:var(--rn)}.rbk u{background:#9DBBFF}
+.rt{overflow-x:auto}
+.rt table,.rmx table{width:100%;border-collapse:collapse;font-size:12px}
+.rt th{background:var(--rn);color:#fff;font-weight:700;padding:8px 9px;text-align:start;font-size:11.5px;line-height:1.4}
+.rt th.n{text-align:center}
+.rt td{padding:6px 9px;border-bottom:1px solid var(--rl);vertical-align:top}
+.rt td.n{text-align:center;white-space:nowrap;font-variant-numeric:tabular-nums}
+.rt tbody tr:nth-child(even) td{background:var(--rz)}
+.rt td.hi{font-weight:800;color:var(--rb)}
+.rt tfoot td{background:#E6ECFA;font-weight:700;color:var(--rn);border-top:2px solid var(--rn)}
+.rmx{overflow-x:auto}.rmx th,.rmx td{border:1px solid #fff;padding:5px 4px;text-align:center;font-size:11px}
+.rmx thead th{background:#F0F3FA;color:#3D4462;font-weight:600;vertical-align:bottom;line-height:1.35}.rmx thead th span{display:block;min-width:54px}
+.rmx tbody th{background:#F0F3FA;text-align:start;white-space:nowrap;color:#1E2340;font-weight:600;padding-inline:8px}
+.rmx td{background:#FAFBFD;font-weight:700;font-variant-numeric:tabular-nums}.rmx td.tt{background:#E6ECFA;color:var(--rn)}
+.rpdefs dl{margin:0;display:grid;gap:0;border:1px solid var(--rl);border-radius:12px;overflow:hidden}
+.rpdefs dl div{display:grid;grid-template-columns:180px 1fr;gap:14px;padding:9px 14px;border-bottom:1px solid var(--rl)}.rpdefs dl div:nth-child(even){background:var(--rz)}
+.rpdefs dt{font-weight:700;color:var(--rn);font-size:12.5px}.rpdefs dd{margin:0;font-size:12.5px;color:#3D4462}
+.rpd>section:last-child{padding-bottom:36px}
+@media (max-width:760px){.rpcov,.rps{padding-inline:18px}.rpch{grid-template-columns:1fr 1fr}.rptoc{columns:1}.rpct h1{font-size:22px}.rb2,.rb2.cmp{grid-template-columns:minmax(90px,120px) minmax(0,1fr) 44px 38px}.rb2.cmp .rbh span:last-child,.rb2.cmp em.q{display:none}.rf.c2{grid-template-columns:1fr}.rpdefs dl div{grid-template-columns:1fr;gap:2px}}
+#rptDoc{display:none}
+@media print{
+ body.printrpt>*:not(#rptDoc){display:none!important}
+ body.printrpt #rptDoc{display:block!important}
+ body.printrpt{background:#fff!important}
+ #rptDoc .rpd{font-size:10pt;max-width:none;box-shadow:none}
+ #rptDoc .rpcov{min-height:252mm;padding:6mm 6mm 0;background:#fff;border:0;break-after:page;gap:9mm}
+ #rptDoc .rpcov::before{inset:0 -13mm auto auto;width:4mm}
+ #rptDoc .rpct{padding-top:24mm}#rptDoc .rpct h1{font-size:25pt}
+ #rptDoc .rpcf{margin-top:auto}
+ #rptDoc .rps{padding:0 0 5mm}#rptDoc .rps h2{font-size:14pt;break-after:avoid}#rptDoc .rpi{break-after:avoid}
+ #rptDoc .rps+.rps{margin-top:4mm}
+ #rptDoc .rk,#rptDoc .rf,#rptDoc .rs,#rptDoc .rch{break-inside:avoid}
+ #rptDoc .rt{overflow:visible}#rptDoc .rt table{font-size:8.6pt}#rptDoc .rt thead{display:table-header-group}#rptDoc .rt tr{break-inside:avoid}
+ #rptDoc .rmx{overflow:visible}#rptDoc .rmx th,#rptDoc .rmx td{font-size:7.6pt;padding:3px 2px}#rptDoc .rmx thead th span{min-width:0}
+ #rptDoc .rb2{font-size:9pt}#rptDoc .rbr{break-inside:avoid}
+ #rptDoc .rkc>b{font-size:17pt}
+}
 </style>
 </head>
 <body>
@@ -3693,7 +3807,7 @@ function openRec(id){const o=DBI[id];
  <h4>${I(P.shield,'width:16px;height:16px')}الترخيص</h4><div class="fl2">${F('تاريخ الإصدار',o.issued)}${F('تاريخ الانتهاء',o.exp)}${F('الحالة المحسوبة',stPill(o)+(o.days!=null?` <small style="display:inline">${o.days<0?'منذ '+(-o.days):'بعد '+o.days} يوماً</small>`:''))}${F('الحالة في الملف الأصلي',o.origSt)}</div>
  <h4>${I(P.chat,'width:16px;height:16px')}التواصل والقيادة ${compBar(o.comp)}</h4><div class="fl2">${F('بريد الجمعية',pv(o.email,'e'))}${F('جوال الجمعية',pv(o.mobile,'p'))}${F('رئيس مجلس الإدارة',pv(o.pres,'n'))}${F('بريد الرئيس',pv(o.presEmail,'e'))}${F('المفوض',pv(o.del,'n'))}${F('بريد المفوض',pv(o.delEmail,'e'))}</div>
  ${o.issues.length||SESSION?`<h4>${I(P.info,'width:16px;height:16px')}الملاحظات <span class="pill2 p-warn" style="margin-inline-start:4px">${o.issues.length}</span>${SESSION?`<button class="btn o" style="margin-inline-start:auto;padding:4px 12px;font-size:12.5px" onclick="closeAll();setTimeout(()=>recEdit(${o.id},'notes'),50)">سجل الملاحظات</button>`:''}</h4>`:''}${o.issues.length?`${o.issues.map(x=>`<div class="qi">${I(P.x,'width:14px;height:14px;flex:none;margin-top:3px')}${esc(x)}</div>`).join('')}`:''}
- <h4>${I(P.target,'width:16px;height:16px')}إجراءات</h4><div class="acts"><button class="btn n" onclick="${SESSION?`closeAll();goMod('updates');UPDX.tab='links';setTimeout(()=>updLink([${o.id}]),300)`:`toast('أُرسل رابط تحديث البيانات للجمعية (تجريبي)');alog('رابط تحديث: ${esc(o.n)}')`}">إرسال رابط تحديث</button>${o.st!='ساري'?`<button class="btn o" onclick="toast('أُرسل تذكير التجديد (تجريبي)');alog('تذكير تجديد: ${esc(o.n)}','#F5A524')">تذكير بالتجديد</button>`:''}<button class="btn o" onclick="go('association/${o.lic}')">الصفحة العامة</button>${SESSION?`<button class="btn o" onclick="recEdit(${o.id})">تعديل البيانات</button><button class="btn o" style="color:${o.closed?'#14804A':'#B42318'}" onclick="recClose(${o.id})">${o.closed?'إلغاء الإغلاق':'تسجيل إغلاق الجمعية'}</button>`:''}</div>${o.about?`<h4>نبذة الجمعية</h4><p style="font-size:13.5px;line-height:1.8">${esc(o.about)}</p>`:''}
+ <h4>${I(P.target,'width:16px;height:16px')}إجراءات</h4><div class="acts"><button class="btn n" onclick="${SESSION?`closeAll();goMod('updates');UPDX.tab='links';setTimeout(()=>updLink([${o.id}]),300)`:`toast('أُرسل رابط تحديث البيانات للجمعية (تجريبي)');alog('رابط تحديث: ${esc(o.n)}')`}">إرسال رابط تحديث</button>${o.st!='ساري'?`<button class="btn o" onclick="toast('أُرسل تذكير التجديد (تجريبي)');alog('تذكير تجديد: ${esc(o.n)}','#F5A524')">تذكير بالتجديد</button>`:''}<button class="btn o" onclick="go('association/${o.lic}')">الصفحة العامة</button><button class="btn o" onclick="closeAll();rpGo('assoc',${o.id})">تقرير الجمعية</button>${SESSION?`<button class="btn o" onclick="recEdit(${o.id})">تعديل البيانات</button><button class="btn o" style="color:${o.closed?'#14804A':'#B42318'}" onclick="recClose(${o.id})">${o.closed?'إلغاء الإغلاق':'تسجيل إغلاق الجمعية'}</button>`:''}</div>${o.about?`<h4>نبذة الجمعية</h4><p style="font-size:13.5px;line-height:1.8">${esc(o.about)}</p>`:''}
  ${ADM.reveal?'':'<div class="demoNote">البيانات الشخصية مخفية. فعّل «إظهار البيانات الشخصية» من أعلى الصفحة لعرضها.</div>'}</div>`;
  $('#adrawer').classList.add('on');$('#ov').classList.add('on')}
 /* ---------- analytics v0.27: downloadable panels + expandable profiles ---------- */
@@ -3734,8 +3848,9 @@ function buildXLSX(spec){const today=new Date().toLocaleDateString('ar-SA',{year
   ['xl/styles.xml',styles],...sx.map((x,i)=>[`xl/worksheets/sheet${i+1}.xml`,x])])}
 function saveBlob(blob,name){try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),4000);return true}catch(e){toast('التنزيل غير متاح في هذه المعاينة');return false}}
 const fileName=t=>String(t).replace(/[\\/:*?"<>|]/g,'-').slice(0,90);
-function dlXLSX(spec){if(saveBlob(buildXLSX(spec),fileName(spec.title)+'.xlsx')){toast('تم تنزيل ملف Excel: '+spec.title);alog('تنزيل Excel: '+spec.title)}}
-function dlPDF(spec){let box=$('#printDoc');if(!box){box=document.createElement('div');box.id='printDoc';document.body.appendChild(box)}
+function dlXLSX(spec){rXLSX(specToR(spec))}
+function dlPDF(spec){return rPDF(specToR(spec))}
+function dlPDFold(spec){let box=$('#printDoc');if(!box){box=document.createElement('div');box.id='printDoc';document.body.appendChild(box)}
  const today=new Date().toLocaleDateString('ar-SA',{year:'numeric',month:'long',day:'numeric'});const lg=$('header.top .logo .d');
  const tbl=t=>`<h2>${xe(t.name)}</h2>${t.lead?`<p class="pl">${xe(t.lead)}</p>`:''}<table><thead><tr>${t.cols.map(c=>`<th>${xe(c.h)}</th>`).join('')}</tr></thead><tbody>${t.rows.map(r=>`<tr>${r.map((v,ci)=>{const c=t.cols[ci]||{};const pc=c.t=='p'&&typeof v=='number';const sv=pc?Math.round(v*100)+'%':v;return `<td class="${typeof v=='number'||/^[\d\-%. ]{1,12}$/.test(String(sv))?'n':''}">${xe(sv)}</td>`}).join('')}</tr>`).join('')}</tbody></table>`;
  box.innerHTML=`<header>${lg?`<img src="${lg.src}" alt="">`:''}<div><h1>${xe(spec.title)}</h1><p>${spec.sub?xe(spec.sub)+' · ':''}${today}</p></div></header>${spec.kpis&&spec.kpis.length?`<div class="pk">${spec.kpis.slice(0,8).map(k=>`<div><b>${xe(k[1])}</b><small>${xe(k[0])}</small></div>`).join('')}</div>`:''}${(spec.tables||[]).map(tbl).join('')}<footer>مجلس الجمعيات الأهلية بمنطقة عسير · تقرير داخلي · لا يُنشر</footer>`;
@@ -3778,11 +3893,11 @@ function profile(by,k){const L=DB.filter(o=>o[by]==k),other=by=='gov'?'sup':'gov
   return `<div class="ptb"><div class="jsearch" style="flex:1">${I(P.search,'width:16px;height:16px')}<input id="pQ" value="${esc(ADM.pq)}" placeholder="ابحث في جمعيات ${esc(nm)}…"></div><span class="d">${T.length} من ${L.length}</span></div>
   <div class="twrap"><table class="at" style="min-width:720px"><thead><tr><th class="ns">الجمعية</th><th class="ns">${other=='sup'?'الجهة الإشرافية':'المحافظة'}</th><th class="ns">المجال</th><th class="ns">الترخيص</th><th class="ns">الانتهاء</th><th class="ns">الملف</th></tr></thead><tbody>${T.map(o=>`<tr class="cl" data-id="${o.id}"><td><b>${esc(o.n)}</b><small>ترخيص ${o.lic}</small></td><td>${other=='sup'?`<span class="tsup">${supLogo(o.sup,'xs')}${esc(supShort(o.sup))}</span>`:o.gov}</td><td>${esc(o.grp)}</td><td>${stPill(o)}</td><td class="ltr">${o.exp||'—'}</td><td><div class="cbar"><i style="width:${o.comp}%"></i></div><small>${o.comp}%</small></td></tr>`).join('')||'<tr><td colspan="6" class="jempty2">لا نتائج</td></tr>'}</tbody></table></div>`};
  openAD(adHead(by=='gov'?'ملف محافظة':'ملف جهة إشرافية',nm,`<span class="pill2 p-info">${st.n} جمعية</span><span class="pill2 p-info">${pctOf(st.n,DB.length)}% من المنطقة</span>`)+`<div class="db prof" id="profBox">
-  <div class="pfacts"><span class="pfid">${by=='sup'?supLogo(k,'sm'):govIcon(k,52)}</span><div class="vseg"><button class="${ADM.pview=='stats'?'on':''}" data-pv="stats">${I(P.chart,'width:14px;height:14px')}الإحصاءات</button><button class="${ADM.pview=='table'?'on':''}" data-pv="table">${I(P.db,'width:14px;height:14px')}جدول الجمعيات</button></div><button class="jbtn sm" id="pfX">${I(P.dl,'width:14px;height:14px')}Excel</button><button class="jbtn sm" id="pfP">PDF</button><button class="jbtn sm pri" onclick="closeAll();ADM.seg['${by}']='${k}';goMod('${by=='gov'?'bygov':'bysup'}')">المتابعة ←</button></div>
+  <div class="pfacts"><span class="pfid">${by=='sup'?supLogo(k,'sm'):govIcon(k,52)}</span><div class="vseg"><button class="${ADM.pview=='stats'?'on':''}" data-pv="stats">${I(P.chart,'width:14px;height:14px')}الإحصاءات</button><button class="${ADM.pview=='table'?'on':''}" data-pv="table">${I(P.db,'width:14px;height:14px')}جدول الجمعيات</button></div><button class="jbtn sm" id="pfX">${I(P.dl,'width:14px;height:14px')}Excel</button><button class="jbtn sm" id="pfP">PDF</button><button class="jbtn sm" onclick="closeAll();rpGo('${by}','${k}')">${I(P.file,'width:14px;height:14px')}التقرير الكامل</button><button class="jbtn sm pri" onclick="closeAll();ADM.seg['${by}']='${k}';goMod('${by=='gov'?'bygov':'bysup'}')">المتابعة ←</button></div>
   <div id="pfBody">${ADM.pview=='table'?tableV():statsV}</div></div>`);$('#adrawer').classList.add('wide');
  const bind=()=>{$$('#pfBody tr[data-id]').forEach(r=>r.onclick=()=>openRec(+r.dataset.id));const q=$('#pQ');if(q){q.oninput=()=>{ADM.pq=q.value;const pos=q.selectionStart;$('#pfBody').innerHTML=tableV();bind();const n=$('#pQ');n.focus();n.setSelectionRange(pos,pos)}}};bind();
  $$('#profBox [data-pv]').forEach(b=>b.onclick=()=>{ADM.pview=b.dataset.pv;profile(by,k)});
- $('#pfX').onclick=()=>dlXLSX(profileSpec(by,k));$('#pfP').onclick=()=>dlPDF(profileSpec(by,k))}
+ $('#pfX').onclick=()=>rXLSX(rBuild(by,k));$('#pfP').onclick=()=>rPDF(rBuild(by,k))}
 AM.analytics=el=>{
  const govs=cntBy(DB,'gov').map(x=>x[0]),grps=cntBy(DB,'grp').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);
  const mx=Math.max(...govs.flatMap(g=>grps.map(p=>DB.filter(o=>o.gov==g&&o.grp==p).length)));
@@ -4340,18 +4455,249 @@ const REPORTS=[
  {c:'الشراكات',ic:'hshake',id:'pcouncil',t:'شراكات المجلس',d:'الجهات الشريكة ونوع الشراكة وحالتها.',sp:()=>({title:'شراكات المجلس',tables:[{name:'الشراكات',cols:[{h:'الجهة',w:40},{h:'نوع الشراكة'},{h:'القطاع'},{h:'الدورة'},{h:'الحالة'},{h:'في الموقع'}],rows:PARTNERS.map(x=>[x.n,x.ty,x.sec,x.term||'',x.st,x.show?'نعم':'لا'])}]})},
  {c:'الشراكات',ic:'hshake',id:'pbetween',t:'سجل الشراكات بين الجمعيات',d:'الشراكات الموثّقة بين جمعيات المنطقة ومراحلها.',sp:()=>({title:'سجل الشراكات بين الجمعيات',tables:[{name:'الشراكات',cols:[{h:'الشراكة',w:36},{h:'النوع'},{h:'الجمعيات',w:44},{h:'المحافظات',w:20},{h:'المرحلة'},{h:'البداية'},{h:'النهاية'},{h:'دور المجلس'}],rows:APART.map(x=>[x.t,x.ty,x.a.join('، '),[...new Set((x.ids||[]).map(i=>(DBI[i]||{}).gov).filter(Boolean))].join('، '),x.st,x.from||'',x.to||'',x.role||''])}]})},
  {c:'القرارات',ic:'target',id:'dec',t:'القرارات ومتابعتها',d:'القرارات المقترحة واليدوية بحالتها والمسؤول والموعد.',sp:()=>({title:'قرارات المجلس',tables:[{name:'القرارات',cols:[{h:'القرار',w:44},{h:'القراءة',w:44},{h:'المصدر'},{h:'الحالة'},{h:'المسؤول'},{h:'الموعد'},{h:'ملاحظة',w:30}],rows:decisions().map(d=>{const m=ADM.dec[d.id]||{};return [d.d,d.t,d.src,m.st||'مقترح',m.o||'',m.due||'',m.n||'']})}]})}];
+/* =====================================================================
+   منظومة التقارير v2 — أرقام فقط، بلا توصيات
+   نموذج واحد R = {kind,title,scope,sub,cover:[kpi],sections:[{id,t,intro,blocks}]}
+   يُعرض في اللوحة، ويُطبع PDF بالقالب نفسه، ويُصدَّر Excel منسّقاً من البنية نفسها.
+   ===================================================================== */
+const RDIM={gov:['المحافظة','المحافظات','pin'],grp:['مجال العمل','المجالات','grid'],sup:['الجهة الإشرافية','الجهات الإشرافية','shield']};
+const RKIND={region:['المنطقة كاملة',P.globe],gov:['محافظة',P.pin],grp:['مجال عمل (قطاع)',P.grid],sup:['جهة إشرافية',P.shield],assoc:['جمعية',P.building],cmp:['مقارنة',P.chart]};
+const rAct=()=>DB.filter(o=>!o.closed);
+const rYear=o=>{const y=+String(o.founded||'').slice(0,4);return y>1900?y:null};
+const rLab=(dim,k)=>dim=='sup'?supShort(k):k;
+const rFmt=(v,t)=>v==null||v===''?'—':t=='p'?Math.round(v*100)+'%':t=='y'?String(v):t=='d'?(v>0?'+':'')+Math.round(v*100)+' نقطة':t=='dy'?(v>0?'+':'')+v+' سنة':typeof v=='number'?v.toLocaleString('en'):String(v);
+function rMet(L){const n=L.length,c=f=>L.filter(f).length,r=v=>n?v/n:0;
+ const ok=c(o=>o.st=='ساري'),soon=c(o=>o.st=='ينتهي قريباً'),exp=c(o=>o.st=='منتهي'),unk=c(o=>o.st=='غير معروف');
+ const yrs=L.map(rYear).filter(Boolean).sort((a,b)=>a-b),Y=TODAY.getFullYear();
+ return {n,ok,soon,exp,unk,okP:r(ok),soonP:r(soon),expP:r(exp),
+  in30:c(o=>o.days!=null&&o.days>=0&&o.days<=30),in90:soon,in180:c(o=>o.days!=null&&o.days>=0&&o.days<=180),
+  comp:n?L.reduce((s,o)=>s+o.comp,0)/n/100:0,full:c(o=>o.comp==100),fullP:r(c(o=>o.comp==100)),
+  noEmail:c(o=>!o.email),noMobile:c(o=>!o.mobile),noPres:c(o=>!o.pres),noDel:c(o=>!o.del),
+  medYear:yrs.length?yrs[Math.floor((yrs.length-1)/2)]:null,new3:c(o=>{const y=rYear(o);return y&&y>=Y-2}),
+  grps:new Set(L.map(o=>o.grp)).size,govs:new Set(L.map(o=>o.gov)).size,sups:new Set(L.map(o=>o.sup)).size}}
+/* المؤشرات القابلة للمقارنة: [مفتاح، الاسم، النوع: c=عدد r=نسبة y=سنة] */
+const RKPI=[['n','عدد الجمعيات','c'],['okP','نسبة التراخيص السارية','r'],['soon','تراخيص تنتهي خلال 90 يوماً','c'],['exp','تراخيص منتهية','c'],['expP','نسبة التراخيص المنتهية','r'],['comp','متوسط اكتمال ملف التواصل','r'],['fullP','نسبة الملفات المكتملة','r'],['medYear','وسيط سنة التأسيس','y'],['new3','تأسست خلال آخر 3 سنوات','c']];
+function rRank(dim,key,mk){const groups=cntBy(rAct(),dim).map(x=>x[0]);const vals=groups.map(g=>[g,rMet(rAct().filter(o=>o[dim]==g))[mk]]).filter(x=>x[1]!=null).sort((a,b)=>b[1]-a[1]);
+ const i=vals.findIndex(x=>x[0]==key);return i<0?null:[i+1,vals.length]}
+/* كتل العرض */
+const RB={kpis:(items,o)=>({type:'kpis',items,...o}),bars:(rows,o)=>({type:'bars',rows,...o}),stack:(parts,o)=>({type:'stack',parts,...o}),table:(cols,rows,o)=>({type:'table',cols,rows,...o}),matrix:(rl,cl,cells,o)=>({type:'matrix',rl,cl,cells,...o}),facts:(rows,o)=>({type:'facts',rows,...o}),chips:(items,o)=>({type:'chips',items,...o})};
+const RST=[['ساري','#14A37F'],['ينتهي قريباً','#F5A524'],['منتهي','#F04438'],['غير معروف','#A3ABC4']];
+const rStack=(L,label)=>RB.stack(RST.map(([s,c])=>({l:s,v:L.filter(o=>o.st==s).length,c})).filter(p=>p.v),{label,total:L.length});
+function rDist(L,dim,ref,o={}){const all=cntBy(L,dim),n=L.length||1,R=ref?cntBy(ref,dim):null,rn=ref?ref.length||1:1;
+ const keys=ref&&o.full?[...new Set([...all.map(x=>x[0]),...R.map(x=>x[0])])]:all.map(x=>x[0]);
+ return keys.map(k=>{const v=(all.find(x=>x[0]==k)||[0,0])[1];const row={l:rLab(dim,k),k,v,p:v/n};if(R)row.q=((R.find(x=>x[0]==k)||[0,0])[1])/rn;return row}).sort((a,b)=>b.v-a.v||(b.q||0)-(a.q||0))}
+const rEras=L=>{const Y=TODAY.getFullYear(),E=[['قبل 2000',y=>y<2000],['2000 – 2009',y=>y>=2000&&y<2010],['2010 – 2014',y=>y>=2010&&y<2015],['2015 – 2019',y=>y>=2015&&y<2020],['2020 – '+(Y-3),y=>y>=2020&&y<=Y-3],[(Y-2)+' وما بعد',y=>y>Y-3]],n=L.length||1;
+ return [...E.map(([l,f])=>{const v=L.filter(o=>{const y=rYear(o);return y&&f(y)}).length;return {l,v,p:v/n}}),{l:'غير مسجّل',v:L.filter(o=>!rYear(o)).length,p:L.filter(o=>!rYear(o)).length/n}].filter(r=>r.v||r.l!='غير مسجّل')};
+const rMiss=L=>{const n=L.length||1;return [['بريد الجمعية','email'],['جوال الجمعية','mobile'],['اسم رئيس المجلس','pres'],['بريد الرئيس','presEmail'],['اسم المفوض','del'],['بريد المفوض','delEmail']].map(([l,k])=>{const v=L.filter(o=>!o[k]).length;return {l:'بلا '+l,v,p:v/n}})};
+const rListCols=(skip)=>[{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'رقم الترخيص',w:13},...['gov','grp','sup'].filter(d=>d!=skip).map(d=>({h:RDIM[d][0],w:d=='sup'?26:18})),{h:'التأسيس',t:'y',w:9},{h:'حالة الترخيص',w:13},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c',w:11},{h:'اكتمال الملف',t:'r',w:11}];
+const rListRows=(L,skip)=>L.slice().sort((a,b)=>a.n.localeCompare(b.n,'ar')).map((o,i)=>[i+1,o.n,o.lic,...['gov','grp','sup'].filter(d=>d!=skip).map(d=>rLab(d,o[d])),rYear(o),o.st,o.exp||'',o.days,o.comp/100]);
+const rExpRows=L=>L.filter(o=>o.days!=null&&o.days>=0&&o.days<=90).sort((a,b)=>a.days-b.days);
+function rSegTable(L,dim){const ref=L.length||1;const keys=cntBy(L,dim).map(x=>x[0]);
+ const rows=keys.map(k=>{const S=L.filter(o=>o[dim]==k),m=rMet(S);return [rLab(dim,k),m.n,m.n/ref,m.ok,m.okP,m.soon,m.exp,m.comp,m.medYear]});const T=rMet(L);
+ return RB.table([{h:RDIM[dim][0],w:30},{h:'الجمعيات',t:'c',bar:1},{h:'الحصة',t:'r'},{h:'سارية',t:'c'},{h:'نسبة السارية',t:'r'},{h:'تنتهي خلال 90 يوماً',t:'c'},{h:'منتهية',t:'c'},{h:'متوسط اكتمال الملف',t:'r'},{h:'وسيط سنة التأسيس',t:'y'}],rows,{total:['الإجمالي',T.n,1,T.ok,T.okP,T.soon,T.exp,T.comp,T.medYear],sheet:RDIM[dim][1]})}
+function rKpiCmp(L,dim,key){const m=rMet(L),R=rMet(rAct());
+ return RKPI.map(([k,l,t])=>{const it={k,l,t,v:m[k],ref:R[k]};if(t=='r')it.diff=m[k]-R[k];if(t=='y'&&m[k]&&R[k])it.diff=m[k]-R[k];if(t=='c')it.share=R[k]?m[k]/R[k]:null;if(dim)it.rank=rRank(dim,key,k);return it})}
+/* ---------- بناء التقرير حسب النوع ---------- */
+function rBuild(kind,key,opt={}){const A=rAct(),closed=DB.length-A.length,R0=rMet(A);const S=[];const sec=(id,t,intro,blocks,o={})=>S.push({id,t,intro,blocks,...o});
+ const meta={count:A.length,closed};
+ if(kind=='region'){
+  sec('sum','الملخص','أرقام الجمعيات النشطة في منطقة عسير (لا تشمل الجمعيات المغلقة).',[RB.kpis(rKpiCmp(A).map(x=>({...x,ref:undefined,diff:undefined,share:undefined}))),RB.facts([['المحافظات الممثَّلة',R0.govs],['مجالات العمل',R0.grps],['الجهات الإشرافية',R0.sups],['جمعيات مغلقة (مستبعدة)',closed]])]);
+  sec('lic','حالة التراخيص','تُحسب الحالة من تاريخ انتهاء الترخيص: «ينتهي قريباً» خلال 90 يوماً أو أقل.',[rStack(A,'المنطقة'),RB.kpis([{l:'تنتهي خلال 30 يوماً',v:R0.in30,t:'c'},{l:'تنتهي خلال 90 يوماً',v:R0.in90,t:'c'},{l:'تنتهي خلال 180 يوماً',v:R0.in180,t:'c'},{l:'تاريخ انتهاء غير مسجّل',v:R0.unk,t:'c'}],{small:1})]);
+  sec('gov','التوزيع حسب المحافظة','',[RB.bars(rDist(A,'gov'),{unit:'جمعية',top:14}),rSegTable(A,'gov')]);
+  sec('grp','التوزيع حسب مجال العمل','',[RB.bars(rDist(A,'grp'),{unit:'جمعية'}),rSegTable(A,'grp')]);
+  sec('sup','الجهات الإشرافية','',[RB.bars(rDist(A,'sup'),{unit:'جمعية',top:10}),rSegTable(A,'sup')]);
+  const govs=cntBy(A,'gov').map(x=>x[0]),grps=cntBy(A,'grp').map(x=>x[0]);
+  sec('cov','التغطية: المحافظات × مجالات العمل','عدد الجمعيات في كل مجال داخل كل محافظة. الخانة الفارغة تعني عدم وجود جمعية مسجّلة.',[RB.matrix(govs,grps,govs.map(g=>grps.map(f=>A.filter(o=>o.gov==g&&o.grp==f).length)),{sheet:'التغطية'})],{wide:1});
+  sec('era','فترات التأسيس','حسب سنة التأسيس المسجّلة.',[RB.bars(rEras(A),{unit:'جمعية',keep:1})]);
+  sec('data','اكتمال بيانات التواصل','عدد الجمعيات التي ينقص ملفها كل حقل. القيم نفسها لا تظهر في التقرير.',[RB.bars(rMiss(A),{unit:'جمعية',keep:1,tone:'warn'})]);
+  const X=rExpRows(A);sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length+' جمعية، مرتبة حسب الأقرب انتهاءً.',[RB.table([{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'المحافظة'},{h:'مجال العمل'},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],X.map((o,i)=>[i+1,o.n,o.gov,o.grp,o.exp,o.days]),{sheet:'تنتهي قريباً'})]);
+  sec('list','قائمة الجمعيات',A.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(),rListRows(A),{sheet:'الجمعيات'})],{off:1});
+  return rDoc('تقرير جمعيات منطقة عسير','المنطقة كاملة','region',S,meta,opt)}
+ if(kind=='gov'||kind=='grp'||kind=='sup'){const dim=kind,L=A.filter(o=>o[dim]==key),m=rMet(L),nm=rLab(dim,key);if(!L.length)return null;
+  const others=['gov','grp','sup'].filter(d=>d!=dim);
+  sec('sum','الملخص',`مقارنة ${RDIM[dim][0]} «${nm}» بمنطقة عسير، والترتيب بين ${RDIM[dim][1]} (من الأعلى قيمة).`,[RB.kpis(rKpiCmp(L,dim,key),{cmp:1}),RB.facts([[`حصتها من جمعيات المنطقة`,rFmt(m.n/A.length,'p')],...others.map(d=>[`${RDIM[d][1]} الممثَّلة`,`${m[d+'s']} من ${R0[d+'s']}`]),['جمعيات مغلقة (مستبعدة)',DB.filter(o=>o.closed&&o[dim]==key).length]])]);
+  sec('lic','حالة التراخيص','',[rStack(L,nm),rStack(A,'المنطقة'),RB.kpis([{l:'تنتهي خلال 30 يوماً',v:m.in30,t:'c'},{l:'تنتهي خلال 90 يوماً',v:m.in90,t:'c'},{l:'تنتهي خلال 180 يوماً',v:m.in180,t:'c'},{l:'تاريخ انتهاء غير مسجّل',v:m.unk,t:'c'}],{small:1})]);
+  others.forEach(d=>{const rows=rDist(L,d,A,{full:d=='grp'&&dim=='gov'});sec('by'+d,'التوزيع حسب '+RDIM[d][0],`الشريط الداكن: حصة كل ${RDIM[d][0]} من جمعيات «${nm}». الشريط الفاتح: حصته من جمعيات المنطقة.`,[RB.bars(rows,{unit:'جمعية',cmp:1,top:12}),rSegTable(L,d)])});
+  if(dim=='grp'){const s1=cntBy(L.filter(o=>o.s1),'s1');if(s1.length)sec('s1','التصنيفات الفرعية','',[RB.bars(s1.map(([k,v])=>({l:k,v,p:v/L.length})),{unit:'جمعية',top:12})])}
+  const gapDim=dim=='gov'?'grp':dim=='grp'?'gov':null;
+  if(gapDim){const all=cntBy(A,gapDim).map(x=>x[0]),miss=all.filter(k=>!L.some(o=>o[gapDim]==k));
+   sec('gap',dim=='gov'?'مجالات بلا جمعيات في المحافظة':'محافظات بلا جمعيات في هذا المجال',`${miss.length} من ${all.length} ${RDIM[gapDim][1]}.`,[miss.length?RB.chips(miss.map(k=>{const v=A.filter(o=>o[gapDim]==k).length;return {l:rLab(gapDim,k),s:v+' في المنطقة'}})):RB.facts([['النتيجة',`كل ${RDIM[gapDim][1]} ممثَّلة`]])])}
+  sec('era','فترات التأسيس','',[RB.bars(rEras(L).map(r=>({...r,q:(rEras(A).find(x=>x.l==r.l)||{}).p})),{unit:'جمعية',keep:1,cmp:1})]);
+  sec('data','اكتمال بيانات التواصل','',[RB.bars(rMiss(L).map(r=>({...r,q:(rMiss(A).find(x=>x.l==r.l)||{}).p})),{unit:'جمعية',keep:1,cmp:1,tone:'warn'})]);
+  const X=rExpRows(L);sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length?X.length+' جمعية.':'لا توجد.',X.length?[RB.table([{h:'#',t:'c',w:5},{h:'الجمعية',w:42},...others.map(d=>({h:RDIM[d][0]})),{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],X.map((o,i)=>[i+1,o.n,...others.map(d=>rLab(d,o[d])),o.exp,o.days]),{sheet:'تنتهي قريباً'})]:[]);
+  sec('list','قائمة الجمعيات',L.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(dim),rListRows(L,dim),{sheet:'الجمعيات'})]);
+  return rDoc((dim=='gov'?'تقرير محافظة ':dim=='grp'?'تقرير مجال ':'تقرير جهة إشرافية: ')+nm,RDIM[dim][0]+': '+nm,kind,S,{...meta,count:L.length},opt)}
+ if(kind=='assoc'){const o=DB.find(x=>x.id==key);if(!o)return null;
+  const F=A.filter(x=>x.grp==o.grp),G=A.filter(x=>x.gov==o.gov),FG=F.filter(x=>x.gov==o.gov),y=rYear(o),age=y?TODAY.getFullYear()-y:null;
+  const mf=rMet(F),mg=rMet(G);const ageRank=y?[F.filter(x=>rYear(x)&&rYear(x)<y).length+1,F.filter(x=>rYear(x)).length]:null;
+  sec('card','بطاقة الجمعية','الحقول العامة فقط. لا يتضمن التقرير أي بيانات تواصل شخصية.',[RB.facts([['اسم الجمعية',o.n],['رقم الترخيص',o.lic],['المحافظة',o.gov],['مجال العمل',o.grp],['التصنيف الفرعي',o.s1||'—'],['الجهة الإشرافية',supShort(o.sup)],['سنة التأسيس',y?String(y):'—'],['تاريخ إصدار الترخيص',o.issued||'—'],['تاريخ انتهاء الترخيص',o.exp||'—'],['حالة الترخيص',o.st+(o.days!=null?` (${o.days<0?'منذ '+(-o.days):'بعد '+o.days} يوماً)`:'')],['اكتمال ملف التواصل',o.comp+'%'],['ملاحظات مسجّلة',o.nIss]],{cols:2})]);
+  sec('pos','موقعها بين نظيراتها',`مقارنة بجمعيات مجال «${o.grp}» في المنطقة (${F.length}) وجمعيات محافظة ${o.gov} (${G.length}).`,[RB.kpis([
+   {l:'عمر الجمعية',v:age,t:'n',unit:'سنة',sub:mf.medYear?`وسيط المجال: ${TODAY.getFullYear()-mf.medYear} سنة`:''},
+   {l:'الأقدمية بين جمعيات المجال',v:ageRank?ageRank[0]:null,t:'n',sub:ageRank?`من ${ageRank[1]} (1 = الأقدم)`:''},
+   {l:'اكتمال ملف التواصل',v:o.comp/100,t:'r',sub:`المجال ${rFmt(mf.comp,'p')} · المحافظة ${rFmt(mg.comp,'p')}`},
+   {l:'الأيام المتبقية على الترخيص',v:o.days,t:'n',sub:o.days==null?'تاريخ الانتهاء غير مسجّل':''}]),
+   RB.table([{h:'المؤشر',w:34},{h:'الجمعية'},{h:`مجال ${o.grp}`},{h:`محافظة ${o.gov}`},{h:'المنطقة'}],[
+    ['حالة الترخيص',o.st,rFmt(mf.okP,'p')+' سارية',rFmt(mg.okP,'p')+' سارية',rFmt(R0.okP,'p')+' سارية'],
+    ['اكتمال ملف التواصل',o.comp/100,mf.comp,mg.comp,R0.comp],
+    ['سنة التأسيس',y,mf.medYear,mg.medYear,R0.medYear]],{rowTypes:['s','r','y'],sheet:'المقارنة'})]);
+  sec('ctx','سياق المجال في المحافظة','',[RB.facts([[`جمعيات مجال «${o.grp}» في ${o.gov}`,FG.length],[`حصة المجال من جمعيات ${o.gov}`,rFmt(FG.length/(G.length||1),'p')],[`حصة المجال من جمعيات المنطقة`,rFmt(F.length/A.length,'p')],[`حصة ${o.gov} من جمعيات المجال`,rFmt(FG.length/(F.length||1),'p')]])]);
+  const has=[['بريد الجمعية','email'],['جوال الجمعية','mobile'],['اسم رئيس المجلس','pres'],['بريد الرئيس','presEmail'],['اسم المفوض','del'],['بريد المفوض','delEmail']];
+  sec('data','اكتمال الملف','الحقول المسجّلة دون إظهار قيمها.',[RB.chips(has.map(([l,k])=>({l,s:o[k]?'مسجّل':'ناقص',on:!!o[k]})))]);
+  const PE=FG.filter(x=>x.id!=o.id);sec('peers','جمعيات المجال نفسه في المحافظة',PE.length?PE.length+' جمعية.':'لا توجد جمعيات أخرى في المجال نفسه داخل المحافظة.',PE.length?[RB.table(rListCols('gov'),rListRows(PE,'gov'),{sheet:'النظيرات'})]:[]);
+  return rDoc('تقرير جمعية: '+o.n,o.gov+' · '+o.grp,kind,S,{...meta,count:1},opt)}
+ if(kind=='cmp'){const dim=opt.dim||'gov',keys=(opt.keys||[]).filter(k=>A.some(o=>o[dim]==k));if(keys.length<2)return null;
+  const Ls=keys.map(k=>A.filter(o=>o[dim]==k)),Ms=Ls.map(rMet),labs=keys.map(k=>rLab(dim,k));
+  sec('tbl','جدول المقارنة',`${keys.length} ${RDIM[dim][1]} مع قيمة المنطقة. القيمة الأعلى في كل صف بخط عريض.`,[RB.table([{h:'المؤشر',w:34},...labs.map(l=>({h:l,w:16})),{h:'المنطقة',w:14}],RKPI.map(([k,l,t])=>[l,...Ms.map(m=>m[k]),R0[k]]),{rowTypes:RKPI.map(x=>x[2]),hiMax:1,sheet:'المقارنة'})]);
+  sec('n','عدد الجمعيات','',[RB.bars(keys.map((k,i)=>({l:labs[i],v:Ms[i].n,p:Ms[i].n/A.length})),{unit:'جمعية',keep:1})]);
+  sec('lic','حالة التراخيص','',Ls.map((L,i)=>rStack(L,labs[i])));
+  const od=dim=='grp'?'gov':'grp',ok=cntBy(A,od).map(x=>x[0]).slice(0,dim=='grp'?20:16);
+  sec('mx','التوزيع حسب '+RDIM[od][0],'عدد الجمعيات.',[RB.matrix(labs,ok.map(k=>rLab(od,k)),Ls.map(L=>ok.map(k=>L.filter(o=>o[od]==k).length)),{sheet:'التوزيع'})],{wide:1});
+  sec('data','اكتمال بيانات التواصل','',[RB.table([{h:'المؤشر',w:30},...labs.map(l=>({h:l})),{h:'المنطقة'}],[['متوسط اكتمال الملف',...Ms.map(m=>m.comp),R0.comp],['نسبة الملفات المكتملة',...Ms.map(m=>m.fullP),R0.fullP],['بلا بريد',...Ms.map(m=>m.noEmail),R0.noEmail],['بلا جوال',...Ms.map(m=>m.noMobile),R0.noMobile],['بلا بيانات الرئيس',...Ms.map(m=>m.noPres),R0.noPres],['بلا بيانات المفوض',...Ms.map(m=>m.noDel),R0.noDel]],{rowTypes:['r','r','c','c','c','c'],sheet:'اكتمال البيانات'})]);
+  return rDoc('مقارنة '+RDIM[dim][1]+': '+labs.join('، '),'مقارنة '+RDIM[dim][1],kind,S,{...meta,count:Ls.reduce((s,L)=>s+L.length,0)},opt)}
+ return null}
+function rDoc(title,scope,kind,S,meta,opt){const off=opt.off||{};S.forEach(s=>{s.on=off[s.id]!==undefined?!off[s.id]:!s.off});
+ const at=new Date();return {title,scope,kind,sections:S,meta,at,
+  dateAr:at.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{year:'numeric',month:'long',day:'numeric'}),dateH:at.toLocaleDateString('ar-SA-u-ca-islamic-umalqura-nu-latn',{year:'numeric',month:'long',day:'numeric'}),
+  defs:[['الجمعيات المشمولة','الجمعيات النشطة في دليل المجلس. الجمعيات المسجّل إغلاقها لا تدخل في الأرقام، ويُذكر عددها في الملخص.'],['حالة الترخيص','تُحسب من تاريخ الانتهاء في يوم استخراج التقرير: «ساري» أكثر من 90 يوماً، «ينتهي قريباً» من 0 إلى 90 يوماً، «منتهي» إذا مضى التاريخ، «غير معروف» إذا لم يُسجّل التاريخ.'],['اكتمال ملف التواصل','نسبة الحقول المسجّلة من ستة حقول: بريد الجمعية وجوالها، واسم الرئيس وبريده، واسم المفوض وبريده.'],['وسيط سنة التأسيس','السنة التي تقع في منتصف سنوات التأسيس المسجّلة بعد ترتيبها.'],['الترتيب','ترتيب تنازلي بين المجموعات المماثلة (1 = الأعلى قيمة)، ولا يحمل حكماً بالأفضلية.'],['الفرق عن المنطقة','للنسب: الفرق بالنقاط المئوية بين القيمة وقيمة المنطقة. للأعداد: الحصة من إجمالي المنطقة.'],['الخصوصية','لا يتضمن التقرير أسماء أو بريداً أو أرقام جوال لأشخاص.'],['مصدر البيانات','دليل جمعيات منطقة عسير في منصة المجلس، كما هو في تاريخ استخراج التقرير.']]}}
+/* يحوّل مواصفات التصدير القديمة (title/kpis/tables) إلى النموذج الموحّد */
+function specToR(spec){const S=[];
+ if(spec.kpis&&spec.kpis.length)S.push({id:'sum',t:'الملخص',blocks:[RB.kpis(spec.kpis.map(([l,v])=>{const pc=typeof v=='string'&&/^-?\d+(\.\d+)?%$/.test(v);return {l,v:pc?parseFloat(v)/100:v,t:pc?'r':typeof v=='number'?'c':'s'}}))],on:1});
+ (spec.tables||[]).forEach((t,i)=>S.push({id:'t'+i,t:t.name,intro:t.lead||'',blocks:[RB.table(t.cols.map(c=>({h:c.h,w:c.w,t:c.t=='p'?'r':undefined})),t.rows,{sheet:t.name})],on:1}));
+ const R=rDoc(spec.title,spec.sub||'',spec.kind||'export',S,{count:null},{});R.defs=R.defs.filter(d=>['الخصوصية','مصدر البيانات'].includes(d[0]));return R}
+/* ---------- العرض: HTML واحد للمعاينة والطباعة ---------- */
+function rCellT(tb,col,ri,ci){if(ci==0)return 's';if(tb.rowTypes)return tb.rowTypes[ri];return col.t}
+function rCell(v,t){if(v==null||v==='')return '—';if(typeof v!='number')return xe(v);return t=='r'||t=='p'?Math.round(v*100)+'%':t=='y'?String(v):v.toLocaleString('en')}
+const rNum=(v,t)=>typeof v=='number'||t=='r'||t=='c'||t=='y';
+function rBlock(b){
+ if(b.type=='kpis')return `<div class="rk ${b.small?'sm':''} ${b.cmp?'cmp':''}">${b.items.map(k=>{const f=k.t=='r'?'p':k.t=='y'?'y':'n';const sub=[];
+   if(k.ref!=null&&b.cmp)sub.push(`المنطقة: <b>${rFmt(k.ref,f)}</b>`);
+   if(k.diff!=null&&b.cmp)sub.push(k.t=='y'?`الفرق: <b dir="ltr">${k.diff>0?'+':''}${k.diff}</b> سنة`:`الفرق: <b dir="ltr">${k.diff>0?'+':''}${Math.round(k.diff*100)}</b> نقطة`);
+   if(k.share!=null&&b.cmp)sub.push(`الحصة من المنطقة: <b>${rFmt(k.share,'p')}</b>`);
+   if(k.sub)sub.push(xe(k.sub));
+   return `<div class="rkc"><small>${xe(k.l)}</small><b>${k.v==null?'—':rFmt(k.v,f)}${k.unit&&k.v!=null?` <i>${xe(k.unit)}</i>`:''}</b>${sub.length?`<p>${sub.join('<br>')}</p>`:''}${k.rank&&b.cmp?`<em>الترتيب ${k.rank[0]} من ${k.rank[1]}</em>`:''}</div>`}).join('')}</div>`;
+ if(b.type=='facts')return `<dl class="rf ${b.cols==2?'c2':''}">${b.rows.map(([k,v])=>`<div><dt>${xe(k)}</dt><dd>${typeof v=='number'?v.toLocaleString('en'):xe(v)}</dd></div>`).join('')}</dl>`;
+ if(b.type=='chips')return `<div class="rch">${b.items.map(c=>`<span class="${c.on===false?'off':c.on?'on':''}"><b>${xe(c.l)}</b>${c.s?`<small>${xe(c.s)}</small>`:''}</span>`).join('')}</div>`;
+ if(b.type=='stack'){const T=b.total||1;return `<div class="rs"><div class="rsh"><b>${xe(b.label)}</b><small>${T.toLocaleString('en')} جمعية</small></div><div class="rsb">${b.parts.map(p=>`<i style="flex:${p.v};background:${p.c}" title="${xe(p.l)}">${p.v/T>=.08?Math.round(p.v/T*100)+'%':''}</i>`).join('')}</div><div class="rsl">${b.parts.map(p=>`<span><i style="background:${p.c}"></i>${xe(p.l)} <b>${p.v.toLocaleString('en')}</b> <small>(${Math.round(p.v/T*100)}%)</small></span>`).join('')}</div></div>`}
+ if(b.type=='bars'){let rows=b.rows.slice();if(b.top&&!b.keep&&rows.length>b.top){const rest=rows.slice(b.top-1);rows=rows.slice(0,b.top-1);rows.push({l:`أخرى (${rest.length})`,v:rest.reduce((s,r)=>s+r.v,0),p:rest.reduce((s,r)=>s+r.p,0),q:b.cmp?rest.reduce((s,r)=>s+(r.q||0),0):undefined,other:1})}
+  const mx=b.cmp?Math.max(...rows.map(r=>Math.max(r.p||0,r.q||0)),.0001):Math.max(...rows.map(r=>r.v),1);
+  return `<div class="rb2 ${b.cmp?'cmp':''} ${b.tone||''}"><div class="rbh"><span></span><span></span><span>العدد</span><span>الحصة</span>${b.cmp?'<span>المنطقة</span>':''}</div>${rows.map(r=>`<div class="rbr ${r.other?'oth':''}"><span class="l">${xe(r.l)}</span><span class="t">${b.cmp?`<i style="width:${(r.p||0)/mx*100}%"></i><u style="width:${(r.q||0)/mx*100}%"></u>`:`<i style="width:${r.v/mx*100}%"></i>`}</span><b>${r.v.toLocaleString('en')}</b><em>${Math.round((r.p||0)*100)}%</em>${b.cmp?`<em class="q">${r.q==null?'—':Math.round(r.q*100)+'%'}</em>`:''}</div>`).join('')}${b.cmp?'<div class="rbk"><span><i></i>النطاق المختار</span><span><u></u>المنطقة</span></div>':''}</div>`}
+ if(b.type=='matrix'){const mx=Math.max(1,...b.cells.flat());return `<div class="rmx"><table><thead><tr><th></th>${b.cl.map(c=>`<th><span>${xe(c)}</span></th>`).join('')}<th>الإجمالي</th></tr></thead><tbody>${b.rl.map((r,i)=>`<tr><th>${xe(r)}</th>${b.cells[i].map(v=>{const a=v?.1+.9*Math.sqrt(v/mx):0;return `<td style="${v?`background:rgba(18,73,255,${a.toFixed(2)});color:${a>.55?'#fff':'#0B0B5E'}`:''}">${v||''}</td>`}).join('')}<td class="tt">${b.cells[i].reduce((s,v)=>s+v,0)}</td></tr>`).join('')}</tbody></table></div>`}
+ if(b.type=='table'){const hi=b.hiMax?b.rows.map(r=>{const xs=r.slice(1,-1).filter(v=>typeof v=='number');return xs.length?Math.max(...xs):null}):[];
+  return `<div class="rt"><table><thead><tr>${b.cols.map((c,ci)=>`<th class="${ci&&rNum(null,c.t)?'n':''}">${xe(c.h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map((r,ri)=>`<tr>${r.map((v,ci)=>{const t=rCellT(b,b.cols[ci]||{},ri,ci);return `<td class="${ci&&(typeof v=='number'||v==null||t=='dt'||t=='y')?'n':''}${b.hiMax&&ci>0&&ci<r.length-1&&v===hi[ri]&&v!=null?' hi':''}">${rCell(v,t)}</td>`}).join('')}</tr>`).join('')}</tbody>${b.total?`<tfoot><tr>${b.total.map((v,ci)=>`<td class="${ci?'n':''}">${rCell(v,(b.cols[ci]||{}).t)}</td>`).join('')}</tr></tfoot>`:''}</table></div>`}
+ return ''}
+function rHTML(R){const S=R.sections.filter(s=>s.on&&s.blocks.length),lg=$('header.top .logo .d');
+ const k0=S.flatMap(s=>s.blocks).find(b=>b.type=='kpis');
+ const head=k0?k0.items.slice(0,4):[];
+ return `<div class="rpd" dir="rtl"><section class="rpcov"><div class="rpcl">${lg?`<img src="${lg.src}" alt="">`:''}<span>مجلس الجمعيات الأهلية بمنطقة عسير</span></div>
+  <div class="rpct"><span class="rpey">تقرير بيانات</span><h1>${xe(R.title)}</h1>${R.scope?`<p class="rpsc">${xe(R.scope)}</p>`:''}<p class="rpdt">${xe(R.dateAr)} م · ${xe(R.dateH)}</p></div>
+  ${head.length?`<div class="rpch">${head.map(k=>`<div><b>${k.v==null?'—':rFmt(k.v,k.t=='r'?'p':k.t=='y'?'y':'n')}</b><small>${xe(k.l)}</small></div>`).join('')}</div>`:''}
+  ${S.length>1?`<ol class="rptoc">${S.map(s=>`<li><span>${xe(s.t)}</span></li>`).join('')}</ol>`:''}
+  <p class="rpcf">تقرير داخلي لفريق المجلس · أرقام مستخرجة من دليل الجمعيات دون توصيات · لا يتضمن بيانات شخصية</p></section>
+  ${S.map((s,i)=>`<section class="rps ${s.wide?'wide':''}"><h2><i>${i+1}</i>${xe(s.t)}</h2>${s.intro?`<p class="rpi">${xe(s.intro)}</p>`:''}${s.blocks.map(rBlock).join('')}</section>`).join('')}
+  ${R.defs&&R.defs.length?`<section class="rps rpdefs"><h2><i>${S.length+1}</i>التعريفات والمنهجية</h2><dl>${R.defs.map(([k,v])=>`<div><dt>${xe(k)}</dt><dd>${xe(v)}</dd></div>`).join('')}</dl></section>`:''}</div>`}
+function rPDF(R){if(!R)return toast('لا توجد بيانات لهذا التقرير',1);let box=$('#rptDoc');if(!box){box=document.createElement('div');box.id='rptDoc';document.body.appendChild(box)}
+ box.innerHTML=rHTML(R);let st=$('#rptPage');if(!st){st=document.createElement('style');st.id='rptPage';document.head.appendChild(st)}
+ const q=s=>'"'+String(s).replace(/["\\]/g,'')+'"';
+ st.textContent=`@media print{@page{size:A4;margin:16mm 13mm 16mm;@top-right{content:${q('مجلس الجمعيات الأهلية بمنطقة عسير')};font-size:8pt;color:#8A93AE}@top-left{content:${q(R.title.slice(0,70))};font-size:8pt;color:#8A93AE}@bottom-left{content:"صفحة " counter(page) " من " counter(pages);font-size:8pt;color:#8A93AE}@bottom-right{content:${q('تقرير داخلي · '+R.dateAr)};font-size:8pt;color:#8A93AE}}@page :first{@top-right{content:none}@top-left{content:none}@bottom-left{content:none}@bottom-right{content:none}}}`;
+ document.body.classList.add('printrpt');const t0=document.title;document.title=fileName(R.title);
+ const done=()=>{document.body.classList.remove('printrpt');document.title=t0;removeEventListener('afterprint',done)};addEventListener('afterprint',done);
+ alog('تقرير PDF: '+R.title);setTimeout(()=>{try{window.print()}catch(e){done()}setTimeout(done,2500)},80)}
+/* ---------- Excel بهوية المجلس: ورقة لكل قسم، ترويسة ثابتة، تنسيقات أرقام، أشرطة بيانات ---------- */
+function rParts(s,R){const P=[];const hasT=s.blocks.some(b=>b.type=='table'||b.type=='matrix');
+ s.blocks.forEach(b=>{
+  if(b.type=='kpis'){const cmp=b.cmp;P.push({title:'المؤشرات',cols:cmp?[{h:'المؤشر',w:36},{h:'القيمة',w:14},{h:'قيمة المنطقة',w:14},{h:'الفرق عن المنطقة',w:16},{h:'الحصة من المنطقة',w:16},{h:'الترتيب',w:12},{h:'من أصل',w:10}]:[{h:'المؤشر',w:36},{h:'القيمة',w:16},{h:'ملاحظة',w:40}],
+   rows:b.items.map(k=>{const t=k.t=='r'?'r':k.t=='y'?'y':'c';return cmp?[k.l,{v:k.v,t},{v:k.ref,t},k.diff==null?null:{v:k.diff,t:k.t=='y'?'dy':'d'},k.share==null?null:{v:k.share,t:'r'},k.rank?k.rank[0]:null,k.rank?k.rank[1]:null]:[k.l,{v:k.v,t},k.sub||(k.unit||'')]})})}
+  if(b.type=='facts')P.push({title:'بيانات',cols:[{h:'البند',w:36},{h:'القيمة',w:40}],rows:b.rows.map(([k,v])=>[k,v])});
+  if(b.type=='chips')P.push({title:'العناصر',cols:[{h:'البند',w:36},{h:'القيمة',w:24}],rows:b.items.map(c=>[c.l,c.s||''])});
+  if(b.type=='stack')P.push({title:'حالة التراخيص — '+b.label,cols:[{h:'الحالة',w:24},{h:'العدد',t:'c',w:12},{h:'النسبة',t:'r',w:12}],rows:b.parts.map(p=>[p.l,p.v,p.v/(b.total||1)]),total:['الإجمالي',b.total,1]});
+  if(b.type=='bars'&&!hasT)P.push({title:s.t,cols:[{h:'البند',w:34},{h:'العدد',t:'c',w:12,bar:1},{h:'الحصة',t:'r',w:12},...(b.cmp?[{h:'حصة المنطقة',t:'r',w:14}]:[])],rows:b.rows.map(r=>[r.l,r.v,r.p,...(b.cmp?[r.q==null?null:r.q]:[])])});
+  if(b.type=='table')P.push({title:hasT&&s.blocks.filter(x=>x.type=='table').length>1?b.sheet:'',cols:b.cols,rows:b.rows,total:b.total,rowTypes:b.rowTypes,hiMax:b.hiMax});
+  if(b.type=='matrix')P.push({cols:[{h:'',w:20},...b.cl.map(c=>({h:c,t:'c',w:Math.max(9,Math.min(16,c.length+2))})),{h:'الإجمالي',t:'c',w:10}],rows:b.rl.map((r,i)=>[r,...b.cells[i].map(v=>v||null),b.cells[i].reduce((a,v)=>a+v,0)]),heat:1})});
+ return P}
+function rXLSX(R){if(!R)return toast('لا توجد بيانات لهذا التقرير',1);
+ const S=R.sections.filter(s=>s.on&&s.blocks.length),sheets=[],used={};
+ const nm=t=>{let b=String(t).replace(/[\\\/?*\[\]:]/g,' ').trim().slice(0,28)||'ورقة',n=b,i=2;while(used[n])n=b.slice(0,26)+' '+i++;used[n]=1;return n};
+ S.forEach((s,i)=>{const parts=rParts(s,R);if(i==0)parts.unshift({title:'معلومات التقرير',cols:[{h:'البند',w:36},{h:'القيمة',w:40}],rows:[['التقرير',R.title],['النطاق',R.scope||'—'],['تاريخ الاستخراج',R.dateAr+' م · '+R.dateH],...(R.meta.count!=null?[['الجمعيات المشمولة',R.meta.count]]:[]),['الجهة','مجلس الجمعيات الأهلية بمنطقة عسير'],['التصنيف','تقرير داخلي · لا يتضمن بيانات شخصية']]});sheets.push({name:nm(i==0&&s.id=='sum'?'الملخص':(s.blocks.length==1&&s.blocks[0].sheet)||s.t),title:s.t,parts})});
+ if(R.defs&&R.defs.length)sheets.push({name:nm('التعريفات'),title:'التعريفات والمنهجية',parts:[{cols:[{h:'المصطلح',w:28},{h:'التعريف',w:90}],rows:R.defs,wrap:1}]});
+ const sx=sheets.map(sh=>{const rows=[],merges=[],cfs=[];let r=1,ncol=Math.max(...sh.parts.map(p=>p.cols.length)),hdr=null;
+  const cols=Array.from({length:ncol},(_,ci)=>Math.max(8,...sh.parts.map(p=>{const c=p.cols[ci];if(!c)return 0;if(c.w)return c.w;return Math.min(60,Math.max(String(c.h).length+3,...p.rows.slice(0,300).map(x=>{const v=x[ci];return String(v&&typeof v=='object'?v.v:v??'').length+2})))})));
+  const last=colL(ncol-1);
+  const C=(ref,v,s)=>{if(v===null||v===undefined||v==='')return `<c r="${ref}" s="${s}"/>`;if(typeof v=='number'&&isFinite(v))return `<c r="${ref}" s="${s}"><v>${v}</v></c>`;return `<c r="${ref}" s="${s}" t="inlineStr"><is><t xml:space="preserve">${xe(v)}</t></is></c>`};
+  const st=(t,z,tot)=>{if(tot)return t=='r'?16:t=='y'?24:t=='c'||t=='n'?15:14;if(t=='dy')return 20;return ({c:6,n:6,r:8,y:10,d:12}[t]??2)+(z?1:0)};
+  rows.push(`<row r="${r}" ht="28" customHeight="1">${C('A'+r,R.title,4)}</row>`);merges.push(`A${r}:${last}${r}`);r++;
+  rows.push(`<row r="${r}" ht="18" customHeight="1">${C('A'+r,(sh.title!=R.title?sh.title+' · ':'')+(R.scope?R.scope+' · ':'')+'مجلس الجمعيات الأهلية بمنطقة عسير · '+R.dateAr,5)}</row>`);merges.push(`A${r}:${last}${r}`);r++;
+  sh.parts.forEach((p,pi)=>{r++;
+   if(p.title&&sh.parts.length>1){rows.push(`<row r="${r}" ht="22" customHeight="1">${C('A'+r,p.title,17)}</row>`);r++}
+   if(hdr==null)hdr=r;
+   rows.push(`<row r="${r}" ht="30" customHeight="1">${p.cols.map((c,ci)=>C(colL(ci)+r,c.h,1)).join('')}</row>`);const h0=r;r++;
+   const hi=p.hiMax?p.rows.map(x=>{const v=x.slice(1,-1).map(y=>y&&typeof y=='object'?y.v:y).filter(y=>typeof y=='number');return v.length?Math.max(...v):null}):[];
+   p.rows.forEach((x,ri)=>{const z=ri%2;rows.push(`<row r="${r}">${p.cols.map((c,ci)=>{let v=x[ci],t=ci==0?'s':p.rowTypes?p.rowTypes[ri]:c.t;if(v&&typeof v=='object'){t=v.t;v=v.v}if(t==null&&typeof v=='number')t='c';
+     let s=p.wrap?(ci?18:17):st(t,z);if(p.hiMax&&ci>0&&ci<x.length-1&&v===hi[ri]&&v!=null)s={c:21,r:22,y:23}[t]||s;return C(colL(ci)+r,v,s)}).join('')}</row>`);r++});
+   if(p.total){rows.push(`<row r="${r}">${p.cols.map((c,ci)=>C(colL(ci)+r,p.total[ci],st(ci?c.t||'c':'s',0,1))).join('')}</row>`);r++}
+   const d0=h0+1,d1=h0+p.rows.length;
+   if(p.rows.length){p.cols.forEach((c,ci)=>{if(c.bar)cfs.push(`<conditionalFormatting sqref="${colL(ci)}${d0}:${colL(ci)}${d1}"><cfRule type="dataBar" priority="${cfs.length+1}"><dataBar><cfvo type="num" val="0"/><cfvo type="max"/><color rgb="FF8DB6F7"/></dataBar></cfRule></conditionalFormatting>`)});
+    if(p.heat)cfs.push(`<conditionalFormatting sqref="B${d0}:${colL(p.cols.length-2)}${d1}"><cfRule type="colorScale" priority="${cfs.length+1}"><colorScale><cfvo type="num" val="0"/><cfvo type="max"/><color rgb="FFFFFFFF"/><color rgb="FF3D6BFF"/></colorScale></cfRule></conditionalFormatting>`)}
+   p._range=`A${h0}:${colL(p.cols.length-1)}${Math.max(h0,d1)}`});
+  const one=sh.parts.length==1,P0=sh.parts[0];
+  return {xml:`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><worksheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><sheetPr><tabColor rgb="FF111182"/><pageSetUpPr fitToPage="1"/></sheetPr><dimension ref="A1:${last}${r}"/><sheetViews><sheetView rightToLeft="1" showGridLines="0" workbookViewId="0">${one?`<pane ySplit="${hdr}" topLeftCell="A${hdr+1}" activePane="bottomLeft" state="frozen"/>`:''}</sheetView></sheetViews><sheetFormatPr defaultRowHeight="19" customHeight="1"/><cols>${cols.map((w,ci)=>`<col min="${ci+1}" max="${ci+1}" width="${w}" customWidth="1"/>`).join('')}</cols><sheetData>${rows.join('')}</sheetData>${one&&P0.rows.length>1&&!P0.heat&&!P0.wrap?`<autoFilter ref="${P0._range}"/>`:''}<mergeCells count="${merges.length}">${merges.map(m=>`<mergeCell ref="${m}"/>`).join('')}</mergeCells>${cfs.join('')}<printOptions horizontalCentered="1"/><pageMargins left="0.4" right="0.4" top="0.6" bottom="0.6" header="0.3" footer="0.3"/><pageSetup paperSize="9" orientation="${ncol>6?'landscape':'portrait'}" fitToWidth="1" fitToHeight="0"/><headerFooter><oddHeader>&amp;R&amp;8&amp;K8A93AEمجلس الجمعيات الأهلية بمنطقة عسير&amp;L&amp;8&amp;K8A93AE${xe(sh.title.slice(0,60))}</oddHeader><oddFooter>&amp;R&amp;8&amp;K8A93AEتقرير داخلي · ${xe(R.dateAr)}&amp;L&amp;8&amp;K8A93AEصفحة &amp;P من &amp;N</oddFooter></headerFooter></worksheet>`,hdr,one,P0,name:sh.name}});
+ const bd='<border><left style="thin"><color rgb="FFDDE3EE"/></left><right style="thin"><color rgb="FFDDE3EE"/></right><top style="thin"><color rgb="FFDDE3EE"/></top><bottom style="thin"><color rgb="FFDDE3EE"/></bottom></border>';
+ const al=(h,w)=>`<alignment horizontal="${h}" vertical="center"${w?' wrapText="1"':''} readingOrder="2"/>`;
+ const X=(o)=>`<xf numFmtId="${o.n||0}" fontId="${o.f||0}" fillId="${o.fi||0}" borderId="${o.b??1}" applyNumberFormat="1" applyFont="1" applyFill="1" applyBorder="1" applyAlignment="1">${al(o.h||'right',o.w)}</xf>`;
+ const xfs=[`<xf/>`,X({f:1,fi:2,h:'center',w:1}),X({w:1}),X({fi:3,w:1}),X({f:2,b:0}),X({f:3,b:0}),
+  X({n:3,h:'center'}),X({n:3,fi:3,h:'center'}),X({n:9,h:'center'}),X({n:9,fi:3,h:'center'}),X({n:1,h:'center'}),X({n:1,fi:3,h:'center'}),X({n:164,h:'center'}),X({n:164,fi:3,h:'center'}),
+  X({f:4,fi:4}),X({n:3,f:4,fi:4,h:'center'}),X({n:9,f:4,fi:4,h:'center'}),X({f:4,b:0}),X({b:0,w:1}),X({n:3,h:'center'}),X({n:165,h:'center'}),X({n:3,f:5,h:'center'}),X({n:9,f:5,h:'center'}),X({n:1,f:5,h:'center'}),X({n:1,f:4,fi:4,h:'center'})];
+ const styles=`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"><numFmts count="2"><numFmt numFmtId="164" formatCode="+0%;-0%;0%"/><numFmt numFmtId="165" formatCode="+0;-0;0"/></numFmts><fonts count="6"><font><sz val="11"/><color rgb="FF1E2340"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FFFFFFFF"/><name val="Arial"/></font><font><b/><sz val="16"/><color rgb="FF111182"/><name val="Arial"/></font><font><sz val="10"/><color rgb="FF6B7393"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FF111182"/><name val="Arial"/></font><font><b/><sz val="11"/><color rgb="FF1249FF"/><name val="Arial"/></font></fonts><fills count="5"><fill><patternFill patternType="none"/></fill><fill><patternFill patternType="gray125"/></fill><fill><patternFill patternType="solid"><fgColor rgb="FF111182"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFF4F6FB"/></patternFill></fill><fill><patternFill patternType="solid"><fgColor rgb="FFE6ECFA"/></patternFill></fill></fills><borders count="2"><border/>${bd}</borders><cellStyleXfs count="1"><xf/></cellStyleXfs><cellXfs count="${xfs.length}">${xfs.join('')}</cellXfs><cellStyles count="1"><cellStyle name="Normal" xfId="0" builtinId="0"/></cellStyles></styleSheet>`;
+ const names=sx.map(s=>xe(s.name));
+ const dn=sx.map((s,i)=>(s.one&&s.P0.rows.length>1&&!s.P0.heat&&!s.P0.wrap?`<definedName name="_xlnm._FilterDatabase" localSheetId="${i}" hidden="1">'${names[i]}'!${s.P0._range.replace(/([A-Z]+)(\d+)/g,'$$$1$$$2')}</definedName>`:'')+`<definedName name="_xlnm.Print_Titles" localSheetId="${i}">'${names[i]}'!$${s.hdr}:$${s.hdr}</definedName>`).join('');
+ const blob=zipStore([
+  ['[Content_Types].xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Types xmlns="http://schemas.openxmlformats.org/package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/><Override PartName="/docProps/core.xml" ContentType="application/vnd.openxmlformats-package.core-properties+xml"/>${sx.map((_,i)=>`<Override PartName="/xl/worksheets/sheet${i+1}.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>`).join('')}</Types>`],
+  ['_rels/.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships"><Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/><Relationship Id="rId2" Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="docProps/core.xml"/></Relationships>`],
+  ['docProps/core.xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><cp:coreProperties xmlns:cp="http://schemas.openxmlformats.org/package/2006/metadata/core-properties" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><dc:title>${xe(R.title)}</dc:title><dc:creator>مجلس الجمعيات الأهلية بمنطقة عسير</dc:creator><dcterms:created xsi:type="dcterms:W3CDTF">${R.at.toISOString().slice(0,19)}Z</dcterms:created></cp:coreProperties>`],
+  ['xl/workbook.xml',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><workbook xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main" xmlns:r="http://schemas.openxmlformats.org/officeDocument/2006/relationships"><bookViews><workbookView activeTab="0"/></bookViews><sheets>${names.map((n,i)=>`<sheet name="${n}" sheetId="${i+1}" r:id="rId${i+1}"/>`).join('')}</sheets><definedNames>${dn}</definedNames></workbook>`],
+  ['xl/_rels/workbook.xml.rels',`<?xml version="1.0" encoding="UTF-8" standalone="yes"?><Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">${sx.map((_,i)=>`<Relationship Id="rId${i+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet${i+1}.xml"/>`).join('')}<Relationship Id="rId${sx.length+1}" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/></Relationships>`],
+  ['xl/styles.xml',styles],...sx.map((x,i)=>[`xl/worksheets/sheet${i+1}.xml`,x.xml])]);
+ if(saveBlob(blob,fileName(R.title)+'.xlsx')){toast('تم تنزيل ملف Excel: '+R.title);alog('تنزيل Excel: '+R.title)}return blob}
+/* ---------- مركز التقارير: منشئ بمعاينة حية ---------- */
 ADM.rpick={gov:null,sup:null};ADM.rcat='الكل';
-AM.reports=el=>{const cats=['الكل',...new Set(REPORTS.map(r=>r.c))],cat=ADM.rcat;
- const govs=cntBy(DB,'gov').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);ADM.rpick.gov=ADM.rpick.gov||govs[0];ADM.rpick.sup=ADM.rpick.sup||sups[0];
- const V=REPORTS.filter(r=>cat=='الكل'||r.c==cat);
- el.innerHTML=`<p class="alead">كل تقارير اللوحة في مكان واحد. Excel منسّق بأوراق متعددة وترويسة ثابتة وفلاتر، وPDF جاهز للطباعة بحجم A4. التقارير لا تتضمن بيانات التواصل الشخصية.</p>
- <div class="tabs2">${cats.map(c=>`<button class="${c==cat?'on':''}" data-rc="${c}">${c}${c=='الكل'?'':` (${REPORTS.filter(r=>r.c==c).length})`}</button>`).join('')}</div>
- ${(cat=='الكل'?[...new Set(V.map(r=>r.c))]:[cat]).map(c=>`<h4 class="rgh">${c}</h4><div class="rgrid">${V.filter(r=>r.c==c).map(r=>`<div class="rcard"><div class="ri">${I(P[r.ic]||P.file,'width:20px;height:20px')}</div><div class="rb"><b>${r.t}</b><p>${r.d}</p>${r.pick?`<select data-rp="${r.pick}">${(r.pick=='gov'?govs:sups).map(k=>`<option value="${esc(k)}" ${ADM.rpick[r.pick]==k?'selected':''}>${esc(r.pick=='sup'?supShort(k):k)}</option>`).join('')}</select>`:''}</div><div class="ra"><button class="xbtn" data-rx="${r.id}">${I(P.dl,'width:14px;height:14px')}Excel</button><button class="xbtn" data-rf="${r.id}">PDF</button></div></div>`).join('')}</div>`).join('')}`;
- el.querySelectorAll('[data-rc]').forEach(b=>b.onclick=()=>{ADM.rcat=b.dataset.rc;AM.reports(el)});
+ADM.rp=Object.assign({kind:'region',key:{},cmpDim:'gov',cmpKeys:{},off:{}},LS('asirRpUi',{}));
+const rpSave=()=>{const {kind,key,cmpDim,cmpKeys,off}=ADM.rp;try{localStorage.setItem('asirRpUi',JSON.stringify({kind,key,cmpDim,cmpKeys,off}))}catch(e){}};
+function rpGo(kind,key){ADM.rp.kind=kind;if(key!=null)ADM.rp.key[kind]=key;rpSave();goMod('reports')}
+function rpCur(){const X=ADM.rp,A=rAct(),k=X.kind;
+ if(k=='gov'||k=='grp'||k=='sup'){const ks=cntBy(A,k).map(x=>x[0]);if(!ks.includes(X.key[k]))X.key[k]=ks[0]}
+ if(k=='assoc'&&!DB.some(o=>o.id==X.key.assoc))X.key.assoc=(A.find(o=>LOGO[o.id])||A[0]).id;
+ if(k=='cmp'){const d=X.cmpDim,ks=cntBy(A,d).map(x=>x[0]);X.cmpKeys[d]=(X.cmpKeys[d]||[]).filter(x=>ks.includes(x));if(X.cmpKeys[d].length<2)X.cmpKeys[d]=ks.slice(0,4)}
+ return rBuild(k,k=='cmp'?null:X.key[k],{off:X.off[k]||{},dim:X.cmpDim,keys:X.cmpKeys[X.cmpDim]})}
+var HDR_RPT=()=>`<button class="jbtn" onclick="rXLSX(rpCur())">${I(P.dl,'width:16px;height:16px')}Excel</button><button class="jbtn pri" onclick="rPDF(rpCur())">${I('<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/>','width:16px;height:16px')}PDF</button>`;
+AM.reports=el=>{const X=ADM.rp,A=rAct(),R=rpCur(),k=X.kind;
+ const opts=d=>cntBy(A,d).map(([v,n])=>`<option value="${esc(v)}" ${X.key[d]==v?'selected':''}>${esc(rLab(d,v))} (${n})</option>`).join('');
+ const cur=k=='assoc'?DB.find(o=>o.id==X.key.assoc):null;
+ let scope='';
+ if(k=='region')scope=`<p class="rpsn">${I(P.info,'width:15px;height:15px;flex:none')}كل الجمعيات النشطة في المنطقة (${A.length.toLocaleString('en')}).</p>`;
+ if(k=='gov'||k=='grp'||k=='sup')scope=`<label class="rpsel"><span>${RDIM[k][0]}</span><select id="rpKey">${opts(k)}</select></label>`;
+ if(k=='assoc')scope=`<label class="rpsel wide"><span>الجمعية</span><input id="rpAs" list="rpAsL" placeholder="اكتب اسم الجمعية أو رقم الترخيص" value="${cur?esc(cur.n):''}"><datalist id="rpAsL">${A.map(o=>`<option value="${esc(o.n)}">ترخيص ${o.lic} · ${o.gov}</option>`).join('')}</datalist></label>`;
+ if(k=='cmp'){const d=X.cmpDim,sel=X.cmpKeys[d]||[];scope=`<div class="rpcmp"><div class="csf">${Object.entries(RDIM).map(([dk,v])=>`<button class="${d==dk?'on':''}" data-rd="${dk}">${v[1]}</button>`).join('')}</div><div class="rpck">${cntBy(A,d).map(([v,n])=>`<label class="${sel.includes(v)?'on':''}"><input type="checkbox" value="${esc(v)}" ${sel.includes(v)?'checked':''}><span>${esc(rLab(d,v))}</span><em>${n}</em></label>`).join('')}</div><small class="rpsn">اختر من 2 إلى 6. المحدد: ${sel.length}</small></div>`}
+ const secs=R?R.sections:[];
+ el.innerHTML=`<p class="alead">اختر نوع التقرير ونطاقه، وراجع المعاينة، ثم نزّله PDF بحجم A4 مع غلاف وترقيم صفحات، أو Excel بورقة لكل قسم. التقارير تعرض الأرقام فقط، ولا تتضمن بيانات شخصية.</p>
+ <div class="rpb"><div class="rpkinds" role="tablist">${Object.entries(RKIND).map(([kk,[t,ic]])=>`<button role="tab" aria-selected="${k==kk}" class="${k==kk?'on':''}" data-rk="${kk}">${I(ic,'width:17px;height:17px')}<span>${t}</span></button>`).join('')}</div><div class="rpscope">${scope}</div></div>
+ <div class="rplay"><aside class="rpside"><h5>أقسام التقرير</h5><div class="rpsecs">${secs.map(s=>`<label class="${s.blocks.length?'':'dis'}"><input type="checkbox" data-rs="${s.id}" ${s.on?'checked':''} ${s.blocks.length?'':'disabled'}><span>${esc(s.t)}</span></label>`).join('')}</div>
+  <div class="rpdl"><button class="jbtn pri" id="rpPdf">${I('<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/>','width:16px;height:16px')}تنزيل PDF</button><button class="jbtn" id="rpXls">${I(P.dl,'width:16px;height:16px')}تنزيل Excel</button></div>
+  <ul class="rpwhat"><li><b>PDF:</b> غلاف بالأرقام الرئيسية وفهرس، وترويسة وتذييل بترقيم الصفحات في كل صفحة.</li><li><b>Excel:</b> ورقة لكل قسم، وترويسة ثابتة، وتنسيق أرقام ونسب، وأشرطة بيانات، وورقة للتعريفات.</li></ul></aside>
+  <div class="rpview" id="rpView">${R?rHTML(R):'<div class="empty">لا توجد بيانات لهذا النطاق</div>'}</div></div>
+ <details class="rpquick" ${ADM.rqOpen?'open':''}><summary>${I(P.file,'width:16px;height:16px')}تصدير البيانات الجاهزة <em>${REPORTS.length}</em></summary>${rQuick()}</details>`;
+ el.querySelectorAll('[data-rk]').forEach(b=>b.onclick=()=>{X.kind=b.dataset.rk;rpSave();AM.reports(el)});
+ const ky=$('#rpKey');ky&&(ky.onchange=()=>{X.key[k]=ky.value;rpSave();AM.reports(el)});
+ const as=$('#rpAs');as&&(as.onchange=()=>{const v=as.value.trim(),o=A.find(x=>x.n==v||x.lic==v);if(o){X.key.assoc=o.id;rpSave();AM.reports(el)}else toast('لم أجد جمعية بهذا الاسم',1)});
+ el.querySelectorAll('[data-rd]').forEach(b=>b.onclick=()=>{X.cmpDim=b.dataset.rd;rpSave();AM.reports(el)});
+ el.querySelectorAll('.rpck input').forEach(c=>c.onchange=()=>{const d=X.cmpDim,s=new Set(X.cmpKeys[d]||[]);c.checked?s.add(c.value):s.delete(c.value);if(s.size>6){c.checked=false;return toast('الحد الأقصى 6 عناصر للمقارنة',1)}if(s.size<2){c.checked=true;return toast('اختر عنصرين على الأقل',1)}X.cmpKeys[d]=[...s];rpSave();AM.reports(el)});
+ el.querySelectorAll('[data-rs]').forEach(c=>c.onchange=()=>{(X.off[k]=X.off[k]||{})[c.dataset.rs]=!c.checked;rpSave();const R2=rpCur();$('#rpView').innerHTML=R2?rHTML(R2):''});
+ $('#rpPdf').onclick=()=>rPDF(rpCur());$('#rpXls').onclick=()=>rXLSX(rpCur());
+ const dq=el.querySelector('.rpquick');dq.ontoggle=()=>ADM.rqOpen=dq.open;
  el.querySelectorAll('[data-rp]').forEach(sl=>sl.onchange=()=>{ADM.rpick[sl.dataset.rp]=sl.value});
  const spec=id=>{const r=REPORTS.find(x=>x.id==id);return r.sp(r.pick?ADM.rpick[r.pick]:undefined)};
  el.querySelectorAll('[data-rx]').forEach(b=>b.onclick=()=>dlXLSX(spec(b.dataset.rx)));
  el.querySelectorAll('[data-rf]').forEach(b=>b.onclick=()=>dlPDF(spec(b.dataset.rf)))};
+function rQuick(){const govs=cntBy(DB,'gov').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);ADM.rpick.gov=ADM.rpick.gov||govs[0];ADM.rpick.sup=ADM.rpick.sup||sups[0];
+ return `<div class="rgrid">${REPORTS.map(r=>`<div class="rcard"><div class="ri">${I(P[r.ic]||P.file,'width:20px;height:20px')}</div><div class="rb"><b>${r.t}</b><p>${r.d}</p>${r.pick?`<select data-rp="${r.pick}">${(r.pick=='gov'?govs:sups).map(k=>`<option value="${esc(k)}" ${ADM.rpick[r.pick]==k?'selected':''}>${esc(r.pick=='sup'?supShort(k):k)}</option>`).join('')}</select>`:''}</div><div class="ra"><button class="xbtn" data-rx="${r.id}">${I(P.dl,'width:14px;height:14px')}Excel</button><button class="xbtn" data-rf="${r.id}">PDF</button></div></div>`).join('')}</div>`}
 /* ---------- partnerships ---------- */
 ADM.pt=LS('asirPtUi',{tab:'council'});
 let APART=LS('asirAPart',[
@@ -4478,7 +4824,7 @@ const HDR={
  content:()=>`<a class="jbtn" href="#/news" target="_blank">${I(P.globe,'width:16px;height:16px')}المركز الإعلامي</a><a class="jbtn" href="#/stories" target="_blank">تجارب مميزة</a>`,
  licenses:()=>`<button class="jbtn pri" onclick="$('#remAll')&&$('#remAll').click()">تذكير القائمة الحالية</button>`,
  board:()=>`<button class="jbtn pri" onclick="toast('إضافة عضو متاحة في النسخة الفعلية')">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}إضافة عضو</button>`};
-HDR.decisions=HDR_DEC;
+HDR.decisions=HDR_DEC;HDR.reports=HDR_RPT;
 
 /* ---------- shell ---------- */
 function adminEnter(sub){document.body.classList.add('inadmin');if(sub&&MODS.some(m=>m[0]==sub))ADM.mod=sub;renderAdmin();window.scrollTo(0,0)}
