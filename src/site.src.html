@@ -28,7 +28,7 @@ a{color:inherit;text-decoration:none}
 button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
 input,select,textarea{font:inherit;color:inherit}
 img{max-width:100%;display:block}
-.wrap{width:min(1200px,92%);margin-inline:auto}
+.wrap{width:min(1480px,calc(100% - 2 * clamp(16px,3.6vw,64px)));margin-inline:auto}
 svg.i{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
 
 /* ---------- header ---------- */
@@ -1055,42 +1055,48 @@ html[data-theme=dark] .pllg{background:#F4F6FB;border-color:transparent}
 @media(max-width:1100px){#platforms .plats{grid-template-columns:1fr 1fr}}@media(max-width:640px){#platforms .plats{grid-template-columns:1fr}#platforms .pl small{display:block}.pllg{width:78px;height:54px}}
 .pclg .ptile{width:110px;height:56px;border-radius:12px}
 
-/* ---- directory v3 ---- */
-.mapsec.dir2{overflow:clip}
-.dir2 .head{margin-bottom:18px}
-.dsrch{display:flex;align-items:center;gap:12px;background:var(--sf);border:1px solid var(--line);border-radius:18px;padding:6px 18px;box-shadow:var(--shadow);margin-bottom:18px}
-.dsrch svg{width:22px;height:22px;color:#8C99C2;flex:none}.dsrch input{flex:1;border:0;background:transparent;font:inherit;font-size:16px;padding:12px 0;color:var(--text);outline:0;min-width:0}.dsrch span{color:var(--mute);font-size:13px;white-space:nowrap}
-.dlay{display:grid;grid-template-columns:272px minmax(0,1fr);gap:18px;align-items:start}
-.dfac{position:sticky;top:88px;max-height:calc(100vh - 104px);overflow:auto;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:20px;padding:16px;scrollbar-width:thin}
-.dfh{display:flex;align-items:center;gap:8px;margin-bottom:6px}.dfh b{color:var(--hd);font-size:15px;flex:1}.dfh button{font-size:12.5px;color:var(--blue);font-weight:600}.dfx,.dfapply{display:none!important}
-.dfg{padding:12px 0;border-top:1px solid var(--line)}.dfg:first-of-type{border-top:0}.dfg h5{margin:0 0 8px;font-size:12.5px;color:var(--mute);font-weight:600}
-.dfl{display:flex;flex-direction:column;gap:2px}.dfi{display:flex;align-items:center;gap:8px;width:100%;padding:7px 8px;border-radius:10px;text-align:start;font-size:13.5px;color:var(--text);transition:.15s}
-.dfi:hover{background:var(--mist)}.dfi span{flex:1;line-height:1.45}.dfi em{font-style:normal;font-size:12px;color:var(--mute);background:var(--mist);border-radius:999px;padding:1px 8px;min-width:22px;text-align:center}
-.dfi.on{background:var(--ice);color:var(--blue);font-weight:600}.dfi.on em{background:var(--blue);color:#fff}.dfi.zero{opacity:.45}
-.dfic{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--tile);color:var(--tilefg);flex:none}.dfi .slogo.xs{width:40px;height:24px}
-.dfm{margin-top:4px;font-size:12.5px;color:var(--blue);font-weight:600;padding:4px 8px}
-.dfc{display:flex;flex-wrap:wrap;gap:6px}.dfc button{border:1px solid var(--line);border-radius:999px;padding:6px 11px;font-size:12.5px;color:var(--text)}.dfc button em{font-style:normal;color:var(--mute)}.dfc button.on{background:var(--blue);border-color:var(--blue);color:#fff}.dfc button.on em{color:#DCE6FF}
-.dres{min-width:0;display:flex;flex-direction:column;gap:14px}
-.dtool{position:sticky;top:76px;z-index:5;display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:18px;padding:10px 12px;box-shadow:0 6px 20px -14px rgba(9,9,81,.4)}
-.dcnt{font-size:14px;color:var(--mute)}.dcnt b{color:var(--hd);font-size:18px}
-.dchips{display:flex;gap:6px;flex-wrap:wrap}.dchip{background:var(--ice);color:var(--blue);border-radius:999px;padding:5px 11px;font-size:12.5px;font-weight:600}.dchip b{font-weight:400;margin-inline-start:2px}
-.dsp{flex:1}.dsort{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mute)}.dsort select{border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--sf);color:var(--text);font:inherit;font-size:13px}
-.dseg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:var(--mist);border:1px solid var(--line)}.dseg button{display:inline-flex;align-items:center;gap:6px;padding:6px 11px;border-radius:9px;font-size:13px;font-weight:600;color:var(--mute)}.dseg button.on{background:var(--sf);color:var(--hd);box-shadow:0 1px 3px rgba(9,9,81,.14)}
-.dmapb{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--hd)}.dmapb[aria-pressed=true]{background:var(--navy,#13205B);color:#fff;border-color:transparent}.dmapb svg{width:16px;height:16px}
-.dfopen{display:none;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;padding:8px 12px;font-size:13px;font-weight:600;color:var(--hd)}.dfopen svg{width:16px;height:16px}.dfopen em{font-style:normal;background:var(--blue);color:#fff;border-radius:999px;padding:0 7px;font-size:11.5px}.dfopen em:empty{display:none}
-.dir2 .dmap{grid-template-columns:1fr!important}.dir2 .dmap .dir{display:none}.dir2 .altv{display:block}
-.dir2 .atbl{min-width:800px}.dir2 .tlic{font-size:11px;padding:1px 7px;margin-inline-end:4px;opacity:1}.dir2 .atbl td:first-child{width:32%;min-width:240px}.dir2 .atbl td:nth-child(4){min-width:220px}.dir2 .tsup{white-space:normal;line-height:1.45;font-size:12.5px}.dir2 .atbl td:last-child{padding-inline-end:16px}.dir2 #map{height:100%;width:100%;display:block}.dir2 .atbl td{vertical-align:middle}.dir2 .mstage{height:min(520px,62vh)}.dir2 .dmap .mapbox{min-height:0}
+/* ---- directory v4 ---- */
+.mapsec.dir2{overflow:clip}.dir2 .head{margin-bottom:18px}
+.dsrch{display:flex;align-items:center;gap:10px;background:var(--sf);border:1px solid var(--line);border-radius:20px;padding:6px 6px 6px 8px;padding-inline-start:18px;box-shadow:var(--shadow)}
+.dsrch>svg{width:22px;height:22px;color:#8C99C2;flex:none}.dsrch input{flex:1;border:0;background:transparent;font:inherit;font-size:16px;padding:12px 0;color:var(--text);outline:0;min-width:0}
+.dsb{display:inline-flex;align-items:center;gap:8px;height:46px;padding:0 16px;border-radius:14px;border:1px solid var(--line);font-size:14px;font-weight:600;color:var(--hd);background:var(--sf);flex:none;transition:.2s}.dsb svg{width:18px;height:18px}
+.dsb:hover{border-color:var(--blue)}.dsb.on{background:var(--ice);border-color:var(--blue);color:var(--blue)}.dsb.pri{background:var(--navy,#13205B);color:#fff;border-color:transparent}.dsb.pri.on{background:var(--blue);color:#fff}
+.dsb em{font-style:normal;background:#fff;color:var(--navy,#13205B);border-radius:999px;padding:0 7px;font-size:12px;min-width:20px;text-align:center}.dsb em:empty{display:none}
+.dchips{display:flex;gap:6px;flex-wrap:wrap;margin:12px 0 0}.dchips:empty{display:none}.dchip{background:var(--sf);border:1px solid var(--line);color:var(--hd);border-radius:999px;padding:6px 12px;font-size:12.5px;font-weight:600}.dchip small{color:var(--mute);font-weight:400}.dchip b{font-weight:400;color:var(--mute);margin-inline-start:4px}.dchip.clr{background:transparent;border-style:dashed;color:var(--blue)}
+.dfac{margin-top:12px;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:22px;padding:18px 20px;box-shadow:var(--shadow)}
+.dfh{display:flex;align-items:baseline;gap:10px;margin-bottom:12px}.dfh b{color:var(--hd);font-size:16px}.dfh small{color:var(--mute);font-size:12.5px}.dsp{flex:1}.dfx{font-size:18px;color:var(--mute);padding:0 6px}
+.dfgrid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px}
+.dfg{min-width:0}.dfg h5{display:flex;align-items:center;gap:6px;margin:0 0 8px;font-size:13px;color:var(--hd);font-weight:700}.dfg h5 i{font-style:normal;background:var(--blue);color:#fff;border-radius:999px;padding:0 7px;font-size:11px}.dfcl{margin-inline-start:auto;font-size:12px;color:var(--blue);font-weight:600}
+.dfs{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font:inherit;font-size:13px;background:var(--mist);color:var(--text);margin-bottom:6px}
+.dfl{display:flex;flex-direction:column;gap:1px;max-height:330px;overflow:auto;scrollbar-width:thin}
+.dfi{display:flex;align-items:center;gap:8px;padding:6px 8px;border-radius:10px;font-size:13.5px;cursor:pointer;transition:background .15s}.dfi:hover{background:var(--mist)}
+.dfi input{width:16px;height:16px;accent-color:var(--blue);flex:none;margin:0}.dfi span{flex:1;line-height:1.45}.dfi em{font-style:normal;font-size:12px;color:var(--mute)}
+.dfi.on{background:var(--ice)}.dfi.on span{color:var(--blue);font-weight:600}.dfi.zero{opacity:.45}
+.dfic{width:24px;height:24px;border-radius:7px;display:grid;place-items:center;background:var(--tile);color:var(--tilefg);flex:none}.dfi .slogo.xs{width:38px;height:22px}
+.dfm{margin-top:4px;font-size:12.5px;color:var(--blue);font-weight:600;padding:4px 8px}.dfe,.dfhint small{color:var(--mute);font-size:12.5px;padding:4px 8px;display:block;line-height:1.7}
+.dfstack{display:flex;flex-direction:column;gap:18px;min-width:0}
+.dff{display:flex;justify-content:flex-end;gap:8px;margin-top:14px;padding-top:12px;border-top:1px solid var(--line)}
+.dmap{margin-top:12px;grid-template-columns:1fr!important}.dmap .dir{display:none}.dmh{display:flex;align-items:center;gap:7px;margin:0 0 8px;font-size:13px;color:var(--mute)}
+.dir2 .mstage{height:min(540px,64vh)}.dir2 #map{height:100%;width:100%;display:block}
+#map .gv.pick{stroke:#fff;stroke-width:3;filter:url(#soft)}#map.haspick .gv:not(.pick){opacity:.55}
+.dtool{position:sticky;top:76px;z-index:5;display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 12px;background:var(--sf);color:var(--text);border:1px solid var(--line);border-radius:16px;padding:8px 10px 8px 8px;padding-inline-start:16px;box-shadow:0 6px 20px -14px rgba(9,9,81,.4)}
+.dcnt{font-size:14px;color:var(--mute)}.dcnt b{color:var(--hd);font-size:18px;margin-inline-end:3px}
+.dsort{display:flex;align-items:center;gap:6px;font-size:12.5px;color:var(--mute)}.dsort select{border:1px solid var(--line);border-radius:10px;padding:7px 10px;background:var(--sf);color:var(--text);font:inherit;font-size:13px}
+.dseg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:var(--mist);border:1px solid var(--line)}.dseg button{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9px;font-size:13px;font-weight:600;color:var(--mute)}.dseg button.on{background:var(--sf);color:var(--hd);box-shadow:0 1px 3px rgba(9,9,81,.14)}
+.dir2 .altv{display:block}.dir2 .atbl{min-width:760px}.dir2 .atbl td:first-child{width:34%;min-width:240px}.dir2 .atbl td:nth-child(4){min-width:220px}.dir2 .tsup{white-space:normal;line-height:1.45;font-size:12.5px}.dir2 .atbl td{vertical-align:middle}.dir2 .tlic{font-size:11px;padding:1px 7px;margin-inline-end:4px}
 .atbl thead th{position:sticky;top:0;z-index:1;background:var(--sf2,#171A45)}
-.tnm{display:flex;align-items:center;gap:10px}.tnm .lg{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;overflow:hidden}.tnm .lg img{width:80%;height:80%;object-fit:contain}.tnm small{display:block;font-size:11.5px;opacity:.7;margin-top:1px}
-.tgrp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.tgrp i{width:8px;height:8px;border-radius:50%;flex:none}.tlic{font-size:12px;padding:2px 8px;border-radius:8px;background:rgba(66,172,253,.12);white-space:nowrap}
+.tnm{display:flex;align-items:center;gap:10px}.tnm .lg{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;flex:none;overflow:hidden}.tnm .lg img{width:80%;height:80%;object-fit:contain}.tnm small{display:block;font-size:11.5px;opacity:.75;margin-top:2px}
+.tgrp{display:inline-flex;align-items:center;gap:7px;white-space:nowrap}.tgrp i{width:8px;height:8px;border-radius:50%;flex:none}.tlic{border-radius:8px;background:rgba(66,172,253,.12);white-space:nowrap}
 .atbl tbody tr{cursor:pointer;transition:background .15s}.atbl tbody tr:hover,.atbl tbody tr:focus{background:rgba(66,172,253,.08);outline:0}
 body.maplight .atbl thead th{background:#F4F6FB}body.maplight .tlic{color:var(--blue)}
-@media(max-width:1100px){.dlay{grid-template-columns:1fr}.dfopen{display:inline-flex}
- .dfac{position:fixed;inset:auto 0 0 0;top:auto;max-height:86vh;border-radius:22px 22px 0 0;z-index:120;transform:translateY(105%);transition:transform .3s;box-shadow:0 -20px 60px rgba(9,9,81,.35);padding-bottom:84px}
- .dfac.open{transform:none}.dfx{display:block!important;font-size:18px;color:var(--mute)!important}.dfapply{display:flex!important;position:fixed;bottom:14px;inset-inline:16px;justify-content:center}
- body.dfmodal::after{content:'';position:fixed;inset:0;background:rgba(9,9,81,.45);z-index:110}}
-@media(max-width:640px){.dir2 .atw{border-radius:16px}.dir2 .atbl{min-width:0}.dir2 .atbl thead{display:none}.dir2 .atbl,.dir2 .atbl tbody,.dir2 .atbl tr{display:block}.dir2 .atbl tr{padding:12px 14px;border-top:1px solid var(--line)}.dir2 .atbl td{display:inline-block;border:0;padding:4px 0 0;font-size:12px;width:auto!important;min-width:0!important;max-width:none}.dir2 .atbl td:first-child{display:block;padding:0}.dir2 .atbl td:not(:first-child):not(:last-child)::after{content:'·';margin:0 6px;opacity:.5}.dir2 .atbl td:nth-child(4) .slogo{display:none}.dir2 .atbl td:nth-child(n+2){padding-inline-start:44px}.dir2 .atbl td:nth-child(n+3){padding-inline-start:0}
-.dtool{top:64px;padding:8px}.dseg button span{display:none}.dsort span{display:none}.dcnt{width:auto}.dsrch input{font-size:15px}.dsrch span{display:none}}
+.dir2 .acards{grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+@media(max-width:1100px){.dfgrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:760px){.dsb span{display:none}.dsb{width:46px;padding:0;justify-content:center;position:relative}.dsb em{position:absolute;top:-5px;inset-inline-end:-5px}
+ .dfac{position:fixed;inset:auto 0 0 0;margin:0;max-height:88vh;overflow:auto;border-radius:22px 22px 0 0;z-index:120;padding-bottom:0;box-shadow:0 -20px 60px rgba(9,9,81,.35)}
+ .dfgrid{grid-template-columns:1fr;gap:14px}.dfl{max-height:none}.dff{position:sticky;bottom:0;background:var(--sf);margin:14px -20px 0;padding:12px 20px}.dff .btn{flex:1;justify-content:center}
+ body.dfmodal::after{content:'';position:fixed;inset:0;background:rgba(9,9,81,.45);z-index:110}
+ .dir2 .atw{border-radius:16px}.dir2 .atbl{min-width:0}.dir2 .atbl thead{display:none}.dir2 .atbl,.dir2 .atbl tbody,.dir2 .atbl tr{display:block}.dir2 .atbl tr{padding:12px 14px;border-top:1px solid var(--line)}.dir2 .atbl td{display:inline-block;border:0;padding:4px 0 0;font-size:12px;width:auto!important;min-width:0!important}.dir2 .atbl td:first-child{display:block;padding:0}.dir2 .atbl td:nth-child(2){padding-inline-start:46px}.dir2 .atbl td:not(:first-child):not(:last-child)::after{content:'·';margin:0 6px;opacity:.5}.dir2 .atbl td:nth-child(4) .slogo{display:none}
+ .dtool{top:64px}.dsort span{display:none}.dseg button span{display:none}}
 .closedbar{display:flex;gap:10px;align-items:flex-start;margin:14px 24px 0;padding:12px 14px;border-radius:12px;background:#F2F4F7;color:#344054;font-size:13px;line-height:1.7}
 .apabout{font-size:15px;line-height:1.9;color:var(--text)}.apchips2{display:flex;flex-wrap:wrap;gap:6px}.apchips2 span{padding:5px 12px;border-radius:999px;background:var(--ice);color:var(--hd);font-size:13px}
 .approgs{margin:0;padding-inline-start:20px;line-height:1.9}.aplinks{display:flex;flex-wrap:wrap;gap:12px}.aplinks a{color:var(--blue);font-weight:600}
@@ -1986,20 +1992,13 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <div><span class="eyebrow" style="color:#8FD0FF">قاعدة بيانات الجمعيات</span><h2>دليل الجمعيات الأهلية في عسير</h2></div>
       <p>ابحث بالاسم أو رقم الترخيص، وصفِّ النتائج بالمحافظة والمجال والجهة الإشرافية. <span class="tag" style="background:rgba(66,172,253,.15);color:#9FD6FF">تُعرض البيانات العامة فقط</span></p>
     </div>
-    <div class="dsrch reveal"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" type="search" placeholder="ابحث باسم الجمعية أو رقم الترخيص أو التصنيف…" autocomplete="off"><span id="dsTot"></span></div>
-    <div class="dlay">
-      <aside class="dfac" id="dfac" aria-label="تصفية الدليل"><div class="dfh"><b>تصفية النتائج</b><button type="button" id="dfReset" hidden>مسح الكل</button><button type="button" class="dfx" id="dfClose" aria-label="إغلاق">✕</button></div><div id="dfBody"></div><button type="button" class="btn p dfapply" id="dfApply">عرض النتائج</button></aside>
-      <div class="dres">
-        <div class="dtool" id="dtool">
-          <button type="button" class="dfopen" id="dfOpen"><svg class="i" viewBox="0 0 24 24"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5z"/></svg>الفلاتر <em id="dfN"></em></button>
-          <div class="dcnt" id="altInfo"></div>
-          <div class="dchips" id="dChips"></div>
-          <span class="dsp"></span>
-          <label class="dsort"><span>ترتيب</span><select id="fSort2"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
-          <div class="dseg" id="vtabs" role="tablist" aria-label="طريقة العرض"></div>
-          <button type="button" class="dmapb" id="dMapBtn" aria-pressed="true"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>إخفاء الخريطة</span></button>
-        </div>
-        <div class="mapgrid dmap" id="dMap">
+    <div class="dsrch reveal"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" type="search" placeholder="ابحث باسم الجمعية أو رقم الترخيص أو التصنيف…" autocomplete="off">
+      <button type="button" class="dsb" id="dMapBtn" aria-pressed="false" aria-controls="dMap"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>الخريطة</span></button>
+      <button type="button" class="dsb pri" id="dfOpen" aria-expanded="false" aria-controls="dfac"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span>الفلاتر</span><em id="dfN"></em></button></div>
+    <div class="dchips" id="dChips"></div>
+    <div class="dfac" id="dfac" hidden><div class="dfh"><b>تصفية الدليل</b><small>اختر أكثر من خيار في كل قسم</small><span class="dsp"></span><button type="button" class="dfx" id="dfClose" aria-label="إغلاق">✕</button></div><div class="dfgrid" id="dfBody"></div>
+      <div class="dff"><button type="button" class="btn o" id="dfReset">مسح الكل</button><button type="button" class="btn p" id="dfApply">عرض النتائج</button></div></div>
+    <div class="mapgrid dmap" id="dMap" hidden><p class="dmh"><svg class="i" viewBox="0 0 24 24" style="width:15px;height:15px"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8h.01"/></svg>اضغط على المحافظات في الخريطة لإضافتها إلى الفلتر، ويمكن اختيار أكثر من محافظة.</p>
       <div class="mapbox" id="mapbox">
         <div class="mbar">
           <div class="seg" id="view" role="tablist" aria-label="طريقة التلوين"><button class="on" data-v="count">عدد الجمعيات</button><button data-v="dom">المجال الغالب</button></div><button class="pctb" id="pctb" aria-pressed="false" hidden>كنسبة من جمعيات المحافظة %</button>
@@ -2021,10 +2020,11 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
         <div class="xgov" id="xgov"></div>
         <div class="legend" id="legend"></div>
       </div>
-        </div>
-        <div class="altv" id="altView"><div id="altBody"></div></div>
-      </div>
     </div>
+    <div class="dtool" id="dtool"><div class="dcnt" id="altInfo"></div><span class="dsp"></span>
+      <label class="dsort"><span>ترتيب</span><select id="fSort2"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
+      <div class="dseg" id="vtabs" role="tablist" aria-label="طريقة العرض"></div></div>
+    <div class="altv" id="altView"><div id="altBody"></div></div>
     <div hidden id="dLegacy"><select id="fGov"></select><select id="fSupM"></select><select id="fGrp"></select><select id="fS1"></select><select id="fEra"></select><select id="fSort"></select><button id="freset"></button><div id="fchips"></div><input id="q"><div id="list"></div><span id="govLabel"></span><button id="clearGov"></button></div>
   </div>
 </section>
@@ -2327,11 +2327,13 @@ const gvEl={};$$('#gGov .gv').forEach(p=>gvEl[p.dataset.g]=p);
 const gInfo=Object.fromEntries(GEO.govs.map(g=>[g.ar,g]));
 
 // filters (shared by map + directory) and view mode
-const FL={grp:'',s1:'',sup:'',era:''};let view='count',pct=false;
+const FL={gov:[],grp:[],s1:[],sup:[],era:[]};let view='count',pct=false;
 const ERAS=[['','كل الفترات'],['a','قبل 2000'],['b','2000 – 2014'],['c','2015 – 2019'],['d','2020 وما بعد']];
 const eraOf=y=>!y?'':y<2000?'a':y<2015?'b':y<2020?'c':'d';
-const match=a=>(!FL.grp||a.grp==FL.grp)&&(!FL.s1||a.s1==FL.s1)&&(!FL.sup||a.sup==FL.sup)&&(!FL.era||eraOf(a.y)==FL.era);
-const anyF=()=>Object.values(FL).some(Boolean);
+const fv=(k,a)=>k=='era'?eraOf(a.y):a[k];
+const match=a=>['grp','s1','sup','era'].every(k=>!FL[k].length||FL[k].includes(fv(k,a)));
+const rowOk=a=>match(a)&&(!FL.gov.length||FL.gov.includes(a.gov));
+const anyF=()=>['grp','s1','sup','era'].some(k=>FL[k].length);
 const cnt=(arr,k)=>{const c={};arr.forEach(a=>c[a[k]]=(c[a[k]]||0)+1);return Object.entries(c).sort((x,y)=>y[1]-x[1])};
 function stats(g){const all=assoc.filter(a=>a.gov==g),L=all.filter(match);const top=cnt(L,'grp');
  return {n:L.length,tot:all.length,pct:all.length?L.length/all.length*100:0,top:top.slice(0,3),dom:top[0]?top[0][0]:null,sup:cnt(L,'sup')[0]}}
@@ -2371,22 +2373,8 @@ function syncPct(){const show=view=='count'&&anyF();$('#pctb').hidden=!show;if(!
 $('#pctb').onclick=()=>{pct=!pct;syncPct();classify()};
 // filter controls
 const opt=(arr,all)=>`<option value="">${all}</option>`+arr.map(([v,n])=>`<option value="${v}">${v} (${n})</option>`).join('');
-function fillFilters(){
- const base=k=>assoc.filter(a=>Object.entries(FL).every(([fk,fv])=>fk==k||(fk=='s1'&&k=='grp')||!fv||(fk=='era'?eraOf(a.y)==fv:a[fk]==fv)));
- $('#fGov').innerHTML=opt(ALLG.map(g=>[g,assoc.filter(a=>a.gov==g&&match(a)).length]),'كل المحافظات');$('#fGov').value=selGov||'';$('#fGov').classList.toggle('act',!!selGov);
- $('#fGrp').innerHTML=opt(cnt(base('grp'),'grp'),'كل المجالات');$('#fGrp').value=FL.grp;
- $('#fS1').disabled=!FL.grp;$('#fS1').innerHTML=FL.grp?opt(cnt(base('s1'),'s1'),'كل التصنيفات الفرعية'):'<option value="">اختر المجال أولاً</option>';$('#fS1').value=FL.s1;
- $('#fSupM').innerHTML=opt(cnt(base('sup'),'sup'),'كل الجهات الإشرافية');$('#fSupM').value=FL.sup;
- const eb=base('era');$('#fEra').innerHTML=ERAS.map(([v,n])=>`<option value="${v}">${n}${v?' ('+eb.filter(a=>eraOf(a.y)==v).length+')':''}</option>`).join('');$('#fEra').value=FL.era;
- [['fGrp','grp'],['fS1','s1'],['fSupM','sup'],['fEra','era']].forEach(([id,k])=>$('#'+id).classList.toggle('act',!!FL[k]));
- $('#freset').hidden=!anyF();
- const tot=assoc.filter(match).length;
- $('#fchips').innerHTML=(FL.sup?`<span class="fsup">${supLogo(FL.sup,'xs')}${supShort(FL.sup)}</span>`:'')+(anyF()?`النتيجة: <b>${tot}</b> جمعية من ${assoc.length} في ${ALLG.filter(g=>ST[g]&&ST[g].n).length} محافظة`:'');
-}
+function fillFilters(){}
 function applyFilters(){fillFilters();syncPct();classify();fillFilters();renderXgov();if(selGov)showCard(selGov);renderList();typeof renderAlt=='function'&&renderAlt();typeof renderDirFields=='function'&&renderDirFields()}
-[['fGrp','grp'],['fS1','s1'],['fSupM','sup'],['fEra','era']].forEach(([id,k])=>$('#'+id).onchange=e=>{FL[k]=e.target.value;if(k=='grp')FL.s1='';applyFilters()});
-$('#freset').onclick=()=>{Object.keys(FL).forEach(k=>FL[k]='');applyFilters()};
-$('#fGov').onchange=e=>select(e.target.value||null);
 let SORT='n';const sortL=L=>{const c=new Intl.Collator('ar');return L.slice().sort((a,b)=>SORT=='y'?(b.y||0)-(a.y||0):SORT=='yo'?(a.y||9999)-(b.y||9999):SORT=='gov'?c.compare(a.gov,b.gov)||c.compare(a.n,b.n):c.compare(a.n,b.n))};
 $('#fSort').onchange=e=>{SORT=e.target.value;renderList();typeof renderAlt=='function'&&renderAlt()};
 
@@ -2420,7 +2408,7 @@ function fitBox(b,pad=.35){const ar=GEO.w/GEO.h;let w=b.width*(1+pad*2),h=b.heig
 const clampVB=v=>{const w=Math.min(v[2],GEO.w),h=Math.min(v[3],GEO.h);return [Math.min(Math.max(v[0],0),GEO.w-w),Math.min(Math.max(v[1],0),GEO.h-h),w,h]};
 $('#zin').onclick=()=>{const c=[VB[0]+VB[2]/2,VB[1]+VB[3]/2],w=VB[2]/1.5,h=VB[3]/1.5;zoomTo(clampVB([c[0]-w/2,c[1]-h/2,w,h]),350)};
 $('#zout').onclick=()=>{const c=[VB[0]+VB[2]/2,VB[1]+VB[3]/2],w=Math.min(VB[2]*1.5,GEO.w),h=Math.min(VB[3]*1.5,GEO.h);zoomTo(clampVB([c[0]-w/2,c[1]-h/2,w,h]),350)};
-$('#zreset').onclick=()=>select(null);
+$('#zreset').onclick=()=>{FL.gov=[];select(null);applyFilters()};
 // drag to pan when zoomed (mouse + touch)
 let drag=null;
 map.addEventListener('pointerdown',e=>{if(VB[2]>=GEO.w*.99)return;drag={x:e.clientX,y:e.clientY,vb:[...VB],moved:false}});
@@ -2447,7 +2435,7 @@ function showCard(g){const s=ST[g],mx=s.top[0]?s.top[0][1]:1;
  $('#gcard').classList.add('on')}
 
 function renderXgov(){$('#xgov').style.display=EXTRA.length?'':'none';if(!EXTRA.length)return;$('#xgov').innerHTML='<span>لم تُرسم حدودها بعد (بانتظار طبقة الحدود الرسمية):</span>'+EXTRA.map(g=>`<button data-g="${g}" class="${selGov==g?'on':''}">${g} <b>${ST[g].n}</b></button>`).join('')}
-$('#xgov').onclick=e=>{const b=e.target.closest('button');if(b)select(selGov==b.dataset.g?null:b.dataset.g)};
+$('#xgov').onclick=e=>{const b=e.target.closest('button');if(b)dfToggle('gov',b.dataset.g)};
 let shown=innerWidth<680?12:40;
 const norm=t=>t.replace(/[أإآ]/g,'ا').replace(/ة/g,'ه').replace(/ى/g,'ي').replace(/ـ/g,'');
 function renderList(keep){
@@ -2467,15 +2455,15 @@ $('#list').addEventListener('pointerleave',()=>{if(!hov)$('#hl').classList.remov
 document.addEventListener('keydown',e=>{if(e.key=='Escape'&&selGov&&!$('#drawer').classList.contains('on'))select(null)});
 applyFilters();
 /* ---------- multiple views of the directory (shared filters + search) ---------- */
-const VIEWS=[['table','جدول','file'],['cards','بطاقات','building'],['tiles','المحافظات','grid'],['stats','إحصاءات','chart']];
+const VIEWS=[['table','قائمة','file'],['cards','بطاقات','grid']];
 var DV='table',altShown=60,tSort={k:'n',d:1};
 // schematic tile layout of the 19 governorates (row,col: north→south, west→east). Approximate, not to scale.
 const TILE={'الأمواه':[0,2],'بيشة':[0,3],'بلقرن':[1,0],'النماص':[1,1],'تنومة':[1,2],'تثليث':[1,4],'طريب':[1,5],'المجاردة':[2,0],'بارق':[2,1],'أبها':[2,2],'خميس مشيط':[2,3],'محايل عسير':[3,0],'رجال ألمع':[3,1],'أحد رفيدة':[3,3],'سراة عبيدة':[3,4],'الفرشة':[3,5],'البرك':[4,0],'ظهران الجنوب':[4,4],'الحرجة':[4,5]};
-const altRows=()=>{const q=norm(($('#q2')||{value:''}).value.trim());return assoc.filter(a=>(!selGov||a.gov==selGov)&&match(a)&&(!q||a.lic==q||norm(a.n).includes(q)||norm(a.gov).includes(q)||norm(a.s1+' '+a.s2).includes(q)))};
+const altRows=()=>{const q=norm(($('#q2')||{value:''}).value.trim());return assoc.filter(a=>rowOk(a)&&(!q||a.lic==q||norm(a.n).includes(q)||norm(a.gov).includes(q)||norm(a.s1+' '+a.s2).includes(q)))};
 function renderVtabs(){$('#vtabs').innerHTML=VIEWS.map(v=>`<button class="${DV==v[0]?'on':''}" data-v="${v[0]}" title="${v[1]}">${I(P[v[2]],'width:16px;height:16px')}<span>${v[1]}</span></button>`).join('')}
 function setDV(v){if(v=='map'){setMap(true);v='table'}DV=v;altShown=60;renderVtabs();renderAlt()}
 function renderAlt(){if(!DV||DV=='map'||!$('#altView'))return;const L=altRows(),B=$('#altBody');
- $('#altInfo').innerHTML=`<b>${L.length}</b> ${L.length==assoc.length?'جمعية':'نتيجة من '+assoc.length}`;
+ $('#altInfo').innerHTML=`<b>${L.length}</b> ${L.length==assoc.length?'جمعية أهلية':'نتيجة من '+assoc.length+' جمعية'}`;
  if(DV=='tiles'){const mx=Math.max(1,...ALLG.map(g=>ST[g].n)),tot=ALLG.reduce((a,g)=>a+ST[g].n,0);
   const L=ALLG.slice().sort((a,b)=>ST[b].n-ST[a].n||a.localeCompare(b,'ar'));
   B.innerHTML=`<div class="gcards">${L.map((g,i)=>{const s=ST[g],pc=tot?Math.round(s.n/tot*100):0;return `<button class="gcd ${selGov==g?'on':''} ${s.n?'':'zero'}" data-g="${g}"><div class="r1">${govIcon(g,46)}<span class="nm"><b>${g}</b><small class="rk2">#${i+1}</small></span><strong>${s.n}</strong></div><div class="bar"><i style="width:${Math.round(s.n/mx*100)}%"></i></div><div class="r2"><small>${pc}% من ${anyF()?'النتائج':'جمعيات المنطقة'}</small>${s.top.slice(0,2).map(t=>`<em>${I(grpIcon(t[0]),'width:13px;height:13px')}${t[0]} <b>${t[1]}</b></em>`).join('')}</div></button>`}).join('')}</div>
@@ -2499,41 +2487,46 @@ let rT;addEventListener('resize',()=>{clearTimeout(rT);rT=setTimeout(()=>{render
 
 
 
-/* ---------- directory v3: facet panel + toolbar + collapsible map ---------- */
-var DBK=1,dfOpenG={};
+/* ---------- directory v4: top filter panel (multi-select) + map as a filter ---------- */
+var DBK=1,dfOpenG={},dfQ={};
 function dEsc(x){return String(x??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c])}
-function fBase(k){return assoc.filter(a=>(k=='gov'||!selGov||a.gov==selGov)&&Object.entries(FL).every(([fk,fv])=>fk==k||(fk=='s1'&&k=='grp')||!fv||(fk=='era'?eraOf(a.y)==fv:a[fk]==fv)))}
+function fBase(k){return assoc.filter(a=>(k=='gov'||!FL.gov.length||FL.gov.includes(a.gov))&&['grp','s1','sup','era'].every(fk=>fk==k||(fk=='s1'&&k=='grp')||!FL[fk].length||FL[fk].includes(fv(fk,a))))}
+const DFL={gov:'المحافظة',grp:'مجال العمل',s1:'التصنيف الفرعي',sup:'الجهة الإشرافية',era:'فترة التأسيس'};
+function dfLabel(k,v){return k=='sup'?supShort(v):k=='era'?(ERAS.find(e=>e[0]==v)||[])[1]:v}
 function renderDirFields(){const B=$('#dfBody');if(!B||!DBK)return;
- const grp=(k,title,rows,lim,item)=>{const open=dfOpenG[k],more=rows.length>lim;return `<div class="dfg"><h5>${title}</h5><div class="dfl">${(open?rows:rows.slice(0,lim)).map(item).join('')}</div>${more?`<button type="button" class="dfm" data-more="${k}">${open?'عرض أقل':'عرض الكل ('+rows.length+')'}</button>`:''}</div>`};
- const row=(k,v,n,on,ic)=>`<button type="button" class="dfi ${on?'on':''} ${n?'':'zero'}" data-k="${k}" data-v="${dEsc(v)}">${ic||''}<span>${dEsc(k=='sup'?supShort(v):v)}</span><em>${n}</em></button>`;
- const govs=ALLG.map(g=>[g,fBase('gov').filter(a=>a.gov==g).length]).sort((x,y)=>y[1]-x[1]||x[0].localeCompare(y[0],'ar'));
- let h=grp('gov','المحافظة',govs,8,([g,n])=>row('gov',g,n,selGov==g));
- h+=grp('grp','مجال العمل',cnt(fBase('grp'),'grp'),12,([g,n])=>row('grp',g,n,FL.grp==g,`<i class="dfic">${I(grpIcon(g),'width:15px;height:15px')}</i>`));
- if(FL.grp)h+=grp('s1','التصنيف الفرعي',cnt(fBase('s1'),'s1'),6,([g,n])=>row('s1',g,n,FL.s1==g));
- h+=grp('sup','الجهة الإشرافية',cnt(fBase('sup'),'sup'),6,([g,n])=>row('sup',g,n,FL.sup==g,supLogo(g,'xs')));
- const eb=fBase('era');h+=`<div class="dfg"><h5>فترة التأسيس</h5><div class="dfc">${ERAS.slice(1).map(([v,t])=>`<button type="button" class="${FL.era==v?'on':''}" data-k="era" data-v="${v}">${t} <em>${eb.filter(a=>eraOf(a.y)==v).length}</em></button>`).join('')}</div></div>`;
- B.innerHTML=h;
- const act=[selGov&&['gov',selGov],FL.grp&&['grp',FL.grp],FL.s1&&['s1',FL.s1],FL.sup&&['sup',supShort(FL.sup)],FL.era&&['era',(ERAS.find(e=>e[0]==FL.era)||[])[1]]].filter(Boolean);
- $('#dChips').innerHTML=act.map(([k,t])=>`<button type="button" class="dchip" data-k="${k}">${dEsc(t)} <b>✕</b></button>`).join('');
- $('#dfN').textContent=act.length||'';$('#dfReset').hidden=!act.length;
- $('#dsTot').textContent=assoc.length+' جمعية';}
-function dfSet(k,v){if(k=='gov'){select(selGov==v?null:v);return}FL[k]=FL[k]==v?'':v;if(k=='grp')FL.s1='';applyFilters()}
-$('#dfBody').onclick=e=>{const m=e.target.closest('[data-more]');if(m){dfOpenG[m.dataset.more]=!dfOpenG[m.dataset.more];renderDirFields();return}const b=e.target.closest('[data-k]');if(b)dfSet(b.dataset.k,b.dataset.v)};
-$('#dChips').onclick=e=>{const b=e.target.closest('[data-k]');if(!b)return;const k=b.dataset.k;if(k=='gov')select(null);else{FL[k]='';if(k=='grp')FL.s1='';applyFilters()}};
-$('#dfReset').onclick=()=>{Object.keys(FL).forEach(k=>FL[k]='');selGov=null;select(null);applyFilters()};
-const dfSheet=o=>{$('#dfac').classList.toggle('open',o);document.body.classList.toggle('dfmodal',o)};
-$('#dfOpen').onclick=()=>dfSheet(true);$('#dfClose').onclick=$('#dfApply').onclick=()=>dfSheet(false);
+ const cbx=(k,v,n,ic)=>{const on=FL[k].includes(v);return `<label class="dfi ${on?'on':''} ${n||on?'':'zero'}"><input type="checkbox" data-k="${k}" value="${dEsc(v)}" ${on?'checked':''}>${ic||''}<span>${dEsc(dfLabel(k,v))}</span><em>${n}</em></label>`};
+ const col=(k,rows,ic,lim)=>{const q=norm(dfQ[k]||''),R=q?rows.filter(([v])=>norm(dfLabel(k,v)).includes(q)):rows,open=dfOpenG[k]||q,more=!q&&rows.length>lim;
+  return `<div class="dfg" data-g="${k}"><h5>${DFL[k]}${FL[k].length?` <i>${FL[k].length}</i><button type="button" class="dfcl" data-clr="${k}">مسح</button>`:''}</h5>${rows.length>9?`<input type="search" class="dfs" data-q="${k}" placeholder="بحث في ${DFL[k]}…" value="${dEsc(dfQ[k]||'')}">`:''}<div class="dfl">${(open?R:R.slice(0,lim)).map(([v,n])=>cbx(k,v,n,ic&&ic(v))).join('')||'<small class="dfe">لا توجد نتائج</small>'}</div>${more?`<button type="button" class="dfm" data-more="${k}">${dfOpenG[k]?'عرض أقل':'عرض الكل ('+rows.length+')'}</button>`:''}</div>`};
+ const gb=fBase('gov'),govs=ALLG.map(g=>[g,gb.filter(a=>a.gov==g).length]).sort((x,y)=>y[1]-x[1]||x[0].localeCompare(y[0],'ar'));
+ const eb=fBase('era');
+ B.innerHTML=col('gov',govs,null,10)+col('grp',cnt(fBase('grp'),'grp'),v=>`<i class="dfic">${I(grpIcon(v),'width:14px;height:14px')}</i>`,10)
+  +col('sup',cnt(fBase('sup'),'sup'),v=>supLogo(v,'xs'),8)
+  +`<div class="dfstack">${col('era',ERAS.slice(1).map(([v])=>[v,eb.filter(a=>eraOf(a.y)==v).length]),null,9)}${FL.grp.length?col('s1',cnt(fBase('s1'),'s1'),null,8):'<div class="dfg dfhint"><h5>التصنيف الفرعي</h5><small>اختر مجال عمل أولاً لعرض تصنيفاته الفرعية.</small></div>'}</div>`;
+ const act=['gov','grp','s1','sup','era'].flatMap(k=>FL[k].map(v=>[k,v]));
+ $('#dChips').innerHTML=act.length?act.map(([k,v])=>`<button type="button" class="dchip" data-k="${k}" data-v="${dEsc(v)}"><small>${DFL[k]}:</small> ${dEsc(dfLabel(k,v))} <b>✕</b></button>`).join('')+`<button type="button" class="dchip clr" data-all="1">مسح الكل</button>`:'';
+ $('#dfN').textContent=act.length||'';$('#dfApply').textContent=`عرض ${altRows().length} نتيجة`;
+ if(typeof gvEl!='undefined')Object.keys(gvEl).forEach(g=>gvEl[g].classList.toggle('pick',FL.gov.includes(g)));map.classList.toggle('haspick',FL.gov.length>0)}
+function dfToggle(k,v){const i=FL[k].indexOf(v);i<0?FL[k].push(v):FL[k].splice(i,1);if(k=='grp'&&!FL.grp.length)FL.s1=[];if(k=='gov'){const one=FL.gov.length==1?FL.gov[0]:null;if(one!=selGov)select(one)}applyFilters()}
+$('#dfBody').onchange=e=>{const c=e.target.closest('input[type=checkbox]');if(c)dfToggle(c.dataset.k,c.value)};
+$('#dfBody').oninput=e=>{const q=e.target.closest('[data-q]');if(!q)return;dfQ[q.dataset.q]=q.value;const pos=q.selectionStart;renderDirFields();const n=$(`#dfBody [data-q="${q.dataset.q}"]`);if(n){n.focus();n.setSelectionRange(pos,pos)}};
+$('#dfBody').onclick=e=>{const m=e.target.closest('[data-more]');if(m){dfOpenG[m.dataset.more]=!dfOpenG[m.dataset.more];renderDirFields();return}const c=e.target.closest('[data-clr]');if(c){FL[c.dataset.clr]=[];if(c.dataset.clr=='grp')FL.s1=[];if(c.dataset.clr=='gov')select(null);applyFilters()}};
+function dfClear(){Object.keys(FL).forEach(k=>FL[k]=[]);select(null);applyFilters()}
+$('#dChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.all){dfClear();return}dfToggle(b.dataset.k,b.dataset.v)};
+$('#dfReset').onclick=dfClear;
+const dfSheet=o=>{const p=$('#dfac');p.hidden=!o;$('#dfOpen').setAttribute('aria-expanded',o);$('#dfOpen').classList.toggle('on',o);document.body.classList.toggle('dfmodal',o&&innerWidth<=760);if(o)renderDirFields()};
+$('#dfOpen').onclick=()=>dfSheet($('#dfac').hidden);$('#dfClose').onclick=$('#dfApply').onclick=()=>{dfSheet(false);if(innerWidth<=760)$('#dtool').scrollIntoView({behavior:'smooth',block:'start'})};
 $('#fSort2').onchange=e=>{SORT=e.target.value;tSort={k:{n:'n',y:'y',yo:'y',gov:'gov'}[SORT],d:SORT=='y'?-1:1};renderAlt()};
-// map show / hide (remembered per browser)
-var MAPON=(()=>{try{const v=localStorage.getItem('asirDirMap');return v==null?innerWidth>760:v=='1'}catch(e){return true}})();
-function setMap(on){MAPON=on;try{localStorage.setItem('asirDirMap',on?'1':'0')}catch(e){}$('#dMap').hidden=!on;const b=$('#dMapBtn');b.setAttribute('aria-pressed',on);b.querySelector('span').textContent=on?'إخفاء الخريطة':'إظهار الخريطة';if(on)setTimeout(()=>{renderLabels&&renderLabels()},30)}
-$('#dMapBtn').onclick=()=>setMap(!MAPON);setMap(MAPON);
+// map panel: a visual governorate filter (click to add / remove)
+var MAPON=false;
+function setMap(on){MAPON=on;$('#dMap').hidden=!on;const b=$('#dMapBtn');b.setAttribute('aria-pressed',on);b.classList.toggle('on',on);if(on)setTimeout(()=>{renderLabels&&renderLabels()},30)}
+$('#dMapBtn').onclick=()=>setMap(!MAPON);
+map.addEventListener('click',e=>{const p=e.target.closest('.gv');if(!p)return;e.stopImmediatePropagation();dfToggle('gov',p.dataset.g)},true);
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
 function renderHomeFields(){const el=$('#homeFields');if(!el)return;const T=$('#hfSeg');if(T)T.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k==HF));
- const L=cnt(assoc,HF);el.classList.toggle('sup',HF=='sup');el.classList.toggle('gov',HF=='gov');el.innerHTML=L.map(([g,n])=>`<button class="hf ${HF=='sup'?'hfs':HF=='gov'?'hfg':''}" onclick="go('directory');setTimeout(()=>{${HF=='gov'?`select('${g}')`:`FL.${HF}=g0('${g}');${HF=='grp'?'FL.s1=\'\';':''}applyFilters()`}},150)">${HF=='grp'?`<span class="ic">${I(grpIcon(g),'width:22px;height:22px')}</span>`:HF=='gov'?govIcon(g,56):supLogo(g)}<span><b>${HF=='grp'?g:HF=='gov'?g:supShort(g)}</b><small>${HF=='sup'&&/^وزارة /.test(g)?'وزارة · ':''}${n} جمعية</small></span></button>`).join('')}
-const g0=x=>x;
+ const L=cnt(assoc,HF);el.classList.toggle('sup',HF=='sup');el.classList.toggle('gov',HF=='gov');el.innerHTML=L.map(([g,n])=>`<button class="hf ${HF=='sup'?'hfs':HF=='gov'?'hfg':''}" onclick="go('directory');setTimeout(()=>{${HF=='gov'?`FL.gov=g0('${g}');applyFilters()`:`FL.${HF}=g0('${g}');${HF=='grp'?'FL.s1=[];':''}applyFilters()`}},150)">${HF=='grp'?`<span class="ic">${I(grpIcon(g),'width:22px;height:22px')}</span>`:HF=='gov'?govIcon(g,56):supLogo(g)}<span><b>${HF=='grp'?g:HF=='gov'?g:supShort(g)}</b><small>${HF=='sup'&&/^وزارة /.test(g)?'وزارة · ':''}${n} جمعية</small></span></button>`).join('')}
+const g0=x=>[x];
 function renderHomeAssoc(){const el=$('#homeAssoc');if(!el)return;el.innerHTML=FEAT.map(id=>assoc.find(a=>a.id==id)).filter(Boolean).map(a=>`<button class="ha" data-l="${a.lic}"><span class="halg ${LOGO[a.id]?'hl':''}" style="${LOGO[a.id]?'':'background:var(--tile);color:var(--tilefg)'}">${LOGO[a.id]?`<img src="${LOGO[a.id]}" alt="شعار ${a.n}">`:`${I(grpIcon(a.grp),'width:30px;height:30px')}`}</span><b>${a.n}</b><small>${a.gov} · ${a.grp}</small></button>`).join('');
  el.onclick=e=>{const b=e.target.closest('.ha');if(b){go('association/'+b.dataset.l);window.scrollTo(0,0)}}}
 renderDirFields();renderHomeAssoc();renderHomeFields();$('#hfSeg').onclick=e=>{const b=e.target.closest('button');if(b){HF=b.dataset.k;renderHomeFields()}};
