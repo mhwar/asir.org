@@ -1097,6 +1097,33 @@ body.maplight .atbl thead th{background:#F4F6FB}body.maplight .tlic{color:var(--
  body.dfmodal::after{content:'';position:fixed;inset:0;background:rgba(9,9,81,.45);z-index:110}
  .dir2 .atw{border-radius:16px}.dir2 .atbl{min-width:0}.dir2 .atbl thead{display:none}.dir2 .atbl,.dir2 .atbl tbody,.dir2 .atbl tr{display:block}.dir2 .atbl tr{padding:12px 14px;border-top:1px solid var(--line)}.dir2 .atbl td{display:inline-block;border:0;padding:4px 0 0;font-size:12px;width:auto!important;min-width:0!important}.dir2 .atbl td:first-child{display:block;padding:0}.dir2 .atbl td:nth-child(2){padding-inline-start:46px}.dir2 .atbl td:not(:first-child):not(:last-child)::after{content:'·';margin:0 6px;opacity:.5}.dir2 .atbl td:nth-child(4) .slogo{display:none}
  .dtool{top:64px}.dsort span{display:none}.dseg button span{display:none}}
+
+/* ---- stories ---- */
+.h-stories{padding:72px 0}.stx{padding:28px 0 72px}.stbar{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:18px}.stsrc{margin-inline-start:auto;color:var(--mute);font-size:12.5px}
+.stgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px}.stgrid.home{grid-template-columns:repeat(3,1fr)}
+.stc{background:var(--sf);border:1px solid var(--line);border-radius:22px;overflow:hidden;cursor:pointer;display:flex;flex-direction:column;transition:.25s;box-shadow:0 10px 30px -22px rgba(9,9,81,.35)}
+.stc:hover,.stc:focus{transform:translateY(-4px);border-color:var(--blue);outline:0}
+.stimg{position:relative;aspect-ratio:16/10;background:linear-gradient(135deg,var(--navy,#13205B),#2B4BB0);overflow:hidden}.stimg img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s}.stc:hover .stimg img{transform:scale(1.04)}
+.stimg::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,9,81,.35),transparent 40%,rgba(9,9,81,.15))}
+.stimg.noimg::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 70% 30%,rgba(127,208,255,.35),transparent 60%)}
+.stic{position:absolute;top:12px;inset-inline-start:12px;z-index:1;width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(255,255,255,.92);color:var(--navy,#13205B)}
+.stcat{position:absolute;top:14px;inset-inline-end:12px;z-index:1;background:rgba(9,9,81,.55);backdrop-filter:blur(6px);color:#fff;border-radius:999px;padding:4px 11px;font-size:12px;font-weight:600}
+.stbd{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1}.stbd h3{margin:0;font-size:17px;line-height:1.5;color:var(--hd)}.stbd p{margin:0;color:var(--mute);font-size:13.5px;line-height:1.8;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.stas{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text);font-weight:600}.stas .lg{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;overflow:hidden;flex:none;border:1px solid var(--line)}.stas .lg img{width:82%;height:82%;object-fit:contain}
+.stm{display:flex;gap:14px;margin-top:auto;padding-top:10px;border-top:1px solid var(--line)}.stm span{display:flex;flex-direction:column;font-size:12px;color:var(--mute)}.stm b{font-size:20px;color:var(--hd);line-height:1.2}
+.stgo{font-size:13px;font-weight:600;color:var(--blue)}
+.stm2{position:relative}.stm2>.x{position:absolute;top:10px;inset-inline-end:10px;z-index:2;background:rgba(255,255,255,.9);border-radius:12px;width:38px;height:38px;display:grid;place-items:center}
+.stgal{display:grid;grid-template-columns:2fr 1fr;gap:6px;margin:-28px -28px 0;height:280px;overflow:hidden;border-radius:22px 22px 0 0;background:var(--mist)}.stgal img{width:100%;height:100%;object-fit:cover}.stgal img:only-child{grid-column:1/-1}
+.stgal.noimg{display:grid;place-items:center;grid-template-columns:1fr;background:linear-gradient(135deg,var(--navy,#13205B),#2B4BB0);color:#fff;height:200px}
+.stmb{padding-top:18px}.sttags{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.sttags small{color:var(--mute)}.stmb h2{margin:10px 0 12px;font-size:24px;line-height:1.45;color:var(--hd)}
+.stas.big{border:1px solid var(--line);border-radius:14px;padding:8px 12px;margin-bottom:12px;text-align:start}.stas.big .lg{width:42px;height:42px}.stas.big small{display:block;color:var(--mute);font-weight:400}
+.stlead{font-size:16px;line-height:1.9;color:var(--text);margin:0 0 14px}.stmb h4{margin:16px 0 6px;font-size:14px;color:var(--hd)}.stmb p{line-height:1.9;margin:0;color:var(--text)}
+.stmx{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}.stmx div{background:var(--mist);border-radius:14px;padding:12px 14px}.stmx b{display:block;font-size:26px;color:var(--hd);line-height:1.2}.stmx span{font-size:12.5px;color:var(--mute)}
+.stcs{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:6px}.stcs>div{border:1px solid var(--line);border-radius:14px;padding:4px 14px 12px}
+.stpt{display:flex;gap:6px;flex-wrap:wrap}.stpt span{background:var(--ice);color:var(--blue);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:600}
+.stft{display:flex;gap:8px;margin-top:18px}
+@media(max-width:1100px){.stgrid.home{grid-template-columns:1fr 1fr}.stgrid.home .stc:nth-child(3){display:none}}
+@media(max-width:640px){.stgrid,.stgrid.home{grid-template-columns:1fr}.stgrid.home .stc:nth-child(3){display:flex}.stgal{margin:-20px -20px 0;height:200px;grid-template-columns:1fr}.stgal img+img{display:none}.stcs{grid-template-columns:1fr}.stmb h2{font-size:20px}}
 .closedbar{display:flex;gap:10px;align-items:flex-start;margin:14px 24px 0;padding:12px 14px;border-radius:12px;background:#F2F4F7;color:#344054;font-size:13px;line-height:1.7}
 .apabout{font-size:15px;line-height:1.9;color:var(--text)}.apchips2{display:flex;flex-wrap:wrap;gap:6px}.apchips2 span{padding:5px 12px;border-radius:999px;background:var(--ice);color:var(--hd);font-size:13px}
 .approgs{margin:0;padding-inline-start:20px;line-height:1.9}.aplinks{display:flex;flex-wrap:wrap;gap:12px}.aplinks a{color:var(--blue);font-weight:600}
@@ -1798,6 +1825,7 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
       <a href="#/" data-r="home">الرئيسية</a>
       <a href="#/about" data-r="about">عن المجلس</a>
       <a href="#/news" data-r="news">الأخبار</a>
+      <a href="#/stories" data-r="stories">تجارب مميزة</a>
       <a href="#/directory" data-r="directory">دليل الجمعيات</a>
       <a href="#/consult" data-r="consult">الاستشارات</a>
       <a href="#/communities" data-r="communities">المجتمعات المهنية</a>
@@ -1871,6 +1899,13 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 </section>
 
 <!-- ============ NEWS ============ -->
+<!-- ============ STORIES ============ -->
+<section class="h-stories soft">
+  <div class="wrap">
+    <div class="head reveal"><div><span class="eyebrow">تجارب مميزة</span><h2>قصص أثر من جمعيات عسير</h2><p class="hsub">مشاريع حقيقية نفّذتها جمعيات المنطقة، بأرقامها وشركائها.</p></div><a class="btn o" href="#/stories">كل التجارب <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
+    <div class="stgrid home reveal" id="homeStories"></div>
+  </div>
+</section>
 <section class="h-news">
   <div class="wrap">
     <div class="head reveal"><div><span class="eyebrow">المركز الإعلامي</span><h2>من أعمال المجلس</h2></div><a class="btn o" href="#/news">كل الأخبار <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
@@ -1982,6 +2017,14 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
     <div class="ncta reveal"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M3 11v2a1 1 0 0 0 1 1h3l6 4V6L7 10H4a1 1 0 0 0-1 1zM17 8a5 5 0 0 1 0 8M7 14l1 5h3"/></svg></div><p><b>لدى جمعيتك خبر أو إنجاز؟</b> أرسله من بوابة الجمعيات، ويُنشر هنا بعد مراجعة فريق المجلس.</p><button class="btn n" onclick="openPortal()">إرسال خبر</button></div>
   </div>
 </section>
+</div>
+<div class="page" data-page="stories">
+<div class="phero"><div class="wrap"><nav class="crumb" aria-label="مسار التصفح"><a href="#/">الرئيسية</a> <span>/</span> <span>تجارب مميزة</span></nav><h1>تجارب مميزة من جمعيات عسير</h1><p>مشاريع نفّذتها جمعيات المنطقة وتركت أثراً يُروى: ما الحاجة التي عالجتها، وكيف عملت، وماذا تحقق. تُضاف التجارب من منصة سجام بعد توثيقها، ومن ترشيحات الجمعيات.</p></div></div>
+<section class="stx"><div class="wrap">
+  <div class="stbar reveal"><div class="filters" id="stFilters"></div><span class="stsrc">المصادر: منصة سجام (منجزات موثّقة من مجلس الجمعيات الأهلية) وجائزة الملك خالد</span></div>
+  <div class="stgrid reveal" id="stGrid"></div>
+  <div class="ncta reveal"><div class="ic"><svg class="i" viewBox="0 0 24 24"><path d="M12 2l2.9 6.9L22 10l-5.5 4.8L18 22l-6-3.6L6 22l1.5-7.2L2 10l7.1-1.1z"/></svg></div><p><b>لدى جمعيتك تجربة تستحق أن تُروى؟</b> وثّقها في منصة سجام أو أرسلها للمجلس، وسيراجعها الفريق قبل نشرها هنا.</p><a class="btn p" href="https://sijam.ccsa.org.sa/" target="_blank" rel="noopener">منصة سجام ↗</a></div>
+</div></section>
 </div>
 <div class="page" data-page="directory">
 <!-- ============ MAP + DIRECTORY ============ -->
@@ -2250,6 +2293,7 @@ function openNews(i){const n=news[i];
  $('#modal').classList.add('wide');
  $('#modal').innerHTML=`<div class="nmodal"><div class="th" style="background:${grads[i%grads.length]};position:relative;overflow:hidden">${I(P[n.ic],'width:80px;height:auto;stroke-width:1')}${nImg(n)}</div><span class="tag" style="margin-top:14px">${n.c}</span> ${n.src?`<span class="demo" style="background:#E5F8EE;color:#14804A;border-color:#BFE8D1">المصدر: ${n.src}</span>`:'<span class="demo">خبر توضيحي</span>'}<h2>${n.t}</h2><time style="color:var(--mute);font-size:13px">${n.dt}</time><p style="margin-top:12px">${n.d||'نص الخبر الكامل يُضاف من لوحة التحكم عند النشر، مع الصور والروابط ذات العلاقة.'}</p><div style="display:flex;gap:10px;margin-top:20px"><button class="btn o" onclick="closeAll()">إغلاق</button></div></div>`;
  openOv();$('#modal').classList.add('on')}
+
 
 /* ---------- map (real boundaries: geoBoundaries / OpenStreetMap) ---------- */
 const GEO={{geo}};
@@ -2521,6 +2565,77 @@ var MAPON=false;
 function setMap(on){MAPON=on;$('#dMap').hidden=!on;const b=$('#dMapBtn');b.setAttribute('aria-pressed',on);b.classList.toggle('on',on);if(on)setTimeout(()=>{renderLabels&&renderLabels()},30)}
 $('#dMapBtn').onclick=()=>setMap(!MAPON);
 map.addEventListener('click',e=>{const p=e.target.closest('.gv');if(!p)return;e.stopImmediatePropagation();dfToggle('gov',p.dataset.g)},true);
+/* ---------- تجارب مميزة: قصص أثر من جمعيات عسير ---------- */
+// المصدر الأساسي: منصة سجام (منجزات موثّقة يعتمدها مجلس الجمعيات الأهلية). الأرقام كما سجّلتها الجمعيات في المنصة.
+const SIJ='https://sijam.ccsa.org.sa/achievements';
+const STORIES=[
+ {k:'shifa',aid:1,cat:'الصحة',ic:'heart',t:'شفاء: أجهزة طبية لـ210 أسر أيتام',img:'story-3507',y:'2026',
+  lead:'حين يحتاج اليتيم جهازاً طبياً في البيت، تصبح كلفته عبئاً على أسرة محدودة الدخل. مشروع «شفاء» جاء ليسدّ هذه الفجوة.',
+  did:'وفّرت جمعية آباء لرعاية الأيتام أجهزة طبية أساسية لـ210 أسر أيتام في المنطقة، بتمويل من ديم للمنح التنموي ومؤسسة العثيم الخيرية.',
+  ch:'الأجهزة الطبية قد تتلف أو يُساء استخدامها بعد تسليمها.',so:'رافق التسليمَ توعيةٌ للأسر بطريقة الاستخدام الصحيح والمحافظة على الأجهزة، لتبقى مسؤوليتها مشتركة.',
+  m:[[210,'أسرة مستفيدة']],pt:['ديم للمنح التنموي','مؤسسة العثيم الخيرية'],src:'منصة سجام',url:SIJ},
+ {k:'shaml',aid:166,cat:'الأسرة',ic:'people',t:'مركز «شمل»: بيئة آمنة لتنفيذ أحكام الرؤية والحضانة',img:'story-3767',y:'2024',
+  lead:'تنفيذ أحكام الرؤية والزيارة والحضانة لحظة حساسة في حياة الأطفال والأسرة، وتحتاج مكاناً مهيأً وفريقاً مختصاً.',
+  did:'أسست جمعية إرشاد للتنمية الأسرية بأبها مركز «شمل» وجهّزته لتنفيذ أحكام الرؤية والزيارة والحضانة، بدعم من مؤسسة السبيعي الخيرية وبالتعاون مع مجلس الجمعيات الأهلية.',
+  ch:'ارتفاع التكاليف وقلة الدعم، وتدفق الحالات على المركز.',so:'العمل على توفير التمويل وزيادة عدد المختصين.',
+  m:[[500,'مستفيد مباشر'],[2500,'مستفيد غير مباشر'],[5,'متطوعين']],pt:['مؤسسة السبيعي الخيرية','مجلس الجمعيات الأهلية'],src:'منصة سجام',url:SIJ},
+ {k:'khebra',aid:300,cat:'التمكين الاقتصادي',ic:'target',t:'برنامج «خبرة»: من التدريب الميداني إلى الوظيفة',img:'story-3692',y:'2026',
+  lead:'كثير من الباحثين عن عمل يملكون الشهادة وتنقصهم الخبرة العملية التي يطلبها سوق العمل.',
+  did:'درّبت جمعية التنمية الأهلية بمحايل عسير 50 شاباً وشابة تدريباً ميدانياً داخل جهات عمل حقيقية وبإشراف مباشر، بدعم من صندوق دعم الجمعيات، وتابعتهم بعد انتهاء التدريب.',
+  ch:'ضعف الخبرة العملية، ومحدودية فرص التدريب لدى الجهات المستضيفة، والحاجة إلى قياس الأثر.',so:'شراكات مع القطاعين الخاص وغير الربحي لتنويع فرص التدريب، ومتابعة المتدربين بعد البرنامج.',
+  m:[[50,'متدرباً'],[10,'فرص عمل'],[16,'متطوعاً'],[200,'ساعة تطوع']],pt:['صندوق دعم الجمعيات'],src:'منصة سجام',url:SIJ},
+ {k:'diaa',aid:391,cat:'الصحة',ic:'eye',t:'العلاج الخيري: نور يعود لـ200 من ذوي الإعاقة البصرية',img:'story-3878',y:'2025',
+  lead:'فحص العين أو عملية بسيطة قد تغيّر حياة إنسان، لكن كلفتها تحول بين كثيرين وبين العلاج.',
+  did:'قدّمت جمعية ضياء للإعاقة البصرية برنامجاً طبياً يوفّر فحوصات العيون والعمليات والنظارات والأدوية والعدسات، بشراكة مع أرامكو السعودية ومؤسسة سليمان الراجحي ومركز ابن رشد التخصصي.',
+  ch:'احتمال حدوث مضاعفات غير متوقعة بعد العمليات.',so:'متابعة طبية مستمرة لكل مريض بعد العملية.',
+  m:[[200,'مستفيد']],pt:['أرامكو السعودية','مؤسسة سليمان الراجحي','مركز ابن رشد التخصصي'],src:'منصة سجام',url:SIJ},
+ {k:'sanad',aid:455,cat:'تمكين المرأة',ic:'award',t:'«سند الأول»: تأهيل الأرامل والمطلقات وأبنائهن لسوق العمل',img:'story-3536',y:'2026',
+  lead:'الاستقلال المادي بداية الاستقرار لكثير من الأرامل والمطلقات وأبنائهن.',
+  did:'نفّذت جمعية سند المدينة بعسير للأرامل والمطلقات برنامجاً تدريبياً متخصصاً لتأهيل المستفيدات وأبنائهن لسوق العمل، بدعم من صندوق دعم الجمعيات وبالتعاون مع شركة قهيم للتدريب.',
+  m:[[450,'مستفيد مباشر'],[130,'مستفيد غير مباشر'],[22,'متطوعاً'],[3,'فرص عمل']],pt:['صندوق دعم الجمعيات','شركة قهيم للتدريب'],src:'منصة سجام',url:SIJ},
+ {k:'raedat',aid:166,cat:'تمكين المرأة',ic:'star',t:'«رائدات»: معارف ومهارات تفتح أبواباً للمرأة والفتاة',img:'story-3739',y:'2023',
+  lead:'حين يزيد الإقبال على التدريب عن المتوقع، يصبح التحدي في الاتساع لكل من تريد أن تتعلم.',
+  did:'نفّذت جمعية إرشاد للتنمية الأسرية بأبها مشروعاً تدريبياً متخصصاً لتنمية معارف المرأة والفتاة ومهاراتهن، بدعم من مؤسسة الجميح الخيرية.',
+  ch:'إقبال كبير، وتمويل محدود، وتفاوت في مستويات المتدربات.',so:'قاعات أكبر، وشراكات مانحة، وبرامج متنوعة تناسب المستويات المختلفة.',
+  m:[[300,'مستفيدة مباشرة'],[1500,'مستفيد غير مباشر']],pt:['مؤسسة الجميح الخيرية','مجلس الجمعيات الأهلية'],src:'منصة سجام',url:SIJ},
+ {k:'tarmeem',aid:191,cat:'الإسكان',ic:'building',t:'ترميم بيوت قديمة تحفظ كرامة 20 أسرة في تهامة',img:'story-3353',y:'2025',
+  lead:'في قرى تهامة بللسمر وبللحمر تعيش أسر في بيوت شعبية قديمة متهالكة، لا تحتمل شتاءً آخر.',
+  did:'رمّمت جمعية البر الخيرية بتهامة بللسمر وبللحمر منازل 20 أسرة محتاجة وحسّنتها، بدعم من منصة إحسان وآل الجميح.',
+  ch:'معظم منازل المستفيدين قديمة، والدعم لا يكفي لترميم عدد أكبر أو بناء وحدات سكنية.',so:'طلب الدعم من الجهات المانحة لتوسيع المشروع.',
+  m:[[20,'أسرة مستفيدة']],pt:['منصة إحسان','آل الجميح'],src:'منصة سجام',url:SIJ},
+ {k:'ramadan',aid:300,cat:'العمل التطوعي',ic:'hand',t:'تطوع في رمضان: 58 متطوعاً و237 ساعة لخدمة الصائمين',img:'story-3701',y:'2026',
+  lead:'إفطار الصائمين في مواقع متعددة وفي وقت محدد يحتاج تنظيماً دقيقاً لا حماساً فقط.',
+  did:'أطلقت جمعية التنمية الأهلية بمحايل عسير برنامجاً تطوعياً موسمياً في رمضان لتعزيز التكافل وإفطار الصائمين، بشراكة مع الهيئة العامة للأوقاف.',
+  ch:'تنسيق أعداد كبيرة من المتطوعين، وضمان وصول الوجبات في وقتها، وإدارة التوزيع في مواقع متعددة.',so:'خطة تشغيلية وجدول زمني واضح، وتوزيع الأدوار على فرق تطوعية، والتنسيق المبكر مع الشركاء والمتابعة الميدانية.',
+  m:[[58,'متطوعاً'],[237,'ساعة تطوع']],pt:['الهيئة العامة للأوقاف'],src:'منصة سجام',url:SIJ},
+ {k:'kawthar',aid:366,cat:'الصحة',ic:'award',t:'الكوثر الصحية: تميز مؤسسي على مستوى المملكة',img:'',y:'2017',
+  lead:'من أبها، نافست جمعية صحية تطوعية أكثر من 200 منظمة غير ربحية في المملكة على جائزة الملك خالد.',
+  did:'حققت جمعية الكوثر الصحية بعسير المركز الثالث في جائزة الملك خالد، فرع التميز للمنظمات غير الربحية لعام 2017م. والجمعية تقدّم خدمات علاجية ووقائية لسكان المنطقة، وتشجّع التطوع في المجال الصحي.',
+  m:[[3,'المركز في جائزة الملك خالد 2017'],[200,'منظمة نافستها']],pt:['جائزة الملك خالد'],src:'جائزة الملك خالد — الفائزون السابقون',url:'https://kka.kkf.org.sa/ar/PreviousWinners/Pages/default.aspx'}];
+let stCat='الكل';
+const stA=x=>assoc.find(a=>a.id==x.aid);
+function stCard(x,i){const a=stA(x);return `<article class="stc" tabindex="0" data-sk="${x.k}"><div class="stimg ${x.img?'':'noimg'}">${x.img?`<img src="/brand/${x.img}-1" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg');this.remove()">`:''}<span class="stic">${I(P[x.ic],'width:18px;height:18px')}</span><span class="stcat">${x.cat}</span></div>
+ <div class="stbd">${a?`<div class="stas"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,16)}</span><span>${a.n}</span></div>`:''}<h3>${x.t}</h3><p>${x.lead}</p>
+ <div class="stm">${x.m.slice(0,2).map(([v,l])=>`<span><b>${v.toLocaleString('en')}</b>${l}</span>`).join('')}</div><span class="stgo">اقرأ التجربة ←</span></div></article>`}
+function renderStories(){const cats=['الكل',...new Set(STORIES.map(x=>x.cat))];const F=$('#stFilters');if(F)F.innerHTML=cats.map(c=>`<button class="pill ${c==stCat?'on':''}">${c}</button>`).join('');
+ const L=STORIES.filter(x=>stCat=='الكل'||x.cat==stCat);const G=$('#stGrid');if(G)G.innerHTML=L.map(stCard).join('');
+ const H=$('#homeStories');if(H)H.innerHTML=STORIES.filter(x=>x.img).slice(0,3).map(stCard).join('')}
+document.addEventListener('click',e=>{const f=e.target.closest('#stFilters .pill');if(f){stCat=f.textContent;renderStories();return}const c=e.target.closest('.stc');if(c)openStory(c.dataset.sk)});
+document.addEventListener('keydown',e=>{if(e.key=='Enter'){const c=e.target.closest&&e.target.closest('.stc');if(c)openStory(c.dataset.sk)}});
+function openStory(k){const x=STORIES.find(s=>s.k==k);if(!x)return;const a=stA(x);
+ $('#modal').classList.add('wide');
+ $('#modal').innerHTML=`<div class="stm2"><button class="x" onclick="closeAll()" aria-label="إغلاق">${I(P.x)}</button>
+ ${x.img?`<div class="stgal"><img src="/brand/${x.img}-1" alt="" onerror="const g=this.parentNode;this.remove();if(!g.querySelector('img'))g.classList.add('noimg')"><img src="/brand/${x.img}-2" alt="" onerror="const g=this.parentNode;this.remove();if(!g.querySelector('img'))g.classList.add('noimg')"></div>`:`<div class="stgal noimg"><span>${I(P[x.ic],'width:56px;height:56px;stroke-width:1.2')}</span></div>`}
+ <div class="stmb"><div class="sttags"><span class="tag">${x.cat}</span><span class="demo" style="background:#E5F8EE;color:#14804A;border-color:#BFE8D1">المصدر: ${x.src}</span><small>${x.y}</small></div>
+ <h2>${x.t}</h2>${a?`<button class="stas big" onclick="closeAll();go('association/${a.lic}')"><span class="lg${LOGO[a.id]?' hl':''}" style="background:${LOGO[a.id]?'#fff':'var(--tile)'};color:var(--tilefg)">${lgIn(a,22)}</span><span><b>${a.n}</b><small>${a.gov} · صفحة الجمعية ←</small></span></button>`:''}
+ <p class="stlead">${x.lead}</p>
+ <div class="stmx">${x.m.map(([v,l])=>`<div><b>${v.toLocaleString('en')}</b><span>${l}</span></div>`).join('')}</div>
+ <h4>ما الذي قامت به الجمعية</h4><p>${x.did}</p>
+ ${x.ch?`<div class="stcs"><div><h4>التحدي</h4><p>${x.ch}</p></div><div><h4>الحل</h4><p>${x.so}</p></div></div>`:''}
+ ${x.pt&&x.pt.length?`<h4>الشركاء والداعمون</h4><div class="stpt">${x.pt.map(t=>`<span>${t}</span>`).join('')}</div>`:''}
+ <div class="stft"><a class="btn o" href="${x.url}" target="_blank" rel="noopener">عرض المصدر ↗</a><button class="btn n" onclick="navigator.clipboard&&navigator.clipboard.writeText(location.origin+location.pathname+'#/stories/${x.k}');toast('نُسخ رابط التجربة')">نسخ الرابط</button></div></div></div>`;
+ openOv();$('#modal').classList.add('on')}
+renderStories();
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
@@ -2975,8 +3090,8 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();
 $('#burger').onclick=()=>{$('#nav').classList.toggle('open');onScroll()};
 $('#nav').onclick=e=>{if(e.target.matches('a')){$('#nav').classList.remove('open');onScroll()}};
 /* ---------- router (hash pages) ---------- */
-const ROUTES={'':'home','home':'home','about':'about','governance':'about','board':'about','news':'news','directory':'directory','consult':'consult','communities':'communities','contact':'home','platforms':'home','association':'assoc','admin':'admin'};
-const TITLES={home:'مجلس الجمعيات الأهلية بمنطقة عسير',about:'عن المجلس والحوكمة',news:'المركز الإعلامي',directory:'دليل الجمعيات وخريطتها',consult:'الاستشارات',communities:'المجتمعات المهنية',assoc:'صفحة جمعية',admin:'لوحة التحكم'};
+const ROUTES={'':'home','home':'home','about':'about','governance':'about','board':'about','news':'news','stories':'stories','directory':'directory','consult':'consult','communities':'communities','contact':'home','platforms':'home','association':'assoc','admin':'admin'};
+const TITLES={home:'مجلس الجمعيات الأهلية بمنطقة عسير',about:'عن المجلس والحوكمة',news:'المركز الإعلامي',stories:'تجارب مميزة من جمعيات عسير',directory:'دليل الجمعيات وخريطتها',consult:'الاستشارات',communities:'المجتمعات المهنية',assoc:'صفحة جمعية',admin:'لوحة التحكم'};
 let curPage=null;
 let curPath=null;
 function go(path){path=String(path).replace(/^#?\/?/,'');try{history.pushState(null,'','#/'+path)}catch(e){}route(path)}
@@ -2988,6 +3103,7 @@ function route(path){
  $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.r==(r=='contact'?'contact':pg)));
  if(pg=='assoc')renderAssocPage(arg);
  if(pg=='directory')setTimeout(renderDirFields,30);
+ if(pg=='stories'){renderStories();if(arg)setTimeout(()=>openStory(arg),60)}
  if(pg=='admin')adminEnter(arg);else adminLeave();
  document.title=(pg=='home'?'':(pg=='assoc'&&curAssoc?curAssoc.n:TITLES[pg])+' — ')+'مجلس الجمعيات الأهلية بعسير';
  const anchor={governance:'governance',board:'board',contact:'contact',platforms:'platforms'}[r];
