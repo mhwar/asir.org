@@ -2496,7 +2496,7 @@ function dfLabel(k,v){return k=='sup'?supShort(v):k=='era'?(ERAS.find(e=>e[0]==v
 function renderDirFields(){const B=$('#dfBody');if(!B||!DBK)return;
  const cbx=(k,v,n,ic)=>{const on=FL[k].includes(v);return `<label class="dfi ${on?'on':''} ${n||on?'':'zero'}"><input type="checkbox" data-k="${k}" value="${dEsc(v)}" ${on?'checked':''}>${ic||''}<span>${dEsc(dfLabel(k,v))}</span><em>${n}</em></label>`};
  const col=(k,rows,ic,lim)=>{const q=norm(dfQ[k]||''),R=q?rows.filter(([v])=>norm(dfLabel(k,v)).includes(q)):rows,open=dfOpenG[k]||q,more=!q&&rows.length>lim;
-  return `<div class="dfg" data-g="${k}"><h5>${DFL[k]}${FL[k].length?` <i>${FL[k].length}</i><button type="button" class="dfcl" data-clr="${k}">مسح</button>`:''}</h5>${rows.length>9?`<input type="search" class="dfs" data-q="${k}" placeholder="بحث في ${DFL[k]}…" value="${dEsc(dfQ[k]||'')}">`:''}<div class="dfl">${(open?R:R.slice(0,lim)).map(([v,n])=>cbx(k,v,n,ic&&ic(v))).join('')||'<small class="dfe">لا توجد نتائج</small>'}</div>${more?`<button type="button" class="dfm" data-more="${k}">${dfOpenG[k]?'عرض أقل':'عرض الكل ('+rows.length+')'}</button>`:''}</div>`};
+  return `<div class="dfg" data-g="${k}"><h5>${DFL[k]}${FL[k].length?` <i>${FL[k].length}</i><button type="button" class="dfcl" data-clr="${k}">مسح</button>`:''}</h5>${rows.length>9?`<input type="search" class="dfs" data-q="${k}" placeholder="بحث في ${DFL[k]}…" value="${dEsc(dfQ[k]||'')}">`:''}<div class="dfl">${(open?R:R.slice(0,lim)).map(([v,n])=>cbx(k,v,n,ic&&ic(v))).join('')||'<small class="dfe">لا توجد نتائج</small>'}</div>${more?`<button type="button" class="dfm" data-dfmore="${k}">${dfOpenG[k]?'عرض أقل':'عرض الكل ('+rows.length+')'}</button>`:''}</div>`};
  const gb=fBase('gov'),govs=ALLG.map(g=>[g,gb.filter(a=>a.gov==g).length]).sort((x,y)=>y[1]-x[1]||x[0].localeCompare(y[0],'ar'));
  const eb=fBase('era');
  B.innerHTML=col('gov',govs,null,10)+col('grp',cnt(fBase('grp'),'grp'),v=>`<i class="dfic">${I(grpIcon(v),'width:14px;height:14px')}</i>`,10)
@@ -2509,7 +2509,7 @@ function renderDirFields(){const B=$('#dfBody');if(!B||!DBK)return;
 function dfToggle(k,v){const i=FL[k].indexOf(v);i<0?FL[k].push(v):FL[k].splice(i,1);if(k=='grp'&&!FL.grp.length)FL.s1=[];if(k=='gov'){const one=FL.gov.length==1?FL.gov[0]:null;if(one!=selGov)select(one)}applyFilters()}
 $('#dfBody').onchange=e=>{const c=e.target.closest('input[type=checkbox]');if(c)dfToggle(c.dataset.k,c.value)};
 $('#dfBody').oninput=e=>{const q=e.target.closest('[data-q]');if(!q)return;dfQ[q.dataset.q]=q.value;const pos=q.selectionStart;renderDirFields();const n=$(`#dfBody [data-q="${q.dataset.q}"]`);if(n){n.focus();n.setSelectionRange(pos,pos)}};
-$('#dfBody').onclick=e=>{const m=e.target.closest('[data-more]');if(m){dfOpenG[m.dataset.more]=!dfOpenG[m.dataset.more];renderDirFields();return}const c=e.target.closest('[data-clr]');if(c){FL[c.dataset.clr]=[];if(c.dataset.clr=='grp')FL.s1=[];if(c.dataset.clr=='gov')select(null);applyFilters()}};
+$('#dfBody').onclick=e=>{const m=e.target.closest('[data-dfmore]');if(m){dfOpenG[m.dataset.dfmore]=!dfOpenG[m.dataset.dfmore];renderDirFields();return}const c=e.target.closest('[data-clr]');if(c){FL[c.dataset.clr]=[];if(c.dataset.clr=='grp')FL.s1=[];if(c.dataset.clr=='gov')select(null);applyFilters()}};
 function dfClear(){Object.keys(FL).forEach(k=>FL[k]=[]);select(null);applyFilters()}
 $('#dChips').onclick=e=>{const b=e.target.closest('button');if(!b)return;if(b.dataset.all){dfClear();return}dfToggle(b.dataset.k,b.dataset.v)};
 $('#dfReset').onclick=dfClear;
