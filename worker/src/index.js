@@ -7,6 +7,7 @@ import { json, errorResponse, fail, readJson, withHeaders } from './http.js';
 import { requireUser, requirePerm, can, authMode, previewLogin, previewLogoutCookie } from './auth.js';
 import * as db from './db.js';
 import { readState, writeState } from './state.js';
+import * as rq from './requests.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -37,6 +38,20 @@ async function servePage(req, env, user) {
     html = inject(html, 'RAW', '[]');
   }
   return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } }));
+}
+
+async function servePortal(req, env, token) {
+  const link = await rq.resolveLink(env, req, token);
+  if (!link) return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط التحديث غير صالح أو انتهت مدته.</p><p>تواصل مع فريق المجلس لإرسال رابط جديد.</p>`, 404);
+  const asset = await env.ASSETS.fetch(new Request(new URL('/', req.url), { headers: req.headers }));
+  let html = await asset.text();
+  // public directory fields only (what the public site will show); internal data stays out
+  const { pub } = await db.pagePayload(env);
+  html = inject(html, 'PUB', safeJson(pub));
+  html = inject(html, 'RAW', '[]');
+  html = inject(html, 'STATE', safeJson(await readState(env, null)));
+  html = inject(html, 'PORTAL', safeJson({ token, ...(await rq.portalPayload(env, link)) }));
+  return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
 }
 
 async function noteLogin(req, env, user) {
@@ -104,6 +119,14 @@ async function api(req, env, url) {
     return json(await db.lookups(env), 200, { 'Cache-Control': 'public, max-age=3600' });
   }
 
+  // Association update link (no account: the link itself is the credential)
+  const um = path.match(/^\/api\/u\/([A-Za-z0-9_-]{20,64})$/);
+  if (um && m === 'POST') {
+    const link = await rq.resolveLink(env, req, um[1]);
+    if (!link) fail(404, 'invalid_link', 'رابط التحديث غير صالح أو انتهت مدته');
+    return json(await rq.submitRequest(env, req, link), 201);
+  }
+
   // Everything below requires an allowed user
   const user = await requireUser(req, env);
   if (!['GET', 'HEAD', 'OPTIONS'].includes(m)) {
@@ -161,6 +184,19 @@ async function api(req, env, url) {
     return json({ version: r.version });
   }
 
+  // update links & requests (module: updates)
+  if (path === '/api/update-links') {
+    if (m === 'GET') { requirePerm(user, 'updates'); return json({ data: await rq.listLinks(env, url.searchParams) }); }
+    if (m === 'POST') { requirePerm(user, 'updates', 'write'); return json(await rq.createLinks(env, req, user, await readJson(req)), 201); }
+  }
+  const lm = path.match(/^\/api\/update-links\/(\d+)\/revoke$/);
+  if (lm && m === 'POST') { requirePerm(user, 'updates', 'write'); await rq.revokeLink(env, req, user, idFrom(lm[1])); return json({ ok: true }); }
+  if (path === '/api/update-requests' && m === 'GET') { requirePerm(user, 'updates'); return json({ data: await rq.listRequests(env, url.searchParams) }); }
+  const rm = path.match(/^\/api\/update-requests\/(\d+)(\/review)?$/);
+  if (rm && m === 'GET' && !rm[2]) { requirePerm(user, 'updates'); return json({ data: await rq.getRequest(env, idFrom(rm[1])) }); }
+  if (rm && m === 'POST' && rm[2]) { requirePerm(user, 'updates', 'write'); return json(await rq.reviewRequest(env, req, user, idFrom(rm[1]), await readJson(req))); }
+  if (path.startsWith('/api/files/') && m === 'GET') { requirePerm(user, 'updates'); return withHeaders(await rq.serveFile(env, decodeURIComponent(path.slice(11)))); }
+
   if (path === '/api/audit' && m === 'GET') {
     requirePerm(user, 'roles');
     return json({ data: await db.auditList(env, url.searchParams) });
@@ -175,6 +211,10 @@ export default {
     try {
       if (url.pathname.startsWith('/api/')) return await api(req, env, url);
       if (url.pathname.startsWith('/auth/')) return (await authRoutes(req, env, url)) || json({ error: { code: 'not_found' } }, 404);
+      const pm = url.pathname.match(/^\/u\/([A-Za-z0-9_-]{20,64})\/?$/);
+      if (pm) return await servePortal(req, env, pm[1]);
+      const lg = url.pathname.match(/^\/u-logo\/(\d+)$/);
+      if (lg) { const k = await rq.logoKey(env, Number(lg[1])); if (!k) return json({ error: { code: 'not_found' } }, 404); return withHeaders(await rq.serveFile(env, k)); }
       if (url.pathname === '/robots.txt') return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } });
 
       const isPage = url.pathname === '/' || url.pathname === '/index.html';
