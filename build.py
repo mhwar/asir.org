@@ -28,6 +28,10 @@ if DEPLOY:
 else:
     src = src.replace('{{internal}}', json.dumps(json.load(open(internal_path, encoding='utf8'))['internal'], ensure_ascii=False, separators=(',', ':')))
     src = src.replace('{{public}}', open(P('data', 'public.json'), encoding='utf8').read())
+# النمط الداكن للوحة التحكم يُولَّد من CSS الموقع نفسه (tools/darkgen.py)
+sys.path.insert(0, P('tools')); import darkgen
+_a = src.index('<style>') + 7; _b = src.index('</style>')
+src = src.replace('/*{{darkadmin}}*/', darkgen.gen(src[_a:_b]), 1)
 src = src.replace('{{suplogos}}', open(P('data', 'suplogos.json'), encoding='utf8').read())
 src = src.replace('{{geo}}', open(P('data', 'geo.json'), encoding='utf8').read())
 out = P('dist', 'site', 'index.html') if DEPLOY else P('dist', 'asir-council-site.html')

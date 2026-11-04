@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#090B26">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D1117">
 <script>/* apply the saved/system theme before first paint to avoid a flash */(function(){var p='system';try{p=localStorage.getItem('asirTheme')||'system'}catch(e){}var d=p==='dark'||(p==='system'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.dataset.pref=p})()</script>
 <title>مجلس الجمعيات الأهلية بمنطقة عسير — نموذج الموقع</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -889,7 +889,7 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .jlogin{min-height:100vh;display:grid;place-items:center;background:radial-gradient(60% 50% at 50% 0%,rgba(127,255,255,.18),transparent),#F7F8FA;padding:20px}
 .j{--rail:64px;--side:236px;min-height:100vh;display:flex;flex-direction:column;background:#F7F8FA;font-size:14px}
 .jtop{position:sticky;top:0;z-index:20;height:62px;display:flex;align-items:center;gap:10px;padding:0 18px;background:rgba(247,248,250,.94);backdrop-filter:blur(10px)}
-.jlogo{height:36px}
+.jlogo{height:36px}.jlogo.w{display:none}
 .jorg{font-size:14px;color:#3D4462;padding-inline-start:12px;border-inline-start:1px solid #DDE1EA;font-weight:500}
 .jtop .sp{flex:1}
 .jic{position:relative;width:38px;height:38px;border-radius:12px;display:grid;place-items:center;color:#3D4462;transition:.15s}
@@ -1724,13 +1724,13 @@ html[data-theme=dark] .hero2{background:var(--deep);color:#fff}
 html[data-theme=dark] .hero2 .motif::before{opacity:.07;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 200'><g fill='none' stroke='white' stroke-width='20' stroke-linecap='round'><path d='M30 56l48 44-48 44'/><path d='M62 10v32'/><path d='M96 70l40-22'/><path d='M104 100h44'/><path d='M96 130l40 22'/></g></svg>")}
 html[data-theme=dark] .hero2 .chip{background:rgba(66,172,253,.12);color:#9FD6FF}
 html[data-theme=dark] .hero2 h1{color:#fff}html[data-theme=dark] .hero2 h1 b{color:var(--sky)}
-html[data-theme=dark] .hero2 p.lead{color:#C6D2F2}
-html[data-theme=dark] .hstat b{color:#fff}html[data-theme=dark] .hstat small{color:#A9B6DB}html[data-theme=dark] .hstat i{background:rgba(255,255,255,.15)}
-html[data-theme=dark] .hero2 .hmmap path.g{stroke:rgba(9,9,81,.9)}
-html[data-theme=dark] .hero2 .hmmap .lead{stroke:#A9B6DB}html[data-theme=dark] .hero2 .hmmap .ldot{fill:#fff}
-html[data-theme=dark] .hmlab a{color:#fff}html[data-theme=dark] .hmlab a em{background:var(--sky);color:#090951}
+html[data-theme=dark] .hero2 p.lead{color:#C9D1D9}
+html[data-theme=dark] .hstat b{color:#fff}html[data-theme=dark] .hstat small{color:#9198A1}html[data-theme=dark] .hstat i{background:rgba(255,255,255,.15)}
+html[data-theme=dark] .hero2 .hmmap path.g{stroke:rgba(13,17,23,.9)}
+html[data-theme=dark] .hero2 .hmmap .lead{stroke:#9198A1}html[data-theme=dark] .hero2 .hmmap .ldot{fill:#fff}
+html[data-theme=dark] .hmlab a{color:#fff}html[data-theme=dark] .hmlab a em{background:var(--sky);color:#0D1117}
 html[data-theme=dark] .hero2 .btn.o{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.18);color:#fff}
-html[data-theme=dark] .hero2 .hmleg,html[data-theme=dark] .hero2 .hmhint{color:#A9B6DB}
+html[data-theme=dark] .hero2 .hmleg,html[data-theme=dark] .hero2 .hmhint{color:#9198A1}
 @media (max-width:1100px){.hgrid{padding-top:104px;grid-template-columns:1fr}.hero2 .in{max-width:none}}
 @media (max-width:640px){.hstat b{font-size:28px}.hero2 .hmmap{margin-top:6px}}
 
@@ -1763,23 +1763,11 @@ h1,h2{text-wrap:balance}
 }
 
 /* ===== site theme: dark (v0.16) ===== */
-.thm{position:relative}
-.thbtn{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;color:#fff;border:1px solid rgba(255,255,255,.3)}
-.thbtn svg{width:19px;height:19px}
-header.top.solid .thbtn{color:var(--hd);border-color:var(--line)}
-.thbtn .ic-dark,.thbtn .ic-auto{display:none}html[data-pref=system] .thbtn .ic-auto{display:block!important}html[data-pref=system] .thbtn .ic-light,html[data-pref=system] .thbtn .ic-dark{display:none!important}.thm .thmenu{display:none!important}
-html[data-theme=dark] .thbtn .ic-dark{display:block}html[data-theme=dark] .thbtn .ic-light{display:none}
-.thmenu{display:none;position:absolute;top:48px;left:0;min-width:180px;padding:6px;border-radius:14px;background:var(--sf);border:1px solid var(--line);box-shadow:0 20px 44px -16px rgba(0,0,0,.35);z-index:60}
-.thm.open .thmenu{display:block}
-.thmenu button{display:flex;align-items:center;gap:10px;width:100%;padding:10px 12px;border-radius:10px;font-size:14px;color:var(--text);text-align:start}
-.thmenu button svg{width:18px;height:18px}
-.thmenu button:hover{background:var(--mist)}
-.thmenu button[aria-checked=true]{background:var(--ice);color:var(--blue);font-weight:700}
 @media (max-width:1100px){.thm{margin-inline-start:auto}.burger{margin-inline-start:8px}}
-html[data-theme=dark]{--tile:rgba(255,255,255,.08);--tilefg:#C6D2F2;color-scheme:dark;--hd:#EEF2FF;--sf:#12143A;--bg:#0A0C2A;--sf2:#171A45;--text:#DCE3F7;--mute:#A4AFCF;--line:rgba(255,255,255,.10);--mist:#0F1236;--ice:rgba(66,172,253,.14);--shadow:0 12px 32px -16px rgba(0,0,0,.7)}
-html[data-theme=dark] header.top.solid{background:rgba(10,12,42,.86);box-shadow:0 1px 0 rgba(255,255,255,.08)}
+html[data-theme=dark]{--tile:rgba(240,246,252,.06);--tilefg:#C9D1D9;color-scheme:dark;--hd:#F0F6FC;--sf:#161B22;--bg:#0D1117;--sf2:#1C232C;--text:#E6EDF3;--mute:#9198A1;--line:rgba(240,246,252,.10);--mist:#11161D;--ice:rgba(56,139,253,.14);--shadow:0 12px 32px -16px rgba(0,0,0,.75);--deep:#0A0E14;--navy:#262C36}
+html[data-theme=dark] header.top.solid{background:rgba(13,17,23,.86);box-shadow:0 1px 0 rgba(255,255,255,.08)}
 html[data-theme=dark] header.top.solid .logo .w{display:block}html[data-theme=dark] header.top.solid .logo .d{display:none}
-html[data-theme=dark] header.top.solid nav a{color:#B9C4E4}
+html[data-theme=dark] header.top.solid nav a{color:#B1BAC4}
 html[data-theme=dark] header.top.solid nav a:hover,html[data-theme=dark] header.top.solid nav a.on{color:#fff;background:rgba(255,255,255,.08)}
 html[data-theme=dark] header.top.solid .cta2{color:#fff;border-color:rgba(255,255,255,.22)}
 html[data-theme=dark] header.top.solid .burger{color:#fff}
@@ -1787,7 +1775,7 @@ html[data-theme=dark] .btn.n,html[data-theme=dark] .pill.on{background:var(--blu
 html[data-theme=dark] .p-ok{background:rgba(20,163,127,.16);color:#5FE3B5}
 html[data-theme=dark] .p-warn{background:rgba(245,165,36,.16);color:#FFC46B}
 html[data-theme=dark] .p-bad{background:rgba(240,68,56,.16);color:#FF8A80}
-html[data-theme=dark] .p-mute{background:rgba(255,255,255,.08);color:#C6D2F2}
+html[data-theme=dark] .p-mute{background:rgba(255,255,255,.08);color:#C9D1D9}
 html[data-theme=dark] .p-vio{background:rgba(122,90,248,.18);color:#BFAEFF}
 html[data-theme=dark] .demo{background:rgba(245,165,36,.12);border-color:rgba(245,165,36,.3);color:#FFC46B}
 html[data-theme=dark] .hero2 .hmsearch{background:var(--sf);border-color:rgba(255,255,255,.14)}
@@ -1797,7 +1785,7 @@ html[data-theme=dark] .srv2:hover{border-color:rgba(66,172,253,.45)}
 html[data-theme=dark] .ha small,html[data-theme=dark] .acard small{color:var(--mute)}
 html[data-theme=dark] .halg.hl,html[data-theme=dark] .lg.hl,html[data-theme=dark] .aplogo.hl{border-color:transparent}
 html[data-theme=dark] :is(.lg,.halg,.aplogo) img[src^="data:image/webp"]{background:#fff}
-html[data-theme=dark] .h-impact.dark{background:#0F1250}
+html[data-theme=dark] .h-impact.dark{background:#11161D}
 html[data-theme=dark] .hlogo-cta,html[data-theme=dark] .partners{background:var(--mist)}
 html[data-theme=dark] .cbox{box-shadow:0 0 0 1px rgba(255,255,255,.08)}
 html[data-theme=dark] ::selection{background:rgba(66,172,253,.35)}
@@ -1805,10 +1793,6 @@ html[data-theme=dark]{--blue:#3D7EFF}
 html[data-theme=dark] .ic{background:linear-gradient(140deg,rgba(66,172,253,.18),rgba(18,73,255,.14));color:#7FC4FF}
 html[data-theme=dark] .ct.on{box-shadow:0 0 0 3px rgba(66,172,253,.25)}
 /* dashboard stays in its light, data-dense theme for now */
-html[data-theme=dark] body.inadmin{--blue:#1249FF;color-scheme:light;--hd:#111182;--sf:#fff;--bg:#fff;--sf2:#F4F6FA;--text:#1B1A3F;--mute:#5D6488;--line:#E3ECF7;--mist:#F5F9FF;--ice:#EAF5FF;--shadow:0 10px 30px -12px rgba(17,17,130,.18);background:#fff}
-html[data-theme=dark] body.inadmin .p-ok{background:#E5F8EE;color:#14804A}html[data-theme=dark] body.inadmin .p-warn{background:#FFF4E0;color:#A35E00}html[data-theme=dark] body.inadmin .p-bad{background:#FDECEC;color:#B42318}html[data-theme=dark] body.inadmin .p-mute{background:#EEF1F6;color:var(--mute)}html[data-theme=dark] body.inadmin .p-vio{background:#F1EEFF;color:#5B3FC4}
-html[data-theme=dark] body.inadmin .demo{color:#9A6B00;background:#FFF6DD;border-color:#F5E2A8}
-html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 @media (prefers-reduced-motion:reduce){body{transition:none}}
 /* ---------- dashboard sidebar v2: one labeled sidebar, accordion groups ---------- */
 .j{--side:268px}
@@ -2325,6 +2309,80 @@ html[data-theme=dark] .rdparty{background:rgba(14,138,95,.12);border-color:rgba(
  body.printread .rd2{min-height:auto;padding:20px 0;background:#fff!important;color:#111}body.printread .rd2 .rdbg,body.printread .rd2 .rdsh{display:none}body.printread .rd2 h1,body.printread .rdmeta,body.printread .rd2 .rdlead,body.printread .rd2 .crumb a,body.printread .rd2 .crumb span{color:#111!important}
  body.printread .rdgrid{grid-template-columns:1fr}body.printread *{-webkit-print-color-adjust:exact;print-color-adjust:exact}}
 @media (max-width:600px){.qvi{margin:-18px -18px 0}.rgl{grid-template-columns:1fr 1fr}.owall{grid-template-columns:1fr 1fr}.orgl button{grid-template-columns:1fr}}
+
+/* v0.36 — مبدّل النمط أسفل الصفحة، زر اللوحة المختصر، الأدراج، والنمط الداكن الرمادي الفحمي */
+.thseg{display:inline-flex;gap:2px;padding:3px;border-radius:12px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)}
+.thseg button{display:inline-flex;align-items:center;gap:6px;padding:6px 12px;border-radius:9px;color:inherit;font-size:12.5px;transition:.2s}
+.thseg button svg{width:15px;height:15px}
+.thseg button:hover{color:#fff}
+.thseg button[aria-checked=true]{background:rgba(255,255,255,.14);color:#fff;font-weight:700}
+@media (max-width:560px){.fbot{justify-content:center;text-align:center}.thseg{order:-1}footer{padding-bottom:84px}}
+@media (min-width:561px){.fbot{padding-inline-end:76px}}
+.fab{left:20px;right:auto;padding:12px;border-radius:16px;gap:0}
+.fab>span:last-child{max-width:0;overflow:hidden;white-space:nowrap;transition:max-width .3s,margin .3s}
+.fab .dot{position:absolute;top:-3px;right:-3px;border:2px solid var(--bg)}
+.fab:hover>span:last-child,.fab:focus-visible>span:last-child{max-width:120px;margin-inline-start:10px}
+body.gapmark .fab{bottom:76px}
+.drawer:not(.on),.adrawer:not(.on){box-shadow:none;visibility:hidden;transition:transform .35s cubic-bezier(.2,.8,.2,1),visibility 0s .35s}
+html[data-theme=dark] :is(.supl b,.gcd .r1 strong,.csmenu button){color:var(--hd)}
+html[data-theme=dark] .tseg2 button.on{background:var(--sf2);color:var(--hd)}
+html[data-theme=dark] footer{background:#010409;border-top:1px solid var(--line)}
+html[data-theme=dark] .fab{background:var(--sf2);border:1px solid var(--line);box-shadow:0 14px 34px -12px rgba(0,0,0,.8)}
+
+/* v0.36 — قوائم الشريط العلوي المجمّعة */
+header.top nav{align-items:center}
+.ndd{position:relative}
+.ndt{display:inline-flex;align-items:center;gap:4px;white-space:nowrap;padding:8px 10px;border-radius:12px;font-size:14.5px;font-weight:500;color:#DCE6FF;transition:.2s}
+.ndt .ndc{width:15px;height:15px;transition:transform .2s;opacity:.7}
+.ndd.open .ndt .ndc{transform:rotate(180deg)}
+.ndt:hover,.ndd.on>.ndt,.ndd.open>.ndt{color:#fff;background:rgba(255,255,255,.1)}
+header.top.solid .ndt{color:var(--mute)}
+header.top.solid .ndt:hover,header.top.solid .ndd.on>.ndt,header.top.solid .ndd.open>.ndt{color:var(--hd);background:var(--ice)}
+.ndm{position:absolute;top:calc(100% + 8px);right:0;min-width:270px;padding:6px;border-radius:16px;background:var(--sf);border:1px solid var(--line);box-shadow:0 24px 48px -20px rgba(9,9,81,.35);display:flex;flex-direction:column;gap:2px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:opacity .18s,transform .18s,visibility 0s .18s;z-index:70}
+.ndd.open .ndm{opacity:1;visibility:visible;transform:none;transition:opacity .18s,transform .18s}
+@media (hover:hover) and (min-width:1101px){.ndd:hover .ndm{opacity:1;visibility:visible;transform:none;transition:opacity .18s,transform .18s}.ndd:hover .ndt .ndc{transform:rotate(180deg)}.ndm::before{content:"";position:absolute;inset:-10px 0 auto;height:10px}}
+header.top nav .ndm a{display:flex;flex-direction:column;gap:1px;padding:10px 12px;border-radius:11px;color:var(--hd)!important;background:none;white-space:normal}
+header.top nav .ndm a b{font-size:14px;font-weight:700}
+header.top nav .ndm a small{font-size:12px;color:var(--mute);font-weight:400}
+header.top nav .ndm a:hover,header.top nav .ndm a.on{background:var(--mist)}
+header.top nav .ndm a.on b{color:var(--blue)}
+html[data-theme=dark] .ndm{box-shadow:0 24px 48px -16px rgba(0,0,0,.8)}
+html[data-theme=dark] header.top.solid .ndt{color:#B1BAC4}
+html[data-theme=dark] header.top.solid .ndt:hover,html[data-theme=dark] header.top.solid .ndd.on>.ndt,html[data-theme=dark] header.top.solid .ndd.open>.ndt{color:#fff;background:rgba(255,255,255,.08)}
+@media (max-width:1100px){
+  header.top nav.open .ndd{display:flex;flex-direction:column}
+  header.top nav.open .ndt{justify-content:space-between;color:var(--hd);padding:10px 10px;width:100%}
+  header.top nav.open .ndm{position:static;min-width:0;opacity:1;visibility:visible;transform:none;box-shadow:none;border:0;padding:0 8px 6px;background:none;display:none}
+  header.top nav.open .ndd.open .ndm{display:flex}
+  header.top nav.open .ndm a{padding:8px 12px}
+  header.top nav.open{max-height:calc(100dvh - 96px);overflow:auto;align-items:stretch}
+  header.top nav.open>a{text-align:start;padding:10px}
+  header.top nav.open .ndd.open .ndm{border-inline-start:2px solid var(--line);margin-inline-start:10px}
+}
+
+/* v0.36 — قسم «ما أنجزه المجلس»: مربعات بدل القوائم الطويلة، والرقم الرئيسي في المنتصف */
+.imlist{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.imlist li,.imlist li:first-child{flex-direction:column;align-items:flex-start;gap:4px;padding:12px 14px;border:0;border-radius:14px;background:rgba(255,255,255,.05);transition:background .2s}
+.imlist li:hover{background:rgba(255,255,255,.09)}
+.imlist b{font-size:26px;min-width:0}
+.imlist span{font-size:12.5px;line-height:1.5}
+.imcard.imlead .imbig{flex:1;align-content:center;align-items:center;padding:8px 0}
+.imcard.imlead .imbig b{font-size:76px}
+.imrow{gap:8px}.imrow div{padding:12px 14px;border-radius:14px;background:rgba(255,255,255,.06)}
+@media (max-width:640px){.imcard.imlead .imbig b{font-size:56px}.imlist b{font-size:22px}}
+
+/* v0.36 — تحميل الصور والحالات الفارغة */
+@keyframes shim{from{background-position:150% 0}to{background-position:-50% 0}}
+.mc:not(.noimg) .mci:not(.ld){background:linear-gradient(100deg,var(--sf2) 35%,var(--mist) 50%,var(--sf2) 65%) 0 0/200% 100%;animation:shim 1.3s linear infinite}
+.mc:not(.noimg) .mci:not(.ld) img{opacity:0}.mc .mci img{transition:opacity .35s}
+.mc:not(.noimg) .mci:not(.ld) .mcic{display:none}
+@media (prefers-reduced-motion:reduce){.mc .mci{animation:none!important}}
+.empty{display:flex;flex-direction:column;align-items:center;gap:12px;padding:44px 20px;text-align:center;color:var(--mute);font-size:14px;line-height:1.7}
+.empty::before{content:"";width:56px;height:56px;border-radius:18px;background:var(--ice) url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2342ACFD' stroke-width='1.8' stroke-linecap='round'><circle cx='11' cy='11' r='7'/><path d='m20 20-3.5-3.5M8.5 11h5'/></svg>") center/26px no-repeat}
+
+/* v0.36 — توحيد انحناء البطاقات الكبيرة على --r (22px) */
+.ctform,.ncta,.ccard,.bhist,.atw,.ct{border-radius:var(--r)}
+/*{{darkadmin}}*/
 </style>
 </head>
 <body>
@@ -2338,17 +2396,13 @@ html[data-theme=dark] .rdparty{background:rgba(14,138,95,.12);border-color:rgba(
     </a>
     <nav id="nav">
       <a href="#/" data-r="home">الرئيسية</a>
-      <a href="#/about" data-r="about">عن المجلس</a>
-      <a href="#/news" data-r="news">الأخبار</a>
-      <a href="#/stories" data-r="stories">تجارب مميزة</a>
+      <div class="ndd" data-g="about"><button type="button" class="ndt" aria-expanded="false" aria-haspopup="true">المجلس<svg class="i ndc" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="ndm" role="menu"><a href="#/about" data-r="about"><b>عن المجلس</b><small>الرؤية والرسالة والأدوار</small></a><a href="#/governance" data-r="-"><b>الحوكمة</b><small>الأنظمة واللوائح واللجان</small></a><a href="#/board" data-r="-"><b>مجلس الإدارة</b><small>أعضاء المجلس ودوراته</small></a></div></div>
       <a href="#/directory" data-r="directory">دليل الجمعيات</a>
-      <a href="#/consult" data-r="consult">الاستشارات</a>
-      <a href="#/communities" data-r="communities">المجتمعات المهنية</a>
+      <div class="ndd" data-g="news stories read"><button type="button" class="ndt" aria-expanded="false" aria-haspopup="true">المركز الإعلامي<svg class="i ndc" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="ndm" role="menu"><a href="#/news" data-r="news"><b>الأخبار والفعاليات</b><small>آخر أخبار المجلس وملتقياته</small></a><a href="#/news/agree" data-r="-"><b>الاتفاقيات والشراكات</b><small>مذكرات التفاهم والجهات الشريكة</small></a><a href="#/stories" data-r="stories"><b>تجارب مميزة</b><small>قصص أثر من جمعيات المنطقة</small></a></div></div>
+      <div class="ndd" data-g="consult communities"><button type="button" class="ndt" aria-expanded="false" aria-haspopup="true">الخدمات<svg class="i ndc" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg></button><div class="ndm" role="menu"><a href="#/consult" data-r="consult"><b>الاستشارات</b><small>احجز جلسة مع مستشار متخصص</small></a><a href="#/communities" data-r="communities"><b>المجتمعات المهنية</b><small>شبكات المحاسبين والمدراء والمختصين</small></a><a href="#/found" data-r="-"><b>تأسيس جمعية</b><small>نساعدك في خطوات التأسيس</small></a></div></div>
       <a href="#/contact" data-r="contact">تواصل معنا</a>
       <div class="nacts"><a href="#/consult" class="btn p">احجز استشارة</a><a href="#/portal" class="btn o" onclick="event.preventDefault();$('#nav').classList.remove('open');onScroll();openPortal()">دخول الجمعيات</a></div>
     </nav>
-    <div class="thm" id="thm"><button class="thbtn" id="thBtn" aria-label="نمط العرض: حسب الجهاز" title="نمط العرض"><svg class="i ic-light" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="i ic-dark" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="i ic-auto" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/><path d="M12 7v6" opacity=".5"/><path d="M12 7a3 3 0 0 0 0 6" fill="currentColor" stroke="none"/></svg></button>
-      <div class="thmenu" role="menu" aria-label="نمط العرض"><button role="menuitemradio" data-p="light"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>فاتح</button><button role="menuitemradio" data-p="dark"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>داكن</button><button role="menuitemradio" data-p="system"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>حسب الجهاز</button></div></div>
     <button class="cta2" onclick="openPortal()"><svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>دخول الجمعيات</button>
     <a href="#/consult" class="cta">احجز استشارة</a>
     <button class="burger" id="burger" aria-label="القائمة"><svg class="i" style="width:28px;height:28px" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></button>
@@ -2637,7 +2691,7 @@ html[data-theme=dark] .rdparty{background:rgba(14,138,95,.12);border-color:rgba(
       <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات المهنية</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h5>روابط</h5><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><span>نموذج أولي للعرض — النسخة 0.17</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.36</span></div>
   </div>
 </footer>
 
@@ -3395,7 +3449,7 @@ function t1Fix(L){const T1DATES=[['ماكسيموس','2022 – 2024','2024-05-28
 function mcCard(x,o={}){const im=(x.imgs||[])[0],tc=TCOL[x.type]||'t-news',ty=x.type=='event'?(x.kind||'فعالية'):x.type=='agree'?(x.c||'اتفاقية'):CT_T[x.type]||'خبر';
  const orgs=itemOrgs(x).filter(Boolean);
  return `<a class="mc ${tc} ${o.big?'big':''} ${im?'':'noimg'}" href="#/read/${encodeURIComponent(x.id)}"${o.qv?` data-qv="${esc(x.id)}"`:''}>
- <div class="mci">${im?`<img src="${esc(im)}" alt="" loading="${o.big||o.eager?'eager':'lazy'}" decoding="async" onerror="this.parentNode.parentNode.classList.add('noimg');this.remove()">`:''}<span class="mcic">${I(P[x.ic]||P.star,'width:34px;height:34px;stroke-width:1.3')}</span><span class="mct">${esc(ty)}</span>${(x.imgs||[]).length>1?`<span class="mcn">${I('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 7"/>','width:13px;height:13px')}${x.imgs.length}</span>`:''}</div>
+ <div class="mci">${im?`<img src="${esc(im)}" alt="" loading="${o.big||o.eager?'eager':'lazy'}" decoding="async" onload="this.parentNode.classList.add('ld')" onerror="this.parentNode.parentNode.classList.add('noimg');this.remove()">`:''}<span class="mcic">${I(P[x.ic]||P.star,'width:34px;height:34px;stroke-width:1.3')}</span><span class="mct">${esc(ty)}</span>${(x.imgs||[]).length>1?`<span class="mcn">${I('<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="11" r="2"/><path d="m21 17-5-5-9 7"/>','width:13px;height:13px')}${x.imgs.length}</span>`:''}</div>
  <div class="mcb"><div class="mcm"><time>${I('<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M8 3v4M16 3v4M3 10h18"/>','width:13px;height:13px')}${esc(mcDate(x))}</time>${x.place?`<span>${I(P.pin,'width:13px;height:13px')}${esc(x.place)}</span>`:''}</div>
  <h3>${esc(x.t)}</h3>${o.nolead?'':`<p>${esc(x.lead||String(x.body||'').split('\n')[0].slice(0,190))}</p>`}
  <div class="mcf">${orgs.length?`<span class="ogs">${orgs.slice(0,3).map(n=>orgBadge(n,26)).join('')}<small>${esc(orgs[0].length>34?orgs[0].slice(0,34)+'…':orgs[0])}${orgs.length>1?` +${orgs.length-1}`:''}</small></span>`:'<span></span>'}<span class="go">${x.type=='event'?'تفاصيل الفعالية':x.type=='agree'?'تفاصيل الاتفاقية':'اقرأ الخبر'} ←</span></div></div></a>`}
@@ -3911,7 +3965,10 @@ let curPg='home';
 const onScroll=()=>{hdr.classList.add('solid')};
 addEventListener('scroll',onScroll,{passive:true});onScroll();
 $('#burger').onclick=()=>{$('#nav').classList.toggle('open');onScroll()};
-$('#nav').onclick=e=>{if(e.target.matches('a')){$('#nav').classList.remove('open');onScroll()}};
+$('#nav').onclick=e=>{if(e.target.closest('a')){$('#nav').classList.remove('open');onScroll()}};
+$$('#nav .ndt').forEach(t=>t.onclick=e=>{e.stopPropagation();const g=t.parentElement,o=!g.classList.contains('open');$$('#nav .ndd.open').forEach(x=>{x.classList.remove('open');x.querySelector('.ndt').setAttribute('aria-expanded','false')});g.classList.toggle('open',o);t.setAttribute('aria-expanded',o)});
+document.addEventListener('click',e=>{if(!e.target.closest('.ndd'))$$('#nav .ndd.open').forEach(x=>{x.classList.remove('open');x.querySelector('.ndt').setAttribute('aria-expanded','false')})});
+document.addEventListener('keydown',e=>{if(e.key=='Escape')$$('#nav .ndd.open').forEach(x=>x.classList.remove('open'))});
 /* ---------- router (hash pages) ---------- */
 const ROUTES={'':'home','home':'home','about':'about','governance':'about','board':'about','news':'news','stories':'stories','directory':'directory','consult':'consult','communities':'communities','contact':'home','platforms':'home','association':'assoc','admin':'admin','read':'read','found':'home'};
 const TITLES={home:'مجلس الجمعيات الأهلية بمنطقة عسير',about:'عن المجلس والحوكمة',news:'المركز الإعلامي',stories:'تجارب مميزة من جمعيات عسير',directory:'دليل الجمعيات وخريطتها',consult:'الاستشارات',communities:'المجتمعات المهنية',assoc:'صفحة جمعية',admin:'لوحة التحكم',read:'المركز الإعلامي'};
@@ -3924,6 +3981,7 @@ function route(path){
  curPg=pg;onScroll();typeof syncGaps=='function'&&syncGaps();
  $$('.page').forEach(x=>x.classList.toggle('on',x.dataset.page==pg));
  $$('#nav a').forEach(a=>a.classList.toggle('on',a.dataset.r==(r=='contact'?'contact':pg)));
+ $$('#nav .ndd').forEach(g=>{g.classList.toggle('on',r!='contact'&&g.dataset.g.split(' ').includes(pg));g.classList.remove('open');g.querySelector('.ndt').setAttribute('aria-expanded','false')});
  if(pg=='assoc')renderAssocPage(arg);
  if(pg=='directory')setTimeout(renderDirFields,30);
  if(pg=='stories'){renderStories();if(arg)setTimeout(()=>openStory(arg),60)}
@@ -3997,13 +4055,10 @@ function sitePref(){return document.documentElement.dataset.pref||'system'}
 function applyPref(p){const r=document.documentElement,d=p=='dark'||(p=='system'&&MQ&&MQ.matches);r.dataset.pref=p;r.dataset.theme=d?'dark':'light';try{localStorage.setItem('asirTheme',p)}catch(e){}
  $$('#thm [data-p]').forEach(b=>b.setAttribute('aria-checked',b.dataset.p==p));setTheme(d?'dark':'light')}
 MQ&&MQ.addEventListener&&MQ.addEventListener('change',()=>{if(sitePref()=='system')applyPref('system')});
-// ضغطة واحدة تنقل بين الأنماط: فاتح ← داكن ← حسب الجهاز ← فاتح
+// مبدّل النمط في أسفل الصفحة: فاتح / داكن / تلقائي
 const THL={light:'فاتح',dark:'داكن',system:'حسب الجهاز'};
-function thLabel(){const p=sitePref(),b=$('#thBtn');b.setAttribute('aria-label','نمط العرض: '+THL[p]+' — اضغط للتبديل');b.title='نمط العرض: '+THL[p]}
-$('#thBtn').onclick=e=>{e.stopPropagation();const o=['light','dark','system'],n=o[(o.indexOf(sitePref())+1)%3];applyPref(n);thLabel();
- toast(n=='system'?`نمط العرض: حسب الجهاز (${MQ&&MQ.matches?'داكن':'فاتح'} الآن)`:'نمط العرض: '+THL[n])};thLabel();
-$$('#thm [data-p]').forEach(b=>b.onclick=()=>{applyPref(b.dataset.p);$('#thm').classList.remove('open');$('#thBtn').setAttribute('aria-expanded','false')});
-document.addEventListener('click',e=>{if(!e.target.closest('#thm'))$('#thm').classList.remove('open')});
+$$('#thm [data-p]').forEach(b=>b.onclick=()=>{const n=b.dataset.p;applyPref(n);toast(n=='system'?`نمط العرض: حسب الجهاز (${MQ&&MQ.matches?'داكن':'فاتح'} الآن)`:'نمط العرض: '+THL[n])});
+$$('#thm [data-p]').forEach(b=>b.setAttribute('aria-checked',b.dataset.p==sitePref()));
 
 
 
@@ -5263,7 +5318,7 @@ function renderAdmin(){
   <div class="jfoot">${visG.filter(g=>g.tmp).map(grpHtml).join('')}<button class="jcol" onclick="ADM.sideOpen=!ADM.sideOpen;renderAdmin()" title="${ADM.sideOpen?'طي القائمة':'توسيع القائمة'}">${I(P.panel,'width:17px;height:17px')}<span>طي القائمة</span></button></div></aside>`;
  const saved=ADM.saved.includes(ADM.mod);
  el.innerHTML=`<div class="j ${ADM.sideOpen?'':'noside'}">
- <header class="jtop"><button class="jic jmenu" onclick="mnav()" aria-label="القائمة" aria-controls="jside">${I('<path d="M4 7h16M4 12h16M4 17h10"/>')}</button><img src="${$('header.top .logo .d').src}" alt="" class="jlogo"><span class="jorg">لوحة تحكم مجلس الجمعيات الأهلية بعسير</span><div class="jgs">${I(P.search,'width:16px;height:16px')}<input id="jsq" placeholder="ابحث عن جمعية أو مستشار أو صفحة" oninput="adminSearch(this.value.trim())" onfocus="this.value&&adminSearch(this.value.trim())"><kbd>/</kbd><div class="jres" id="jres"></div></div><span class="sp"></span>
+ <header class="jtop"><button class="jic jmenu" onclick="mnav()" aria-label="القائمة" aria-controls="jside">${I('<path d="M4 7h16M4 12h16M4 17h10"/>')}</button><img src="${$('header.top .logo .d').src}" alt="" class="jlogo d"><img src="${$('header.top .logo .w').src}" alt="" class="jlogo w"><span class="jorg">لوحة تحكم مجلس الجمعيات الأهلية بعسير</span><div class="jgs">${I(P.search,'width:16px;height:16px')}<input id="jsq" placeholder="ابحث عن جمعية أو مستشار أو صفحة" oninput="adminSearch(this.value.trim())" onfocus="this.value&&adminSearch(this.value.trim())"><kbd>/</kbd><div class="jres" id="jres"></div></div><span class="sp"></span>
   ${SESSION?'<span id="syncSt" class="syncst" data-st="ok" title="كل التعديلات محفوظة في قاعدة البيانات"><i></i><b>محفوظ</b></span>':''}
   <button class="jpriv ${ADM.reveal?'on':''}" id="privtg" title="إظهار أو إخفاء البيانات الشخصية">${I(ADM.reveal?P.eye:P.lock,'width:16px;height:16px')}<span>${ADM.reveal?'البيانات الشخصية ظاهرة':'البيانات الشخصية مخفية'}</span></button>
   <button class="jic" onclick="goMod('home')" title="الإجراءات المطلوبة" aria-label="الإشعارات">${I(P.bell,'width:20px;height:20px')}${pendingN()+newConsultN()+subsN()+capN()+joinN()+inboxN()?'<i class="jdot"></i>':''}</button>
