@@ -6,6 +6,7 @@
 import { json, errorResponse, fail, readJson, withHeaders } from './http.js';
 import { requireUser, requirePerm, can, authMode, previewLogin, previewLogoutCookie } from './auth.js';
 import * as db from './db.js';
+import { readState, writeState } from './state.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -25,6 +26,7 @@ async function servePage(req, env, user) {
   let html = await asset.text();
   const { raw, pub, synced } = await db.pagePayload(env);
   html = inject(html, 'PUB', safeJson(pub));
+  html = inject(html, 'STATE', safeJson(await readState(env, user)));
   if (user) {
     html = inject(html, 'RAW', safeJson(raw));
     html = inject(html, 'SESSION', safeJson({
@@ -143,6 +145,20 @@ async function api(req, env, url) {
       await db.audit(env, req, user.email, 'delete', 'associations', id);
       return json({ ok: true });
     }
+  }
+
+  if (path === '/api/state' && m === 'GET') return json({ data: await readState(env, user) });
+  const sm = path.match(/^\/api\/state\/([A-Za-z0-9]+)$/);
+  if (sm && m === 'PUT') {
+    const body = await readJson(req, 300 * 1024);
+    const r = await writeState(env, user, sm[1], body);
+    if (!r.unchanged) {
+      const cap = (v) => (v && v.length > 100_000 ? v.slice(0, 100_000) : v);
+      await env.DB.prepare(
+        `INSERT INTO audit_log (actor_email, action, entity, entity_id, before_json, after_json, ip, user_agent) VALUES (?1,'update','app_state',?2,?3,?4,?5,?6)`
+      ).bind(user.email, sm[1], cap(r.before), cap(body.value), req.headers.get('CF-Connecting-IP'), (req.headers.get('User-Agent') || '').slice(0, 200)).run();
+    }
+    return json({ version: r.version });
   }
 
   if (path === '/api/audit' && m === 'GET') {

@@ -904,6 +904,11 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .jmenu2{display:none;position:absolute;top:44px;left:0;width:240px;padding:12px;border-radius:14px;background:var(--sf);border:1px solid #E4E7EE;box-shadow:0 18px 40px -12px rgba(9,9,81,.25);color:var(--text);text-align:start;z-index:30}
 .jav:hover .jmenu2,.jav:focus-within .jmenu2{display:block}
 .jmenu2 b{display:block;color:var(--hd);font-size:14px}.jmenu2 small{color:var(--mute);font-size:12px}
+.syncst{display:inline-flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:600;color:#14804A;background:#E9F7F1;white-space:nowrap}
+.syncst i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.syncst[data-st=save]{color:#9A6700;background:#FFF6DB}.syncst[data-st=save] b::after{content:'…'}
+.syncst[data-st=off]{color:#B42318;background:#FDECEA}
+@media(max-width:900px){.syncst b{display:none}.syncst{padding:8px}}
 .jmenu2 .jsrc{display:flex;gap:5px;align-items:center;margin-top:8px;padding:6px 8px;border-radius:8px;background:#E9F7F1;color:#14804A;font-size:11.5px;line-height:1.5}
 .jmenu2 button{display:block;width:100%;text-align:start;margin-top:10px;padding:8px 10px;border-radius:10px;background:#F5F6F9;font-size:13px;font-weight:600;color:#B42318}
 .jbody{flex:1;display:grid;grid-template-columns:var(--rail) var(--side) minmax(0,1fr);gap:0;padding:0 0 16px 16px;min-height:0}
@@ -1888,6 +1893,30 @@ html[data-theme=dark] body.inadmin .btn.n{background:var(--navy)}
 <div class="modal" id="modal"></div>
 
 <script>
+/* ─── مزامنة بيانات الفريق مع قاعدة البيانات ───────────────────────────
+   على المنصة يحقن الخادم STATE (آخر نسخة لكل وحدة)، فتُكتب في التخزين المحلي قبل أن تقرأها الوحدات،
+   وكل حفظ يُرسل إلى /api/state مع رقم الإصدار. في النسخة المحلية (STATE=null) يبقى الحفظ في المتصفح فقط. */
+const STATE=/*@STATE*/null/*@END*/;
+const SHARED={asirGaps:1,asirSegNotes:1,asirDec:1,asirDecX:1,asirAPart:1,asirPartners:1,asirBoard2:1,asirImpact:1,asirLaunchOff:1};
+const SYNC={on:!!STATE,ver:{},pend:{},t:{},busy:{},err:0};
+if(STATE){try{for(const k in SHARED){const o=STATE[k];if(o){localStorage.setItem(k,o.value);SYNC.ver[k]=o.version}else{const loc=localStorage.getItem(k);if(loc!=null){SYNC.ver[k]=0;setTimeout(()=>syncPut(k,loc),1500)}}}}catch(e){}}
+function SET(k,raw){try{localStorage.setItem(k,raw)}catch(e){}syncPut(k,raw)}
+function syncPut(k,raw){if(!SYNC.on||!SHARED[k])return;SYNC.pend[k]=raw;clearTimeout(SYNC.t[k]);SYNC.t[k]=setTimeout(()=>syncFlush(k),700);syncBadge()}
+async function syncFlush(k){
+ if(SYNC.busy[k]){SYNC.t[k]=setTimeout(()=>syncFlush(k),400);return}
+ const raw=SYNC.pend[k];if(raw==null)return;SYNC.busy[k]=1;
+ try{const r=await fetch('/api/state/'+k,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({value:raw,version:SYNC.ver[k]||0})});
+  const j=await r.json().catch(()=>({}));
+  if(r.ok){SYNC.ver[k]=j.version;if(SYNC.pend[k]===raw)delete SYNC.pend[k];SYNC.err=0}
+  else if(r.status==409){delete SYNC.pend[k];typeof toast=='function'&&toast('عدّل عضو آخر هذا القسم قبل قليل. حدّث الصفحة لرؤية آخر نسخة ثم أعد التعديل.',1)}
+  else if(r.status==401){delete SYNC.pend[k];typeof toast=='function'&&toast('انتهت الجلسة. أعد الدخول ثم احفظ مرة أخرى.',1)}
+  else{SYNC.err++;typeof toast=='function'&&toast((j.error&&j.error.message)||'تعذّر الحفظ في قاعدة البيانات',1);delete SYNC.pend[k]}
+ }catch(e){SYNC.err++;SYNC.t[k]=setTimeout(()=>syncFlush(k),Math.min(30000,3000*SYNC.err))}
+ finally{SYNC.busy[k]=0;syncBadge()}}
+function syncBadge(){const n=Object.keys(SYNC.pend).length,e=document.getElementById('syncSt');if(!e)return;e.dataset.st=n?(SYNC.err?'off':'save'):'ok';const b=e.querySelector('b');if(b)b.textContent=n?(SYNC.err?'غير متصل':'جارٍ الحفظ'):'محفوظ';e.title=n?(SYNC.err?'غير متصل — سيُعاد الحفظ تلقائياً':'جارٍ الحفظ…'):'كل التعديلات محفوظة في قاعدة البيانات'}
+addEventListener('beforeunload',e=>{if(SYNC.on&&Object.keys(SYNC.pend).length){e.preventDefault();e.returnValue=''}});
+</script>
+<script>
 const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
 const I=(p,st='')=>`<svg class="i" viewBox="0 0 24 24" style="${st}">${p}</svg>`;
 const P={
@@ -1943,7 +1972,7 @@ const BPH={bp1:'{{bp1}}',bp2:'{{bp2}}',bp3:'{{bp3}}',bp4:'{{bp4}}',bp5:'{{bp5}}'
 const BROLE={chair:'رئيس مجلس الإدارة',vice:'نائب رئيس مجلس الإدارة',member:'عضو مجلس الإدارة'};
 let BOARD=[{n:'م. علي بن إبراهيم المشيخي',r:'chair',ph:'bp7',old:'chair'},{n:'أ. سعيد سعد الوادعي',r:'vice',ph:'bp1',old:'vice'},{n:'مشبب مسفر الأحمري',r:'member',ph:'bp2',old:'m1'},{n:'د. محمد سعيد الشهراني',r:'member',ph:'bp5',old:'m2'},{n:'هاجد سالم الحارثي',r:'member',ph:'bp3',old:'m3'},{n:'د. عبدالرحمن مسفر المعاوي',r:'member',ph:'bp4',old:'m4'},{n:'م. سعيد ظافر الأحمري',r:'member',ph:'bp6',old:'m5'}];
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirBoard2')||'null');if(Array.isArray(o)&&o.length)BOARD=o}catch(e){}})();
-function saveBoard(){try{localStorage.setItem('asirBoard2',JSON.stringify(BOARD))}catch(e){}}
+function saveBoard(){try{SET('asirBoard2',JSON.stringify(BOARD))}catch(e){}}
 const bEsc=v=>String(v??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'})[c]);
 const bRank=r=>({chair:0,vice:1,member:2})[r]??3;
 function bCard(m,big){const im=m.ph&&BPH[m.ph]?`<img src="${BPH[m.ph]}" alt="${bEsc(m.n)}" loading="lazy">`:`<img class="fb" src="${BIMG[m.old]||''}" alt="${bEsc(m.n)}" loading="lazy">`;
@@ -2564,7 +2593,7 @@ const GAPS=[
  {k:'news_dates',g:'الأخبار',t:'تواريخ وصور فعاليات الدورة الأولى',ty:'note',v:'',note:'تاريخ كل خبر يُعدَّل من جدول الأخبار في «الأخبار والإعلانات».',where:'المركز الإعلامي',url:'news'}];
 const GAPI=Object.fromEntries(GAPS.map(g=>[g.k,g]));
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirGaps')||'{}');Object.entries(o).forEach(([k,v])=>{if(GAPI[k])Object.assign(GAPI[k],v)})}catch(e){}})();
-function saveGaps(){try{localStorage.setItem('asirGaps',JSON.stringify(Object.fromEntries(GAPS.map(g=>[g.k,{v:g.v,note:g.note,done:!!g.done,at:g.at||''}]))))}catch(e){}}
+function saveGaps(){try{SET('asirGaps',JSON.stringify(Object.fromEntries(GAPS.map(g=>[g.k,{v:g.v,note:g.note,done:!!g.done,at:g.at||''}]))))}catch(e){}}
 const gapV=k=>(GAPI[k]&&GAPI[k].v||'').trim();
 const gapOpen=g=>!g.done&&(g.ty=='note'||!gapV(g.k));
 function syncGaps(){
@@ -2588,14 +2617,14 @@ let PARTNERS=[
  {id:7,n:'منصة تنافس',ty:'تعاون في فعالية',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:8,n:'برنامج أهالينا للاستثمار الاجتماعي',ty:'منحة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1}];
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirPartners')||'null');if(Array.isArray(o))PARTNERS=o}catch(e){}})();
-function savePartners(){try{localStorage.setItem('asirPartners',JSON.stringify(PARTNERS))}catch(e){}}
+function savePartners(){try{SET('asirPartners',JSON.stringify(PARTNERS))}catch(e){}}
 function renderPartnersStrip(){const el=$('#ptiles');if(!el)return;const L=PARTNERS.filter(x=>x.show);el.innerHTML=L.map(x=>`<em>${x.n.replace(/[<>&]/g,'')}</em>`).join('');el.closest('.partners').hidden=!L.length}
 renderPartnersStrip();
 /* ---------- impact across terms ---------- */
 const IMP_ITEMS=[['hours','ساعة استشارية للجمعيات','sum'],['resp','نسبة تجاوب الجمعيات','last','%'],['comm','لجنة فرعية في المحافظات','last'],['youth','شاباً وشابة في برامج التمكين','sum'],['dates','طناً من التمور وُزّعت عبر الجمعيات','sum'],['agree','اتفاقيات شراكة ومذكرات تفاهم','sum']];
 let IMPACT=[{k:'t1',t:'الدورة الأولى',sub:'1441 – 1445هـ',src:'تقرير المجلس للدورة الأولى',m:{hours:496,resp:96,comm:14,youth:30,dates:20,agree:4}}];
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirImpact')||'null');if(Array.isArray(o)&&o.length)IMPACT=o}catch(e){}})();
-function saveImpact(){try{localStorage.setItem('asirImpact',JSON.stringify(IMPACT))}catch(e){}}
+function saveImpact(){try{SET('asirImpact',JSON.stringify(IMPACT))}catch(e){}}
 let impSel='all';
 function impVal(k,agg,terms){const v=terms.map(t=>+t.m[k]||0);return agg=='sum'?v.reduce((a,b)=>a+b,0):(v.filter(Boolean).at(-1)||0)}
 function renderImpact(){const T=$('#impTerms'),G=$('#impGrid');if(!T||!G)return;const terms=IMPACT.filter(t=>Object.values(t.m||{}).some(Boolean));
@@ -2860,7 +2889,7 @@ function openRec(id){const o=DBI[id];
  ${ADM.reveal?'':'<div class="demoNote">البيانات الشخصية مخفية. فعّل «إظهار البيانات الشخصية» من أعلى الصفحة لعرضها.</div>'}</div>`;
  $('#adrawer').classList.add('on');$('#ov').classList.add('on')}
 /* ---------- analytics v0.27: downloadable panels + expandable profiles ---------- */
-const LS=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||'null');return v??d}catch(e){return d}},SS=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
+const LS=(k,d)=>{try{const v=JSON.parse(localStorage.getItem(k)||'null');return v??d}catch(e){return d}},SS=(k,v)=>{const raw=JSON.stringify(v);if(SHARED[k])SET(k,raw);else try{localStorage.setItem(k,raw)}catch(e){}};
 /* ---------- export engine: formatted .xlsx (store-only zip) + print-ready PDF ---------- */
 const XC=(()=>{const t=new Uint32Array(256);for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
 function crc32(u){let c=0xFFFFFFFF;for(let i=0;i<u.length;i++)c=XC[(c^u[i])&255]^(c>>>8);return (c^0xFFFFFFFF)>>>0}
@@ -3348,6 +3377,7 @@ function renderAdmin(){
  const saved=ADM.saved.includes(ADM.mod);
  el.innerHTML=`<div class="j ${ADM.sideOpen?'':'noside'}">
  <header class="jtop"><button class="jic jmenu" onclick="mnav()" aria-label="القائمة" aria-controls="jside">${I('<path d="M4 7h16M4 12h16M4 17h10"/>')}</button><img src="${$('header.top .logo .d').src}" alt="" class="jlogo"><span class="jorg">لوحة تحكم مجلس الجمعيات الأهلية بعسير</span><div class="jgs">${I(P.search,'width:16px;height:16px')}<input id="jsq" placeholder="ابحث عن جمعية أو مستشار أو صفحة" oninput="adminSearch(this.value.trim())" onfocus="this.value&&adminSearch(this.value.trim())"><kbd>/</kbd><div class="jres" id="jres"></div></div><span class="sp"></span>
+  ${SESSION?'<span id="syncSt" class="syncst" data-st="ok" title="كل التعديلات محفوظة في قاعدة البيانات"><i></i><b>محفوظ</b></span>':''}
   <button class="jpriv ${ADM.reveal?'on':''}" id="privtg" title="إظهار أو إخفاء البيانات الشخصية">${I(ADM.reveal?P.eye:P.lock,'width:16px;height:16px')}<span>${ADM.reveal?'البيانات الشخصية ظاهرة':'البيانات الشخصية مخفية'}</span></button>
   <button class="jic" onclick="goMod('home')" title="الإجراءات المطلوبة" aria-label="الإشعارات">${I(P.bell,'width:20px;height:20px')}${pendingN()+newConsultN()+subsN()+capN()+joinN()?'<i class="jdot"></i>':''}</button>
   <button class="jic" onclick="go('')" title="عرض الموقع العام" aria-label="الموقع العام">${I(P.globe,'width:20px;height:20px')}</button>
