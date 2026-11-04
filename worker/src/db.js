@@ -49,6 +49,7 @@ const DATE = /^\d{4}-\d{2}-\d{2}$/;
 // field -> validator (returns normalized value or throws)
 const EDITABLE = {
   name_ar: (v) => { v = String(v ?? '').trim(); if (v.length < 2 || v.length > 200) fail(422, 'invalid', 'اسم الجمعية غير صالح', { field: 'name_ar' }); return v; },
+  unified_no: (v) => { v = String(v ?? '').trim(); if (v && !/^\d{1,20}$/.test(v)) fail(422, 'invalid', 'الرقم الموحد أرقام فقط', { field: 'unified_no' }); return v || null; },
   license_no: (v) => { v = String(v ?? '').trim(); if (!/^\d{1,20}$/.test(v)) fail(422, 'invalid', 'رقم الترخيص أرقام فقط', { field: 'license_no' }); return v; },
   governorate_id: (v) => intRef(v, 'governorate_id'),
   supervisor_id: (v) => intRef(v, 'supervisor_id'),
@@ -139,21 +140,25 @@ export async function auditList(env, params) {
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 export async function pagePayload(env) {
-  const [adm, meta, prof] = await env.DB.batch([
+  const [adm, meta, prof, con] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
     env.DB.prepare("SELECT max(updated_at) AS synced FROM associations"),
     env.DB.prepare('SELECT association_id AS id, short_name, about, website, social, beneficiaries, programs, logo_key FROM association_profiles'),
+    env.DB.prepare('SELECT * FROM association_contacts'),
   ]);
+  const C = Object.fromEntries(con.results.map((c) => [c.association_id, c]));
   const P = Object.fromEntries(prof.results.map((p) => [p.id, p]));
   const rows = adm.results;
-  // RAW (internal) — 23 columns as in 0.28, then: 23 closed_on, 24 closure_reason, 25 logo url, 26 about
+  // RAW (internal) — 23 columns as in 0.28 (personal columns from association_contacts), then: 23 closed_on, 24 closure_reason, 25 logo url, 26 about
   // personal columns (3, 15-20, 22) stay empty until the contacts decision
-  const raw = rows.map((a) => [
-    a.id, a.name, a.license_no, '', a.governorate, a.field_group, a.field_category, a.field_subcategory, a.supervisor,
+  const raw = rows.map((a) => { const c = C[a.id] || {}; return [
+    a.id, a.name, a.license_no, a.unified_no || '', a.governorate, a.field_group, a.field_category, a.field_subcategory, a.supervisor,
     a.founded_on || '', a.license_issued_on || '', a.license_expires_on || '', a.days_to_expiry ?? '',
-    a.closed_on ? 'مغلقة' : a.registry_status, a.license_state || '', '', '', '', '', '', '', a.contact_consent ? 'نعم' : 'لا', '',
+    a.closed_on ? 'مغلقة' : a.registry_status, a.license_state || '',
+    c.email || '', c.mobile || '', c.delegate_name || '', c.delegate_email || '', c.president_name || '', c.president_email || '',
+    a.contact_consent ? 'نعم' : 'لا', '',
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
-  ]);
+  ]; });
   // public list — published and not closed
   const pub = rows.filter((a) => a.is_published && !a.closed_on).map((a) => {
     const p = P[a.id] || {};

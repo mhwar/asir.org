@@ -8,6 +8,7 @@ import { requireUser, requirePerm, can, authMode, previewLogin, previewLogoutCoo
 import * as db from './db.js';
 import { readState, writeState } from './state.js';
 import * as rq from './requests.js';
+import * as pf from './profile.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -159,6 +160,14 @@ async function api(req, env, url) {
       await db.audit(env, req, user.email, 'create', 'associations', id, null, data);
       return json({ data: await db.getAssociation(env, id) }, 201);
     }
+  }
+  const fm = path.match(/^\/api\/associations\/(\d+)\/(full|logo)$/);
+  if (fm) {
+    const id = idFrom(fm[1]);
+    if (fm[2] === 'full' && m === 'GET') { requirePerm(user, 'directory', 'write'); return json({ data: await pf.getFull(env, req, user, id) }); }
+    if (fm[2] === 'full' && m === 'PUT') { requirePerm(user, 'directory', 'write'); const r = await pf.saveFull(env, req, user, id, await readJson(req)); return json({ ...r, data: await pf.getFull(env, req, user, id, { logReveal: false }) }); }
+    if (fm[2] === 'logo' && m === 'POST') { requirePerm(user, 'directory', 'write'); const f = (await req.formData()).get('logo'); return json(await pf.setLogo(env, req, user, id, f && typeof f !== 'string' ? f : null)); }
+    if (fm[2] === 'logo' && m === 'DELETE') { requirePerm(user, 'directory', 'write'); return json(await pf.setLogo(env, req, user, id, null)); }
   }
   const am = path.match(/^\/api\/associations\/(\d+)$/);
   if (am) {

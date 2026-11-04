@@ -315,7 +315,7 @@ export async function reviewRequest(env, req, user, id, body) {
 }
 
 export async function serveFile(env, key, { download = false } = {}) {
-  if (!/^requests\/\d+\/[A-Za-z0-9_-]+\/[A-Za-z]+\.(png|svg|jpg|webp|pdf)$/.test(key)) fail(404, 'not_found', 'الملف غير موجود');
+  if (!/^(requests|assoc)\/\d+\/[A-Za-z0-9_-]+\/[A-Za-z]+\.(png|svg|jpg|webp|pdf)$/.test(key)) fail(404, 'not_found', 'الملف غير موجود');
   const o = await env.FILES.get(key);
   if (!o) fail(404, 'not_found', 'الملف غير موجود');
   return new Response(o.body, { headers: {
