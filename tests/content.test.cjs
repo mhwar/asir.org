@@ -46,8 +46,14 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   ok(after == 'done', 'status patched');
   await p.screenshot({ path: 'tests/out/inbox.png' });
   // 6) القائمة الجانبية: مجموعة قابلة للطي وتُحفظ
-  const g = await p.evaluate(() => { const b = document.querySelector('.jgrp[data-gk=consult] .jng'); b.click(); return [document.querySelector('.jgrp[data-gk=consult]').classList.contains('open'), JSON.parse(localStorage.getItem('asirNavOpen')).consult] });
+  const g = await p.evaluate(() => { const b = document.querySelector('.jgrp[data-gk=partner] .jng'); b.click(); return [document.querySelector('.jgrp[data-gk=partner]').classList.contains('open'), JSON.parse(localStorage.getItem('asirNavOpen')).partner] });
   ok(g[0] && g[1] === true, 'accordion toggles + persists');
+  // 6ب) تبويبات الصفحة الفرعية: «طلبات تحديث البيانات» مخفية من القائمة وتظهر تبويباً داخل «نظرة عامة»، والحملات والاستشارات مستقلة
+  const sub = await p.evaluate(() => { goMod('updates'); return { side: !!document.querySelector('.jside .jni[data-m=updates]'), on: document.querySelector('.jside .jni.on')?.dataset.m, tabs: [...document.querySelectorAll('.jsubt button')].map((b) => b.dataset.m), solo: !!document.querySelector('.jgrp.solo .jng[data-m=chub]') && !!document.querySelector('.jgrp.solo .jng[data-m=campaigns]') } });
+  ok(!sub.side && sub.on == 'overview' && sub.tabs.join() == 'overview,updates,quality' && sub.solo, 'sub-tabs + solo groups ' + JSON.stringify(sub));
+  // 6ج) الاستشارات «قريباً» ما دام لا يوجد مستشار مُفعّل
+  const soon = await v.evaluate(() => { go('consult'); return [document.body.classList.contains('conssoon'), !!document.querySelector('#booking .soonchip')] });
+  ok(soon[0] && soon[1], 'consult coming soon');
   // 7) حذف العنصر التجريبي (تنظيف)
   await p.evaluate((id) => { const i = CT.findIndex((x) => x.id == id); CT.splice(i, 1); ctSave() }, st.id); await p.waitForTimeout(1200);
   // رفض الإرسال من مصدر آخر + حد المعدل يعمل
