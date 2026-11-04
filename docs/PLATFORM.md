@@ -27,19 +27,24 @@
 
    بعدها كل دفع إلى `main` يُنشر تلقائياً على `asir-council.<حسابك>.workers.dev`.
 
-2. **تفعيل الدخول**
+2. **الدخول المؤقت (رمز المعاينة) — مفعّل الآن**
+   إلى أن يُضبط Cloudflare Access، تطلب المنصة رمز معاينة. الرمز لا يُحفظ في المستودع؛ يُخزَّن في قاعدة البيانات مُجزّأً (SHA-256 مع ملح)، والجلسة كعكة موقّعة (HMAC) صالحة 7 أيام، و8 محاولات خاطئة خلال 15 دقيقة تُوقف المحاولة من العنوان نفسه. كل دخول ومحاولة فاشلة تُسجَّل.
+   لتغيير الرمز: احسب `sha256(salt + ':' + الرمز)` وحدّث `preview_code_hash` في جدول `settings`. لإلغاء كل الجلسات: غيّر `session_key`.
+   عند ضبط `ACCESS_TEAM_DOMAIN` و`ACCESS_AUD` يتوقف رمز المعاينة تلقائياً ويصبح الدخول بالبريد.
+
+3. **تفعيل الدخول بالبريد (لاحقاً)**
    Worker `asir-council` → Settings → Domains & Routes → workers.dev → **Enable Cloudflare Access**.
    ثم في Zero Trust → Access → Applications → التطبيق الذي أُنشئ:
    - Policy: **Allow** · Include → **Emails** → بريد مدير النظام المعتمد
    - Login methods: **One-time PIN**
    - انسخ **Application Audience (AUD) Tag**، واسم الفريق من Zero Trust → Settings (مثل `xxxx.cloudflareaccess.com`).
 
-3. **ضبط المتغيرين** في `wrangler.toml` ثم الدفع:
+4. **ضبط المتغيرين** في `wrangler.toml` ثم الدفع:
    ```toml
    ACCESS_TEAM_DOMAIN = "xxxx.cloudflareaccess.com"
    ACCESS_AUD = "…"
    ```
-   قبل ضبطهما يرفض الـ Worker كل الطلبات (مغلق افتراضياً).
+   قبل ضبطهما يعمل رمز المعاينة؛ وإن لم يوجد رمز ولا Access يرفض الـ Worker كل الطلبات (مغلق افتراضياً).
 
 ## الأمان
 

@@ -3329,7 +3329,7 @@ function adminLeave(){document.body.classList.remove('inadmin','mnavopen');$('#a
 function sessAvatar(){
  if(!SESSION)return `<div class="jav" title="${ROLES[ADM.role][0]}">ف<div class="jmenu2"><b>فريق المجلس</b><small>${ROLES[ADM.role][0]}</small><button onclick="ADM.auth=false;renderAdmin()">تسجيل الخروج</button></div></div>`;
  const nm=SESSION.name||SESSION.email,syn=SESSION.synced?new Date(SESSION.synced).toLocaleString('ar-SA-u-nu-latn',{dateStyle:'medium',timeStyle:'short'}):'';
- return `<div class="jav" title="${esc(nm)}">${esc(nm.trim().charAt(0))}<div class="jmenu2"><b>${esc(nm)}</b><small>${esc(SESSION.roleName||ROLES[ADM.role][0])}</small><small dir="ltr" style="display:block">${esc(SESSION.email)}</small><small class="jsrc">${I(P.check,'width:13px;height:13px;flex:none')}متصل بقاعدة البيانات${syn?' · آخر تحديث '+syn:''}</small><button onclick="location.href='/cdn-cgi/access/logout'">تسجيل الخروج</button></div></div>`}
+ return `<div class="jav" title="${esc(nm)}">${esc(nm.trim().charAt(0))}<div class="jmenu2"><b>${esc(nm)}</b><small>${esc(SESSION.roleName||ROLES[ADM.role][0])}</small><small dir="ltr" style="display:block">${esc(SESSION.email)}</small><small class="jsrc">${I(P.check,'width:13px;height:13px;flex:none')}متصل بقاعدة البيانات${syn?' · آخر تحديث '+syn:''}</small><button onclick="location.href='/auth/logout'">تسجيل الخروج</button></div></div>`}
 function renderAdmin(){
  document.body.classList.remove('mnavopen');
  const el=$('#adminRoot');
