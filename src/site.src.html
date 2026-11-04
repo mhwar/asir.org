@@ -2916,9 +2916,16 @@ let PARTNERS=[
  {id:5,n:'جمعية أفق لتطوير العمل الخيري والتطوعي',ty:'مذكرة تفاهم',sec:'جمعية أهلية',st:'منتهية',term:'الدورة الأولى',show:1,lg:'ofuq',wh:1},
  {id:6,n:'مؤسسة سليمان الراجحي للتمويل التنموي',ty:'تعاون في فعالية',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
  {id:7,n:'منصة تنافس',ty:'تعاون في فعالية',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1,lg:'tanafos'},
- {id:8,n:'برنامج أهالينا للاستثمار الاجتماعي',ty:'منحة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1}];
+ {id:8,n:'برنامج أهالينا للاستثمار الاجتماعي',ty:'منحة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1},
+ {id:9,n:'مصرف الراجحي',ty:'دعم مبادرة',sec:'قطاع خاص',st:'منتهية',term:'الدورة الأولى',show:1,lg:'alrajhi-bank'},
+ {id:10,n:'مركز الدعم المجتمعي',ty:'دعم مبادرة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'csc'},
+ {id:11,n:'وزارة الموارد البشرية والتنمية الاجتماعية',ty:'تعاون في مبادرة',sec:'قطاع حكومي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'hrsd'},
+ {id:12,n:'الهيئة العامة للأوقاف',ty:'تعاون في مبادرة',sec:'قطاع حكومي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'awqaf'},
+ {id:13,n:'مجلس المؤسسات الأهلية',ty:'تعاون في مبادرة',sec:'قطاع غير ربحي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'cof'},
+ {id:14,n:'المركز الوطني لتنمية القطاع غير الربحي',ty:'زيارات ولقاءات',sec:'قطاع حكومي',st:'منتهية',term:'الدورة الأولى',show:1,lg:'ncnp'},
+ {id:15,n:'هيئة تطوير منطقة عسير',ty:'شريك تنموي في المنطقة',sec:'قطاع حكومي',st:'سارية',term:'الدورة الحالية',show:1,lg:'asda'}];
 const PDEF=JSON.parse(JSON.stringify(PARTNERS));
-function partMerge(L){L.forEach(x=>{const d=PDEF.find(y=>y.id==x.id);if(d&&!x.lg&&d.lg){x.lg=d.lg;if(d.wh)x.wh=1}});return L}
+function partMerge(L){PDEF.forEach(d=>{if(!L.some(x=>x.id==d.id))L.push(JSON.parse(JSON.stringify(d)))});L.forEach(x=>{const d=PDEF.find(y=>y.id==x.id);if(d&&!x.lg&&d.lg){x.lg=d.lg;if(d.wh)x.wh=1}});return L}
 (()=>{try{const o=JSON.parse(localStorage.getItem('asirPartners')||'null');if(Array.isArray(o))PARTNERS=partMerge(o)}catch(e){}})();
 function savePartners(){try{SET('asirPartners',JSON.stringify(PARTNERS))}catch(e){}}
 function pTile(x){const n=x.n.replace(/[<>&"]/g,'');return x.lg?`<span class="ptile ${x.wh?'wh':''}" title="${n}">${x.wh?`<i style="--m:url('/brand/${x.lg}')"></i>`:`<img src="/brand/${x.lg}" alt="${n}" loading="lazy" onerror="const t=this.parentNode;t.classList.add('tx');t.innerHTML='<b>'+t.title+'</b>'">`}</span>`:`<span class="ptile tx" title="${n}"><b>${n}</b></span>`}

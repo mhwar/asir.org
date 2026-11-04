@@ -35,5 +35,6 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
 if DEPLOY:  # صور الأخبار تُخدم ملفات ثابتة من /news/
     import shutil
-    shutil.copytree(P('src', 'news'), P('dist', 'site', 'news'), dirs_exist_ok=True)
+    for d in ('news', 'plogo', 'alogo'):  # ملفات ثابتة: صور الأخبار وشعارات مستخرجة من تقرير الدورة الأولى
+        shutil.copytree(P('src', d), P('dist', 'site', d), dirs_exist_ok=True)
 print(f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')
