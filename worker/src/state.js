@@ -16,10 +16,13 @@ export const STATE_KEYS = {
   asirAPart:     { module: 'partners' },
   asirPartners:  { module: 'partners', public: true },
   asirBoard2:    { module: 'board', public: true },
+  asirFieldPol:  { module: 'board', public: true },    // سياسة الحقول (الظهور/التعديل/الإلزام)
+  asirPolicies:  { module: 'board', public: true, pub: (v) => ({ ...v, list: (v.list || []).filter((p) => p.pub) }) }, // السياسات: العامة فقط
   asirTerms:     { module: 'board', public: true },    // دورات مجلس الإدارة
   asirDocs:      { module: 'board', public: true, pub: (v) => ({ ...v, list: (v.list || []).filter((d) => d.vis === 'public') }) }, // الوثائق: العامة فقط بلا دخول
   asirImpact:    { module: 'board', public: true },
   asirLaunchOff: { module: 'launch' },
+  asirRoadmap:   { module: 'launch' },                 // خطة البناء واختبارات القبول والمقترحات
   asirContent:   { module: 'content', public: true },
   asirCtypes:    { module: 'cset', public: true },     // مجالات الاستشارة (تظهر في صفحة الحجز)
   asirTrouble:   { module: 'trouble' },                // الجمعيات المتعثرة — للفريق فقط

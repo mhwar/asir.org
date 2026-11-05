@@ -190,6 +190,11 @@ export async function pagePayload(env) {
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
   ]; });
   // public list — published and not closed
+  // سياسة الحقول من اللوحة (asirFieldPol): ظهور بيانات التواصل في الموقع — pub دائماً، con بموافقة الجمعية، int أبداً
+  let FP = {};
+  try { const r = await env.DB.prepare("SELECT value FROM app_state WHERE key = 'asirFieldPol'").first(); if (r) FP = (JSON.parse(r.value).f) || {}; } catch { FP = {}; }
+  const vis = (k, d) => (FP[k] && FP[k].v) || d;
+  const show = (k, d, a) => { const v = vis(k, d); return v === 'pub' || (v === 'con' && a.contact_consent); };
   const pub = rows.filter((a) => a.is_published && !a.closed_on).map((a) => {
     const p = P[a.id] || {};
     const o = { id: a.id, n: a.name, lic: a.license_no, y: a.founded_on ? Number(a.founded_on.slice(0, 4)) : null,
@@ -202,8 +207,8 @@ export async function pagePayload(env) {
     if (p.programs) o.pr = p.programs;
     if (p.beneficiaries) o.bn = JSON.parse(p.beneficiaries);
     const c = C[a.id] || {};
-    if (a.contact_consent && c.email) o.em = c.email;      // published only with the association's consent
-    if (a.contact_consent && c.mobile) o.mo = c.mobile;
+    if (show('email', 'con', a) && c.email) o.em = c.email;
+    if (show('mobile', 'con', a) && c.mobile) o.mo = c.mobile;
     return o;
   });
   return { raw, pub, synced: meta.results[0]?.synced || null };
