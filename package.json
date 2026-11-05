@@ -11,6 +11,7 @@
     "test:platform": "node tests/platform.test.cjs"
   },
   "devDependencies": {
+    "axe-core": "^4.14.0",
     "wrangler": "^4"
   }
 }
