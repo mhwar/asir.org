@@ -1,0 +1,34 @@
+// المجتمعات والفعاليات (0.44): مجتمعات قطاعية تلقائية، أعضاء، ترشيح عبر حملة، فعالية ببرنامج جلسات، طلبات من الموقع
+const { chromium } = require('playwright');
+const BASE = process.env.BASE || 'http://127.0.0.1:8787';
+const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode = 1 } else console.log('ok  ' + m) };
+(async () => {
+  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); p.on('pageerror', (e) => errs.push(e.message));
+  await p.goto(BASE + '/#/admin/communities'); await p.waitForTimeout(1400);
+  const snap = await p.evaluate(() => JSON.stringify({ c: COMMS, m: CMEM, e: EVTS, k: CAMPS }));
+  const a = await p.evaluate(() => { COMMS = commSeed(); CMEM = { v: 1, list: [], nom: [] }; EVTS = { v: 1, list: [] }; CAMPS.list = []; AM.communities($('#acontent'));
+    const S = COMMS.list.filter((c) => c.kind == 'sector'), h = S.find((c) => c.rule.grp && c.rule.grp.includes('الصحة'));
+    return { n: COMMS.list.length, sec: S.length, health: cmOrgs(h).length, healthDb: DB.filter((o) => !o.closed && o.grp == 'الصحة').length, rows: $$('#acontent [data-cm]').length } });
+  ok(a.n >= 15 && a.sec >= 6 && a.rows == a.n, 'communities listed (sector + role)');
+  ok(a.health == a.healthDb && a.health > 0, 'sector membership auto from directory rule');
+  const m = await p.evaluate(() => { cmGo('r1'); cmMemNew('r1', { aid: DB[3].id }); const f = $('#mmF'); f.n.value = 'عضو تجريبي'; f.title.value = 'مدير تنفيذي'; f.requestSubmit();
+    const c = cmById('r1'); return { people: cmPeople(c).length, orgs: cmOrgs(c).length, cnt: c.cnt, of: commOfAssoc(DB[3].id).some((x) => x.id == 'r1') } });
+  ok(m.people == 1 && m.orgs == 1 && m.cnt == 1 && m.of, 'role member added + association linkage');
+  const n = await p.evaluate(() => { closeAll(); ADM.cmTab = 'nom'; AM.comm($('#acontent')); [...$$('.nfc')].slice(0, 4).forEach((x) => (x.checked = true)); $('#nfGo').click();
+    $('#nfCp').click(); $('#cpF').requestSubmit(); const cp = CAMPS.list[CAMPS.list.length - 1]; ADM.cpTab = 'ov'; campOpen(cp.id); $('#cpSend').click();
+    const x = CMEM.nom.find((z) => z.cid == 'r1'); x.st = 'joined'; return { nom: CMEM.nom.length, tp: cp.tp, aud: cp.aud.length, linked: CMEM.nom.every((z) => z.cpId == cp.id), res: campRes(cp).d } });
+  ok(n.nom == 4 && n.tp == 'comm' && n.aud == 4 && n.linked, 'nomination request sent via campaign with exact audience');
+  ok(n.res == 1, 'campaign result measured from nominations');
+  const e = await p.evaluate(() => { closeAll(); evNew({ cid: 's0', kind: 'program' }); const f = $('#evF'); f.t.value = 'برنامج تجريبي'; f.d.value = '2026-12-10'; f.ns.value = '5'; f.requestSubmit();
+    const ev = EVTS.list[EVTS.list.length - 1]; ADM.evTab = 'ov'; evOpen(ev.id); $('#adrawer [data-es="open"]').click(); $('#evInv').click(); $('#cpF').requestSubmit();
+    const cp = CAMPS.list[CAMPS.list.length - 1]; return { ss: ev.sessions.length, st: ev.st, pub: ev.pub, cp: (ev.cpIds || []).includes(cp.id), aud: campAud(cp).length, sec: cmOrgs(cmById('s0')).length } });
+  ok(e.ss == 5 && e.st == 'open' && e.pub == 1, 'training program with sessions, open + published');
+  ok(e.cp && e.aud == e.sec, 'event invite campaign targets community associations');
+  const pub = await p.evaluate(() => { closeAll(); location.hash = '#/communities'; return new Promise((r) => setTimeout(() => r({ cards: $$('#comms .card').length, ev: $$('#cevents .join').length, noMhwar: !/محور/.test($('[data-page=communities]').innerText) }), 800)) });
+  ok(pub.cards >= 15 && pub.ev >= 1 && pub.noMhwar, 'public page: communities + events, no external platform name');
+  const s = await p.evaluate(async () => { const r = await fetch('/api/public/contact', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ kind: 'join', name: 'اختبار', email: 'a@example.com', message: 'طلب انضمام', details: { cid: 'r1' } }) }); return r.status });
+  ok(s == 201 || s == 429, 'public join request accepted (' + s + ')');
+  await p.evaluate((x) => { const o = JSON.parse(x); COMMS = o.c; CMEM = o.m; EVTS = o.e; CAMPS = o.k; SS('asirComms', COMMS); SS('asirCommMem', CMEM); SS('asirEvents', EVTS); SS('asirCamps', CAMPS) }, snap);
+  ok(!errs.length, 'no page errors ' + errs.join('|'));
+  await b.close();
+})();

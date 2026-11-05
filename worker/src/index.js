@@ -159,6 +159,14 @@ async function api(req, env, url) {
     if (origin && origin !== url.origin) fail(403, 'bad_origin', 'مصدر الطلب غير مسموح');
   }
 
+  if (path === '/api/community-requests' && m === 'GET') { requirePerm(user, 'communities'); return json({ data: await msg.listCommunityRequests(env) }); }
+  const crm = path.match(/^\/api\/community-requests\/(\d+)$/);
+  if (crm && m === 'PATCH') {
+    requirePerm(user, 'communities', 'write');
+    const row = await env.DB.prepare("SELECT kind FROM contact_messages WHERE id = ?1").bind(Number(crm[1])).first();
+    if (!row || !['join', 'evreg'].includes(row.kind)) fail(404, 'not_found', 'الطلب غير موجود');
+    return json(await msg.updateMessage(env, req, user, idFrom(crm[1]), await readJson(req)));
+  }
   if (path === '/api/messages' && m === 'GET') { requirePerm(user, 'inbox'); return json({ data: await msg.listMessages(env) }); }
   const mm = path.match(/^\/api\/messages\/(\d+)$/);
   if (mm && m === 'PATCH') { requirePerm(user, 'inbox', 'write'); return json(await msg.updateMessage(env, req, user, idFrom(mm[1]), await readJson(req))); }

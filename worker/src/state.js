@@ -9,6 +9,9 @@ export const STATE_KEYS = {
   asirDec:       { module: 'decisions' },
   asirDecX:      { module: 'decisions' },
   asirProjects:  { module: 'projects' },               // المشاريع (مراحل، شركاء، ميزانية، مستفيدون)
+  asirComms:     { module: 'communities', public: true }, // تعريف المجتمعات وأرقامها — بلا أسماء
+  asirCommMem:   { module: 'communities' },            // أعضاء المجتمعات والترشيحات — للفريق فقط
+  asirEvents:    { module: 'mops', public: true },     // الفعاليات والبرامج — بلا بيانات المسجلين
   asirCamps:     { module: 'campaigns' },              // الحملات (أرقام الجمعيات فقط، بلا بيانات شخصية)
   asirAPart:     { module: 'partners' },
   asirPartners:  { module: 'partners', public: true },

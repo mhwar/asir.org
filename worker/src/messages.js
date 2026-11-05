@@ -2,7 +2,7 @@
 import { fail } from './http.js';
 import { audit } from './db.js';
 
-const KINDS = ['general', 'consult', 'founding', 'partner', 'suggest'];
+const KINDS = ['general', 'consult', 'founding', 'partner', 'suggest', 'join', 'evreg'];
 const STATUSES = ['new', 'progress', 'done', 'archived'];
 const clip = (v, n) => (v == null ? null : String(v).trim().slice(0, n) || null);
 
@@ -31,6 +31,13 @@ export async function submitMessage(env, req, body) {
     'INSERT INTO contact_messages (kind, name, org, email, phone, governorate, details, message, ip_hash) VALUES (?1,?2,?3,?4,?5,?6,?7,?8,?9) RETURNING id'
   ).bind(kind, name, clip(body.org, 160), email, phone, clip(body.governorate, 40), details, message, ih).first();
   return { ok: true, id: r.id };
+}
+
+export async function listCommunityRequests(env) {
+  const { results } = await env.DB.prepare(
+    "SELECT id, kind, name, org, email, phone, governorate, details, message, status, note, created_at, updated_at FROM contact_messages WHERE kind IN ('join','evreg') ORDER BY (status = 'new') DESC, id DESC LIMIT 1000"
+  ).all();
+  return results.map((m) => ({ ...m, details: m.details ? JSON.parse(m.details) : null }));
 }
 
 export async function listMessages(env) {
