@@ -1,0 +1,35 @@
+// الحوكمة والإعدادات (0.45): المستخدمون والأدوار والإعدادات وسجل التدقيق من قاعدة البيانات
+const { chromium } = require('playwright');
+const BASE = process.env.BASE || 'http://127.0.0.1:8787';
+const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode = 1 } else console.log('ok  ' + m) };
+(async () => {
+  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); p.on('pageerror', (e) => errs.push(e.message));
+  await p.goto(BASE + '/#/admin/users'); await p.waitForTimeout(1800);
+  const s = await p.evaluate(() => ({ perms: SESSION && SESSION.perms, st: SESSION && SESSION.settings, nav: NAV.map((g) => g.k), rows: $$('#acontent tbody tr').length }));
+  ok(s.perms && s.perms['*'] == 'write' && s.st && 'reveal_roles' in s.st, 'session carries perms + settings');
+  ok(s.nav.includes('gov') && s.nav.includes('sys') && s.rows >= 1, 'governance/settings groups + users table');
+  const u = await p.evaluate(async () => { const email = 'qa.' + Date.now() + '@example.com'; const c = await (await fetch('/api/users', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ name: 'اختبار', email, role: 'content' }) })).json();
+    const d = await (await fetch('/api/users/' + c.id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: false }) })).json();
+    const me = (await (await fetch('/api/users')).json()).data.find((x) => x.email.toLowerCase() == SESSION.email.toLowerCase());
+    const self = await fetch('/api/users/' + me.id, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: false }) });
+    return { id: c.id, d: d.ok, self: self.status } });
+  ok(u.id && u.d && u.self == 422, 'user create/deactivate; self-deactivation refused');
+  const r = await p.evaluate(async () => { const r0 = (await (await fetch('/api/roles')).json()).data.find((x) => x.key == 'content'); const perms = { ...r0.perms, trouble: 'read' };
+    await fetch('/api/roles/content', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ perms }) });
+    const r1 = (await (await fetch('/api/roles')).json()).data.find((x) => x.key == 'content'); delete perms.trouble; await fetch('/api/roles/content', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ perms }) });
+    const adm = await fetch('/api/roles/admin', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ active: false }) });
+    return { t: r1.perms.trouble, adm: adm.status, n: Object.keys(r1.perms).length } });
+  ok(r.t == 'read' && r.n > 5 && r.adm == 422, 'role perms editable; admin role protected');
+  const st = await p.evaluate(async () => { const bad = await fetch('/api/settings', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ values: { site_mode: 'weird' } }) });
+    await fetch('/api/settings', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ values: { export_roles: 'content' } }) });
+    const g = (await (await fetch('/api/settings')).json()).data; const leak = Object.keys(g).some((k) => /hash|salt|session_key/.test(k));
+    await fetch('/api/settings', { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ values: { export_roles: 'admin,analyst' } }) });
+    return { bad: bad.status, ex: g.export_roles.value, leak } });
+  ok(st.bad == 422 && st.ex == 'admin,content' && !st.leak, 'settings validated, admin always included, secrets not exposed');
+  const a = await p.evaluate(async () => (await (await fetch('/api/audit?entity=settings&limit=5')).json()).data.length);
+  ok(a >= 1, 'audit log records settings changes');
+  await p.evaluate(() => goMod('policy')); await p.waitForTimeout(400);
+  ok(await p.evaluate(() => $$('#acontent table tbody tr').length >= 20), 'policy page lists fields');
+  ok(!errs.length, 'no page errors ' + errs.join('|'));
+  await b.close();
+})();

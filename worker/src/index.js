@@ -12,6 +12,7 @@ import * as pf from './profile.js';
 import { brandApi, serveBrand } from './brand.js';
 import * as msg from './messages.js';
 import * as al from './alerts.js';
+import * as adm from './admin.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -37,6 +38,7 @@ async function servePage(req, env, user) {
     html = inject(html, 'SESSION', safeJson({
       email: user.email, name: user.name, role: user.role, roleName: user.roleName,
       source: 'd1', synced, env: env.ENVIRONMENT || 'production', authMode: user.authMode,
+      perms: Object.fromEntries(user.perms), settings: await adm.getSettings(env).then((x) => Object.fromEntries(Object.entries(x).filter(([k]) => !k.startsWith('_')).map(([k, v]) => [k, v.value]))).catch(() => ({})),
     }));
   } else {
     html = inject(html, 'RAW', '[]');
@@ -257,6 +259,17 @@ async function api(req, env, url) {
   if (rm && m === 'POST' && rm[2]) { requirePerm(user, 'updates', 'write'); return json(await rq.reviewRequest(env, req, user, idFrom(rm[1]), await readJson(req))); }
   if (path.startsWith('/api/files/') && m === 'GET') { requirePerm(user, 'updates'); return withHeaders(await rq.serveFile(env, decodeURIComponent(path.slice(11)))); }
 
+  // ─── الإعدادات والمستخدمون والأدوار (صلاحية roles) ───
+  if (path === '/api/users' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await adm.listUsers(env) }); }
+  if (path === '/api/users' && m === 'POST') { requirePerm(user, 'roles', 'write'); return json(await adm.createUser(env, req, user, await readJson(req)), 201); }
+  const usm = path.match(/^\/api\/users\/(\d+)$/);
+  if (usm && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.updateUser(env, req, user, idFrom(usm[1]), await readJson(req))); }
+  if (path === '/api/roles' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await adm.listRoles(env), modules: adm.MODULES }); }
+  if (path === '/api/roles' && m === 'POST') { requirePerm(user, 'roles', 'write'); return json(await adm.createRole(env, req, user, await readJson(req)), 201); }
+  const rlm = path.match(/^\/api\/roles\/([a-z0-9_]+)$/);
+  if (rlm && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.updateRole(env, req, user, rlm[1], await readJson(req))); }
+  if (path === '/api/settings' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await adm.getSettings(env) }); }
+  if (path === '/api/settings' && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.setSettings(env, req, user, await readJson(req))); }
   if (path === '/api/audit' && m === 'GET') {
     requirePerm(user, 'roles');
     return json({ data: await db.auditList(env, url.searchParams) });
