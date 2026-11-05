@@ -10,13 +10,10 @@
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D1117">
 <script>/* apply the saved/system theme before first paint to avoid a flash */(function(){var p='system';try{p=localStorage.getItem('asirTheme')||'system'}catch(e){}var d=p==='dark'||(p==='system'&&window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches);var r=document.documentElement;r.dataset.theme=d?'dark':'light';r.dataset.pref=p})()</script>
-<title>مجلس الجمعيات الأهلية بمنطقة عسير — نموذج الموقع</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>مجلس الجمعيات الأهلية بمنطقة عسير</title>
+<!--{{fontpreload}}--><!--@SEO-->
 <style>
-/* خط الهوية: Avenir Arabic (Medium/Heavy) حسب دليل الهوية. ضع ملفات الخط المرخّصة في /fonts عند النشر ليُستخدم تلقائياً */
-@font-face{font-family:"Avenir Arabic";font-weight:500;src:local("Avenir Arabic Medium"),local("AvenirArabic-Medium"),url("fonts/AvenirArabic-Medium.woff2") format("woff2");font-display:swap}
-@font-face{font-family:"Avenir Arabic";font-weight:700;src:local("Avenir Arabic Heavy"),local("AvenirArabic-Heavy"),url("fonts/AvenirArabic-Heavy.woff2") format("woff2");font-display:swap}
+/*{{fonts}}*/
 :root{--tile:#E9EFFA;--tilefg:#1E2A5A;
   color-scheme:light;--hd:#111182;--sf:#fff;--bg:#fff;--sf2:#F4F6FA;
   --navy:#111182; --ink:#0B0B5E; --deep:#090951; --royal:#1818A0; --cyan:#7FFFFF;
@@ -365,7 +362,7 @@ h2{font-size:clamp(26px,3.4vw,40px);line-height:1.3;color:var(--hd);margin-top:8
 .cline small{display:block;color:#A9B6DB;font-size:12.5px}
 footer{background:var(--deep);color:#A9B6DB;padding:56px 0 26px;font-size:14px}
 .fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px}
-footer h5{color:#fff;font-size:15px;margin-bottom:12px}
+footer h5,footer .fh5{color:#fff;font-size:15px;margin:0 0 12px;font-weight:700;line-height:1.5}
 footer ul{list-style:none;display:flex;flex-direction:column;gap:8px}
 footer a:hover{color:#fff}
 .fbot{border-top:1px solid rgba(255,255,255,.08);margin-top:40px;padding-top:20px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;font-size:13px}
@@ -575,7 +572,7 @@ header.top.solid .cta2{border-color:var(--line);color:var(--hd)}
 .apcard p{color:var(--mute)}
 .apside{display:flex;flex-direction:column;gap:16px}
 .apside .card{padding:20px}
-.apside h4{color:var(--hd);margin-bottom:10px;font-size:15px}
+.apside h4,.apside .aph4{color:var(--hd);margin-bottom:10px;font-size:15px}
 .sim a{display:flex;gap:10px;align-items:center;padding:10px;border-radius:12px;font-size:14px;color:var(--text)}
 .sim a:hover{background:var(--mist)}
 .sim i{width:8px;height:8px;border-radius:50%;flex:none}
@@ -1031,7 +1028,7 @@ table.at select{padding:5px 8px;border-radius:9px;border:1px solid var(--line);f
 .apfacts .sup span{display:flex;align-items:center;gap:8px}.apfacts .sup b{font-size:14px;line-height:1.4}
 .apgrid2{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:22px;margin-top:22px;align-items:start}
 .apgrid2 main{display:flex;flex-direction:column;gap:16px;min-width:0}
-.apsec{padding:24px}.apsec h3{color:var(--hd);font-size:18px;margin:0 0 12px}.apsec h4{color:var(--hd);font-size:14.5px;margin:18px 0 10px}
+.apsec{padding:24px}.apsec h3,.apsec .aph{color:var(--hd);font-size:18px;margin:0 0 12px}.apsec h4,.apsec .aph4{color:var(--hd);font-size:14.5px;margin:18px 0 10px}
 .approg2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.approg2>div{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;background:var(--mist);font-size:14px;line-height:1.7}
 .approg2 i{flex:none;width:26px;height:26px;border-radius:8px;background:var(--navy);color:#fff;display:grid;place-items:center;font-style:normal;font-size:12px;font-weight:700}
 .apcls{display:flex;flex-wrap:wrap;align-items:center;gap:6px;color:var(--mute)}.apcls span{padding:6px 12px;border-radius:999px;background:var(--mist);color:var(--hd);font-size:13.5px}
@@ -3089,8 +3086,8 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       <p>ابحث بالاسم أو رقم الترخيص، وصفِّ النتائج بالمحافظة والمجال والجهة الإشرافية. <span class="tag" style="background:rgba(66,172,253,.15);color:#9FD6FF">تُعرض البيانات العامة فقط</span></p>
     </div>
     <div class="dsrch reveal"><svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q2" type="search" placeholder="ابحث باسم الجمعية أو رقم الترخيص أو التصنيف…" autocomplete="off">
-      <button type="button" class="dsb" id="dMapBtn" aria-pressed="false" aria-controls="dMap"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>الخريطة</span></button>
-      <button type="button" class="dsb pri" id="dfOpen" aria-expanded="false" aria-controls="dfac"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span>الفلاتر</span><em id="dfN"></em></button></div>
+      <button type="button" class="dsb" id="dMapBtn" aria-label="الخريطة" aria-pressed="false" aria-controls="dMap"><svg class="i" viewBox="0 0 24 24"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2zM9 4v14M15 6v14"/></svg><span>الخريطة</span></button>
+      <button type="button" class="dsb pri" id="dfOpen" aria-label="الفلاتر" aria-expanded="false" aria-controls="dfac"><svg class="i" viewBox="0 0 24 24"><path d="M4 6h16M7 12h10M10 18h4"/></svg><span>الفلاتر</span><em id="dfN"></em></button></div>
     <div class="dchips" id="dChips"></div>
     <div class="dfac" id="dfac" hidden><div class="dfh"><b>تصفية الدليل</b><small>اختر أكثر من خيار في كل قسم</small><span class="dsp"></span><button type="button" class="dfx" id="dfClose" aria-label="إغلاق">✕</button></div><div class="dfgrid" id="dfBody"></div>
       <div class="dff"><button type="button" class="btn o" id="dfReset">مسح الكل</button><button type="button" class="btn p" id="dfApply">عرض النتائج</button></div></div>
@@ -3118,8 +3115,8 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       </div>
     </div>
     <div class="dtool" id="dtool"><div class="dcnt" id="altInfo"></div><span class="dsp"></span>
-      <label class="dsort"><span>ترتيب</span><select id="fSort2"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
-      <div class="dseg" id="vtabs" role="tablist" aria-label="طريقة العرض"></div></div>
+      <label class="dsort"><span>ترتيب</span><select id="fSort2" aria-label="ترتيب"><option value="n">الاسم</option><option value="y">الأحدث تأسيساً</option><option value="yo">الأقدم تأسيساً</option><option value="gov">المحافظة</option></select></label>
+      <div class="dseg" id="vtabs" role="group" aria-label="طريقة العرض"></div></div>
     <div class="altv" id="altView"><div id="altBody"></div></div>
     <div hidden id="dLegacy"><select id="fGov"></select><select id="fSupM"></select><select id="fGrp"></select><select id="fS1"></select><select id="fEra"></select><select id="fSort"></select><button id="freset"></button><div id="fchips"></div><input id="q"><div id="list"></div><span id="govLabel"></span><button id="clearGov"></button></div>
   </div>
@@ -3208,11 +3205,11 @@ html[data-theme=dark] .a11yt i{background:#30363D}
   <div class="wrap">
     <div class="fgrid">
       <div><img src="{{logo_white}}" alt="" style="height:52px;margin-bottom:14px"><p>المجلس الفرعي للجمعيات الأهلية بمنطقة عسير — مسجَّل لدى المركز الوطني لتنمية القطاع غير الربحي.</p></div>
-      <div><h5>المجلس</h5><ul><li><a href="#/about">عن المجلس</a></li><li><a href="#/accessibility">بيان إمكانية الوصول</a></li><li><a href="#/privacy">سياسة الخصوصية</a></li><li><a href="#/governance">الحوكمة</a></li><li><a href="#/news">الأخبار</a></li><li><a href="#/stories">تجارب مميزة</a></li></ul></div>
-      <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
-      <div><h5>روابط</h5><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
+      <div><h2 class="fh5">المجلس</h2><ul><li><a href="#/about">عن المجلس</a></li><li><a href="#/accessibility">بيان إمكانية الوصول</a></li><li><a href="#/privacy">سياسة الخصوصية</a></li><li><a href="#/governance">الحوكمة</a></li><li><a href="#/news">الأخبار</a></li><li><a href="#/stories">تجارب مميزة</a></li></ul></div>
+      <div><h2 class="fh5">الخدمات</h2><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
+      <div><h2 class="fh5">روابط</h2><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.57</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.58</span></div>
   </div>
 </footer>
 
@@ -3578,7 +3575,7 @@ var DV='table',altShown=60,tSort={k:'n',d:1};
 // schematic tile layout of the 19 governorates (row,col: north→south, west→east). Approximate, not to scale.
 const TILE={'الأمواه':[0,2],'بيشة':[0,3],'بلقرن':[1,0],'النماص':[1,1],'تنومة':[1,2],'تثليث':[1,4],'طريب':[1,5],'المجاردة':[2,0],'بارق':[2,1],'أبها':[2,2],'خميس مشيط':[2,3],'محايل عسير':[3,0],'رجال ألمع':[3,1],'أحد رفيدة':[3,3],'سراة عبيدة':[3,4],'الفرشة':[3,5],'البرك':[4,0],'ظهران الجنوب':[4,4],'الحرجة':[4,5]};
 const altRows=()=>{const q=norm(($('#q2')||{value:''}).value.trim());return assoc.filter(a=>rowOk(a)&&(!q||a.lic==q||norm(a.n).includes(q)||norm(a.gov).includes(q)||norm(a.s1+' '+a.s2).includes(q)))};
-function renderVtabs(){$('#vtabs').innerHTML=VIEWS.map(v=>`<button class="${DV==v[0]?'on':''}" data-v="${v[0]}" title="${v[1]}">${I(P[v[2]],'width:16px;height:16px')}<span>${v[1]}</span></button>`).join('')}
+function renderVtabs(){$('#vtabs').innerHTML=VIEWS.map(v=>`<button type="button" class="${DV==v[0]?'on':''}" aria-pressed="${DV==v[0]}" data-v="${v[0]}" title="${v[1]}">${I(P[v[2]],'width:16px;height:16px')}<span>${v[1]}</span></button>`).join('')}
 function setDV(v){if(v=='map'){setMap(true);v='table'}DV=v;altShown=60;renderVtabs();renderAlt()}
 function renderAlt(){if(!DV||DV=='map'||!$('#altView'))return;const L=altRows(),B=$('#altBody');
  $('#altInfo').innerHTML=`<b>${L.length}</b> ${L.length==assoc.length?'جمعية أهلية':'نتيجة من '+assoc.length+' جمعية'}`;
@@ -4741,7 +4738,7 @@ let curPage=null;
 let curPath=null;
 function go(path){path=String(path).replace(/^#?\/?/,'');try{history.pushState(null,'','#/'+path)}catch(e){}route(path)}
 function route(path){document.body.classList.add('routed');
- const h=path!==undefined?path:decodeURIComponent((location.hash||'').replace(/^#\/?/,''));curPath=h;const[r,arg]=h.split('/'),pg=ROUTES[r]??'home';
+ const h=path!==undefined?path:decodeURIComponent((location.hash||'').replace(/^#\/?/,'')||(location.pathname||'').replace(/^\/|\/$|index\.html$/g,''));curPath=h;const[r,arg]=h.split('/'),pg=ROUTES[r]??'home';
  if($('#portal').classList.contains('on'))closePortal();closeAll();
  curPg=pg;onScroll();typeof syncGaps=='function'&&syncGaps();
  $$('.page').forEach(x=>x.classList.toggle('on',x.dataset.page==pg));
@@ -4780,7 +4777,7 @@ function miniMap(svg,hi){
  svg.setAttribute('viewBox',`${-EXT} 0 ${GEO.w+2*EXT} ${GEO.h}`);
  let h=GEO.nb.map(n=>`<path d="${n.d}" fill="${(!hi&&svg.id=='miniMap')?'none':nbF}" stroke="${nbS}" stroke-dasharray="4 4"/>${n.lx<90||n.lx>930?'':`<text class="nbl" x="${n.lx}" y="${n.ly}" font-size="20">${n.ar}</text>`}`).join('');
  h+=`<path d="${GEO.outline}" fill="none" stroke="${dk?'#42ACFD':'#1249FF'}" stroke-width="10" opacity="${dk?.25:.1}" filter="url(#blur)"/>`;
- h+=GEO.govs.map(g=>{const f=hi?(g.ar==hi?'#42ACFD':(dk?'#1C2B6E':'#DCE5F2')):Q.color(counts[g.ar]);return `<path class="g" data-g="${g.ar}" ${hi?'':'tabindex="0" role="button"'} aria-label="${g.ar}: ${counts[g.ar]} جمعية" d="${g.d}" fill="${f}" stroke="${edge}" stroke-width="1.6"/>`}).join('');
+ h+=GEO.govs.map(g=>{const f=hi?(g.ar==hi?'#42ACFD':(dk?'#1C2B6E':'#DCE5F2')):Q.color(counts[g.ar]);return `<path class="g" data-g="${g.ar}" ${hi?'role="img"':'tabindex="0" role="button"'} aria-label="${g.ar}: ${counts[g.ar]} جمعية" d="${g.d}" fill="${f}" stroke="${edge}" stroke-width="1.6"/>`}).join('');
  h+=`<path class="hmhl" d="" fill="none" stroke="${dk?'#fff':'#090951'}" stroke-width="3" pointer-events="none"/>`;
  if(hi){const g=GEO.govs.find(x=>x.ar==hi);if(g)h+=`<text class="n ${dk?'':'dk'}" x="${g.lx}" y="${g.ly}" font-size="34">${g.ar}</text>`}
  else if(!call){const W=svg.clientWidth||560,rs=Math.min(Math.max(560/W,1),1.9),lim=W<480?5300:1500;h+=GEO.govs.map(g=>{const c=Q.color(counts[g.ar]),d=darkText(c)?'dk':'';const sm=g.km2<lim,f=24*rs;return sm?'':`<text class="n ${d}" x="${g.lx}" y="${g.ly}" font-size="${f}">${g.ar}</text><text class="c ${d}" x="${g.lx}" y="${g.ly+f*1.1}" font-size="${f*.85}">${counts[g.ar]}</text>`}).join('')}
@@ -4879,22 +4876,22 @@ function renderAssocPage(lic){
  <div class="wrap ap2">
   <div class="apfacts"><div><small>رقم الترخيص</small><b dir="ltr">${esc(a.lic)}</b></div><div><small>سنة التأسيس</small><b>${a.y||'—'}</b></div><div><small>المحافظة</small><b>${esc(a.gov)}</b></div><div class="sup"><small>الجهة المشرفة</small><span>${supLogo(a.sup,'sm')}<b>${esc(supShort(a.sup))}</b></span></div></div>
   <div class="apgrid2"><main>
-   <section class="card apsec"><h3>عن الجمعية</h3>${a.ab?`<p class="apabout">${esc(a.ab)}</p>`:`<div class="empty-about">لم تُضف الجمعية نبذة عنها بعد.</div>`}
-    ${a.bn&&a.bn.length?`<h4>الفئات المستفيدة</h4><div class="apchips2">${a.bn.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</section>
-   ${progs.length?`<section class="card apsec"><h3>البرامج والخدمات</h3><div class="approg2">${progs.map((x,i)=>`<div><i>${i+1}</i><span>${esc(x)}</span></div>`).join('')}</div></section>`:''}
-   <section class="card apsec"><h3>التصنيف</h3><div class="apcls"><span>${esc(a.grp)}</span>${I('<path d="m15 18-6-6 6-6"/>','width:14px;height:14px')}<span>${esc(a.s1)}</span>${a.s2&&a.s2!=a.s1?`${I('<path d="m15 18-6-6 6-6"/>','width:14px;height:14px')}<span>${esc(a.s2)}</span>`:''}</div>
-    ${a.web||a.soc?`<h4>روابط الجمعية</h4><div class="aplinks">${a.web?`<a href="${esc(a.web)}" target="_blank" rel="noopener nofollow">${I(P.globe,'width:16px;height:16px')}<bdi dir="ltr">${esc(a.web.replace(/^https?:\/\//,'').replace(/\/$/,''))}</bdi></a>`:''}${a.soc?`<span>${I(P.link,'width:16px;height:16px')}<bdi dir="ltr">${esc(a.soc)}</bdi></span>`:''}</div>`:''}</section>
+   <section class="card apsec"><h2 class="aph">عن الجمعية</h2>${a.ab?`<p class="apabout">${esc(a.ab)}</p>`:`<div class="empty-about">لم تُضف الجمعية نبذة عنها بعد.</div>`}
+    ${a.bn&&a.bn.length?`<h3 class="aph4">الفئات المستفيدة</h3><div class="apchips2">${a.bn.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}</section>
+   ${progs.length?`<section class="card apsec"><h2 class="aph">البرامج والخدمات</h2><div class="approg2">${progs.map((x,i)=>`<div><i>${i+1}</i><span>${esc(x)}</span></div>`).join('')}</div></section>`:''}
+   <section class="card apsec"><h2 class="aph">التصنيف</h2><div class="apcls"><span>${esc(a.grp)}</span>${I('<path d="m15 18-6-6 6-6"/>','width:14px;height:14px')}<span>${esc(a.s1)}</span>${a.s2&&a.s2!=a.s1?`${I('<path d="m15 18-6-6 6-6"/>','width:14px;height:14px')}<span>${esc(a.s2)}</span>`:''}</div>
+    ${a.web||a.soc?`<h3 class="aph4">روابط الجمعية</h3><div class="aplinks">${a.web?`<a href="${esc(a.web)}" target="_blank" rel="noopener nofollow">${I(P.globe,'width:16px;height:16px')}<bdi dir="ltr">${esc(a.web.replace(/^https?:\/\//,'').replace(/\/$/,''))}</bdi></a>`:''}${a.soc?`<span>${I(P.link,'width:16px;height:16px')}<bdi dir="ltr">${esc(a.soc)}</bdi></span>`:''}</div>`:''}</section>
   </main><aside class="apside">
-   <div class="card apcontact"><h4>التواصل مع الجمعية</h4>${contact}<div class="apsub"><a class="btn o" href="#/consult">${I(P.target,'width:16px;height:16px')}حجز استشارة</a><button class="btn o" id="shareBtn2">${I(P.link,'width:16px;height:16px')}نسخ الرابط</button></div></div>
+   <div class="card apcontact"><h3 class="aph4">التواصل مع الجمعية</h3>${contact}<div class="apsub"><a class="btn o" href="#/consult">${I(P.target,'width:16px;height:16px')}حجز استشارة</a><button class="btn o" id="shareBtn2">${I(P.link,'width:16px;height:16px')}نسخ الرابط</button></div></div>
    ${council}
-   <div class="card apmap"><h4>موقعها على الخريطة</h4><svg id="apMini" role="img" aria-label="محافظة ${esc(a.gov)} على خريطة عسير"></svg>${GN.includes(a.gov)?'':`<p style="color:var(--mute);font-size:12.5px;margin-top:8px">محافظة ${a.gov} ستُضاف لطبقة الحدود لاحقاً.</p>`}</div>
-   <div class="card sim"><h4>${sim.length?'جمعيات في نفس المجال والمحافظة':'جمعيات أخرى في المحافظة'}</h4>${sim2.map(x=>`<a href="#/association/${x.lic}">${LOGO[x.id]?`<img src="${LOGO[x.id]}" alt="">`:`<i style="background:${GC[x.grp]}"></i>`}${esc(x.n)}</a>`).join('')||'<p style="color:var(--mute);font-size:13px">لا توجد</p>'}<a href="#/directory" style="color:var(--blue);font-weight:600" onclick="setTimeout(()=>select('${a.gov}'),60)">كل جمعيات ${a.gov} ←</a></div>
+   <div class="card apmap"><h3 class="aph4">موقعها على الخريطة</h3><svg id="apMini" role="img" aria-label="محافظة ${esc(a.gov)} على خريطة عسير"></svg>${GN.includes(a.gov)?'':`<p style="color:var(--mute);font-size:12.5px;margin-top:8px">محافظة ${a.gov} ستُضاف لطبقة الحدود لاحقاً.</p>`}</div>
+   <div class="card sim"><h3 class="aph4">${sim.length?'جمعيات في نفس المجال والمحافظة':'جمعيات أخرى في المحافظة'}</h3>${sim2.map(x=>`<a href="#/association/${x.lic}">${LOGO[x.id]?`<img src="${LOGO[x.id]}" alt="">`:`<i style="background:${GC[x.grp]}"></i>`}${esc(x.n)}</a>`).join('')||'<p style="color:var(--mute);font-size:13px">لا توجد</p>'}<a href="#/directory" style="color:var(--blue);font-weight:600" onclick="setTimeout(()=>select('${a.gov}'),60)">كل جمعيات ${a.gov} ←</a></div>
   </aside></div></div>
  <div class="apbar"><button class="btn n" onclick="openAssoc(${a.id});contactAssoc(${a.id})">${I(P.chat,'width:18px;height:18px')}طلب تواصل</button><button class="btn o" id="shareBtn3">${I(P.link,'width:18px;height:18px')}مشاركة</button></div>`;
  miniMap($('#apMini'),a.gov);
- const share=()=>{const u=location.href;if(navigator.share)navigator.share({title:a.n,url:u}).catch(()=>{});else (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('تم نسخ رابط صفحة الجمعية')).catch(()=>toast('الرابط: '+u))};
+ const share=()=>{const u=location.origin+'/association/'+encodeURIComponent(a.lic);if(navigator.share)navigator.share({title:a.n,url:u}).catch(()=>{});else (navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('تم نسخ رابط صفحة الجمعية')).catch(()=>toast('الرابط: '+u))};
  ['#shareBtn','#shareBtn3'].forEach(k=>{const b=$(k);if(b)b.onclick=share});
- $('#shareBtn2').onclick=()=>{const u=location.href;(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('تم نسخ رابط صفحة الجمعية')).catch(()=>toast('الرابط: '+u))};
+ $('#shareBtn2').onclick=()=>{const u=location.origin+'/association/'+encodeURIComponent(a.lic);(navigator.clipboard?navigator.clipboard.writeText(u):Promise.reject()).then(()=>toast('تم نسخ رابط صفحة الجمعية')).catch(()=>toast('الرابط: '+u))};
 }
 function apCouncil(id,act){
  if(act=='print')return recPrint(id);
@@ -6749,7 +6746,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.57)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.58)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['links','روابط دخول شخصية لكل صاحب صلاحية بدوره (المرحلة الحالية)',()=>true,'done','من «المستخدمون»: رابط لكل شخص بمدة وإلغاء فوري، وكل دخول مسجّل باسمه.'],['access','الربط ببريد المجلس عبر Cloudflare Access (مؤجل حتى تكتمل تجربة الروابط)',()=>!!(SESSION&&SESSION.authAccess),'later','من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
@@ -6758,7 +6755,7 @@ const ROAD=[
  {k:'ph3',t:'إكمال المحتوى والبيانات',d:'ما يحتاجه الموقع ليكون كاملاً أمام الزائر',items:[
   ['gaps','تسجيل المعلومات الناقصة (تواريخ، تواصل، تعريفات)',()=>!gapsOpenN(),null],['docs','رفع ملفات الوثائق العامة (الأنظمة، اللائحة، الشهادة، التقرير)',()=>DOCS.list.filter(d=>d.vis=='public'&&!d.url).length==0,null,'من الحوكمة › الوثائق: زر «رفع» أمام كل وثيقة بلا ملف.'],
   ['photos','صور أعضاء مجلس الإدارة للدورة الحالية',()=>bMembers(termCur().k).every(m=>m.src||m.ph),null],['terms','تواريخ الدورة الحالية (هجري وميلادي) وأعضاء الدورة الأولى',()=>!!(termCur().gfrom&&termCur().from),null],
-  ['bounds','اعتماد الحدود الرسمية للمحافظات الثلاث',null,null,'مصدر رسمي لحدود المحافظات بدل الحدود التقريبية في الخريطة.'],['partners','شعارات الشركاء بإذن مكتوب',()=>!gapOpen(GAPI.partners),null],['font','ملفات خط Avenir Arabic (OTF/TTF) لاعتماده في الموقع',null,null]]},
+  ['bounds','اعتماد الحدود الرسمية للمحافظات الثلاث',null,null,'مصدر رسمي لحدود المحافظات بدل الحدود التقريبية في الخريطة.'],['partners','شعارات الشركاء بإذن مكتوب',()=>!gapOpen(GAPI.partners),null],['font','ملفا خط Avenir Arabic (Medium وHeavy، يُفضَّل WOFF2) — الإذن باستخدامه على الموقع متوفر، والربط جاهز',null,null]]},
  {k:'ph4',t:'الاستشارات',d:'تفعيل الخدمة بعد تجهيز المستشارين',items:[
   ['cons','تسجيل المستشارين الفعليين (الأسماء، التخصصات، التوفر)',()=>typeof CONS!='undefined'&&CONS.length>0,null,'الاستشارات تظهر «قريباً» في الموقع حتى يُفعَّل أول مستشار.'],['ctypes','اعتماد مجالات الاستشارة ومدد الجلسات',null,null],['cal','ربط تقويم المستشارين وروابط الجلسات',null,null,'يتطلب تكامل تقويم (Google/Microsoft) من «التكاملات».'],['capps','فتح باب انضمام المستشارين من الموقع',null,null]]},
  {k:'ph5',t:'التواصل والإرسال',d:'ما يحتاج مزوّداً خارجياً',items:[
@@ -7701,7 +7698,8 @@ const CMP=[
  ['perf','وقت التحميل على الجوال','تحسّن الظهور الأول من 7.7 إلى 4.5 ثانية بمحاكاة جوال بطيء. فصل كود اللوحة عن الموقع العام أُجّل عمداً: تحليل الاعتماديات أظهر تداخلاً (درج الجمعية العام فيه أزرار للفريق، وبيانات الشراكات والفعاليات مشتركة)، فيلزم أولاً إعادة تنظيم الكود في وحدات.',['dxmi'],'part','Lighthouse جوال 59'],
  ['perf','ثبات التخطيط','لا قفزات في التخطيط عند التحميل (كان التذييل يظهر أعلى الصفحة لحظة ثم ينزاح).',['dxmi'],'done','قياس layout-shift = 0'],
  ['perf','الصور','كل الصور بتنسيق WebP: الواجهة (الصورة الرئيسية 47 ك.ب بدل 90) وصور الأخبار (21 صورة، أكبرها 109 ك.ب بعد ضغط صورة 262 ك.ب إلى 103)، وتحميل كسول للصور خارج الشاشة، وشعارات الشركاء تُقص تلقائياً.',['dxmi'],'done','تدقيق الأداء'],
- ['perf','الظهور في محركات البحث والمشاركة','وصف الصفحة ومعاينة المشاركة؛ الفهرسة موقوفة عمداً حتى الإطلاق.',['dxmi'],'part','robots.txt']];
+ ['perf','الظهور في محركات البحث والمشاركة','روابط نظيفة لكل صفحة ولكل جمعية، وعنوان ووصف وcanonical وصورة مشاركة وبيانات JSON-LD لكل منها، وخريطة موقع. الفهرسة تُفتح تلقائياً عند تحويل الموقع إلى الوضع العام، وموقوفة الآن عمداً. SEO في Lighthouse: 100.',['dxmi'],'done','seo.js · robots.txt · sitemap.xml'],
+ ['perf','الخطوط داخل الموقع','الخط يُخدم من الموقع نفسه بلا طلبات لجهات خارجية (أُزيل Google Fonts). خط الهوية Avenir Arabic يُفعَّل تلقائياً فور إضافة ملفيه، وIBM Plex احتياطي.',['dxmi','pdpl'],'done','src/fonts']];
 ADM.cmpF=ADM.cmpF||'all';ADM.cmpS=ADM.cmpS||'';
 function cmpLive(){const n=performance.getEntriesByType('navigation')[0]||{},tr=performance.getEntriesByType('resource').reduce((t,r)=>t+(r.transferSize||0),0)+(n.transferSize||0),mm=q=>matchMedia(q).matches,w=innerWidth;
  return [['اللغة والاتجاه',document.documentElement.lang=='ar'&&document.documentElement.dir=='rtl','ar · rtl'],['ضبط عرض الجوال (viewport)',!!$('meta[name=viewport]'),'width=device-width'],['اتصال مشفّر',location.protocol=='https:'||location.hostname=='127.0.0.1'||location.hostname=='localhost',location.protocol=='https:'?'HTTPS':'بيئة محلية'],

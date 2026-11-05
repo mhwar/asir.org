@@ -38,6 +38,22 @@ if DEPLOY:
 else:
     src = src.replace('{{internal}}', json.dumps(json.load(open(internal_path, encoding='utf8'))['internal'], ensure_ascii=False, separators=(',', ':')))
     src = src.replace('{{public}}', open(P('data', 'public.json'), encoding='utf8').read())
+# الخطوط تُستضاف داخل الموقع (/fonts) بلا طلبات لجهات خارجية.
+# خط الهوية Avenir Arabic يُفعَّل تلقائياً متى وُضع ملفاه في src/fonts، وIBM Plex Sans Arabic احتياطي.
+AR = 'U+0600-06FF,U+0750-077F,U+0870-088E,U+0890-0891,U+0897-08E1,U+08E3-08FF,U+200C-200E,U+2010-2011,U+204F,U+2E41,U+FB50-FDFF,U+FE70-FE74,U+FE76-FEFC'
+LA = 'U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD'
+FD = P('src', 'fonts'); ff = []; pre = []
+AV = [('AvenirArabic-Medium.woff2', '400 500'), ('AvenirArabic-Heavy.woff2', '600 900')]
+HAS_AV = all(os.path.exists(os.path.join(FD, f)) for f, _ in AV)
+if HAS_AV:
+    for f, w in AV: ff.append(f'@font-face{{font-family:"Avenir Arabic";font-weight:{w};font-display:swap;src:url("/fonts/{f}") format("woff2")}}')
+    pre.append('<link rel="preload" href="/fonts/AvenirArabic-Medium.woff2" as="font" type="font/woff2" crossorigin>')
+for w in (400, 500, 600, 700):
+    for sub, rng in (('arabic', AR), ('latin', LA)):
+        ff.append(f'@font-face{{font-family:"IBM Plex Sans Arabic";font-weight:{w};font-display:swap;src:url("/fonts/ibm-plex-sans-arabic-{sub}-{w}-normal.woff2") format("woff2");unicode-range:{rng}}}')
+if not HAS_AV: pre.append('<link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>')
+src = src.replace('/*{{fonts}}*/', ''.join(ff) if DEPLOY else '', 1)
+src = src.replace('<!--{{fontpreload}}-->', ''.join(pre) if DEPLOY else '', 1)
 # النمط الداكن للوحة التحكم يُولَّد من CSS الموقع نفسه (tools/darkgen.py)
 sys.path.insert(0, P('tools')); import darkgen
 _a = src.index('<style>') + 7; _b = src.index('</style>')
@@ -64,6 +80,6 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
 if DEPLOY:  # صور الأخبار تُخدم ملفات ثابتة من /news/
     import shutil
-    for d in ('news', 'plogo', 'alogo', 'brand-kit', 'pwa'):  # ملفات ثابتة: صور الأخبار وشعارات مستخرجة من تقرير الدورة الأولى
+    for d in ('news', 'plogo', 'alogo', 'brand-kit', 'pwa', 'fonts'):  # ملفات ثابتة: صور الأخبار وشعارات مستخرجة من تقرير الدورة الأولى
         shutil.copytree(P('src', d), P('dist', 'site', d), dirs_exist_ok=True)
-print(f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')
+print(('خط الهوية Avenir Arabic مفعّل · ' if HAS_AV else 'خط الهوية غير موجود بعد (src/fonts) · IBM Plex احتياطي · ') + f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')

@@ -15,14 +15,16 @@ import * as msg from './messages.js';
 import * as al from './alerts.js';
 import * as adm from './admin.js';
 import * as dc from './docs.js';
+import * as seo from './seo.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
 // ملفات البناء ببصمة المحتوى (/assets/app.<بصمة>.js …) لا تتغير أبداً: تُحفظ سنة في جهاز المستخدم.
 // في الوضع الخاص تبقى خاصة بالمتصفح (private) لأنها خلف تسجيل الدخول.
 const FINGERPRINT = /^\/assets\/(?:img\/)?[\w-]+\.[0-9a-f]{10}\.(?:js|css|jpg|png|webp|svg)$/;
+const FONT = /^\/fonts\/[\w.-]+\.woff2$/;
 function assetCache(url, env) {
-  if (!FINGERPRINT.test(url.pathname)) return {};
+  if (!FINGERPRINT.test(url.pathname) && !FONT.test(url.pathname)) return {};
   return { 'Cache-Control': `${env.SITE_MODE === 'public' ? 'public' : 'private'}, max-age=31536000, immutable` };
 }
 
@@ -36,11 +38,15 @@ function inject(html, name, value) {
 }
 const safeJson = (v) => JSON.stringify(v).replace(/[<\u2028\u2029]/g, (c) => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
 
-async function servePage(req, env, user) {
+async function servePage(req, env, user, match) {
   const asset = await env.ASSETS.fetch(new Request(new URL('/', req.url), { headers: req.headers }));
   if (!asset.ok) return asset;
   let html = await asset.text();
   const { raw, pub, synced } = await db.pagePayload(env);
+  const url = new URL(req.url);
+  const meta = seo.head(env, url, match || seo.matchPage('/'), pub);
+  html = seo.apply(html, meta);
+  const missing = match && match.lic && !pub.some((x) => String(x.lic) === match.lic);
   html = inject(html, 'PUB', safeJson(pub));
   html = inject(html, 'STATE', safeJson(await readState(env, user)));
   if (user) {
@@ -53,7 +59,9 @@ async function servePage(req, env, user) {
   } else {
     html = inject(html, 'RAW', '[]');
   }
-  return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' } }));
+  const h = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' };
+  if (env.SITE_MODE !== 'public') h['X-Robots-Tag'] = 'noindex, nofollow';
+  return withHeaders(new Response(html, { status: missing ? 404 : 200, headers: h }));
 }
 
 async function servePortal(req, env, token) {
@@ -339,14 +347,16 @@ export default {
       const lg = url.pathname.match(/^\/u-logo\/(\d+)$/);
       if (lg) { const k = await rq.logoKey(env, Number(lg[1])); if (!k) return json({ error: { code: 'not_found' } }, 404); return withHeaders(await rq.serveFile(env, k)); }
       if (url.pathname.startsWith('/files/public/')) { const r = await dc.servePublic(env, decodeURIComponent(url.pathname.slice(7)), url.searchParams.has('dl')); if (r) return withHeaders(r); return json({ error: { code: 'not_found' } }, 404); }
-      if (url.pathname === '/robots.txt') return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } });
+      if (url.pathname === '/robots.txt') return seo.robots(env, url);
+      if (url.pathname === '/sitemap.xml') return seo.sitemap(env, url, env.SITE_MODE === 'public' ? (await db.pagePayload(env)).pub : []);
 
-      const isPage = url.pathname === '/' || url.pathname === '/index.html';
+      const match = seo.matchPage(url.pathname);
+      const isPage = !!match;
       if (env.SITE_MODE === 'public') {
         if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
         let user = null;
         try { user = await requireUser(req, env); } catch { /* visitor */ }
-        return await servePage(req, env, user);
+        return await servePage(req, env, user, match);
       }
 
       // private mode: nothing is served without an allowed user
@@ -354,7 +364,7 @@ export default {
       try { user = await requireUser(req, env); } catch (e) { return await deniedPage(e, env); }
       if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
       await noteLogin(req, env, user);
-      return await servePage(req, env, user);
+      return await servePage(req, env, user, match);
     } catch (err) {
       return errorResponse(err);
     }
