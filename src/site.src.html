@@ -5300,7 +5300,7 @@ function rMet(L){const n=L.length,c=f=>L.filter(f).length,r=v=>n?v/n:0;
   grps:new Set(L.map(o=>o.grp)).size,govs:new Set(L.map(o=>o.gov)).size,sups:new Set(L.map(o=>o.sup)).size,
   hs:(()=>{const H=L.filter(o=>o.hs!=null);return H.length?Math.round(H.reduce((t,o)=>t+o.hs,0)/H.length):null})(),crit:c(o=>o.hs!=null&&o.hs<40),critP:r(c(o=>o.hs!=null&&o.hs<40))}}
 /* المؤشرات القابلة للمقارنة: [مفتاح، الاسم، النوع: c=عدد r=نسبة y=سنة] */
-const RKPI=[['n','عدد الجمعيات','c'],['hs','متوسط مؤشر الصحة المؤسسية','c'],['crit','جمعيات في النطاق الحرج','c'],['okP','نسبة التراخيص السارية','r'],['soon','تراخيص تنتهي خلال 90 يوماً','c'],['exp','تراخيص منتهية','c'],['expP','نسبة التراخيص المنتهية','r'],['comp','متوسط اكتمال ملف التواصل','r'],['fullP','نسبة الملفات المكتملة','r'],['medYear','وسيط سنة التأسيس','y'],['new3','تأسست خلال آخر 3 سنوات','c']];
+const RKPI=[['n','عدد الجمعيات','c'],['okP','نسبة التراخيص السارية','r'],['soon','تراخيص تنتهي خلال 90 يوماً','c'],['exp','تراخيص منتهية','c'],['expP','نسبة التراخيص المنتهية','r'],['comp','متوسط اكتمال ملف التواصل','r'],['fullP','نسبة الملفات المكتملة','r'],['medYear','وسيط سنة التأسيس','y'],['new3','تأسست خلال آخر 3 سنوات','c'],['hs','متوسط مؤشر الصحة المؤسسية','c'],['crit','جمعيات في النطاق الحرج','c']];
 function rRank(dim,key,mk){const groups=cntBy(rAct(),dim).map(x=>x[0]);const vals=groups.map(g=>[g,rMet(rAct().filter(o=>o[dim]==g))[mk]]).filter(x=>x[1]!=null).sort((a,b)=>b[1]-a[1]);
  const i=vals.findIndex(x=>x[0]==key);return i<0?null:[i+1,vals.length]}
 /* كتل العرض */
