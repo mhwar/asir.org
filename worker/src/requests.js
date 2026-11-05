@@ -16,6 +16,10 @@ const date = (v) => { if (!v) return null; if (!DATE.test(v) || isNaN(Date.parse
 const email = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (/@test\.com$/i.test(v) || !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v)) fail(422, 'invalid', 'بريد غير صالح'); return v.toLowerCase(); };
 const mobile = (v) => { v = String(v ?? '').replace(/[\s-]/g, ''); if (!v) return null; if (!/^(05\d{8}|\+9665\d{8})$/.test(v)) fail(422, 'invalid', 'رقم الجوال بصيغة 05xxxxxxxx'); return v; };
 const url = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!/^https?:\/\/[^\s]+\.[^\s]+$/i.test(v) || v.length > 200) fail(422, 'invalid', 'رابط غير صالح (يبدأ بـ https://)'); return v; };
+const int = (max) => (v) => { if (v === '' || v == null) return null; const n = Number(String(v).replace(/[^\d]/g, '')); if (!Number.isInteger(n) || n < 0 || n > max) fail(422, 'invalid', `رقم غير صالح (0 – ${max})`); return n; };
+const year = (v) => { if (!v) return null; const n = Number(v); if (!Number.isInteger(n) || n < 1990 || n > 2100) fail(422, 'invalid', 'سنة غير صالحة'); return n; };
+export const REV_BANDS = ['أقل من 500 ألف', '500 ألف – 2 مليون', '2 – 10 ملايين', 'أكثر من 10 ملايين'];
+const band = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!REV_BANDS.includes(v)) fail(422, 'invalid', 'شريحة غير معروفة'); return v; };
 const list = (v) => { const a = Array.isArray(v) ? v.map((x) => String(x).trim()).filter(Boolean).slice(0, 20) : []; return a.length ? a : null; };
 
 export const UFIELDS = {
@@ -25,6 +29,13 @@ export const UFIELDS = {
   social:    { l: 'حساب X أو انستقرام', kind: 'profile', col: 'social', v: txt(100) },
   ben:       { l: 'الفئات المستفيدة', kind: 'profile', col: 'beneficiaries', v: list, json: true },
   progs:     { l: 'أبرز البرامج والخدمات', kind: 'profile', col: 'programs', v: txt(1500) },
+  // الحجم والحوكمة (الموجة الثانية) — أرقام تنظيمية لا بيانات شخصية
+  staff:     { l: 'عدد الموظفين', kind: 'profile', col: 'staff_count', v: int(100000) },
+  vols:      { l: 'عدد المتطوعين (آخر سنة)', kind: 'profile', col: 'volunteers_count', v: int(1000000) },
+  benef:     { l: 'عدد المستفيدين (آخر سنة)', kind: 'profile', col: 'beneficiaries_count', v: int(100000000) },
+  assembly:  { l: 'تاريخ آخر جمعية عمومية', kind: 'profile', col: 'last_assembly_on', v: date },
+  finYear:   { l: 'آخر سنة مالية اعتُمدت قوائمها', kind: 'profile', col: 'fin_year', v: year },
+  revBand:   { l: 'شريحة الإيرادات السنوية', kind: 'profile', col: 'revenue_band', v: band },
   logo:      { l: 'شعار الجمعية', kind: 'profile', col: 'logo_key', file: { max: 5, types: ['image/png', 'image/svg+xml', 'image/jpeg', 'image/webp'] } },
   founded:   { l: 'تاريخ التأسيس', kind: 'assoc', col: 'founded_on', v: date },
   gov:       { l: 'المحافظة', kind: 'assoc', col: 'governorate_id', v: txt(40), gov: true },
@@ -57,7 +68,8 @@ export async function currentValues(env, id, withPersonal) {
   const a = await env.DB.prepare(
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.contact_consent AS consent,
-            p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo
+            p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
+            p.staff_count AS staff, p.volunteers_count AS vols, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id

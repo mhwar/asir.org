@@ -50,7 +50,7 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   ok(g[0] && g[1] === true, 'accordion toggles + persists');
   // 6ب) تبويبات الصفحة الفرعية: «طلبات تحديث البيانات» مخفية من القائمة وتظهر تبويباً داخل «نظرة عامة»، والحملات والاستشارات مستقلة
   const sub = await p.evaluate(() => { goMod('updates'); return { side: !!document.querySelector('.jside .jni[data-m=updates]'), on: document.querySelector('.jside .jni.on')?.dataset.m, tabs: [...document.querySelectorAll('.jsubt button')].map((b) => b.dataset.m), solo: !!document.querySelector('.jgrp.solo .jng[data-m=chub]') && !!document.querySelector('.jgrp.solo .jng[data-m=campaigns]') } });
-  ok(!sub.side && sub.on == 'overview' && sub.tabs.join() == 'overview,updates,quality' && sub.solo, 'sub-tabs + solo groups ' + JSON.stringify(sub));
+  ok(!sub.side && sub.on == 'overview' && sub.tabs.join() == 'overview,updates,quality,alerts' && sub.solo, 'sub-tabs + solo groups ' + JSON.stringify(sub));
   // 6ج) الاستشارات «قريباً» ما دام لا يوجد مستشار مُفعّل
   const soon = await v.evaluate(() => { go('consult'); return [document.body.classList.contains('conssoon'), !!document.querySelector('#booking .soonchip')] });
   ok(soon[0] && soon[1], 'consult coming soon');

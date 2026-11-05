@@ -4,7 +4,7 @@ import { audit, updateAssociation, getAssociation, dataIssues } from './db.js';
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
-const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs' };
+const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
 const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', presEmail: 'president_email', presMobile: 'president_mobile',
   del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile' };
 const V = (k) => (k === 'presMobile' ? UFIELDS.mobile.v : UFIELDS[k].v);
@@ -25,15 +25,16 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
     env.DB.prepare('SELECT * FROM association_contacts WHERE association_id = ?1').bind(id),
   ]);
   const pr = p.results[0] || {}, ct = c.results[0] || {};
-  const profile = Object.fromEntries(Object.entries(PROFILE).map(([k, col]) => [k, col === 'beneficiaries' ? (pr[col] ? JSON.parse(pr[col]) : []) : pr[col] || '']));
+  const profile = Object.fromEntries(Object.entries(PROFILE).map(([k, col]) => [k, col === 'beneficiaries' ? (pr[col] ? JSON.parse(pr[col]) : []) : (pr[col] ?? '')]));
   profile.logo = pr.logo_key ? `/u-logo/${id}?v=${encodeURIComponent(pr.updated_at || '')}` : '';
   const contacts = Object.fromEntries(Object.entries(CONTACT).map(([k, col]) => [k, ct[col] || '']));
   contacts.board = ct.board_json ? JSON.parse(ct.board_json) : [];
   contacts.consent = !!a.contact_consent;
   const { results: notes } = await env.DB.prepare('SELECT id, field, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
+  const { results: log } = await env.DB.prepare('SELECT id, channel, outcome, summary, next_on, created_by, created_at FROM association_contact_log WHERE association_id = ?1 ORDER BY id DESC LIMIT 100').bind(id).all();
   const checks = dataIssues(a, ct);
   if (logReveal) await audit(env, req, user.email, 'reveal', 'association_contacts', id);
-  return { association: a, profile, contacts, notes, checks };
+  return { association: a, profile, contacts, notes, checks, log };
 }
 
 export async function saveFull(env, req, user, id, body) {
@@ -131,4 +132,23 @@ export async function setNote(env, req, user, id, noteId, body) {
   if (!r.meta.changes) fail(404, 'not_found', 'الملاحظة غير موجودة');
   await audit(env, req, user.email, 'update', 'association_notes', noteId, null, { status: st });
   return { ok: true, notes: await listNotes(env, id) };
+}
+
+// ─── سجل التواصل مع الجمعية (للفريق) ───
+const CH = ['call', 'visit', 'email', 'whatsapp', 'meeting', 'letter', 'other'], OUT = ['responded', 'no_answer', 'promised', 'escalated'];
+export async function addLog(env, req, user, id, body) {
+  await getAssociation(env, id);
+  const channel = CH.includes(body.channel) ? body.channel : 'other', outcome = OUT.includes(body.outcome) ? body.outcome : 'responded';
+  const summary = String(body.summary || '').trim().slice(0, 600); if (!summary) fail(422, 'invalid', 'اكتب ملخص التواصل');
+  const next = body.next_on && /^\d{4}-\d{2}-\d{2}$/.test(body.next_on) ? body.next_on : null;
+  const r = await env.DB.prepare('INSERT INTO association_contact_log (association_id, channel, outcome, summary, next_on, created_by) VALUES (?1, ?2, ?3, ?4, ?5, ?6) RETURNING *')
+    .bind(id, channel, outcome, summary, next, user.email).first();
+  await audit(env, req, user.email, 'create', 'association_contact_log', r.id, null, { association_id: id, channel, outcome });
+  return { data: r };
+}
+export async function delLog(env, req, user, id, logId) {
+  const r = await env.DB.prepare('DELETE FROM association_contact_log WHERE id = ?1 AND association_id = ?2 RETURNING id').bind(logId, id).first();
+  if (!r) fail(404, 'not_found', 'السجل غير موجود');
+  await audit(env, req, user.email, 'delete', 'association_contact_log', logId, null, { association_id: id });
+  return { ok: true };
 }

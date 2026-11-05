@@ -30,5 +30,8 @@ SITE_MODE = "private"            # المرحلة 1: private · عند فتح ا
 ACCESS_TEAM_DOMAIN = ""          # مثال: asir-council.cloudflareaccess.com
 ACCESS_AUD = ""                  # Application Audience (AUD) Tag
 
+[triggers]
+crons = ["0 5 * * *"]            # 08:00 بتوقيت الرياض — حساب التنبيهات اليومية
+
 [observability]
 enabled = true

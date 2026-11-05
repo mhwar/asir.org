@@ -11,6 +11,7 @@ import * as rq from './requests.js';
 import * as pf from './profile.js';
 import { brandApi, serveBrand } from './brand.js';
 import * as msg from './messages.js';
+import * as al from './alerts.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -180,6 +181,16 @@ async function api(req, env, url) {
     if (m === 'POST' && !nm[2]) return json(await pf.addNote(env, req, user, idFrom(nm[1]), await readJson(req)), 201);
     if (m === 'PATCH' && nm[2]) return json(await pf.setNote(env, req, user, idFrom(nm[1]), idFrom(nm[2]), await readJson(req)));
   }
+  const cl = path.match(/^\/api\/associations\/(\d+)\/contact-log(?:\/(\d+))?$/);
+  if (cl) {
+    requirePerm(user, 'directory', 'write');
+    if (m === 'POST' && !cl[2]) return json(await pf.addLog(env, req, user, idFrom(cl[1]), await readJson(req)), 201);
+    if (m === 'DELETE' && cl[2]) return json(await pf.delLog(env, req, user, idFrom(cl[1]), idFrom(cl[2])));
+  }
+  if (path === '/api/alerts' && m === 'GET') { requirePerm(user, 'directory'); return json(await al.listAlerts(env, url.searchParams)); }
+  if (path === '/api/alerts/run' && m === 'POST') { requirePerm(user, 'directory', 'write'); return json(await al.computeAlerts(env, { actor: user.email })); }
+  const alm = path.match(/^\/api\/alerts\/(\d+)\/(done|undo)$/);
+  if (alm && m === 'POST') { requirePerm(user, 'directory', 'write'); return json(await al.doneAlert(env, req, user, idFrom(alm[1]), alm[2] === 'undo')); }
   const fm = path.match(/^\/api\/associations\/(\d+)\/(full|logo)$/);
   if (fm) {
     const id = idFrom(fm[1]);
@@ -247,6 +258,8 @@ async function api(req, env, url) {
 }
 
 export default {
+  // Cron يومي (wrangler.toml → [triggers]): يحسب التنبيهات ويخزّنها
+  async scheduled(event, env, ctx) { ctx.waitUntil(al.computeAlerts(env).catch((e) => console.error('alerts', e))); },
   async fetch(req, env) {
     const url = new URL(req.url);
     try {
