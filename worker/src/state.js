@@ -8,6 +8,7 @@ export const STATE_KEYS = {
   asirSegNotes:  { module: 'bysup' },
   asirDec:       { module: 'decisions' },
   asirDecX:      { module: 'decisions' },
+  asirProjects:  { module: 'projects' },               // مشاريع مسجّلة من القرارات
   asirAPart:     { module: 'partners' },
   asirPartners:  { module: 'partners', public: true },
   asirBoard2:    { module: 'board', public: true },
