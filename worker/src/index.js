@@ -4,6 +4,7 @@
 // Phase 2 (SITE_MODE=public): the site and /api/public/* open to everyone; the
 // dashboard data and /api/* stay behind login.
 import { json, errorResponse, fail, readJson, withHeaders } from './http.js';
+import * as keys from './keys.js';
 import { requireUser, requirePerm, can, authMode, previewLogin, previewLogoutCookie } from './auth.js';
 import * as db from './db.js';
 import { readState, writeState } from './state.js';
@@ -97,7 +98,7 @@ button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:12px;backg
 function previewForm(msg = '', status = 401) {
   return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>نسخة معاينة لفريق المجلس. أدخل رمز المعاينة.</p>
 <form method="post" action="/auth/preview"><input name="code" type="password" autocomplete="current-password" inputmode="text" required autofocus aria-label="رمز المعاينة">
-<button type="submit">دخول</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">للفريق فقط — لا يُنشر</div>`, status);
+<button type="submit">دخول</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لديك رابط دخول خاص؟ افتحه مباشرة.<br>للفريق فقط — لا يُنشر</div>`, status);
 }
 
 function pinForm(msg = '', status = 200) {
@@ -106,9 +107,23 @@ function pinForm(msg = '', status = 200) {
 <button type="submit">متابعة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لم يصلكم الرمز؟ تواصلوا مع فريق المجلس.</div>`, status, { 'Referrer-Policy': 'no-referrer' });
 }
 
+function keyPage(msg = '', status = 200) {
+  return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط دخول شخصي إلى منصة فريق المجلس. لا تشاركه مع أحد؛ كل دخول به يُسجَّل باسمك.</p>
+<form method="post"><button type="submit">دخول إلى المنصة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">للفريق فقط — لا يُنشر</div>`, status, { 'Referrer-Policy': 'no-referrer' });
+}
+
+async function serveKey(req, env, url, t) {
+  if (req.method !== 'POST') return keyPage();
+  const origin = req.headers.get('Origin');
+  if (origin && origin !== url.origin) return keyPage('مصدر الطلب غير مسموح.', 403);
+  const r = await keys.redeem(env, req, t);
+  if (!r.ok) return keyPage(r.message, r.status);
+  return withHeaders(new Response(null, { status: 303, headers: { Location: '/#admin', 'Set-Cookie': r.cookie, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
+}
+
 async function deniedPage(err, env) {
   if (err.status === 401 && (await authMode(env)) === 'preview') return previewForm();
-  const msg = err.status === 403 ? 'هذا البريد غير مصرّح له بالدخول إلى المنصة.' : err.status === 503 ? 'المنصة قيد الإعداد.' : 'يلزم تسجيل الدخول.';
+  const msg = err.status === 403 ? 'هذا البريد غير مصرّح له بالدخول إلى المنصة.' : err.status === 503 ? 'المنصة قيد الإعداد.' : 'يلزم تسجيل الدخول. افتح رابط الدخول الخاص بك المرسل من مدير النظام في المجلس.';
   return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>${msg}</p>${err.status === 403 ? '<p><a href="/cdn-cgi/access/logout">الدخول ببريد آخر</a></p>' : ''}`, err.status || 401);
 }
 
@@ -120,7 +135,9 @@ async function authRoutes(req, env, url) {
   }
   if (url.pathname === '/auth/logout') {
     const to = (await authMode(env)) === 'access' ? '/cdn-cgi/access/logout' : '/';
-    return withHeaders(new Response(null, { status: 303, headers: { Location: to, 'Set-Cookie': previewLogoutCookie, 'Cache-Control': 'no-store' } }));
+    const h = new Headers({ Location: to, 'Cache-Control': 'no-store' });
+    h.append('Set-Cookie', previewLogoutCookie); h.append('Set-Cookie', keys.linkLogoutCookie);
+    return withHeaders(new Response(null, { status: 303, headers: h }));
   }
   return null;
 }
@@ -273,6 +290,10 @@ async function api(req, env, url) {
   if (path === '/api/users' && m === 'POST') { requirePerm(user, 'roles', 'write'); return json(await adm.createUser(env, req, user, await readJson(req)), 201); }
   const usm = path.match(/^\/api\/users\/(\d+)$/);
   if (usm && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.updateUser(env, req, user, idFrom(usm[1]), await readJson(req))); }
+  if (path === '/api/login-links' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await keys.listLinks(env) }); }
+  if (path === '/api/login-links' && m === 'POST') { requirePerm(user, 'roles', 'write'); return json(await keys.createLink(env, req, user, await readJson(req)), 201); }
+  const klm = path.match(/^\/api\/login-links\/(\d+)$/);
+  if (klm && m === 'DELETE') { requirePerm(user, 'roles', 'write'); return json(await keys.revokeLink(env, req, user, idFrom(klm[1]))); }
   if (path === '/api/roles' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await adm.listRoles(env), modules: adm.MODULES }); }
   if (path === '/api/roles' && m === 'POST') { requirePerm(user, 'roles', 'write'); return json(await adm.createRole(env, req, user, await readJson(req)), 201); }
   const rlm = path.match(/^\/api\/roles\/([a-z0-9_]+)$/);
@@ -309,6 +330,8 @@ export default {
       if (url.pathname.startsWith('/api/brand')) { const r = await brandApi(req, env, url); if (r) return r; }
       if (url.pathname.startsWith('/api/')) return await api(req, env, url);
       if (url.pathname.startsWith('/auth/')) return (await authRoutes(req, env, url)) || json({ error: { code: 'not_found' } }, 404);
+      const km = url.pathname.match(/^\/k\/([A-Za-z0-9_-]{20,64})\/?$/);
+      if (km) return await serveKey(req, env, url, km[1]);
       const pm = url.pathname.match(/^\/u\/([A-Za-z0-9_-]{20,64})\/?$/);
       if (pm) return await servePortal(req, env, pm[1]);
       const bm = url.pathname.match(/^\/brand\/([a-z0-9-]+)$/);

@@ -2,6 +2,7 @@
 // email is matched against the `users` table. Access is the front door; this
 // check is the second lock, so a misconfigured Access policy still lets no one in.
 import { fail } from './http.js';
+import { emailFromLinkCookie } from './keys.js';
 
 let certCache = { at: 0, team: '', keys: [] };
 
@@ -100,6 +101,8 @@ export const previewLogoutCookie = `${PV_COOKIE}=; Path=/; HttpOnly; Secure; Sam
 
 async function emailFromRequest(req, env) {
   const mode = await authMode(env);
+  // رابط الدخول الشخصي: يعمل في كل الأوضاع ما عدا Cloudflare Access (حينها Access هو الباب الوحيد)
+  if (mode !== 'access') { const e = await emailFromLinkCookie(req, env); if (e) return { email: e, mode: 'link' }; }
   // Local development only: wrangler dev with ENVIRONMENT=dev and DEV_AUTH_EMAIL set in .dev.vars
   if (mode === 'dev') return { email: env.DEV_AUTH_EMAIL.toLowerCase(), mode };
   if (mode === 'access') {
@@ -114,7 +117,7 @@ async function emailFromRequest(req, env) {
     if (!exp || !sig || Number(exp) < Date.now() / 1000) return { email: null, mode };
     return { email: eq(await hmac(pv.session_key, `pv.${exp}`), sig) ? pv.preview_user_email.toLowerCase() : null, mode };
   }
-  fail(503, 'auth_not_configured', 'لم يُضبط الدخول بعد');
+  return { email: null, mode }; // لا رمز معاينة ولا Access: الدخول بروابط الدخول الشخصية فقط
 }
 
 /** Returns { id, email, name, role, roleName, perms: Map(module -> 'read'|'write') } or throws 401/403. */
