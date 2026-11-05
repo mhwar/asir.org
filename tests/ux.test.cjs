@@ -5,7 +5,7 @@ const E = (p, f, a) => Promise.race([p.evaluate(f, a), new Promise((_, rj) => se
 const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode = 1 } else console.log('ok  ' + m) };
 const W = (p, ms) => p.waitForTimeout(ms || 450);
 (async () => {
-  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1366, height: 860 } }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
+  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1366, height: 860 } }); await p.addInitScript(() => { window.__noConfirm = true }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
   await p.goto(BASE + '/#/admin/home'); await W(p, 1600);
   // 1) كل الصفحات: عنوان واحد، زر أساسي واحد على الأكثر وفي الترويسة فقط، لا تكرار للصفحة الحالية في المسار
   const all = await E(p, async () => { const bad = []; for (const m of MODS.map((x) => x[0]).filter((m) => can(m) && m != 'home')) { goMod(m); await new Promise((r) => setTimeout(r, 120)); const pri = $$('#jstick .acts2 .jbtn.pri').length, inPri = $$('#acontent .jbtn.pri').length, h1 = $$('.jph h1').length, crumbDup = !!$('.jcrumb .cur'), hash = location.hash.startsWith('#/admin/' + (m == 'assoc' && ADM.aid ? 'assoc-' : m == 'comm' && ADM.cid ? 'comm-' : m)); if (pri > 1 || inPri || h1 != 1 || crumbDup || !hash) bad.push({ m, pri, inPri, h1, crumbDup, hash: location.hash }) } return bad });

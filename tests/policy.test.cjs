@@ -4,7 +4,7 @@ const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const E = (p, f, a) => Promise.race([p.evaluate(f, a), new Promise((_, rj) => setTimeout(() => rj(new Error('evaluate timeout')), 20000))]);
 const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode = 1 } else console.log('ok  ' + m) };
 (async () => {
-  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => { console.log('DIALOG ' + d.message()); d.accept() });
+  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); await p.addInitScript(() => { window.__noConfirm = true }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => { console.log('DIALOG ' + d.message()); d.accept() });
   await p.goto(BASE + '/#/admin/policy'); await p.waitForTimeout(1600);
   const snap = await E(p, () => JSON.stringify({ f: FPOL, p: POLS, i: IMPACT, r: RM }));
   const f = await E(p, async () => { POLS.list = POLS.list.filter((x) => x.t != 'سياسة اختبار'); FPOL = { v: 1, f: {} }; fpSave(); AM.policy($('#acontent')); const sel = $('[data-fv="web"]'); sel.value = 'int'; sel.dispatchEvent(new Event('change')); const t = $('[data-fo="social"]'); t.click(); const l = $('[data-fl="about"]'); l.value = 'نبذة تعريفية'; l.dispatchEvent(new Event('change'));

@@ -17,6 +17,14 @@ import * as dc from './docs.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
+// ملفات البناء ببصمة المحتوى (/assets/app.<بصمة>.js …) لا تتغير أبداً: تُحفظ سنة في جهاز المستخدم.
+// في الوضع الخاص تبقى خاصة بالمتصفح (private) لأنها خلف تسجيل الدخول.
+const FINGERPRINT = /^\/assets\/(?:img\/)?[\w-]+\.[0-9a-f]{10}\.(?:js|css|jpg|png|webp|svg)$/;
+function assetCache(url, env) {
+  if (!FINGERPRINT.test(url.pathname)) return {};
+  return { 'Cache-Control': `${env.SITE_MODE === 'public' ? 'public' : 'private'}, max-age=31536000, immutable` };
+}
+
 function inject(html, name, value) {
   const [open, close] = MARK(name);
   const a = html.indexOf(open);
@@ -277,6 +285,13 @@ async function api(req, env, url) {
   if (path === '/api/docs/vis' && m === 'PATCH') { requirePerm(user, 'board', 'write'); return json(await dc.setDocVis(env, req, user, await readJson(req))); }
   if (path === '/api/docs/delete' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.deleteFile(env, req, user, String((await readJson(req)).key || ''))); }
   if (path.startsWith('/api/docs/file/') && m === 'GET') { requirePerm(user, 'board'); return withHeaders(await dc.serveInternal(env, decodeURIComponent(path.slice(15)), url.searchParams.has('dl'))); }
+  // تسجيل عمليات التصدير والتنزيل التي تتم في المتصفح (من صدّر ماذا وبأي صيغة) في سجل التدقيق
+  if (path === '/api/audit/export' && m === 'POST') {
+    const b = await readJson(req); const fmt = String(b.fmt || '').slice(0, 10); const what = String(b.what || '').slice(0, 160);
+    if (!/^(xlsx|csv|pdf|print)$/.test(fmt) || !what) fail(400, 'bad_request', 'بيانات التصدير ناقصة');
+    await db.audit(env, req, user.email, 'export', 'export', null, null, { what, fmt, rows: Math.max(0, Math.min(1e6, Number(b.rows) || 0)), personal: !!b.personal });
+    return json({ ok: true }, 201);
+  }
   if (path === '/api/audit' && m === 'GET') {
     requirePerm(user, 'roles');
     return json({ data: await db.auditList(env, url.searchParams) });
@@ -305,7 +320,7 @@ export default {
 
       const isPage = url.pathname === '/' || url.pathname === '/index.html';
       if (env.SITE_MODE === 'public') {
-        if (!isPage) return withHeaders(await env.ASSETS.fetch(req));
+        if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
         let user = null;
         try { user = await requireUser(req, env); } catch { /* visitor */ }
         return await servePage(req, env, user);
@@ -314,7 +329,7 @@ export default {
       // private mode: nothing is served without an allowed user
       let user;
       try { user = await requireUser(req, env); } catch (e) { return await deniedPage(e, env); }
-      if (!isPage) return withHeaders(await env.ASSETS.fetch(req));
+      if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
       await noteLogin(req, env, user);
       return await servePage(req, env, user);
     } catch (err) {

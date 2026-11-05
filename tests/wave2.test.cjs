@@ -4,7 +4,7 @@ const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const ok = (c, m) => console.log((c ? 'PASS ' : 'FAIL ') + m);
 (async () => {
   const b = await chromium.launch(); const ctx = await b.newContext({ viewport: { width: 1440, height: 900 } });
-  const p = await ctx.newPage(); const errs = []; p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
+  const p = await ctx.newPage(); await p.addInitScript(() => { window.__noConfirm = true }); const errs = []; p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
   await p.goto(BASE + '/#/admin/directory'); await p.waitForTimeout(1200);
   const id = await p.evaluate(() => DB.find((x) => x.st == 'ساري' && !x.closed).id);
   // 1) حقول الحجم والحوكمة عبر PUT full

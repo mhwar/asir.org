@@ -4,7 +4,7 @@ const BASE = process.env.BASE || 'http://127.0.0.1:8787';
 const E = (p, f, a) => Promise.race([p.evaluate(f, a), new Promise((_, rj) => setTimeout(() => rj(new Error('evaluate timeout')), 20000))]);
 const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode = 1 } else console.log('ok  ' + m) };
 (async () => {
-  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
+  const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1440, height: 900 } }); await p.addInitScript(() => { window.__noConfirm = true }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
   await p.goto(BASE + '/#/admin/partners'); await p.waitForTimeout(1800);
   const snap = await E(p, () => JSON.stringify({ p: PARTNERS, e: EVTS, pj: PROJS }));
   // 1) التطبيع: كل شراكة لها حقول السجل، وتاريخ البداية يُستنتج من التاريخ العربي
@@ -27,7 +27,7 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   ok(ev.n >= 20 && ev.kinds.includes('forum') && ev.kinds.includes('program') && ev.t && ev.t.kind == 'forum' && ev.t.st == 'done' && ev.t.d == '2026-08-15' && ev.t.pub && ev.t.ct && ev.rows >= 20 && ev.yrs >= 3 && ev.hdr.includes('النتائج'), 'past events/programs imported from content as ended with year filters and results column');
   const ov = await E(p, () => { ADM.evTab = 'ov'; evOpen('c-x-ev-tawasul'); const html = $('#adrawer').innerHTML; $('#evOut').value = '300 مشارك'; $('#evOut').onchange(); return { src: html.includes('من المحتوى والأخبار'), out: !!$('#evOut'), saved: EVTS.list.find((e) => e.id == 'c-x-ev-tawasul').out == '300 مشارك' } });
   ok(ov.src && ov.out && ov.saved, 'ended event drawer shows source news and editable outcomes');
-  const del = await E(p, () => { const e = EVTS.list.find((z) => z.id == 'c-x-ev-tot'); evEdit(e.id); $('#eeDel').click(); const gone = !EVTS.list.some((z) => z.id == 'c-x-ev-tot'); evSync(); return { gone, skip: EVTS.skip.includes('x-ev-tot'), still: !EVTS.list.some((z) => z.id == 'c-x-ev-tot') } });
+  const del = await E(p, async () => { const e = EVTS.list.find((z) => z.id == 'c-x-ev-tot'); evEdit(e.id); $('#eeDel').click(); await new Promise((r) => setTimeout(r, 30)); const gone = !EVTS.list.some((z) => z.id == 'c-x-ev-tot'); evSync(); return { gone, skip: EVTS.skip.includes('x-ev-tot'), still: !EVTS.list.some((z) => z.id == 'c-x-ev-tot') } });
   ok(del.gone && del.skip && del.still, 'deleted imported event is not re-imported');
   await E(p, (x) => { const o = JSON.parse(x); PARTNERS = o.p; EVTS = o.e; PROJS = o.pj; savePartners(); evSave(); pjSave(); return new Promise((r) => setTimeout(r, 2500)) }, snap);
   ok(!errs.length, 'no page errors ' + errs.join('|'));

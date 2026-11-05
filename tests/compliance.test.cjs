@@ -36,6 +36,24 @@ const W = (p, ms) => p.waitForTimeout(ms || 400);
   const mm = await p.evaluate(() => { const md = $('#modal').getBoundingClientRect(), f = $('#ptF'); const cols = getComputedStyle(f).gridTemplateColumns.split(' ').length; const over = [...f.querySelectorAll('input,select')].some((i) => i.getBoundingClientRect().left < -1 || i.getBoundingClientRect().right > innerWidth + 1); return { w: Math.round(md.width), bottom: Math.round(md.bottom), vh: innerHeight, cols, over } });
   ok(mm.w == 390 && Math.abs(mm.bottom - mm.vh) <= 1 && mm.cols == 1 && !mm.over, 'mobile: modal is a full-width bottom sheet with a one-column form');
   await p.evaluate(() => closeAll());
+  // نافذة التأكيد الموحدة (بدل نافذة المتصفح)
+  await p.setViewportSize({ width: 1366, height: 860 });
+  await p.evaluate(() => { EVTS.list.push({ id: 'e-ask-test', t: 'فعالية اختبار التأكيد', kind: 'meet', mode: 'online', d: '2030-01-01', st: 'draft', pub: 0, att: [], cpIds: [], log: [], sessions: [] }); evEdit('e-ask-test'); $('#eeDel').click() }); await W(p, 150);
+  const a1 = await p.evaluate(() => ({ on: $('#askd').classList.contains('on'), role: $('#askd .askb').getAttribute('role'), focus: document.activeElement.dataset.a, ok: $('#askd [data-a="1"]').textContent, dang: $('#askd [data-a="1"]').classList.contains('dang') }));
+  ok(a1.on && a1.role == 'alertdialog' && a1.focus == '0' && a1.ok == 'حذف' && a1.dang, 'confirm dialog: platform style, destructive button labelled, focus starts on Cancel');
+  await p.keyboard.press('Escape'); await W(p, 100);
+  ok(await p.evaluate(() => !$('#askd').classList.contains('on') && EVTS.list.some((e) => e.id == 'e-ask-test') && $('#modal').classList.contains('on')), 'Escape cancels: nothing deleted, the form stays open');
+  await p.evaluate(() => $('#eeDel').click()); await W(p, 120); await p.evaluate(() => $('#askd [data-a="1"]').click()); await W(p, 150);
+  ok(await p.evaluate(() => !EVTS.list.some((e) => e.id == 'e-ask-test')), 'confirming deletes');
+  await p.evaluate(() => { PARTNERS.push({ id: 999001, n: 'جهة اختبار الحذف', ty: 'اتفاقية شراكة', sec: 'قطاع خاص', st: 'سارية', show: 0 }); ptNorm(); ptEdit(999001); window.__noConfirm = true; $('#peDel').click() }); await W(p, 150);
+  ok(await p.evaluate(() => { window.__noConfirm = false; return !PARTNERS.some((x) => x.id == 999001) }), 'partnership delete works (was a silent no-op)');
+  await p.evaluate(() => closeAll());
+  // البناء: صفحة صغيرة + ملفات ببصمة محتوى تُحفظ سنة، ولا قفزات تخطيط
+  const bd = await p.evaluate(async () => { const h = await (await fetch('/', { cache: 'no-store' })).text(); const js = (h.match(/\/assets\/app\.[0-9a-f]{10}\.js/) || [])[0], css = (h.match(/\/assets\/app\.[0-9a-f]{10}\.css/) || [])[0]; const r = js && await fetch(js); return { js, css, cc: r && r.headers.get('cache-control'), htmlCC: (await fetch('/', { cache: 'no-store' })).headers.get('cache-control'), marks: (h.match(/\/\*@(RAW|PUB|SESSION|PORTAL|STATE)\*\//g) || []).length } });
+  ok(bd.js && bd.css && /max-age=31536000, immutable/.test(bd.cc) && bd.htmlCC == 'no-store' && bd.marks == 5, 'build: fingerprinted code/styles cached for a year; the data page stays no-store with all data markers');
+  const q = await b.newPage({ viewport: { width: 1350, height: 940 } }); await q.addInitScript(() => { window.__ls = []; new PerformanceObserver((l) => { for (const e of l.getEntries()) window.__ls.push(e.value) }).observe({ type: 'layout-shift', buffered: true }) });
+  await q.goto(BASE + '/'); await q.waitForTimeout(2500); const cls = await q.evaluate(() => window.__ls.reduce((a, b) => a + b, 0)); await q.close();
+  ok(cls < 0.1, 'home page loads without layout shift (CLS ' + cls.toFixed(3) + ')');
   ok(!errs.length, 'no page errors ' + errs.join('|'));
   await b.close();
 })();
