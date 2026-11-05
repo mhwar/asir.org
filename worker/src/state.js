@@ -16,6 +16,8 @@ export const STATE_KEYS = {
   asirAPart:     { module: 'partners' },
   asirPartners:  { module: 'partners', public: true },
   asirBoard2:    { module: 'board', public: true },
+  asirTerms:     { module: 'board', public: true },    // دورات مجلس الإدارة
+  asirDocs:      { module: 'board', public: true, pub: (v) => ({ ...v, list: (v.list || []).filter((d) => d.vis === 'public') }) }, // الوثائق: العامة فقط بلا دخول
   asirImpact:    { module: 'board', public: true },
   asirLaunchOff: { module: 'launch' },
   asirContent:   { module: 'content', public: true },
@@ -31,7 +33,11 @@ export async function readState(env, user) {
   for (const r of results) {
     const spec = STATE_KEYS[r.key];
     if (!spec) continue;
-    if (user ? can(user, spec.module) : spec.public) out[r.key] = { value: r.value, version: r.version, by: user ? r.updated_by : undefined, at: r.updated_at };
+    if (user ? can(user, spec.module) : spec.public) {
+      let value = r.value;
+      if (!user && spec.pub) { try { value = JSON.stringify(spec.pub(JSON.parse(r.value))); } catch { value = r.value; } }
+      out[r.key] = { value, version: r.version, by: user ? r.updated_by : undefined, at: r.updated_at };
+    }
   }
   return out;
 }

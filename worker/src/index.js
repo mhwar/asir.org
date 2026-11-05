@@ -13,6 +13,7 @@ import { brandApi, serveBrand } from './brand.js';
 import * as msg from './messages.js';
 import * as al from './alerts.js';
 import * as adm from './admin.js';
+import * as dc from './docs.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -270,6 +271,12 @@ async function api(req, env, url) {
   if (rlm && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.updateRole(env, req, user, rlm[1], await readJson(req))); }
   if (path === '/api/settings' && m === 'GET') { requirePerm(user, 'roles'); return json({ data: await adm.getSettings(env) }); }
   if (path === '/api/settings' && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.setSettings(env, req, user, await readJson(req))); }
+  // ─── ملفات الحوكمة: صور المجلس والوثائق ───
+  if (path === '/api/board/photo' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.uploadBoardPhoto(env, req, user), 201); }
+  if (path === '/api/docs' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.uploadDoc(env, req, user), 201); }
+  if (path === '/api/docs/vis' && m === 'PATCH') { requirePerm(user, 'board', 'write'); return json(await dc.setDocVis(env, req, user, await readJson(req))); }
+  if (path === '/api/docs/delete' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.deleteFile(env, req, user, String((await readJson(req)).key || ''))); }
+  if (path.startsWith('/api/docs/file/') && m === 'GET') { requirePerm(user, 'board'); return withHeaders(await dc.serveInternal(env, decodeURIComponent(path.slice(15)), url.searchParams.has('dl'))); }
   if (path === '/api/audit' && m === 'GET') {
     requirePerm(user, 'roles');
     return json({ data: await db.auditList(env, url.searchParams) });
@@ -293,6 +300,7 @@ export default {
       if (bm) return withHeaders(await serveBrand(env, bm[1]));
       const lg = url.pathname.match(/^\/u-logo\/(\d+)$/);
       if (lg) { const k = await rq.logoKey(env, Number(lg[1])); if (!k) return json({ error: { code: 'not_found' } }, 404); return withHeaders(await rq.serveFile(env, k)); }
+      if (url.pathname.startsWith('/files/public/')) { const r = await dc.servePublic(env, decodeURIComponent(url.pathname.slice(7)), url.searchParams.has('dl')); if (r) return withHeaders(r); return json({ error: { code: 'not_found' } }, 404); }
       if (url.pathname === '/robots.txt') return new Response('User-agent: *\nDisallow: /\n', { headers: { 'Content-Type': 'text/plain' } });
 
       const isPage = url.pathname === '/' || url.pathname === '/index.html';
