@@ -16,7 +16,7 @@ const ok = (c, m) => console.log((c ? 'PASS ' : 'FAIL ') + m);
   const log = await p.evaluate(async (id) => { const r = await api(`/api/associations/${id}/contact-log`, { method: 'POST', body: JSON.stringify({ channel: 'call', outcome: 'promised', summary: 'اتصال تجريبي — وعدوا بالتحديث', next_on: new Date().toISOString().slice(0, 10) }) }); const f = (await api(`/api/associations/${id}/full`)).data; return [r.data.id, f.log.length, f.log[0].channel]; }, id);
   ok(log[0] > 0 && log[1] >= 1 && log[2] === 'call', 'contact log add ' + JSON.stringify(log));
   // 3) الملف 360°: الحجم والحوكمة + التوصيات + سجل التواصل في تبويب المتابعة
-  await p.evaluate((id) => { ADM.a360f = null; openAssoc(id, 'data'); }, id); await p.waitForTimeout(1500);
+  await p.evaluate((id) => { ADM.a360f = null; open360(id, 'data'); }, id); await p.waitForTimeout(1500);
   const dataTab = await p.evaluate(() => document.body.innerText.includes('الحجم والحوكمة') && document.body.innerText.includes('2024-03-10'));
   await p.evaluate(() => { ADM.atab = 'ov'; renderAdmin(); }); await p.waitForTimeout(300);
   const recs = await p.evaluate((id) => hsOf(DBI[id]).recs.map((r) => r.t), id);

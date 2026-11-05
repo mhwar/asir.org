@@ -37,6 +37,8 @@ function inject(html, name, value) {
   return html.slice(0, a + open.length) + value + html.slice(b);
 }
 const safeJson = (v) => JSON.stringify(v).replace(/[<\u2028\u2029]/g, (c) => '\\u' + c.charCodeAt(0).toString(16).padStart(4, '0'));
+// البيانات الكبيرة تُحقن نصاً يُقرأ بـ JSON.parse: أسرع بكثير في المتصفح من قراءة كائن JavaScript بالحجم نفسه
+const bigJson = (v) => `JSON.parse(${safeJson(JSON.stringify(v))})`;
 
 async function servePage(req, env, user, match) {
   const asset = await env.ASSETS.fetch(new Request(new URL('/', req.url), { headers: req.headers }));
@@ -47,10 +49,10 @@ async function servePage(req, env, user, match) {
   const meta = seo.head(env, url, match || seo.matchPage('/'), pub);
   html = seo.apply(html, meta);
   const missing = match && match.lic && !pub.some((x) => String(x.lic) === match.lic);
-  html = inject(html, 'PUB', safeJson(pub));
-  html = inject(html, 'STATE', safeJson(await readState(env, user)));
+  html = inject(html, 'PUB', bigJson(pub));
+  html = inject(html, 'STATE', bigJson(await readState(env, user)));
   if (user) {
-    html = inject(html, 'RAW', safeJson(raw));
+    html = inject(html, 'RAW', bigJson(raw));
     html = inject(html, 'SESSION', safeJson({
       email: user.email, name: user.name, role: user.role, roleName: user.roleName,
       source: 'd1', synced, env: env.ENVIRONMENT || 'production', authMode: user.authMode,
@@ -58,6 +60,10 @@ async function servePage(req, env, user, match) {
     }));
   } else {
     html = inject(html, 'RAW', '[]');
+  }
+  if (!user && !new URL(req.url).searchParams.has('full')) {
+    // الزائر يأخذ حزمة الموقع العام فقط (بلا كود لوحة التحكم)؛ الفريق والبوابة يأخذان الحزمة الكاملة
+    html = html.replace(/<script src="(\/assets\/app\.[0-9a-f]{10}\.js)" data-pub="(\/assets\/pub\.[0-9a-f]{10}\.js)"><\/script>/, '<script src="$2"></script>');
   }
   const h = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' };
   if (env.SITE_MODE !== 'public') h['X-Robots-Tag'] = 'noindex, nofollow';
@@ -77,9 +83,9 @@ async function servePortal(req, env, token) {
   let html = await asset.text();
   // public directory fields only (what the public site will show); internal data stays out
   const { pub } = await db.pagePayload(env);
-  html = inject(html, 'PUB', safeJson(pub));
+  html = inject(html, 'PUB', bigJson(pub));
   html = inject(html, 'RAW', '[]');
-  html = inject(html, 'STATE', safeJson(await readState(env, null)));
+  html = inject(html, 'STATE', bigJson(await readState(env, null)));
   html = inject(html, 'PORTAL', safeJson({ token, ...(await rq.portalPayload(env, link)) }));
   return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
 }

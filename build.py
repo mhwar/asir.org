@@ -47,18 +47,27 @@ AV = [('AvenirArabic-Medium.woff2', '400 500'), ('AvenirArabic-Heavy.woff2', '60
 HAS_AV = all(os.path.exists(os.path.join(FD, f)) for f, _ in AV)
 if HAS_AV:
     for f, w in AV: ff.append(f'@font-face{{font-family:"Avenir Arabic";font-weight:{w};font-display:swap;src:url("/fonts/{f}") format("woff2")}}')
-    pre.append('<link rel="preload" href="/fonts/AvenirArabic-Medium.woff2" as="font" type="font/woff2" crossorigin>')
+    for f, _ in AV: pre.append(f'<link rel="preload" href="/fonts/{f}" as="font" type="font/woff2" crossorigin>')
 for w in (400, 500, 600, 700):
     for sub, rng in (('arabic', AR), ('latin', LA)):
         ff.append(f'@font-face{{font-family:"IBM Plex Sans Arabic";font-weight:{w};font-display:swap;src:url("/fonts/ibm-plex-sans-arabic-{sub}-{w}-normal.woff2") format("woff2");unicode-range:{rng}}}')
-if not HAS_AV: pre.append('<link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-400-normal.woff2" as="font" type="font/woff2" crossorigin>')
+if not HAS_AV:  # النص (400) والعناوين (700، عنوان الرئيسية هو أكبر عنصر يظهر أولاً)
+    for w in (400, 700): pre.append(f'<link rel="preload" href="/fonts/ibm-plex-sans-arabic-arabic-{w}-normal.woff2" as="font" type="font/woff2" crossorigin>')
 src = src.replace('/*{{fonts}}*/', ''.join(ff) if DEPLOY else '', 1)
 src = src.replace('<!--{{fontpreload}}-->', ''.join(pre) if DEPLOY else '', 1)
 # النمط الداكن للوحة التحكم يُولَّد من CSS الموقع نفسه (tools/darkgen.py)
 sys.path.insert(0, P('tools')); import darkgen
 _a = src.index('<style>') + 7; _b = src.index('</style>')
 src = src.replace('/*{{darkadmin}}*/', darkgen.gen(src[_a:_b]), 1)
-src = src.replace('{{suplogos}}', open(P('data', 'suplogos.json'), encoding='utf8').read())
+_sup = json.load(open(P('data', 'suplogos.json'), encoding='utf8'))
+if DEPLOY:  # شعارات الجهات المشرفة ملفات مستقلة تُحمَّل عند ظهورها بدل 445 ك.ب داخل الكود
+    import urllib.parse
+    for k, u in list(_sup.items()):
+        head, data = u.split(',', 1); ext = 'svg' if 'svg' in head else head.split('/')[1].split(';')[0]
+        raw = base64.b64decode(data) if ';base64' in head else urllib.parse.unquote(data).encode()
+        name = f'sup.{_hash(raw)}.{ext}'; open(os.path.join(ASSET_DIR, 'img', name), 'wb').write(raw)
+        _sup[k] = f'/assets/img/{name}'
+src = src.replace('{{suplogos}}', json.dumps(_sup, ensure_ascii=False))
 src = src.replace('{{geo}}', open(P('data', 'geo.json'), encoding='utf8').read())
 if DEPLOY:
     # 1) الأنماط ← /assets/app.<بصمة>.css
@@ -72,9 +81,24 @@ if DEPLOY:
     DECL = re.compile(r'^const (assoc|RAW|SESSION|PORTAL)=/\*@[A-Z]+\*/.*?/\*@END\*/;$', re.M)
     decls = DECL.findall(body); keep = [x.group(0) for x in DECL.finditer(body)]
     assert sorted(decls) == ['PORTAL', 'RAW', 'SESSION', 'assoc'], decls
-    body = DECL.sub('', body).encode()
-    jname = f'app.{_hash(body)}.js'; open(os.path.join(ASSET_DIR, jname), 'wb').write(body)
-    src = src[:a] + '<script>' + '\n'.join(keep) + '</script>\n<script src="/assets/' + jname + '"></script>' + src[b + 9:]
+    body = DECL.sub('', body)
+    # حزمتان: app (الفريق والبوابة: كل الكود) و pub (الزائر: بلا ما بين /*@adm*/ و /*@/adm*/، انظر tools/split.cjs)
+    assert body.count('/*@adm*/') == body.count('/*@/adm*/'), 'علامات adm غير متوازنة'
+    pub = re.sub(r'/\*@adm\*/.*?/\*@/adm\*/', '', body, flags=re.S)
+    pub = re.sub(r'/\*@pubonly (.*?) @/pubonly\*/', r'\1', pub, flags=re.S)  # بدائل صغيرة لحزمة الزائر فقط
+    def mini(js):  # ضغط آمن (مسافات وصياغة فقط، الأسماء كما هي) متى توفر esbuild
+        exe = P('node_modules', '.bin', 'esbuild')
+        if not os.path.exists(exe): return js
+        import subprocess
+        r = subprocess.run([exe, '--minify-whitespace', '--minify-syntax', '--target=es2020', '--charset=utf8', '--log-level=error'], input=js.encode(), capture_output=True)
+        if r.returncode: raise SystemExit('esbuild: ' + r.stderr.decode()[:2000])
+        return r.stdout.decode()
+    names = {}
+    for tag, js in (('app', body), ('pub', pub)):
+        out_js = mini(js).encode(); names[tag] = f'{tag}.{_hash(out_js)}.js'
+        open(os.path.join(ASSET_DIR, names[tag]), 'wb').write(out_js)
+        print(f'  {names[tag]}  {len(out_js)//1024} KB')
+    src = src[:a] + '<script>' + '\n'.join(keep) + f'</script>\n<script src="/assets/{names["app"]}" data-pub="/assets/{names["pub"]}"></script>' + src[b + 9:]
 out = P('dist', 'site', 'index.html') if DEPLOY else P('dist', 'asir-council-site.html')
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
