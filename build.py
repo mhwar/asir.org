@@ -13,7 +13,7 @@ DEPLOY = '--deploy' in sys.argv
 ROOT = os.path.dirname(os.path.abspath(__file__))
 P = lambda *a: os.path.join(ROOT, *a)
 src = open(P('src', 'site.src.html'), encoding='utf8').read()
-assets = {'hero': 'hero.jpg', 'ksa': 'ksa.jpg', 'wave': 'wave.jpg', 'box': 'box.webp', 'logo_white': 'logo_white.png',
+assets = {'hero': 'hero.webp', 'ksa': 'ksa.webp', 'wave': 'wave.webp', 'box': 'box.webp', 'logo_white': 'logo_white.png',
           'logo_dark': 'logo_dark.png', 'lg_ibtisama': 'lg_ibtisama.webp',
           **{f'bp{i}': f'bp{i}.webp' for i in range(1, 8)},
           **{f'b_{k}': f'b_{k}.jpg' for k in ['chair', 'vice', 'm1', 'm2', 'm3', 'm4', 'm5']}}
@@ -64,6 +64,6 @@ os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)
 if DEPLOY:  # صور الأخبار تُخدم ملفات ثابتة من /news/
     import shutil
-    for d in ('news', 'plogo', 'alogo', 'brand-kit'):  # ملفات ثابتة: صور الأخبار وشعارات مستخرجة من تقرير الدورة الأولى
+    for d in ('news', 'plogo', 'alogo', 'brand-kit', 'pwa'):  # ملفات ثابتة: صور الأخبار وشعارات مستخرجة من تقرير الدورة الأولى
         shutil.copytree(P('src', d), P('dist', 'site', d), dirs_exist_ok=True)
 print(f'{len(src)//1024} KB  ->  {out}  (data: {"injected at runtime from D1" if DEPLOY else os.path.basename(internal_path)})')
