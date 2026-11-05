@@ -16,6 +16,7 @@ export const STATE_KEYS = {
   asirContent:   { module: 'content', public: true },
   asirCtypes:    { module: 'cset', public: true },     // مجالات الاستشارة (تظهر في صفحة الحجز)
   asirTrouble:   { module: 'trouble' },                // الجمعيات المتعثرة — للفريق فقط
+  asirRpSnaps:   { module: 'reports' },                // لقطات المؤشرات الدورية (أرقام مجمّعة فقط)
 };
 const MAX_BYTES = 256 * 1024;
 

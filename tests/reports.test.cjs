@@ -13,6 +13,12 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
     return out });
   for (const k of ['region', 'gov', 'grp', 'sup', 'assoc', 'cmp']) { ok(res[k].secs >= 3, k + ' sections'); ok(!res[k].personal, k + ' has no personal data') }
   ok(res.rank && res.rank[1] > 1 && res.diff, 'gov KPIs have rank + diff');
+  // 0.41: الصحة المؤسسية، التقرير الدوري، اللقطات، قسم المؤشر في الأنواع القديمة
+  const w = await p.evaluate(() => { const H = rBuild('health'), n0 = SNAPS.list.length; rSnapSave(false); const Pm = rBuild('period', null, { period: 'm' }), Pq = rBuild('period', null, { period: 'py' });
+    const G = rBuild('gov', rAct()[0].gov), As = rBuild('assoc', rAct()[3].id), C = rBuild('cmp', null, { dim: 'gov', keys: cntBy(rAct(), 'gov').slice(0, 2).map((x) => x[0]) });
+    return { hs: H.sections.filter((s) => s.on && s.blocks.length).length, crit: !!H.sections.find((s) => s.id == 'crit'), html: rHTML(H).includes('مؤشر الصحة'), snaps: SNAPS.list.length > n0 && SNAPS.list.length <= 36,
+      per: Pm.sections[0].blocks[0].items.length >= 6 && Pq.sections.some((s) => s.id == 'lic'), govHs: !!G.sections.find((s) => s.id == 'hs'), asHs: !!As.sections.find((s) => s.id == 'hs'), cmpHs: C.sections[0].blocks[0].rows.some((r) => r[0].includes('مؤشر الصحة')), kinds: Object.keys(RKIND).length } });
+  ok(w.hs >= 6 && w.crit && w.html, 'health report builds'); ok(w.snaps, 'snapshot saved'); ok(w.per, 'period report builds'); ok(w.govHs && w.asHs && w.cmpHs, 'hs sections in old kinds'); ok(w.kinds == 8, '8 report kinds');
   // Excel
   fs.mkdirSync('tests/out', { recursive: true });
   const b64 = await p.evaluate(async () => { window.saveBlob = () => true; const blob = rXLSX(rBuild('gov', rAct()[0].gov)); const u = new Uint8Array(await blob.arrayBuffer()); let s = ''; u.forEach((x) => s += String.fromCharCode(x)); return btoa(s) });
