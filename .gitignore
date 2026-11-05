@@ -12,3 +12,6 @@ __pycache__/
 .dev.vars
 .wrangler/
 seed/
+
+# خط الهوية مرخّص من Monotype: لا يُرفع إلى المستودع العام (يُخدم من R2)
+src/fonts/AvenirArabic-*

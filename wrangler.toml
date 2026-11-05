@@ -3,6 +3,8 @@
 name = "asir-org"
 main = "worker/src/index.js"
 compatibility_date = "2026-10-01"
+# ملفات خط الهوية مشفّرة داخل الـ Worker (المفتاح في D1)، انظر worker/src/index.js › serveSiteAsset
+rules = [{ type = "Data", globs = ["**/*.enc"], fallthrough = false }]
 workers_dev = true
 
 [build]

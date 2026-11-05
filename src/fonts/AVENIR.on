@@ -1,0 +1,3 @@
+تفعيل خط الهوية Avenir Arabic (Medium وHeavy) في الموقع.
+ملفا الخط مرخّصان من Monotype للمجلس، ولا يُرفعان صريحين إلى المستودع (انظر .gitignore).
+النسختان المشفّرتان في worker/enc، ومفتاح الفك في D1 (site_assets، key:fonts). انظر docs/PLATFORM.md (الإصدار 0.60).

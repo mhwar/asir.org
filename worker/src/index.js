@@ -28,6 +28,36 @@ function assetCache(url, env) {
   return { 'Cache-Control': `${env.SITE_MODE === 'public' ? 'public' : 'private'}, max-age=31536000, immutable` };
 }
 
+// خط الهوية (Monotype، مرخّص للمجلس) لا يُرفع صريحاً للمستودع العام: الملفان مشفّران AES-GCM داخل الـ Worker
+// والمفتاح في D1 (site_assets، path = 'key:fonts'). يمكن أيضاً وضع الملف صريحاً في site_assets بمساره.
+import encMedium from '../enc/AvenirArabic-Medium.woff2.enc';
+import encHeavy from '../enc/AvenirArabic-Heavy.woff2.enc';
+const ENC = { '/fonts/AvenirArabic-Medium.woff2': [encMedium, 'AvenirArabic-Medium.woff2'], '/fonts/AvenirArabic-Heavy.woff2': [encHeavy, 'AvenirArabic-Heavy.woff2'] };
+const SITE_ASSET = /^\/fonts\/AvenirArabic-[\w-]+\.woff2$/;
+const hexBytes = (h) => Uint8Array.from(h.match(/../g), (x) => parseInt(x, 16));
+async function siteAsset(env, path) {
+  const r = await env.DB.prepare('SELECT mime, data, sha FROM site_assets WHERE path = ?1').bind(path).first().catch(() => null);
+  if (r) return { body: Uint8Array.from(atob(r.data), (c) => c.charCodeAt(0)), mime: r.mime, tag: r.sha };
+  const e = ENC[path];
+  if (!e) return null;
+  const k = await env.DB.prepare("SELECT data FROM site_assets WHERE path = 'key:fonts'").first().catch(() => null);
+  if (!k) return null;
+  const buf = new Uint8Array(e[0]), key = await crypto.subtle.importKey('raw', hexBytes(k.data.trim()), 'AES-GCM', false, ['decrypt']);
+  const body = new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: buf.slice(0, 12), additionalData: new TextEncoder().encode(e[1]) }, key, buf.slice(12)));
+  return { body, mime: 'font/woff2', tag: path.split('/').pop() };
+}
+async function serveSiteAsset(req, env, url) {
+  const cache = caches.default, ck = new Request(url.origin + url.pathname);
+  const hit = env.SITE_MODE === 'public' && await cache.match(ck).catch(() => null);
+  if (hit) return hit;
+  const a = await siteAsset(env, url.pathname).catch(() => null);
+  if (!a) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
+  const res = withHeaders(new Response(a.body, { headers: { 'Content-Type': a.mime, ETag: `"${a.tag}"`,
+    'Cache-Control': `${env.SITE_MODE === 'public' ? 'public' : 'private'}, max-age=31536000, immutable` } }));
+  if (env.SITE_MODE === 'public') await cache.put(ck, res.clone()).catch(() => {});
+  return res;
+}
+
 function inject(html, name, value) {
   const [open, close] = MARK(name);
   const a = html.indexOf(open);
@@ -359,6 +389,7 @@ export default {
       const match = seo.matchPage(url.pathname);
       const isPage = !!match;
       if (env.SITE_MODE === 'public') {
+        if (SITE_ASSET.test(url.pathname)) return await serveSiteAsset(req, env, url);
         if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
         let user = null;
         try { user = await requireUser(req, env); } catch { /* visitor */ }
@@ -368,6 +399,7 @@ export default {
       // private mode: nothing is served without an allowed user
       let user;
       try { user = await requireUser(req, env); } catch (e) { return await deniedPage(e, env); }
+      if (SITE_ASSET.test(url.pathname)) return await serveSiteAsset(req, env, url);
       if (!isPage) return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
       await noteLogin(req, env, user);
       return await servePage(req, env, user, match);

@@ -51,7 +51,10 @@ const get = async (u) => { const r = await fetch(u, { redirect: 'manual' }); ret
   const errs = []; p.on('pageerror', (e) => errs.push(e.message));
   await p.goto(PUB + new URL(al).pathname, { waitUntil: 'networkidle' });
   ok(await p.evaluate(() => !!document.querySelector('.page.on h1')?.textContent.trim()), 'الرابط النظيف يفتح صفحة الجمعية');
-  ok(await p.evaluate(() => document.fonts.check('16px "IBM Plex Sans Arabic"', 'عسير')), 'الخط العربي محمّل');
+  const fonts = await p.evaluate(async () => { await document.fonts.ready; return { av5: document.fonts.check('500 16px "Avenir Arabic"', 'عسير'), av8: document.fonts.check('800 16px "Avenir Arabic"', 'عسير'),
+    used: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => f.family.replace(/"/g, '') + ' ' + f.weight), body: getComputedStyle(document.body).fontFamily.split(',')[0] }; });
+  ok(fonts.av5 && fonts.av8 && /Avenir Arabic/.test(fonts.body) && fonts.used.some((x) => /^Avenir Arabic/.test(x)), 'خط الهوية Avenir Arabic محمّل (Medium وHeavy): ' + fonts.used.join(', '));
+  ok(!fonts.used.some((x) => /IBM Plex/.test(x)), 'الخط الاحتياطي لا يُنزَّل ما دام خط الهوية يغطي النص');
   await p.evaluate(() => { location.hash = '#/about'; }); await p.waitForTimeout(500);
   ok(await p.evaluate(() => /عن المجلس/.test(document.querySelector('.page.on h1')?.textContent || '')), 'التنقل الداخلي يعمل من رابط نظيف');
   await p.goto(PUB + '/directory', { waitUntil: 'networkidle' });
