@@ -2,7 +2,8 @@
 
 export const SECURITY_HEADERS = {
   'X-Content-Type-Options': 'nosniff',
-  'X-Frame-Options': 'DENY',
+  'X-Frame-Options': 'SAMEORIGIN',
+  'Content-Security-Policy': "frame-ancestors 'self'",
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
   'Strict-Transport-Security': 'max-age=31536000; includeSubDomains',
@@ -10,7 +11,11 @@ export const SECURITY_HEADERS = {
 
 export function withHeaders(res, extra = {}) {
   const h = new Headers(res.headers);
-  for (const [k, v] of Object.entries({ ...SECURITY_HEADERS, ...extra })) h.set(k, v);
+  for (const [k, v] of Object.entries({ ...SECURITY_HEADERS, ...extra })) {
+    // a stricter per-response CSP (uploaded files, brand assets) is kept; we only add frame-ancestors to it
+    if (k === 'Content-Security-Policy' && h.has(k) && !(k in extra)) { const c = h.get(k); if (!/frame-ancestors/.test(c)) h.set(k, c + "; frame-ancestors 'self'"); continue }
+    h.set(k, v);
+  }
   return new Response(res.body, { status: res.status, statusText: res.statusText, headers: h });
 }
 

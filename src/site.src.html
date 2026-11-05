@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="مجلس الجمعيات الأهلية بمنطقة عسير: دليل الجمعيات الأهلية في المنطقة، والفعاليات والبرامج، والاستشارات، والشراكات، والحوكمة.">
+<meta property="og:title" content="مجلس الجمعيات الأهلية بمنطقة عسير"><meta property="og:description" content="دليل الجمعيات الأهلية في منطقة عسير، والفعاليات والبرامج، والاستشارات، والشراكات."><meta property="og:locale" content="ar_SA"><meta property="og:type" content="website">
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#ffffff">
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0D1117">
@@ -2741,6 +2743,37 @@ html[data-theme=dark] .stage button.on{background:#2F6FEB;border-color:#2F6FEB;c
 html[data-theme=dark] #adrawer .lk,html[data-theme=dark] .j .lk{color:#79B8FF}
 html[data-theme=dark] .decban em{color:#79B8FF}
 html[data-theme=dark] .jsel:disabled{background:rgba(240,246,252,.04);color:#9198A1}
+
+/* ===== v0.52 النوافذ والأدراج: تركيز، قفل الصفحة، زر إغلاق ثابت، ورقة سفلية على الجوال ===== */
+body.dlg{overflow:hidden}
+.modal:focus,#adrawer:focus{outline:none}
+.modal .mx{position:sticky;top:0;float:left;z-index:3;width:34px;height:34px;margin:-12px -12px 0 0;border-radius:10px;display:grid;place-items:center;background:var(--sf);border:1px solid var(--line);color:var(--hd)}
+.modal .mx:hover{border-color:var(--blue);color:var(--blue)}
+.modal .mx+.ic{margin-top:0}
+@media (max-width:680px){
+ .modal,.modal.dwide,.modal.wide,.modal.xwide{left:0!important;right:0;top:auto;bottom:0;width:100%!important;max-width:100%!important;max-height:92dvh;overflow:auto;border-radius:20px 20px 0 0;transform:translateY(24px);padding:20px 16px calc(20px + env(safe-area-inset-bottom))}
+ .modal.on{transform:none}.modal.dwide{max-height:96dvh}
+ .modal .form{grid-template-columns:1fr!important}.modal .form>*{grid-column:auto!important}
+ .modal .aform{grid-template-columns:1fr!important}
+ #adrawer{width:100%!important;max-width:100%!important}
+}
+.pclg.sm .ptile.tx b{font-size:8.5px;line-height:1.25;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.pclg.sm .ptile{overflow:hidden}
+@media (min-width:1700px){.jpage{max-width:1640px}}
+/* الجودة والامتثال */
+.cmpk .kpi{cursor:pointer;text-align:start}.cmpk .kpi[aria-pressed="true"]{border-color:var(--blue);box-shadow:inset 0 0 0 1px var(--blue)}
+.cmpg{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px}
+.cmpa{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:6px 0 10px}.cmpa>div{padding:12px;border:1px solid var(--line);border-radius:14px}.cmpa b{display:block;font-size:24px;color:var(--hd)}.cmpa small{font-size:12px;color:var(--mute)}
+.cmpl{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}.cmpl>div{display:grid;grid-template-columns:auto 1fr;gap:0 8px;align-items:center;padding:6px 0;border-bottom:1px dashed var(--line)}.cmpl .pill2{grid-row:1/3;width:24px;height:24px;padding:0;display:grid;place-items:center}.cmpl b{font-size:13px;color:var(--hd)}.cmpl small{font-size:12px;color:var(--mute)}
+.cmppv{display:flex;flex-direction:column;align-items:center;gap:8px;padding:16px 12px;margin-top:10px;border-radius:16px;background:repeating-linear-gradient(45deg,var(--mist),var(--mist) 10px,transparent 10px,transparent 20px);min-height:200px}
+.pvf{box-sizing:content-box;position:relative;overflow:hidden;border-radius:18px;border:8px solid #1B1A3F;box-shadow:0 18px 40px -18px rgba(9,9,81,.45);background:#fff}.pvf iframe{border:0;transform-origin:top right;position:absolute;top:0;right:0}
+.cmpi{display:flex;flex-direction:column;gap:8px;margin-top:12px}.cmpr{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 14px;border:1px solid var(--line);border-radius:14px}
+.cmpr b{color:var(--hd);font-size:14px}.cmpr p{margin:2px 0 6px;color:var(--text);font-size:13px;line-height:1.7}.cmpic{width:32px;height:32px;border-radius:10px;display:grid;place-items:center;background:var(--ice);color:var(--blue)}
+.cmprf{display:flex;flex-wrap:wrap;gap:6px;align-items:center}.cmprf small{color:var(--mute);font-size:12px}
+.cmprefs{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.cmprefs a{display:flex;flex-direction:column;gap:2px;padding:12px;border:1px solid var(--line);border-radius:12px}.cmprefs a:hover{border-color:var(--blue)}.cmprefs b{font-size:13px;color:var(--hd)}.cmprefs small{color:var(--mute);font-size:12px}
+@media (max-width:1100px){.cmpg{grid-template-columns:1fr}.cmpk{grid-template-columns:repeat(3,1fr)!important}.cmprefs{grid-template-columns:1fr 1fr}}
+@media (max-width:680px){.cmpa,.cmpl,.cmprefs{grid-template-columns:1fr 1fr}.cmpk{grid-template-columns:1fr 1fr!important}.cmpr{grid-template-columns:auto 1fr}.cmpr>.pill2{grid-column:2;justify-self:start}}
+html[data-theme=dark] .pvf{border-color:#000}html[data-theme=dark] .modal .mx{background:var(--sf2)}
 </style>
 </head>
 <body>
@@ -2792,7 +2825,7 @@ html[data-theme=dark] .jsel:disabled{background:rgba(240,246,252,.04);color:#919
 <!-- ============ EXPLORE BY FIELD ============ -->
 <section class="h-fields">
   <div class="wrap">
-    <div class="head reveal"><div><span class="eyebrow">دليل الجمعيات</span><h2>تصفّح الجمعيات حسب التصنيف</h2><div class="hfseg" id="hfSeg" role="tablist"><button class="on" data-k="grp">حسب مجال العمل</button><button data-k="sup">حسب الجهة الإشرافية</button><button data-k="gov">حسب المحافظة</button></div></div><a class="btn o" href="#/directory">الدليل كاملاً <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
+    <div class="head reveal"><div><span class="eyebrow">دليل الجمعيات</span><h2>تصفّح الجمعيات حسب التصنيف</h2><div class="hfseg" id="hfSeg" role="tablist" aria-label="طريقة التصنيف"><button role="tab" aria-selected="true" class="on" data-k="grp">حسب مجال العمل</button><button role="tab" aria-selected="false" data-k="sup">حسب الجهة الإشرافية</button><button role="tab" aria-selected="false" data-k="gov">حسب المحافظة</button></div></div><a class="btn o" href="#/directory">الدليل كاملاً <svg class="i" viewBox="0 0 24 24" style="width:18px;height:18px"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></a></div>
     <div class="hfields reveal" id="homeFields"></div>
   </div>
 </section>
@@ -3076,7 +3109,7 @@ html[data-theme=dark] .jsel:disabled{background:rgba(240,246,252,.04);color:#919
       <div><h5>الخدمات</h5><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h5>روابط</h5><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.51</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.52</span></div>
   </div>
 </footer>
 
@@ -3879,7 +3912,7 @@ function openLB(list,i){let k=i;const draw=()=>{$('#modal').innerHTML=`<div clas
 /* ---------- home: featured associations (logos where available) ---------- */
 const FEAT=[24,10,43,14,37,236,68,7,64,133];
 let HF='grp';
-function renderHomeFields(){const el=$('#homeFields');if(!el)return;const T=$('#hfSeg');if(T)T.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.k==HF));
+function renderHomeFields(){const el=$('#homeFields');if(!el)return;const T=$('#hfSeg');if(T)T.querySelectorAll('button').forEach(b=>{b.classList.toggle('on',b.dataset.k==HF);b.setAttribute('aria-selected',b.dataset.k==HF)});
  const L=cnt(assoc,HF);el.classList.toggle('sup',HF=='sup');el.classList.toggle('gov',HF=='gov');el.innerHTML=L.map(([g,n])=>`<button class="hf ${HF=='sup'?'hfs':HF=='gov'?'hfg':''}" onclick="go('directory');setTimeout(()=>{${HF=='gov'?`FL.gov=g0('${g}');applyFilters()`:`FL.${HF}=g0('${g}');${HF=='grp'?'FL.s1=[];':''}applyFilters()`}},150)">${HF=='grp'?`<span class="ic">${I(grpIcon(g),'width:22px;height:22px')}</span>`:HF=='gov'?govIcon(g,56):supLogo(g)}<span><b>${HF=='grp'?g:HF=='gov'?g:supShort(g)}</b><small>${HF=='sup'&&/^وزارة /.test(g)?'وزارة · ':''}${n} جمعية</small></span></button>`).join('')}
 const g0=x=>[x];
 function renderHomeAssoc(){const el=$('#homeAssoc');if(!el)return;el.innerHTML=FEAT.map(id=>assoc.find(a=>a.id==id)).filter(Boolean).map(a=>`<button class="ha" data-l="${a.lic}"><span class="halg ${LOGO[a.id]?'hl':''}" style="${LOGO[a.id]?'':'background:var(--tile);color:var(--tilefg)'}">${LOGO[a.id]?`<img src="${LOGO[a.id]}" alt="شعار ${a.n}">`:`${I(grpIcon(a.grp),'width:30px;height:30px')}`}</span><b>${a.n}</b><small>${a.gov} · ${a.grp}</small></button>`).join('');
@@ -3887,8 +3920,16 @@ function renderHomeAssoc(){const el=$('#homeAssoc');if(!el)return;el.innerHTML=F
 renderDirFields();renderHomeAssoc();renderHomeFields();$('#hfSeg').onclick=e=>{const b=e.target.closest('button');if(b){HF=b.dataset.k;renderHomeFields()}};
 /* drawer */
 function openOv(){$('#ov').classList.add('on')}
-function closeAll(){const ad=$('#adrawer');ad&&ad.classList.remove('on','trw');$('#modal').classList.remove('wide');$('#modal').classList.remove('xwide');$('#ov').style.zIndex='';$('#modal').style.zIndex='';$('#ov').classList.remove('on');$('#drawer').classList.remove('on');$('#modal').classList.remove('on')}
-function closeTop(){const m=$('#modal'),ad=$('#adrawer');if(m.classList.contains('on')&&ad&&ad.classList.contains('on')){m.classList.remove('on','wide','xwide','dwide');m.style.zIndex='';$('#ov').style.zIndex='';return}closeAll()}
+const FOC='a[href],button:not([disabled]),input:not([disabled]):not([type=hidden]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"])';
+/* نافذة أو درج: دور dialog، ينتقل التركيز إلى الداخل، يُحصر فيه، وتُقفل الصفحة خلفه */
+function dlgSet(el){el.setAttribute('role','dialog');el.setAttribute('aria-modal','true');el.tabIndex=-1;const h=el.querySelector('h1,h2,h3');if(h){h.id=h.id||'dlg-'+el.id;el.setAttribute('aria-labelledby',h.id)}document.body.classList.add('dlg');
+ setTimeout(()=>{if(!el.classList.contains('on'))return;if(el.contains(document.activeElement)&&document.activeElement!==el)return;const touch=matchMedia('(pointer:coarse)').matches;const f=!touch&&el.querySelector('form input:not([type=hidden]):not([disabled]):not([type=checkbox]),form select,form textarea');(f||el).focus({preventScroll:true})},40)}
+document.addEventListener('keydown',e=>{if(e.key!='Tab')return;const m=$('#modal'),ad=$('#adrawer'),dr=$('#drawer');const L=m&&m.classList.contains('on')?m:ad&&ad.classList.contains('on')?ad:dr&&dr.classList.contains('on')?dr:null;if(!L)return;
+ const F=[...L.querySelectorAll(FOC)].filter(x=>x.offsetParent!==null||x.getClientRects().length);if(!F.length){e.preventDefault();L.focus();return}const a=document.activeElement,i=F.indexOf(a);
+ if(!L.contains(a)||a===L){e.preventDefault();(e.shiftKey?F[F.length-1]:F[0]).focus();return}if(e.shiftKey&&i<=0){e.preventDefault();F[F.length-1].focus()}else if(!e.shiftKey&&i==F.length-1){e.preventDefault();F[0].focus()}});
+function dlgRestore(){const t=[window._mfx,window._dfx].find(x=>x&&document.contains(x)&&x.offsetParent!==null&&!x.closest('#modal,#adrawer'));window._mfx=window._dfx=null;document.body.classList.remove('dlg');if(t)try{t.focus({preventScroll:true})}catch(e){}}
+function closeAll(){setTimeout(()=>{if(!$('#modal').classList.contains('on')&&!($('#adrawer')&&$('#adrawer').classList.contains('on'))&&!$('#drawer').classList.contains('on'))dlgRestore()},0);const ad=$('#adrawer');ad&&ad.classList.remove('on','trw');$('#modal').classList.remove('wide');$('#modal').classList.remove('xwide');$('#ov').style.zIndex='';$('#modal').style.zIndex='';$('#ov').classList.remove('on');$('#drawer').classList.remove('on');$('#modal').classList.remove('on')}
+function closeTop(){const m=$('#modal'),ad=$('#adrawer');if(m.classList.contains('on')&&ad&&ad.classList.contains('on')){m.classList.remove('on','wide','xwide','dwide');m.style.zIndex='';$('#ov').style.zIndex='';const t=window._mfx;window._mfx=null;(t&&ad.contains(t)?t:ad).focus({preventScroll:true});return}closeAll()}
 $('#ov').onclick=closeTop;document.addEventListener('keydown',e=>{if(e.key=='Escape'){if(typeof ntfOpen=='function'&&ntfOpen()){ntfClose();return}closeTop()}});
 function openAssoc(i){
  const a=assoc.find(x=>x.id==i);
@@ -5501,7 +5542,7 @@ async function recPatch(id,body,msg){try{const j=await api('/api/associations/'+
  Object.assign(o,{n:a.name,lic:a.license_no,gov:a.governorate,grp:a.field_group,s1:a.field_category,s2:a.field_subcategory,founded:a.founded_on||'',issued:a.license_issued_on||'',exp:a.license_expires_on||'',closed:!!a.closed_on,closedOn:a.closed_on||'',closeReason:a.closure_reason||''});
  o.days=o.exp&&!o.closed?Math.round((Date.parse(o.exp)-TODAY)/864e5):null;o.st=o.closed?'مغلقة':o.days==null?'غير معروف':o.days<0?'منتهي':o.days<=90?'ينتهي قريباً':'ساري';
  toast(j.changed.length?msg:'لا توجد تغييرات');closeAll();renderAdmin();setTimeout(()=>openRec(id),50)}catch(e){toast(e.message,1)}}
-function recModal(html){$('#modal').classList.remove('dwide');$('#modal').innerHTML=html;$('#ov').classList.add('on');$('#ov').style.zIndex=96;$('#modal').style.zIndex=97;$('#modal').classList.add('on')}
+function recModal(html){if(!$('#modal').classList.contains('on'))window._mfx=document.activeElement;$('#modal').classList.remove('dwide');$('#modal').innerHTML='<button class="x mx" aria-label="إغلاق" onclick="closeTop()">'+I(P.x,'width:16px;height:16px')+'</button>'+html;dlgSet($('#modal'));$('#ov').classList.add('on');$('#ov').style.zIndex=96;$('#modal').style.zIndex=97;$('#modal').classList.add('on')}
 /* ملف الجمعية الكامل: نافذة تعديل بأقسام + طباعة الملف */
 const BEN=['الأسر','الأيتام','كبار السن','ذوو الإعاقة','الشباب','النساء','الأطفال','المرضى','عموم المجتمع'];
 async function recLookups(){if(recLookups.v)return recLookups.v;const j=await api('/api/lookups');const by=Object.fromEntries(j.fields.map(f=>[f.id,f]));
@@ -6452,7 +6493,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.51)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.52)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['access','تفعيل Cloudflare Access (رمز بالبريد) وإلغاء رمز المعاينة',()=>!!(SESSION&&SESSION.authAccess),null,'من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
@@ -6513,7 +6554,7 @@ const NAV=[
  {k:'consult',ic:'chat',t:'الاستشارات',solo:1,items:[['chub','الاستشارات'],['consults','طلبات الاستشارات','chub'],['capps','طلبات انضمام المستشارين','chub'],['calendar','التقويم والمواعيد','chub'],['consultants','المستشارون','chub'],['cset','إعدادات الاستشارات','chub']]},
  {k:'partner',ic:'hshake',t:'الشراكات والمشاريع',items:[['partners','الشراكات'],['projects','المشاريع']]},
  {k:'mhwar',ic:'people',t:'المجتمعات والفعاليات',items:[['communities','المجتمعات'],['comm','صفحة المجتمع','communities'],['mops','الفعاليات والبرامج'],['mset','الطلبات والترشيحات']]},
- {k:'gov',ic:'shield',t:'الحوكمة',items:[['board','مجلس الإدارة والدورات'],['docs','الوثائق'],['policy','سياسة البيانات والخصوصية']]},
+ {k:'gov',ic:'shield',t:'الحوكمة',items:[['board','مجلس الإدارة والدورات'],['docs','الوثائق'],['policy','سياسة البيانات والخصوصية'],['compliance','الجودة والامتثال']]},
  {k:'sys',ic:'gear',t:'الإعدادات',items:[['users','المستخدمون'],['roles','الأدوار والصلاحيات'],['settings','الإعدادات العامة'],['audit','سجل التدقيق'],['apps','التكاملات']]},
  {k:'launch',ic:'flag',t:'مركز الإطلاق · مؤقت',tmp:1,items:[['launch','خطة البناء والاختبارات'],['gaps','المعلومات الناقصة']]}];
 const modParent=m=>{for(const g of NAV){const x=g.items.find(y=>y[0]==m);if(x)return x[2]||x[0]}return m};
@@ -6532,7 +6573,7 @@ const modName=m=>(MODS.find(x=>x[0]==m)||[])[1]||'';
 const modGroup=m=>NAV.find(g=>g.items.some(x=>x[0]==m))||NAV[0];
 const ACCESS={admin:'*',content:['home','overview','inbox','content','campaigns','communities','comm','mops','mset','board','partners','projects','reports','launch','gaps'],consult:['home','overview','inbox','chub','consults','calendar','consultants','capps','cset','directory','reports','launch','gaps'],analyst:['home','overview','alerts','directory','assoc','trouble','bysup','bygov','analytics','decisions','reports','licenses','quality','updates','campaigns','partners','projects','launch']};
 const isTmp=m=>(NAV.find(g=>g.tmp)||{items:[]}).items.some(x=>x[0]==m);
-const MODALIAS={assoc:'directory',comm:'communities',users:'roles',audit:'roles',settings:'roles',policy:'board',docs:'board'};
+const MODALIAS={compliance:'board',assoc:'directory',comm:'communities',users:'roles',audit:'roles',settings:'roles',policy:'board',docs:'board'};
 const can=m=>{if(ADM.launchOff&&isTmp(m))return false;const P=SESSION&&SESSION.perms;if(P)return !!(P['*']||P[m]||(MODALIAS[m]&&P[MODALIAS[m]]));return ACCESS[ADM.role]=='*'||ACCESS[ADM.role].includes(m)||(MODALIAS[m]&&ACCESS[ADM.role].includes(MODALIAS[m]))};
 const canW=m=>{const P=SESSION&&SESSION.perms;if(P){const a=P['*']||P[m]||(MODALIAS[m]&&P[MODALIAS[m]]);return a=='write'}return can(m)};
 if(SESSION)SESSION.authAccess=SESSION.authMode=='access';
@@ -6987,8 +7028,8 @@ const ago=d=>{const n=Math.round((d-today)/864e5),a=Math.abs(n),w=a==2?'يومي
 const capN=()=>ADM.capps.filter(a=>a.st=='بانتظار المراجعة').length;
 const matchCons=c=>CONS.filter(k=>k.on).map(k=>{const sp=k.sp.includes(c.t),fr=(k.av[c.dt.getDay()]||[]).includes(slotsAll.indexOf(c.slot))&&!ADM.consults.some(x=>x!=c&&x.cid==k.id&&sameDay(x.dt,c.dt)&&x.slot==c.slot&&x.st!='ملغي'),md=k.modes.includes(c.mode),load=ADM.consults.filter(x=>x.cid==k.id&&x.st=='مؤكد').length;
  return {k,sp,fr,md,load,score:(sp?50:0)+(fr?30:0)+(md?10:0)+Math.max(0,10-load*2)+k.rt}}).sort((a,b)=>b.score-a.score);
-function openAD(html){$('#adrawer').classList.remove('wide');$('#adrawer').innerHTML=html;$('#adrawer').classList.add('on');$('#ov').classList.add('on');$('#adrawer').scrollTop=0}
-const adHead=(tag,title,pills)=>`<div class="dh"><button class="x" aria-label="إغلاق" onclick="$('#adrawer').classList.remove('on');$('#ov').classList.remove('on')">${I(P.x)}</button>${tag?`<span class="pill2" style="background:rgba(255,255,255,.14);color:#fff">${tag}</span>`:''}<h3>${title}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${pills||''}</div></div>`;
+function openAD(html){if(!$('#adrawer').classList.contains('on'))window._dfx=document.activeElement;$('#adrawer').classList.remove('wide');$('#adrawer').innerHTML=html;$('#adrawer').classList.add('on');$('#ov').classList.add('on');$('#adrawer').scrollTop=0;dlgSet($('#adrawer'))}
+const adHead=(tag,title,pills)=>`<div class="dh"><button class="x" aria-label="إغلاق" onclick="closeAll()">${I(P.x)}</button>${tag?`<span class="pill2" style="background:rgba(255,255,255,.14);color:#fff">${tag}</span>`:''}<h3>${title}</h3><div style="display:flex;gap:6px;flex-wrap:wrap">${pills||''}</div></div>`;
 
 /* ---------- requests ---------- */
 AM.consults=el=>{const V=ADM.cview,C=ADM.consults;
@@ -7332,6 +7373,82 @@ HDR.calendar=()=>`<button class="jbtn" onclick="goMod('consults')">قائمة ا
 HDR.quality=()=>`<button class="jbtn pri" onclick="goMod('directory',{comp:'part'})">${I(P.send,'width:16px;height:16px')}إرسال رابط التحديث للملفات الناقصة</button>`;
 HDR.analytics=()=>`<button class="jbtn" onclick="goMod('decisions')">${I(P.target,'width:16px;height:16px')}القرارات</button><button class="jbtn pri" onclick="printEl($('#acontent'),'تحليلات جمعيات عسير')">${I(P.dl,'width:16px;height:16px')}تقرير التحليلات PDF</button>`;
 HDR.communities=HDR_CM;
+/* ---------- الجودة والامتثال (v0.52): امتيازات المنصة ومواءمتها مع الأنظمة والأدلة ----------
+   تقييم ذاتي مبني على اختبارات آلية وقياسات، لا شهادة اعتماد. الحالة: done محقق · part جزئي · plan مخطط. */
+const CMP_REF={wcag:['WCAG 2.1 — المستوى AA','W3C','https://www.w3.org/TR/WCAG21/'],dga:['الدليل الإرشادي لإتاحة الوصول الرقمي للأشخاص ذوي الإعاقة وكبار السن','هيئة الحكومة الرقمية','https://dga.gov.sa'],
+ dxmi:['مؤشر نضج التجربة الرقمية: رضا المستفيد، تجربة المستخدم، التعامل مع الشكاوى، التقنيات والأدوات','هيئة الحكومة الرقمية','https://dga.gov.sa'],code:['كود المنصات — نظام التصميم الموحد (استرشادي)','هيئة الحكومة الرقمية','https://dga.gov.sa'],
+ pdpl:['نظام حماية البيانات الشخصية ولائحته التنفيذية','سدايا','https://sdaia.gov.sa'],ecc:['الضوابط الأساسية للأمن السيبراني ECC-2:2024 (استرشادي للجمعيات)','الهيئة الوطنية للأمن السيبراني','https://nca.gov.sa']};
+const CMP_D={a11y:['إتاحة الوصول لذوي الإعاقة وكبار السن','eye'],resp:['التجاوب مع الأجهزة','grid'],ux:['تجربة المستخدم والاتساق','star'],priv:['الخصوصية وحماية البيانات','lock'],sec:['الأمن والصلاحيات','shield'],perf:['الأداء والجاهزية','chart']};
+const CMP_S={done:['محقق','p-ok'],part:['جزئي','p-warn'],plan:['مخطط','p-mute']};
+const CMP_AUDIT={at:'2026-11-05',a11y:{pages:39,themes:2,violations:0},ux:21,lh:{mobile:{perf:45,a11y:94,bp:96,seo:58,fcp:'7.7 ث'},desktop:{perf:64,a11y:94,bp:96,seo:58,fcp:'1.5 ث'},note:'قياس محلي بمحاكاة شبكة جوال بطيئة'},size:{raw:'2.6 م.ب',gz:'1.2 م.ب'}};
+const CMP=[
+ ['a11y','تدقيق آلي لمعايير الوصول في كل صفحات اللوحة','كل صفحات اللوحة (39) والأدراج والنماذج وقائمة الإشعارات تجتاز مستويي A وAA بالوضعين الفاتح والليلي.',['wcag','dga'],'done','اختبار آلي tests/a11y.test.cjs — 0 مخالفات'],
+ ['a11y','التنقل الكامل بلوحة المفاتيح','الصفوف والبطاقات تُفتح بـEnter/مسافة، وEsc يغلق الطبقة العليا، وحلقة تركيز ظاهرة.',['wcag'],'done','tests/ux.test.cjs'],
+ ['a11y','إدارة التركيز في النوافذ والأدراج','عند الفتح ينتقل التركيز إلى داخلها ويبقى محصوراً فيها (Tab)، ويعود إلى الزر الذي فتحها عند الإغلاق، والصفحة خلفها لا تتحرك.',['wcag','dga'],'done','tests/compliance.test.cjs'],
+ ['a11y','أسماء مقروءة لقارئ الشاشة','كل قائمة منسدلة وحقل وخانة تحديد وزر أيقونة له اسم يُقرأ («تحديد: اسم الجمعية»، «إغلاق»).',['wcag','dga'],'done','تدقيق آلي'],
+ ['a11y','تباين الألوان','نسبة تباين النصوص 4.5:1 فأكثر، والحالات لا تعتمد على اللون وحده (نص مع اللون).',['wcag'],'done','تدقيق آلي بالوضعين'],
+ ['a11y','العربية واتجاه اليمين لليسار','لغة الصفحة واتجاهها معلنان، والتواريخ والأرقام بأرقام لاتينية واضحة.',['wcag','code'],'done','فحص حي أدناه'],
+ ['a11y','تقليل الحركة','احترام تفضيل النظام «تقليل الحركة» لإيقاف الحركات غير الضرورية.',['wcag','dga'],'done','فحص حي أدناه'],
+ ['a11y','الموقع العام','تدقيق آلي للصفحات العامة (15 صفحة): عولجت الملاحظة الوحيدة (مجموعة أزرار التصنيف).',['wcag','dga'],'done','تدقيق آلي'],
+ ['a11y','أدوات إتاحة للزائر','تكبير الخط، تباين عالٍ، تمييز الروابط من شريط في الموقع العام.',['dga'],'plan',''],
+ ['a11y','بيان إمكانية الوصول','صفحة عامة تشرح مستوى الإتاحة وقناة الإبلاغ عن صعوبة في الوصول.',['dga'],'plan',''],
+ ['a11y','اختبار مع مستخدمين وقارئات شاشة فعلية','جلسة اختبار مع مستخدمين من ذوي الإعاقة وكبار السن باستخدام NVDA وVoiceOver.',['dga','dxmi'],'plan',''],
+ ['resp','تصميم متجاوب لكل الأجهزة','جوال ولوحي وحاسوب وشاشات كبيرة، مع قائمة جانبية تتحول قائمة منزلقة على الجوال.',['code','dxmi'],'done','معاينة الأجهزة أدناه'],
+ ['resp','الجداول بطاقات على الجوال','كل جداول اللوحة تتحول بطاقات معنونة على الشاشات الصغيرة.',['code'],'done','tests/ux.test.cjs'],
+ ['resp','النوافذ والنماذج على الجوال','النوافذ بملء الشاشة على الجوال، والنماذج بعمود واحد، وزر الإغلاق ثابت أعلاها.',['code'],'done','معاينة الأجهزة'],
+ ['resp','الوضع الليلي واتباع تفضيل النظام','مظهر فاتح وليلي متباين، يتبع إعداد الجهاز أو اختيار المستخدم.',['dga'],'done','تدقيق آلي بالوضع الليلي'],
+ ['resp','تثبيت المنصة كتطبيق والعمل دون اتصال','ملف تطبيق ويب (PWA) وأيقونة على الشاشة الرئيسية.',['dxmi'],'plan',''],
+ ['ux','سياق موحد للصفحات','ترويسة بزر أساسي واحد، وتبويبات ومرشحات بنمط واحد، ومسار تنقل بلا تكرار.',['code','dxmi'],'done','tests/ux.test.cjs'],
+ ['ux','الروابط تحفظ الحالة','المرشحات والسجل المفتوح في الرابط؛ المشاركة والرجوع والتقدم تعمل كما يُتوقع.',['dxmi'],'done','tests/ux.test.cjs'],
+ ['ux','ما يحتاج انتباهك','قائمة إشعارات بالإجراءات العاجلة من أي صفحة.',['dxmi'],'done',''],
+ ['ux','رضا المستفيد والشكاوى','صندوق وارد للرسائل والطلبات موجود؛ يُضاف استبيان رضا قصير بعد الخدمات (استشارة، فعالية).',['dxmi'],'part','صندوق الوارد'],
+ ['priv','البيانات الشخصية مقنّعة افتراضياً','الأسماء والجوالات والبريد مخفية، وإظهارها بصلاحية الدور ويُسجَّل في سجل التدقيق.',['pdpl'],'done','الإعدادات العامة'],
+ ['priv','التصدير بلا بيانات شخصية','التقارير والتنزيلات تستثني البيانات الشخصية، والتصدير مقيّد بالأدوار.',['pdpl'],'done','tests/reports.test.cjs'],
+ ['priv','سياسة الحقول (عام/داخلي)','لكل حقل مستوى ظهور يُطبَّق في الخادم قبل الإرسال للموقع العام.',['pdpl'],'done','سياسة البيانات والخصوصية'],
+ ['priv','موافقة الجمعية على نشر التواصل','لا تُنشر بيانات تواصل الجمعية إلا بموافقتها.',['pdpl'],'done',''],
+ ['priv','سياسة الخصوصية المنشورة','تُكتب وتُعتمد من صفحة السياسات ثم تُنشر في الموقع.',['pdpl'],'part','صفحة السياسات'],
+ ['priv','مسؤول حماية البيانات وطلبات أصحاب البيانات','تحديد مسؤول، وآلية لطلبات الاطلاع والتصحيح والحذف ومدة الاستجابة.',['pdpl'],'plan',''],
+ ['sec','أدوار وصلاحيات بأقل امتياز','مصفوفة قراءة/كتابة لكل قسم، وحماية من حذف آخر مسؤول.',['ecc'],'done','الأدوار والصلاحيات'],
+ ['sec','سجل التدقيق','كل دخول وتعديل وإظهار للبيانات الشخصية مسجّل.',['ecc','pdpl'],'done','سجل التدقيق'],
+ ['sec','ترويسات أمان واتصال مشفّر','HTTPS إلزامي (HSTS)، ومنع التضمين في مواقع أخرى، ومنع تخمين نوع الملفات، وتقييد الكاميرا والموقع.',['ecc'],'done','ترويسات الخادم'],
+ ['sec','حسابات فردية وتسجيل دخول موحّد','تفعيل الدخول عبر Cloudflare Access وحساب لكل عضو.',['ecc'],'part','الإعدادات — بانتظار التفعيل'],
+ ['sec','لا أسرار ولا بيانات داخلية في المستودع','ملفات البيانات الداخلية والمفاتيح خارج الكود.',['ecc'],'done',''],
+ ['sec','النسخ الاحتياطي والاستعادة','قاعدة البيانات تدعم الاستعادة لنقطة زمنية؛ يلزم اختبار استعادة موثّق.',['ecc'],'part',''],
+ ['perf','وقت التحميل على الجوال','الصفحة ملف واحد كبير يضم كود اللوحة أيضاً؛ فصله عن الموقع العام يسرّع الظهور الأول.',['dxmi'],'part','Lighthouse جوال 45'],
+ ['perf','ثبات التخطيط','قفزة في تخطيط الصفحة الرئيسية عند التحميل على الحاسوب تحتاج معالجة.',['dxmi'],'part','Lighthouse CLS'],
+ ['perf','الصور','تحميل كسول للصور خارج الشاشة؛ يلزم تحويل الباقي لتنسيق WebP وتحديد أبعادها.',['dxmi'],'part',''],
+ ['perf','الظهور في محركات البحث والمشاركة','وصف الصفحة ومعاينة المشاركة؛ الفهرسة موقوفة عمداً حتى الإطلاق.',['dxmi'],'part','robots.txt']];
+ADM.cmpF=ADM.cmpF||'all';ADM.cmpS=ADM.cmpS||'';
+function cmpLive(){const n=performance.getEntriesByType('navigation')[0]||{},tr=performance.getEntriesByType('resource').reduce((t,r)=>t+(r.transferSize||0),0)+(n.transferSize||0),mm=q=>matchMedia(q).matches,w=innerWidth;
+ return [['اللغة والاتجاه',document.documentElement.lang=='ar'&&document.documentElement.dir=='rtl','ar · rtl'],['ضبط عرض الجوال (viewport)',!!$('meta[name=viewport]'),'width=device-width'],['اتصال مشفّر',location.protocol=='https:'||location.hostname=='127.0.0.1'||location.hostname=='localhost',location.protocol=='https:'?'HTTPS':'بيئة محلية'],
+  ['الوضع الحالي',1,(document.documentElement.dataset.theme||'light')=='dark'?'ليلي':'فاتح'],['تفضيل تقليل الحركة',1,mm('(prefers-reduced-motion: reduce)')?'مفعّل في جهازك ويُحترم':'غير مفعّل في جهازك'],
+  ['جهازك الآن',1,`${w}×${innerHeight} · ${w<=680?'جوال':w<=1024?'لوحي':'حاسوب'}${mm('(pointer: coarse)')?' · لمس':''}`],
+  ['زمن التحميل',n.duration?n.duration<3000:1,n.duration?(n.duration/1000).toFixed(1)+' ث':'—'],['حجم النقل',tr?tr<1.6e6:1,tr?(tr/1048576).toFixed(2)+' م.ب':'—'],['عناصر الصفحة',document.getElementsByTagName('*').length<6000,document.getElementsByTagName('*').length.toLocaleString('en')]]}
+const CMP_DEV=[['iphone','آيفون',390,844],['android','أندرويد',412,915],['ipad','آيباد',820,1180],['laptop','حاسوب',1366,768],['wide','شاشة كبيرة',1920,1080]];
+const CMP_PG=[['','الرئيسية'],['directory','دليل الجمعيات'],['news','المركز الإعلامي'],['governance','الحوكمة'],['communities','المجتمعات'],['contact','تواصل معنا'],['admin/home','لوحة التحكم']];
+ADM.cmpDev=ADM.cmpDev||'iphone';ADM.cmpPg=ADM.cmpPg||'';ADM.cmpRot=ADM.cmpRot||0;
+function cmpPreview(){const box=$('#cmpPv');if(!box)return;const d=CMP_DEV.find(x=>x[0]==ADM.cmpDev)||CMP_DEV[0];let w=d[2],h=d[3];if(ADM.cmpRot)[w,h]=[h,w];
+ const fit=Math.min(1,(box.clientWidth-24)/w,560/h);box.innerHTML=`<div class="pvf" style="width:${Math.round(w*fit)}px;height:${Math.round(h*fit)}px"><iframe title="معاينة ${esc(d[1])}" src="/#/${ADM.cmpPg}" style="width:${w}px;height:${h}px;transform:scale(${fit})" loading="lazy"></iframe></div><small class="d">${d[1]} · ${w}×${h} · تكبير ${Math.round(fit*100)}%</small>`}
+AM.compliance=el=>{const F=ADM.cmpF,S=ADM.cmpS,L=CMP.filter(x=>(F=='all'||x[0]==F)&&(!S||x[4]==S)),cnt=(d,s)=>CMP.filter(x=>(!d||x[0]==d)&&(!s||x[4]==s)).length,pct=d=>{const t=cnt(d);return t?Math.round((cnt(d,'done')+cnt(d,'part')*.5)/t*100):0};
+ const A=CMP_AUDIT,live=cmpLive();
+ el.innerHTML=`<p class="alead">امتيازات المنصة ومدى مواءمتها مع الأنظمة والأدلة الوطنية والدولية: إتاحة الوصول، التجاوب مع الأجهزة، الخصوصية، الأمن، والأداء. تقييم ذاتي قائم على اختبارات آلية وقياسات، وليس شهادة اعتماد من جهة رسمية.</p>
+ <div class="kpis mini cmpk" style="grid-template-columns:repeat(6,1fr);margin-bottom:16px">${Object.entries(CMP_D).map(([k,[l,ic]])=>{const p=pct(k);return `<button class="kpi ${p>=85?'good':p>=60?'warn':'bad'}" data-cd="${k}" aria-pressed="${F==k}"><i class="kic">${I(P[ic]||P.info,'width:15px;height:15px')}</i><small>${l}</small><b>${p}%</b><em>${cnt(k,'done')} محقق · ${cnt(k,'part')} جزئي · ${cnt(k,'plan')} مخطط</em></button>`}).join('')}</div>
+ <div class="cmpg"><div class="panel"><h3>${I(P.check,'width:18px;height:18px')}آخر تدقيق آلي <small class="d" style="display:inline">${A.at}</small></h3>
+  <div class="cmpa"><div><b>${A.a11y.violations}</b><small>مخالفة وصول في ${A.a11y.pages} صفحة × ${A.a11y.themes} وضع</small></div><div><b>${A.ux}</b><small>فحصاً لتوحيد الواجهة ناجحاً</small></div><div><b>${A.lh.desktop.a11y}</b><small>إتاحة الموقع العام (Lighthouse)</small></div><div><b>${A.lh.mobile.perf}</b><small>أداء الجوال (Lighthouse)</small></div></div>
+  <p class="d">${I(P.info,'width:14px;height:14px;vertical-align:-2px')} Lighthouse ${A.lh.note}: الظهور الأول ${A.lh.mobile.fcp} على الجوال و${A.lh.desktop.fcp} على الحاسوب؛ حجم الصفحة ${A.size.raw} (${A.size.gz} مضغوطة).</p></div>
+  <div class="panel"><h3>${I(P.chart,'width:18px;height:18px')}فحص حي لهذا الجهاز</h3><div class="cmpl">${live.map(([l,ok,v])=>`<div><span class="pill2 ${ok?'p-ok':'p-warn'}">${ok?'✓':'!'}</span><b>${l}</b><small>${esc(v)}</small></div>`).join('')}</div></div></div>
+ <div class="panel" style="margin-top:16px"><h3>${I(P.grid,'width:18px;height:18px')}معاينة الأجهزة<span class="r"><button class="jbtn sm" id="cmpRot">${I('<path d="M4 4v6h6M20 20v-6h-6M5 15a7 7 0 0 0 12 3M19 9A7 7 0 0 0 7 6"/>','width:14px;height:14px')}تدوير</button><a class="jbtn sm" id="cmpNew" target="_blank" href="/#/${ADM.cmpPg}">${I(P.globe,'width:14px;height:14px')}فتح في نافذة</a></span></h3><p class="d">شاهد أي صفحة بمقاس جهاز حقيقي دون مغادرة اللوحة.</p>
+  <div class="tbar" style="gap:8px"><div class="csf">${CMP_DEV.map(d=>`<button class="${ADM.cmpDev==d[0]?'on':''}" data-dv="${d[0]}">${d[1]}<em>${d[2]}</em></button>`).join('')}</div><select id="cmpPg" aria-label="الصفحة المعروضة">${CMP_PG.map(([k,l])=>`<option value="${k}" ${ADM.cmpPg==k?'selected':''}>${l}</option>`).join('')}</select></div><div id="cmpPv" class="cmppv"></div></div>
+ <div class="panel" style="margin-top:16px"><h3>${I(P.shield,'width:18px;height:18px')}الامتيازات والمواءمة</h3>
+  <div class="tbar" style="gap:8px"><div class="csf"><button class="${F=='all'?'on':''}" data-cd="all">الكل<em>${CMP.length}</em></button>${Object.entries(CMP_D).map(([k,[l]])=>`<button class="${F==k?'on':''}" data-cd="${k}">${l.split(' ')[0]=='إتاحة'?'الوصول':l.split(' ').slice(0,2).join(' ').replace(/^التجاوب مع$/,'التجاوب')}<em>${cnt(k)}</em></button>`).join('')}</div><div class="csf"><button class="${!S?'on':''}" data-cs="">كل الحالات</button>${Object.entries(CMP_S).map(([k,[l]])=>`<button class="${S==k?'on':''}" data-cs="${k}">${l}<em>${cnt(F=='all'?'':F,k)}</em></button>`).join('')}</div></div>
+  <div class="cmpi">${L.map(x=>`<div class="cmpr"><span class="cmpic">${I(P[CMP_D[x[0]][1]]||P.info,'width:16px;height:16px')}</span><div><b>${esc(x[1])}</b><p>${esc(x[2])}</p><div class="cmprf">${x[3].map(r=>`<span class="pill2 p-info" title="${esc(CMP_REF[r][1])}">${esc(CMP_REF[r][0].split(' — ')[0].split(':')[0])}</span>`).join('')}${x[5]?`<small>${I(P.file,'width:12px;height:12px;vertical-align:-1px')} ${esc(x[5])}</small>`:''}</div></div><span class="pill2 ${CMP_S[x[4]][1]}">${CMP_S[x[4]][0]}</span></div>`).join('')||'<div class="jempty2">لا عناصر بهذا التصنيف.</div>'}</div></div>
+ <div class="panel" style="margin-top:16px"><h3>${I(P.book,'width:18px;height:18px')}المراجع</h3><div class="cmprefs">${Object.values(CMP_REF).map(([t,o,u])=>`<a href="${u}" target="_blank" rel="noopener"><b>${esc(t)}</b><small>${esc(o)}</small></a>`).join('')}</div></div>`;
+ el.querySelectorAll('[data-cd]').forEach(b=>b.onclick=()=>{ADM.cmpF=ADM.cmpF==b.dataset.cd&&b.classList.contains('kpi')?'all':b.dataset.cd;AM.compliance(el)});el.querySelectorAll('[data-cs]').forEach(b=>b.onclick=()=>{ADM.cmpS=b.dataset.cs;AM.compliance(el)});
+ el.querySelectorAll('[data-dv]').forEach(b=>b.onclick=()=>{ADM.cmpDev=b.dataset.dv;el.querySelectorAll('[data-dv]').forEach(x=>x.classList.toggle('on',x==b));cmpPreview()});
+ $('#cmpPg').onchange=e=>{ADM.cmpPg=e.target.value;$('#cmpNew').href='/#/'+ADM.cmpPg;cmpPreview()};$('#cmpRot').onclick=()=>{ADM.cmpRot=ADM.cmpRot?0:1;cmpPreview()};
+ requestAnimationFrame(cmpPreview)};
+HDR.compliance=()=>`<button class="jbtn" onclick="goMod('policy')">${I(P.lock,'width:16px;height:16px')}سياسة البيانات</button><button class="jbtn pri" onclick="printEl($('#acontent'),'الجودة والامتثال — مجلس الجمعيات الأهلية بعسير')">${I(P.dl,'width:16px;height:16px')}تقرير الامتثال</button>`;
+
 HDR.partners=()=>(ADM.pt&&ADM.pt.tab=='between')?`<button class="jbtn pri" onclick="apForm()">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}توثيق شراكة بين جمعيات</button>`:`<button class="jbtn pri" onclick="ptNew()">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}شراكة جديدة</button>`;
 HDR.capps=()=>`<button class="jbtn pri" onclick="toast('تُرسل دعوة إنشاء حساب للمستشار في النسخة الفعلية')">${I(P.userplus,'width:16px;height:16px')}دعوة مستشار</button>`;
 HDR.updates=()=>`<button class="jbtn" onclick="goMod('quality')">جودة البيانات</button>`;
