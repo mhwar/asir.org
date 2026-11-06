@@ -9,6 +9,9 @@ t('menu opens',await p.$eval('.ndt >> nth=2',e=>e.getAttribute('aria-expanded'))
 await p.click('.ndt >> nth=0');
 const ex=await p.$$eval('.ndt',a=>a.map(e=>e.getAttribute('aria-expanded')));
 t('only one menu open',ex.filter(x=>x==='true').length===1);
+await p.mouse.move(5,300);await p.click('.ndt >> nth=1');await p.hover('.ndt >> nth=2');await p.waitForTimeout(400);
+const vis=await p.$$eval('.ndm',a=>a.filter(e=>{const c=getComputedStyle(e);return c.visibility!=='hidden'&&+c.opacity>0.5}).length);
+t('click one + hover another shows a single menu ('+vis+')',vis===1);
 await p.keyboard.press('Escape');
 const ex2=await p.$$eval('.ndt',a=>a.map(e=>e.getAttribute('aria-expanded')));
 t('escape closes and syncs aria',ex2.every(x=>x==='false'));

@@ -1,0 +1,30 @@
+// v0.64: الدعم المهني داخل حالة التعثر: اقتراح، إضافة كاحتياج، تجاهل، وظهور الاحتياج القائم
+const { chromium } = require('playwright');
+const fs = require('fs'), path = require('path');
+const BASE = process.env.BASE || 'http://127.0.0.1:8787';
+const AXE = fs.readFileSync(path.join(__dirname, '..', 'node_modules', 'axe-core', 'axe.min.js'), 'utf8');
+let pass = 0, fail = 0;
+const ok = (c, m) => { if (c) { pass++; console.log('✓ ' + m); } else { fail++; console.log('✗ FAIL ' + m); } };
+(async () => {
+  const b = await chromium.launch();
+  const t = await b.newPage({ viewport: { width: 1366, height: 900 } });
+  const errs = []; t.on('pageerror', (e) => errs.push(e.message));
+  await t.goto(BASE + '/#/admin', { waitUntil: 'networkidle' }); await t.waitForTimeout(900);
+  const aid = await t.evaluate(() => { const o = DB.find((o) => !o.closed && !PRO.needs.some((n) => n.aid == o.id) && !(PRO.dis || []).some((k) => k.startsWith(o.id + ':')) && !TRB.cases.some((c) => c.aid == o.id)); trNew(o.id, { types: ['تعثر مالي', 'ضعف الحوكمة أو مجلس الإدارة'], sev: 'عالية' }); trSave(); trOpen(o.id); return o.id; });
+  await t.waitForTimeout(400);
+  ok(await t.evaluate(() => /الدعم المهني/.test(document.querySelector('#adrawer').textContent)), 'قسم «الدعم المهني» يظهر في حالة التعثر');
+  ok((await t.$$('#adrawer .xpcr')).length === 2, 'اقتراحان من نوعي التعثر');
+  await t.addScriptTag({ content: AXE });
+  const ax = await t.evaluate(async () => (await axe.run(document.querySelector('#adrawer'), { runOnly: ['wcag2a', 'wcag2aa'] })).violations.map((v) => v.id));
+  ok(!ax.length, 'axe على الدرج ' + ax.join(' '));
+  await t.click('#adrawer .xpcr .jbtn.pri'); await t.waitForTimeout(400);
+  ok(await t.evaluate((a) => PRO.needs.some((n) => n.aid == a && n.src == 'suggest'), aid), 'إضافة كاحتياج تنشئ احتياجاً مرتبطاً بالجمعية');
+  ok(await t.evaluate(() => document.querySelectorAll('#adrawer .xpcr').length === 2 && /مقترح:/.test(document.querySelector('#adrawer').textContent)), 'الدرج يعرض الاحتياج القائم والاقتراح المتبقي');
+  const k = await t.evaluate(() => [...document.querySelectorAll('#adrawer [onclick^="proCaseDis"]')].map((x) => x.getAttribute('onclick'))[0]);
+  await t.click('#adrawer [onclick^="proCaseDis"]'); await t.waitForTimeout(400);
+  ok(await t.evaluate(() => !document.querySelector('#adrawer [onclick^="proCaseDis"]')), 'التجاهل يخفي الاقتراح');
+  await t.click('#adrawer .xpcr .jbtn:not(.pri)'); await t.waitForTimeout(400);
+  ok(await t.evaluate(() => !!document.querySelector('#adrawer h3, #adrawer .dh')), 'فتح الاحتياج القائم لا يكسر الدرج');
+  ok(!errs.length, 'بلا أخطاء ' + errs.join(' | '));
+  console.log(pass + ' ok, ' + fail + ' fail'); await b.close(); process.exit(fail ? 1 : 0);
+})();
