@@ -25,6 +25,13 @@ const ok = (c, m) => { if (c) { pass++; console.log('✓ ' + m); } else { fail++
   ok(await t.evaluate(() => !document.querySelector('#adrawer [onclick^="proCaseDis"]')), 'التجاهل يخفي الاقتراح');
   await t.click('#adrawer .xpcr .jbtn:not(.pri)'); await t.waitForTimeout(400);
   ok(await t.evaluate(() => !!document.querySelector('#adrawer h3, #adrawer .dh')), 'فتح الاحتياج القائم لا يكسر الدرج');
+  // قياس الأثر: المقارنة تُثبَّت عند الاعتماد ولا تتبع التغيرات اللاحقة
+  const imp = await t.evaluate((a) => { const o = DBI[a], c0 = o.comp; const g = { id: 'GX1', aid: a, an: o.n, st: 'work', base: proSnap(a), ms: [], hrs: [], log: [] };
+    o.comp = Math.min(100, c0 + 25); g.st = 'done'; g.after = proSnap(a); o.comp = 0; PRO.engs.push(g);
+    PRO.needs.push({ id: 'NX1', aid: a, an: o.n, area: 0, fmt: 'm', title: 'اختبار الأثر', st: 'done', eng: 'GX1', at: proNow(), log: [] });
+    const d = proDelta(g); const html = proCaseBlock(a); o.comp = c0; return { row: d.rows[0].slice(1, 3), up: d.up, shown: /xpres/.test(html) }; }, aid);
+  ok(imp.up && imp.row[1] !== '0%', 'المقارنة مثبّتة عند الاعتماد رغم تغير الاكتمال لاحقاً ' + JSON.stringify(imp.row));
+  ok(imp.shown, 'حالة التعثر تعرض نتيجة المهمة المنجزة');
   ok(!errs.length, 'بلا أخطاء ' + errs.join(' | '));
   console.log(pass + ' ok, ' + fail + ' fail'); await b.close(); process.exit(fail ? 1 : 0);
 })();
