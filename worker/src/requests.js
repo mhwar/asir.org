@@ -359,3 +359,18 @@ export async function logoKey(env, associationId) {
   const r = await env.DB.prepare('SELECT logo_key FROM association_profiles WHERE association_id = ?1').bind(associationId).first();
   return r && r.logo_key;
 }
+
+// ─── asset pass for link holders (private mode) ──────────
+// صفحات الروابط (/u/ و/d/) تحمّل ملفات البناء والخط؛ في الوضع الخاص تُحجب عن غير الفريق،
+// فيُمنح حامل الرابط الصالح كعكة موقّعة قصيرة تسمح بملفات البناء فقط (لا بيانات فيها).
+const ACOOKIE = 'asir_a';
+export async function assetPassCookie(env) {
+  const exp = Math.floor(Date.now() / 1000) + UHOURS * 3600;
+  return `${ACOOKIE}=${exp}.${await sign(env, `a.${exp}`)}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${UHOURS * 3600}`;
+}
+export async function assetPassOk(env, req) {
+  const m = (req.headers.get('Cookie') || '').match(/(?:^|;\s*)asir_a=(\d+)\.([0-9a-f]+)/);
+  if (!m || Number(m[1]) < Date.now() / 1000) return false;
+  return eqs(await sign(env, `a.${m[1]}`), m[2]);
+}
+export { sha256, newToken, b64url, sign, eqs, NOW };

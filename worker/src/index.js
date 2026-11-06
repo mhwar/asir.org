@@ -10,6 +10,8 @@ import * as db from './db.js';
 import { readState, writeState } from './state.js';
 import * as rq from './requests.js';
 import * as pf from './profile.js';
+import * as dg from './diag.js';
+import { diagPage } from './diagpage.js';
 import { brandApi, serveBrand } from './brand.js';
 import * as msg from './messages.js';
 import * as al from './alerts.js';
@@ -119,7 +121,37 @@ async function servePortal(req, env, token) {
   html = inject(html, 'RAW', '[]');
   html = inject(html, 'STATE', bigJson(await readState(env, null)));
   html = inject(html, 'PORTAL', safeJson({ token, ...(await rq.portalPayload(env, link)) }));
-  return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
+  return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'Set-Cookie': await rq.assetPassCookie(env) } }));
+}
+
+function diagPin(msg = '', status = 200) {
+  return shell(`<h1>التشخيص المؤسسي للجمعية</h1><p>أدخل رمز الدخول المكوّن من 6 أرقام، المرسل لكم مع الرابط من مجلس الجمعيات الأهلية بعسير.</p>
+<form method="post"><input name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus aria-label="رمز الدخول" placeholder="••••••">
+<button type="submit">متابعة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لم يصلكم الرمز؟ تواصلوا مع فريق المجلس.</div>`, status, { 'Referrer-Policy': 'no-referrer' });
+}
+const diagHtml = async (env, html) => withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'Set-Cookie': await rq.assetPassCookie(env) } }));
+async function serveDiag(req, env, token) {
+  const r = await dg.resolve(env, req, token);
+  if (!r) return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط التقييم غير صالح أو انتهت مدته.</p><p>تواصلوا مع فريق المجلس لإرسال رابط جديد.</p>`, 404);
+  if (req.method === 'POST') {
+    const v = await dg.verifyPin(env, req, r, token);
+    if (!v.ok) return diagPin(v.message, v.locked ? 429 : 401);
+    return withHeaders(new Response(null, { status: 303, headers: { Location: `/d/${token}`, 'Set-Cookie': v.cookie, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
+  }
+  if (!(await dg.pinOk(env, req, r))) return diagPin();
+  await dg.opened(env, r);
+  return diagHtml(env, diagPage(await dg.pageState(env, r, 'link'), `/api/d/${token}`));
+}
+async function serveDiagTeam(req, env, id) {
+  let user;
+  try { user = await requireUser(req, env); } catch (e) { return await deniedPage(e, env); }
+  if (!can(user, 'diag')) return shell('<h1>مجلس الجمعيات الأهلية بعسير</h1><p>لا تملك صلاحية التشخيص المؤسسي.</p>', 403);
+  const r = await env.DB.prepare(`SELECT s.*, a.name_ar AS association, g.name_ar AS gov FROM assessments s JOIN associations a ON a.id = s.association_id JOIN governorates g ON g.id = a.governorate_id WHERE s.id = ?1`).bind(id).first();
+  if (!r) return shell('<h1>مجلس الجمعيات الأهلية بعسير</h1><p>التقييم غير موجود.</p>', 404);
+  const st = await dg.pageState(env, r, 'team');
+  // ما يعبّئه حامل الرابط أو ما أُرسل يُعرض للقراءة؛ وما يعبّئه الفريق يُعدَّل لمن له صلاحية الكتابة
+  if (r.token_hash || !can(user, 'diag', 'write')) st.status = ['draft', 'sent'].includes(st.status) ? 'readonly' : st.status;
+  return diagHtml(env, diagPage(st, `/api/assessments/${id}`));
 }
 
 async function noteLogin(req, env, user) {
@@ -228,6 +260,23 @@ async function api(req, env, url) {
     return json(await rq.submitRequest(env, req, link), 201);
   }
 
+  // Assessment link (self or visiting expert): token + PIN cookie, no account
+  const dm = path.match(/^\/api\/d\/([A-Za-z0-9_-]{20,64})(\/submit|\/files(?:\/(\d+))?)?$/);
+  if (dm) {
+    if (m !== 'GET') { const o = req.headers.get('Origin'); if (o && o !== url.origin) fail(403, 'bad_origin', 'مصدر الطلب غير مسموح'); }
+    const r = await dg.resolve(env, req, dm[1]);
+    if (!r) fail(404, 'invalid_link', 'رابط التقييم غير صالح أو انتهت مدته');
+    if (!(await dg.pinOk(env, req, r))) fail(401, 'pin_required', 'انتهت الجلسة. أعد فتح الرابط وأدخل رمز الدخول.');
+    const who = r.kind === 'self' ? 'link:self:' + r.association_id : 'link:field:' + r.id;
+    if (!dm[2] && m === 'GET') return json(await dg.pageState(env, r, 'link'));
+    if (!dm[2] && m === 'PUT') return json(await dg.save(env, req, who, r, await readJson(req)));
+    if (dm[2] === '/submit' && m === 'POST') return json(await dg.submit(env, req, who, r));
+    if (dm[2] === '/files' && m === 'POST') return json(await dg.addFile(env, req, who, r, await req.formData()), 201);
+    if (dm[3] && m === 'GET') return withHeaders(await dg.serveFile(env, r, Number(dm[3])));
+    if (dm[3] && m === 'DELETE') return json(await dg.delFile(env, req, who, r, Number(dm[3])));
+    fail(405, 'method_not_allowed', 'غير مسموح');
+  }
+
   // Everything below requires an allowed user
   const user = await requireUser(req, env);
   if (!['GET', 'HEAD', 'OPTIONS'].includes(m)) {
@@ -246,6 +295,30 @@ async function api(req, env, url) {
   }
   if (path === '/api/messages' && m === 'GET') { requirePerm(user, 'inbox'); return json({ data: await msg.listMessages(env) }); }
   // التطوع الاحترافي: طلبات الخبراء والجمعيات الواردة من الموقع، لمن يملك وحدة pro ولو لم يملك صندوق الوارد
+  if (path === '/api/diag/tool' && m === 'GET') { requirePerm(user, 'diag'); return json(dg.tool()); }
+  if (path === '/api/diag/bulk' && m === 'POST') { requirePerm(user, 'diag', 'write'); return json(await dg.bulk(env, req, user, await readJson(req), url.origin), 201); }
+  if (path === '/api/diag/summary' && m === 'GET') { requirePerm(user, 'diag'); return json(await dg.summary(env)); }
+  const dl = path.match(/^\/api\/associations\/(\d+)\/assessments$/);
+  if (dl && m === 'GET') { requirePerm(user, 'diag'); return json({ data: await dg.listFor(env, idFrom(dl[1])) }); }
+  if (dl && m === 'POST') { requirePerm(user, 'diag', 'write'); return json(await dg.create(env, req, user, idFrom(dl[1]), await readJson(req), url.origin), 201); }
+  const da = path.match(/^\/api\/assessments\/(\d+)(\/submit|\/review|\/relink|\/files(?:\/(\d+))?)?$/);
+  if (da) {
+    const id = idFrom(da[1]);
+    if (!da[2] && m === 'GET') { requirePerm(user, 'diag'); return json({ data: await dg.get(env, id) }); }
+    if (da[2] === '/review' && m === 'POST') { requirePerm(user, 'diag', 'write'); return json({ data: await dg.review(env, req, user, id, await readJson(req)) }); }
+    if (da[2] === '/relink' && m === 'POST') { requirePerm(user, 'diag', 'write'); return json(await dg.relink(env, req, user, id, await readJson(req), url.origin)); }
+    const r = await env.DB.prepare('SELECT * FROM assessments WHERE id = ?1').bind(id).first();
+    if (!r) fail(404, 'not_found', 'التقييم غير موجود');
+    if (da[3] && m === 'GET') { requirePerm(user, 'diag'); return withHeaders(await dg.serveFile(env, r, Number(da[3]))); }
+    requirePerm(user, 'diag', 'write');
+    // يعدّل الفريق التقييمات التي يعبّئها بنفسه (ميداني أو مكتبي بلا رابط)؛ ما يعبّئه حامل الرابط يُراجع ولا يُعدّل
+    if (r.token_hash && (m === 'PUT' || da[2] === '/submit' || (da[2] && da[2].startsWith('/files')))) fail(409, 'link_owned', 'هذا التقييم يعبّئه حامل الرابط');
+    if (!da[2] && m === 'PUT') return json(await dg.save(env, req, user.email, r, await readJson(req)));
+    if (da[2] === '/submit' && m === 'POST') return json(await dg.submit(env, req, user.email, r));
+    if (da[2] === '/files' && m === 'POST') return json(await dg.addFile(env, req, user.email, r, await req.formData()), 201);
+    if (da[3] && m === 'DELETE') return json(await dg.delFile(env, req, user.email, r, Number(da[3])));
+    fail(405, 'method_not_allowed', 'غير مسموح');
+  }
   if (path === '/api/pro/volunteering' && m === 'GET') { requirePerm(user, 'pro'); return json(await pf.volunteeringSummary(env)); }
   if (path === '/api/pro/inbox' && m === 'GET') { requirePerm(user, 'pro'); return json({ data: await msg.listMessages(env, ['expert', 'need']) }); }
   const pm = path.match(/^\/api\/pro\/inbox\/(\d+)$/);
@@ -391,6 +464,10 @@ export default {
       if (url.pathname.startsWith('/auth/')) return (await authRoutes(req, env, url)) || json({ error: { code: 'not_found' } }, 404);
       const km = url.pathname.match(/^\/k\/([A-Za-z0-9_-]{20,64})\/?$/);
       if (km) return await serveKey(req, env, url, km[1]);
+      const dpm = url.pathname.match(/^\/d\/([A-Za-z0-9_-]{20,64})\/?$/);
+      if (dpm) return await serveDiag(req, env, dpm[1]);
+      const dtm = url.pathname.match(/^\/d\/t\/(\d+)\/?$/);
+      if (dtm) return await serveDiagTeam(req, env, Number(dtm[1]));
       const pm = url.pathname.match(/^\/u\/([A-Za-z0-9_-]{20,64})\/?$/);
       if (pm) return await servePortal(req, env, pm[1]);
       const bm = url.pathname.match(/^\/brand\/([a-z0-9-]+)$/);
@@ -411,7 +488,11 @@ export default {
         return await servePage(req, env, user, match);
       }
 
-      // private mode: nothing is served without an allowed user
+      // private mode: nothing is served without an allowed user — except build files for holders of a valid link (/u/ و/d/)
+      if ((SITE_ASSET.test(url.pathname) || /^\/assets\/[\w.-]+$/.test(url.pathname)) && (await rq.assetPassOk(env, req))) {
+        if (SITE_ASSET.test(url.pathname)) return await serveSiteAsset(req, env, url);
+        return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
+      }
       let user;
       try { user = await requireUser(req, env); } catch (e) { return await deniedPage(e, env); }
       if (SITE_ASSET.test(url.pathname)) return await serveSiteAsset(req, env, url);

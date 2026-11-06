@@ -6,7 +6,7 @@ const clip = (v, n) => (v == null ? null : String(v).trim().slice(0, n) || null)
 const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 // الوحدات التي تقبل صلاحية (مطابقة لمفاتيح القائمة في اللوحة)
-export const MODULES = ['home', 'overview', 'updates', 'quality', 'alerts', 'directory', 'licenses', 'trouble', 'analytics', 'bysup', 'bygov', 'decisions', 'reports', 'inbox', 'content', 'campaigns', 'chub', 'consults', 'capps', 'calendar', 'consultants', 'cset', 'pro', 'partners', 'projects', 'communities', 'mops', 'mset', 'board', 'docs', 'policy', 'audit', 'roles', 'users', 'settings', 'apps', 'launch', 'gaps', 'demo', 'plan'];
+export const MODULES = ['home', 'overview', 'updates', 'quality', 'alerts', 'directory', 'licenses', 'trouble', 'analytics', 'bysup', 'bygov', 'decisions', 'reports', 'inbox', 'content', 'campaigns', 'chub', 'consults', 'capps', 'calendar', 'consultants', 'cset', 'pro', 'diag', 'partners', 'projects', 'communities', 'mops', 'mset', 'board', 'docs', 'policy', 'audit', 'roles', 'users', 'settings', 'apps', 'launch', 'gaps', 'demo', 'plan'];
 
 // الإعدادات القابلة للتعديل من اللوحة فقط (المفاتيح الحساسة لا تُقرأ ولا تُكتب من هنا)
 export const SETTINGS = {
