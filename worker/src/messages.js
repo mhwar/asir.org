@@ -4,7 +4,7 @@ import { audit } from './db.js';
 
 const KINDS = ['general', 'consult', 'founding', 'partner', 'suggest', 'join', 'evreg'];
 // أنواع تُخزَّن في details._k دون تعديل قيد الجدول (طلبات الخصوصية من صفحة سياسة الخصوصية)
-const SUBKINDS = ['privacy'];
+const SUBKINDS = ['privacy', 'expert', 'need'];  // تُخزَّن بنوع general مع details._k (قيد CHECK في الجدول)
 const outKind = (m, d) => (d && SUBKINDS.includes(d._k) ? d._k : m.kind);
 const STATUSES = ['new', 'progress', 'done', 'archived'];
 const clip = (v, n) => (v == null ? null : String(v).trim().slice(0, n) || null);
@@ -45,11 +45,12 @@ export async function listCommunityRequests(env) {
   return results.map((m) => ({ ...m, details: m.details ? JSON.parse(m.details) : null }));
 }
 
-export async function listMessages(env) {
+export async function listMessages(env, only) {
   const { results } = await env.DB.prepare(
     'SELECT id, kind, name, org, email, phone, governorate, details, message, status, assigned_to, note, created_at, updated_at FROM contact_messages ORDER BY (status = \'new\') DESC, id DESC LIMIT 500'
   ).all();
-  return results.map((m) => { const d = m.details ? JSON.parse(m.details) : null; return { ...m, kind: outKind(m, d), details: d }; });
+  const out = results.map((m) => { const d = m.details ? JSON.parse(m.details) : null; return { ...m, kind: outKind(m, d), details: d }; });
+  return only ? out.filter((m) => only.includes(m.kind)) : out;
 }
 
 export async function updateMessage(env, req, user, id, body) {

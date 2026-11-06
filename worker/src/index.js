@@ -245,6 +245,15 @@ async function api(req, env, url) {
     return json(await msg.updateMessage(env, req, user, idFrom(crm[1]), await readJson(req)));
   }
   if (path === '/api/messages' && m === 'GET') { requirePerm(user, 'inbox'); return json({ data: await msg.listMessages(env) }); }
+  // التطوع الاحترافي: طلبات الخبراء والجمعيات الواردة من الموقع، لمن يملك وحدة pro ولو لم يملك صندوق الوارد
+  if (path === '/api/pro/inbox' && m === 'GET') { requirePerm(user, 'pro'); return json({ data: await msg.listMessages(env, ['expert', 'need']) }); }
+  const pm = path.match(/^\/api\/pro\/inbox\/(\d+)$/);
+  if (pm && m === 'PATCH') {
+    requirePerm(user, 'pro', 'write');
+    const one = (await msg.listMessages(env, ['expert', 'need'])).find((x) => x.id === idFrom(pm[1]));
+    if (!one) fail(404, 'not_found', 'الطلب غير موجود');
+    return json(await msg.updateMessage(env, req, user, one.id, await readJson(req)));
+  }
   const mm = path.match(/^\/api\/messages\/(\d+)$/);
   if (mm && m === 'PATCH') { requirePerm(user, 'inbox', 'write'); return json(await msg.updateMessage(env, req, user, idFrom(mm[1]), await readJson(req))); }
 

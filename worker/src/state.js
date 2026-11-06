@@ -3,6 +3,23 @@ import { fail } from './http.js';
 import { can } from './auth.js';
 
 // key -> { module: permission module, public: shown on the public site }
+// ما يظهر للزائر من asirPro: لا بريد ولا جوال ولا تفاصيل احتياجات
+function proPublic(v) {
+  const set = v.set || {}, hour = Number(set.hour) || 0;
+  const experts = (v.experts || []).filter((e) => e.st === 'active');
+  const done = (v.engs || []).filter((g) => g.st === 'done');
+  const hrs = (g) => (g.hrs || []).reduce((t, x) => t + (Number(x.h) || 0), 0);
+  const hours = done.reduce((t, g) => t + hrs(g), 0) + (v.engs || []).filter((g) => g.st !== 'done' && g.st !== 'stopped').reduce((t, g) => t + hrs(g), 0);
+  return {
+    v: v.v || 1,
+    set: { hour, open: set.open !== false },
+    stats: { experts: experts.length, engs: done.length, active: (v.engs || []).filter((g) => ['plan', 'work', 'review'].includes(g.st)).length,
+      assocs: new Set(done.map((g) => g.aid || g.an)).size, hours, value: Math.round(hours * hour) },
+    experts: experts.filter((e) => e.pub).map((e) => ({ id: e.id, n: e.n, ttl: e.ttl, areas: e.areas || [], fmts: e.fmts || [], gov: e.gov || '' })),
+    showcase: done.filter((g) => g.pubOk).slice(0, 24).map((g) => ({ id: g.id, fmt: g.fmt, area: g.area, title: g.title, an: g.an, gov: g.gov, out: g.out, story: g.story || '', hours: hrs(g), at: (g.deliv && g.deliv.at) || g.upd })),
+  };
+}
+
 export const STATE_KEYS = {
   asirGaps:      { module: 'gaps' },
   asirSegNotes:  { module: 'bysup' },
@@ -25,6 +42,7 @@ export const STATE_KEYS = {
   asirRoadmap:   { module: 'launch' },                 // خطة البناء واختبارات القبول والمقترحات
   asirContent:   { module: 'content', public: true },
   asirCtypes:    { module: 'cset', public: true },     // مجالات الاستشارة (تظهر في صفحة الحجز)
+  asirPro:       { module: 'pro', public: true, pub: proPublic }, // التطوع الاحترافي: للزائر أرقام مجمّعة وخبراء وافقوا على الظهور ومخرجات وافقت الجمعية على نشرها فقط
   asirTrouble:   { module: 'trouble' },                // الجمعيات المتعثرة — للفريق فقط
   asirRpSnaps:   { module: 'reports' },                // لقطات المؤشرات الدورية (أرقام مجمّعة فقط)
 };
@@ -36,11 +54,12 @@ export async function readState(env, user) {
   for (const r of results) {
     const spec = STATE_KEYS[r.key];
     if (!spec) continue;
-    if (user ? can(user, spec.module) : spec.public) {
-      let value = r.value;
-      if (!user && spec.pub) { try { value = JSON.stringify(spec.pub(JSON.parse(r.value))); } catch { value = r.value; } }
-      out[r.key] = { value, version: r.version, by: user ? r.updated_by : undefined, at: r.updated_at };
-    }
+    // صاحب الصلاحية يرى القيمة كاملة؛ غيره (زائر أو مستخدم بلا صلاحية على الوحدة) يرى الجزء العام فقط إن كانت الوحدة عامة
+    const full = user && can(user, spec.module);
+    if (!full && !spec.public) continue;
+    let value = r.value;
+    if (!full && spec.pub) { try { value = JSON.stringify(spec.pub(JSON.parse(r.value))); } catch { continue; } }  // تعذّر الإسقاط: لا يُرسل شيء
+    out[r.key] = { value, version: r.version, by: full ? r.updated_by : undefined, at: r.updated_at };
   }
   return out;
 }
