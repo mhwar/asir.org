@@ -246,6 +246,7 @@ async function api(req, env, url) {
   }
   if (path === '/api/messages' && m === 'GET') { requirePerm(user, 'inbox'); return json({ data: await msg.listMessages(env) }); }
   // التطوع الاحترافي: طلبات الخبراء والجمعيات الواردة من الموقع، لمن يملك وحدة pro ولو لم يملك صندوق الوارد
+  if (path === '/api/pro/volunteering' && m === 'GET') { requirePerm(user, 'pro'); return json(await pf.volunteeringSummary(env)); }
   if (path === '/api/pro/inbox' && m === 'GET') { requirePerm(user, 'pro'); return json({ data: await msg.listMessages(env, ['expert', 'need']) }); }
   const pm = path.match(/^\/api\/pro\/inbox\/(\d+)$/);
   if (pm && m === 'PATCH') {

@@ -32,6 +32,9 @@ export const UFIELDS = {
   // الحجم والحوكمة (الموجة الثانية) — أرقام تنظيمية لا بيانات شخصية
   staff:     { l: 'عدد الموظفين', kind: 'profile', col: 'staff_count', v: int(100000) },
   vols:      { l: 'عدد المتطوعين (آخر سنة)', kind: 'profile', col: 'volunteers_count', v: int(1000000) },
+  volHours:  { l: 'ساعات التطوع (آخر سنة)', kind: 'profile', col: 'vol_hours', v: int(100000000) },
+  volOpps:   { l: 'الفرص التطوعية (آخر سنة)', kind: 'profile', col: 'vol_opps', v: int(1000000) },
+  volYear:   { l: 'سنة أرقام التطوع', kind: 'profile', col: 'vol_year', v: year },
   benef:     { l: 'عدد المستفيدين (آخر سنة)', kind: 'profile', col: 'beneficiaries_count', v: int(100000000) },
   assembly:  { l: 'تاريخ آخر جمعية عمومية', kind: 'profile', col: 'last_assembly_on', v: date },
   finYear:   { l: 'آخر سنة مالية اعتُمدت قوائمها', kind: 'profile', col: 'fin_year', v: year },
@@ -69,7 +72,7 @@ export async function currentValues(env, id, withPersonal) {
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
-            p.staff_count AS staff, p.volunteers_count AS vols, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
+            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id

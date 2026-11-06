@@ -4,7 +4,7 @@ import { audit, updateAssociation, getAssociation, dataIssues } from './db.js';
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
-const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
+const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
 const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', presEmail: 'president_email', presMobile: 'president_mobile',
   del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile' };
 const V = (k) => (k === 'presMobile' ? UFIELDS.mobile.v : UFIELDS[k].v);
@@ -151,4 +151,19 @@ export async function delLog(env, req, user, id, logId) {
   if (!r) fail(404, 'not_found', 'السجل غير موجود');
   await audit(env, req, user.email, 'delete', 'association_contact_log', logId, null, { association_id: id });
   return { ok: true };
+}
+
+// أرقام التطوع المجمّعة كما أبلغت عنها الجمعيات (بلا بيانات شخصية): إجمالي وحسب المحافظة
+export async function volunteeringSummary(env) {
+  const { results } = await env.DB.prepare(
+    `SELECT g.name_ar AS gov, COUNT(a.id) AS assocs,
+            SUM(CASE WHEN p.volunteers_count IS NOT NULL OR p.vol_hours IS NOT NULL THEN 1 ELSE 0 END) AS reported,
+            COALESCE(SUM(p.volunteers_count),0) AS vols, COALESCE(SUM(p.vol_hours),0) AS hours, COALESCE(SUM(p.vol_opps),0) AS opps
+       FROM associations a JOIN governorates g ON g.id = a.governorate_id
+       LEFT JOIN association_profiles p ON p.association_id = a.id
+      WHERE a.deleted_at IS NULL GROUP BY g.name_ar ORDER BY hours DESC, vols DESC`).all();
+  const { results: yrs } = await env.DB.prepare(
+    'SELECT vol_year AS y, COUNT(*) AS n FROM association_profiles WHERE vol_year IS NOT NULL GROUP BY vol_year ORDER BY vol_year DESC').all();
+  const t = results.reduce((o, r) => { for (const k of ['assocs', 'reported', 'vols', 'hours', 'opps']) o[k] += r[k] || 0; return o; }, { assocs: 0, reported: 0, vols: 0, hours: 0, opps: 0 });
+  return { total: t, byGov: results, years: yrs };
 }
