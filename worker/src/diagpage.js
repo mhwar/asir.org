@@ -12,9 +12,9 @@ export function diagPage(state, base) {
 <link rel="preload" href="/fonts/AvenirArabic-Medium.woff2" as="font" type="font/woff2" crossorigin>
 <style>${CSS}</style></head><body>
 <a class="skip" href="#main">تخطي إلى المحتوى</a>
-<header class="top"><div class="tw"><div class="brand"><b>مجلس الجمعيات الأهلية بمنطقة عسير</b><span>${esc(state.tool.title)}</span></div>
-<div class="who"><b id="aName">${esc(state.association)}</b><span><span class="kb">${esc(state.kindLabel)}</span> · ${esc(state.gov || '')}</span></div></div>
-<div class="prog" aria-hidden="true"><i id="progBar"></i></div></header>
+<header class="top"><div class="tw"><div class="brand"><span class="mark" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M5 19V11M12 19V5M19 19v-5"/></svg></span><div><b>التشخيص المؤسسي</b><span>مجلس الجمعيات الأهلية بعسير</span></div></div>
+<div class="who"><b id="aName">${esc(state.association)}</b><span>${esc(state.kindLabel)} · ${esc(state.gov || '')}</span></div></div>
+<div class="prog"><i id="progBar"></i></div></header>
 <main id="main" tabindex="-1"><div id="app" class="wrap"><p class="loading">جارٍ التحميل…</p></div></main>
 <div id="toast" role="status" aria-live="polite"></div>
 <script>window.D=${safe(state)};window.BASE=${safe(base)};window.SCALE=${safe(SCALE)};window.LEVELS=${safe(LEVELS)};
@@ -32,10 +32,10 @@ body{margin:0;font-family:AvA,system-ui,-apple-system,"Segoe UI",Tahoma,sans-ser
 :focus-visible{outline:3px solid var(--p);outline-offset:2px}
 button,input,textarea,select{font:inherit;color:inherit}
 .top{position:sticky;top:0;z-index:5;background:var(--hd);color:#fff;box-shadow:0 6px 24px -14px #13205B}
-.tw{max-width:860px;margin:auto;padding:12px 18px;display:flex;justify-content:space-between;gap:14px;align-items:center}
-.brand b{display:block;font-size:13px;opacity:.75;font-weight:500}.brand span{font-size:15px;font-weight:800}
-.who{text-align:left;min-width:0}.who b{display:block;font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:46vw}.who span{font-size:12.5px;opacity:.8}
-.kb{background:#ffffff26;border-radius:999px;padding:1px 9px}
+.tw{max-width:860px;margin:auto;padding:10px 16px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+.brand{display:flex;gap:10px;align-items:center;min-width:0}.brand .mark{flex:none;width:36px;height:36px;border-radius:11px;display:grid;place-items:center;background:linear-gradient(135deg,#3D6BFF,#5FD0B0);color:#fff}
+.brand b{display:block;font-size:15px;font-weight:800;line-height:1.3}.brand span{display:block;font-size:12px;opacity:.72;line-height:1.3}
+.who{text-align:left;min-width:0}.who b{display:block;font-size:14px;line-height:1.35;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:44vw}.who span{display:block;font-size:12px;opacity:.72;line-height:1.3}
 .prog{height:4px;background:#ffffff1f}.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,#5B8CFF,#9FE3C8);transition:width .4s}
 .wrap{max-width:860px;margin:auto;padding:20px 16px 120px}
 .loading{text-align:center;color:var(--mute);padding:60px 0}
@@ -46,24 +46,29 @@ h1{font-size:24px;line-height:1.45;margin:6px 0 8px;font-weight:800}h2{font-size
 .steps button{position:relative;flex:none;border:1px solid var(--line);background:var(--sf);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;display:flex;gap:6px;align-items:center}
 .steps button[aria-current=step]{background:var(--hd);color:#fff;border-color:var(--hd)}
 .steps .dot{width:8px;height:8px;border-radius:50%;background:var(--line)}.steps .dot.part{background:#F5A524}.steps .dot.full{background:#1FB37A}
-.axh{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;margin:4px 0 14px}.axh small{color:var(--mute);display:block}
-.cnt{flex:none;background:var(--p2);color:var(--p);border-radius:999px;padding:3px 10px;font-size:13px;font-weight:700}
-fieldset.q{border:1px solid var(--line);background:var(--sf);border-radius:var(--r);padding:16px;margin:0 0 12px;min-width:0}
-fieldset.q.done{border-color:#C9D6FF}
-fieldset.q legend{float:right;width:100%;padding:0;font-weight:600;font-size:16px;margin-bottom:10px}
-.qn{color:var(--mute);font-size:13px;font-weight:500;margin-inline-end:6px}
-.opts{clear:both;display:grid;grid-template-columns:repeat(4,1fr);gap:8px}.opts.na{grid-template-columns:repeat(5,1fr)}
-.opts label{position:relative;cursor:pointer}
-.opts input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
-.opts span{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;min-height:58px;border:1.5px solid var(--line);border-radius:12px;padding:6px 4px;font-size:13px;line-height:1.35;background:var(--sf);transition:.15s}
-.opts span b{font-size:17px;font-weight:800;line-height:1}
-.opts label:hover span{border-color:#B7C6F5}
-.opts input:focus-visible+span{outline:3px solid var(--p);outline-offset:2px}
-.opts input:checked+span{border-color:var(--p);background:var(--p2);color:var(--p);font-weight:700;box-shadow:0 0 0 1px var(--p) inset}
-.opts input[value="0"]:checked+span{border-color:var(--bad);background:var(--badb);color:var(--bad);box-shadow:0 0 0 1px var(--bad) inset}
-.opts input[value="1"]:checked+span{border-color:#C77700;background:var(--warnb);color:var(--warn);box-shadow:0 0 0 1px #C77700 inset}
-.opts input[value="3"]:checked+span{border-color:var(--ok);background:var(--okb);color:var(--ok);box-shadow:0 0 0 1px var(--ok) inset}
-.qx{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-top:10px;font-size:13.5px;color:var(--mute)}
+.axh{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin:6px 0 16px}.axh small{color:var(--mute);display:block;font-size:14px}.axh .kick{display:block;color:var(--p);font-size:13px;font-weight:700;margin-bottom:2px}
+.cnt{flex:none;display:grid;place-items:center;width:52px;height:52px;border-radius:50%;background:conic-gradient(var(--p) calc(var(--v)*1%),var(--p2) 0);position:relative;font-size:12.5px;font-weight:800;color:var(--hd)}.cnt:before{content:"";position:absolute;inset:5px;border-radius:50%;background:var(--ice)}.cnt span{position:relative}
+fieldset.q{border:1px solid var(--line);background:var(--sf);border-radius:var(--r);padding:16px 16px 12px;margin:0 0 12px;min-width:0;transition:border-color .2s,box-shadow .2s}
+fieldset.q.done{border-color:#D5DEF7}fieldset.q.cur{box-shadow:0 0 0 3px #1249FF1f;border-color:#9DB4FF}
+fieldset.q legend{float:right;width:100%;padding:0;font-weight:600;font-size:16px;line-height:1.7;margin-bottom:12px;display:flex;gap:10px;align-items:flex-start}
+.qn{flex:none;display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--ice);color:var(--mute);font-size:12.5px;font-weight:700;margin-top:2px;transition:.2s}
+fieldset.q.done .qn{background:var(--okb);color:var(--ok)}
+.opts{clear:both;display:grid;grid-template-columns:repeat(4,1fr);border:1.5px solid var(--line);border-radius:14px;overflow:hidden;background:var(--sf)}
+.opts label{position:relative;cursor:pointer;min-width:0}.opts label+label{border-inline-start:1px solid var(--line)}
+.opts input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer;z-index:1}
+.opts span{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;text-align:center;min-height:60px;padding:8px 4px;font-size:12.5px;line-height:1.3;color:var(--mute);transition:background .15s,color .15s;position:relative}
+.opts span i{font-style:normal;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;border:1.5px solid #CBD2E0;font-size:12px;font-weight:800;color:var(--hd)}
+.opts span:after{content:"";position:absolute;inset-inline:0;bottom:0;height:3px;background:var(--c);opacity:.35}
+.o0 span{--c:#E5484D;--bg:#FDECEA;--tx:#B42318}.o1 span{--c:#F5A524;--bg:#FFF4E0;--tx:#8A4B00}.o2 span{--c:#3D6BFF;--bg:#E8EEFF;--tx:#1238C9}.o3 span{--c:#1FB37A;--bg:#E6F6EF;--tx:#0E7C5A}
+.opts label:hover span{background:#F7F9FD}
+.opts input:focus-visible+span{outline:3px solid var(--p);outline-offset:-3px}
+.opts input:checked+span{background:var(--bg);color:var(--tx);font-weight:700}.opts input:checked+span:after{opacity:1;height:4px}
+.opts input:checked+span i{background:var(--c);border-color:var(--c);color:#fff}
+.opts input:disabled+span{cursor:default}
+.desc{margin:8px 2px 0;font-size:13.5px;color:var(--mute);min-height:1.6em}.desc b{color:var(--hd)}
+.qx{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;margin-top:8px;font-size:13.5px;color:var(--mute)}
+.na{position:relative;display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--line);border-radius:999px;padding:3px 12px;cursor:pointer;font-size:13px}
+.na input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}.na:has(input:checked){border-color:var(--hd);background:var(--hd);color:#fff}.na:has(input:focus-visible){outline:3px solid var(--p);outline-offset:2px}
 .lnk{background:none;border:0;padding:4px 0;color:var(--p);cursor:pointer;font-weight:600;font-size:13.5px}
 .ev{background:var(--ice);border-radius:8px;padding:2px 8px}
 .src{background:#EEF7F2;color:var(--ok);border-radius:8px;padding:2px 8px}
@@ -72,11 +77,12 @@ textarea{min-height:84px;resize:vertical}
 label.f{display:block;font-weight:600;font-size:14.5px;margin:0 0 12px}label.f>span{display:block;margin-bottom:6px}label.f small{display:block;color:var(--mute);font-weight:500}
 .chk{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;margin:6px 0 12px}.chk input{width:20px;height:20px;margin-top:4px;flex:none}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
-.nav{position:fixed;bottom:0;inset-inline:0;background:#ffffffee;backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:4;padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.nav{position:fixed;bottom:0;inset-inline:0;background:#fff;border-top:1px solid var(--line);box-shadow:0 -10px 30px -18px #13205B55;z-index:4;padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
 .nav .in{max-width:860px;margin:auto;display:flex;gap:10px;align-items:center}
 .btn{border:0;border-radius:12px;padding:12px 20px;font-weight:700;font-size:15px;cursor:pointer;background:var(--hd);color:#fff;display:inline-flex;gap:8px;align-items:center;justify-content:center;text-decoration:none}
 .btn.o{background:var(--sf);color:var(--hd);border:1.5px solid var(--line)}.btn.p{background:var(--p)}.btn:disabled{opacity:.5;cursor:not-allowed}
-.sv{font-size:12.5px;color:var(--mute);margin-inline-start:auto;text-align:center}.sv.err{color:var(--bad)}
+.mid{flex:1;min-width:0;text-align:center;line-height:1.35}.mid b{display:block;font-size:13px;color:var(--hd)}.sv{font-size:12px;color:var(--mute);display:inline-flex;gap:5px;align-items:center}.sv:before{content:"";width:7px;height:7px;border-radius:50%;background:#1FB37A}.sv.wait:before{background:#F5A524}.sv.err{color:var(--bad)}.sv.err:before{background:var(--bad)}
+.btn .nx{font-weight:500;opacity:.8;font-size:13px}
 .rec{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:8px}
 .rec .btn{padding:9px 14px;font-size:14px}.rec .live{color:var(--bad);font-weight:700;display:flex;gap:6px;align-items:center}.rec .live:before{content:"";width:10px;height:10px;border-radius:50%;background:var(--bad);animation:bl 1s infinite}
 @keyframes bl{50%{opacity:.25}}
@@ -97,14 +103,18 @@ label.f{display:block;font-weight:600;font-size:14.5px;margin:0 0 12px}label.f>s
 .gap .tag{flex:none;border-radius:8px;padding:1px 8px;font-size:12px;font-weight:700}
 .chips{display:flex;flex-wrap:wrap;gap:8px}.chips button{border:1.5px solid var(--line);background:var(--sf);border-radius:999px;padding:7px 14px;cursor:pointer;font-size:14px}
 .chips button[aria-pressed=true]{border-color:var(--p);background:var(--p2);color:var(--p);font-weight:700}
-.rv{display:grid;gap:8px}.rv button{display:flex;justify-content:space-between;width:100%;text-align:right;border:1px solid var(--line);background:var(--sf);border-radius:12px;padding:10px 14px;cursor:pointer;font-size:14.5px}
-.rv .miss{color:var(--bad);font-weight:700}.rv .full{color:var(--ok);font-weight:700}
+.rv{display:grid;gap:8px}.rv button{display:grid;grid-template-columns:1fr auto;gap:6px 12px;align-items:center;width:100%;text-align:right;border:1px solid var(--line);background:var(--sf);border-radius:14px;padding:12px 14px;cursor:pointer;font-size:14.5px}
+.rv button:hover{border-color:#B7C6F5}.rv i{grid-column:1/-1;display:block;height:6px;border-radius:9px;background:var(--ice);overflow:hidden}.rv i em{display:block;height:100%;border-radius:9px;background:var(--p)}
+.rv .st{font-size:13px;font-weight:700;color:var(--mute)}.rv .full .st{color:var(--ok)}.rv .full i em{background:#1FB37A}.rv .part .st{color:#8A4B00}
+.ring{display:flex;gap:16px;align-items:center}.ring svg{flex:none}.ring b{display:block;font-size:20px;font-weight:800}.ring small{color:var(--mute)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 14px}.tiles div{background:var(--sf);border:1px solid var(--line);border-radius:14px;padding:12px;font-size:13.5px;line-height:1.5}.tiles svg{display:block;color:var(--p);margin-bottom:6px}.tiles b{display:block;color:var(--hd);font-size:14.5px}
+.legend{display:grid;gap:8px}.legend div{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:center}.legend i{font-style:normal;display:grid;place-items:center;width:28px;height:28px;border-radius:50%;color:#fff;font-weight:800;font-size:13px}.legend b{font-size:14.5px}.legend span{color:var(--mute);font-size:13.5px;display:block}
 #toast{position:fixed;bottom:86px;inset-inline:0;margin:auto;width:max-content;max-width:90vw;background:var(--hd);color:#fff;border-radius:12px;padding:10px 16px;font-size:14px;opacity:0;transform:translateY(8px);transition:.25s;pointer-events:none;z-index:9}
 #toast.on{opacity:1;transform:none}
-.hero{background:linear-gradient(135deg,#13205B,#1F3A9E);color:#fff;border-radius:20px;padding:22px;margin:0 0 14px}
-.hero p{opacity:.85;margin:6px 0 0}.hero ul{margin:12px 0 0;padding-inline-start:20px;opacity:.92}
+.hero{background:radial-gradient(120% 140% at 100% 0,#2B4BD0 0,#13205B 60%);color:#fff;border-radius:22px;padding:24px 22px;margin:0 0 14px}
+.hero p{opacity:.88;margin:8px 0 0}.hero .tag{display:inline-block;background:#ffffff22;border-radius:999px;padding:2px 12px;font-size:12.5px;margin-bottom:8px}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-@media(max-width:620px){.opts,.opts.na{grid-template-columns:repeat(2,1fr)}.opts.na label:last-child{grid-column:span 2}.g2{grid-template-columns:1fr}.bar{grid-template-columns:110px 1fr 40px}h1{font-size:21px}.who b{max-width:40vw}}
+@media(max-width:620px){.tiles{grid-template-columns:1fr 1fr 1fr;gap:8px}.tiles div{padding:10px;font-size:12.5px}.tiles b{font-size:13.5px}.opts span{font-size:12px;min-height:58px}.btn .nx{display:none}.g2{grid-template-columns:1fr}.bar{grid-template-columns:110px 1fr 40px}h1{font-size:21px}.who b{max-width:40vw}}
 @media print{.top{position:static}.nav,.steps,.skip,#toast,.noprint{display:none!important}body{background:#fff}.card,.sum div{break-inside:avoid}.wrap{padding:0}}
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 `;
@@ -122,18 +132,20 @@ const LS='asirDiag:'+D.id;
 try{const l=JSON.parse(localStorage.getItem(LS)||'null');if(l&&editable&&l.at>Date.parse(D.updated||0)&&l.a){Object.assign(A,l.a);if(l.i)Object.assign(INFO,l.i);dirty=true}}catch(e){}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const toast=(t,bad)=>{const e=$('#toast');e.textContent=t;e.style.background=bad?'#B42318':'';e.classList.add('on');clearTimeout(e._t);e._t=setTimeout(()=>e.classList.remove('on'),2600)};
+const ICO={t:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>',s:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',l:'<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>'};
+const LC=['#E5484D','#F5A524','#3D6BFF','#1FB37A'];
 const STEPS=[{k:'intro',t:visit?'بيانات الزيارة':'البداية'}].concat(AX.map(a=>({k:a.id,t:a.t})),[{k:'open',t:'أسئلة ختامية'},{k:'review',t:'المراجعة والإرسال'}]);
 const axDone=a=>a.items.filter(it=>A[it.id]&&A[it.id].v!=null).length;
 const SC=()=>score(T,A);
 function lvl(s){if(s==null)return null;return LEVELS.find(l=>s>=l[0])}
 function progress(){const n=Object.keys(ITEMS).length,d=Object.keys(ITEMS).filter(k=>A[k]&&A[k].v!=null).length;$('#progBar').style.width=Math.round(d*100/n)+'%';return [d,n]}
 // ─── الحفظ ───
-function mark(){dirty=true;try{localStorage.setItem(LS,JSON.stringify({at:Date.now(),a:A,i:INFO}))}catch(e){}setSv('تغييرات غير محفوظة…');clearTimeout(timer);timer=setTimeout(save,900);progress();stepsBar()}
-function setSv(t,err){const e=$('#sv');if(e){e.textContent=t;e.classList.toggle('err',!!err)}}
+function mark(){dirty=true;try{localStorage.setItem(LS,JSON.stringify({at:Date.now(),a:A,i:INFO}))}catch(e){}setSv('جارٍ الحفظ…');clearTimeout(timer);timer=setTimeout(save,900);progress();stepsBar()}
+function setSv(t,err){const e=$('#sv');if(e){e.textContent=t;e.classList.toggle('err',!!err);e.classList.toggle('wait',!err&&t!='محفوظ')}}
 async function save(){if(!editable||!dirty||saving)return;saving=true;setSv('جارٍ الحفظ…');
  try{const r=await fetch(BASE,{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify({answers:A,info:INFO})});const j=await r.json().catch(()=>({}));
-  if(!r.ok)throw new Error(j.error&&j.error.message||'تعذّر الحفظ');dirty=false;try{localStorage.removeItem(LS)}catch(e){}setSv('محفوظ ✓')}
- catch(e){setSv('لم يُحفظ — نعيد المحاولة',1);clearTimeout(timer);timer=setTimeout(save,6000)}finally{saving=false}}
+  if(!r.ok)throw new Error(j.error&&j.error.message||'تعذّر الحفظ');dirty=false;try{localStorage.removeItem(LS)}catch(e){}setSv('محفوظ')}
+ catch(e){setSv('لم يُحفظ، نعيد المحاولة',1);clearTimeout(timer);timer=setTimeout(save,6000)}finally{saving=false}}
 addEventListener('beforeunload',e=>{if(dirty&&editable){save();e.preventDefault();e.returnValue=''}});
 addEventListener('online',()=>dirty&&save());
 // ─── الشريط والتنقل ───
@@ -141,7 +153,8 @@ function stepsBar(){const e=$('#steps');if(!e)return;e.innerHTML=STEPS.map((s,i)
  return '<button type="button" data-s="'+i+'"'+(i==step?' aria-current="step"':'')+'>'+d+esc(s.t)+(a?'<span class="sr"> ('+axDone(a)+' من '+a.items.length+')</span>':'')+'</button>'}).join('');
  e.querySelectorAll('[data-s]').forEach(b=>b.onclick=()=>go(+b.dataset.s));const c=e.querySelector('[aria-current]');c&&c.scrollIntoView({block:'nearest',inline:'center'})}
 function go(i){save();step=Math.max(0,Math.min(STEPS.length-1,i));render();scrollTo({top:0,behavior:'smooth'});const h=app.querySelector('h1,h2');h&&h.focus({preventScroll:true})}
-function navBar(){return '<div class="nav noprint"><div class="in">'+(step>0?'<button class="btn o" type="button" id="prev">السابق</button>':'')+'<span class="sv" id="sv" aria-live="polite">'+(dirty?'تغييرات غير محفوظة…':'محفوظ ✓')+'</span>'+(step<STEPS.length-1?'<button class="btn p" type="button" id="next">'+(step==0?'ابدأ':'التالي')+'</button>':'')+'</div></div>'}
+function navBar(){const s=STEPS[step],a=AX.find(x=>x.id==s.k),i=a?AX.indexOf(a)+1:0,nx=STEPS[step+1];
+ return '<div class="nav noprint"><div class="in">'+(step>0?'<button class="btn o" type="button" id="prev">السابق</button>':'')+'<div class="mid">'+(a?'<b>المحور '+i+' من '+AX.length+'</b>':'')+'<span class="sv" id="sv" aria-live="polite">'+(dirty?'جارٍ الحفظ…':'محفوظ')+'</span></div>'+(nx?'<button class="btn p" type="button" id="next"><span>'+(step==0?'ابدأ التقييم':'التالي')+(step>0?'<span class="nx">: '+esc(nx.t)+'</span>':'')+'</span></button>':'')+'</div></div>'}
 // ─── الملفات والتسجيل ───
 function fileList(axis){const L=FILES.filter(f=>(f.axis||null)==(axis||null));if(!L.length)return '';
  return '<ul class="files">'+L.map(f=>'<li>'+(f.kind=='audio'?'<audio controls preload="none" src="'+BASE+'/files/'+f.id+'" aria-label="'+esc(f.name)+'"></audio>':'<span class="nm">'+(f.kind=='image'?'صورة: ':'مستند: ')+'<a href="'+BASE+'/files/'+f.id+'" target="_blank" rel="noopener">'+esc(f.name)+'</a></span>')+(editable?'<button class="lnk" type="button" data-del="'+f.id+'" aria-label="حذف '+esc(f.name)+'">حذف</button>':'')+'</li>').join('')+'</ul>'}
@@ -163,34 +176,37 @@ function bindFiles(){app.querySelectorAll('[data-up]').forEach(inp=>inp.onchange
    mr.start(1000)}catch(e){toast('لم يُسمح باستخدام الميكروفون',1)}})}
 // ─── الشاشات ───
 function intro(){const roles=T.roles.map(r=>'<button type="button" aria-pressed="'+(INFO.role==r)+'" data-role="'+esc(r)+'">'+esc(r)+'</button>').join('');
- let h='<div class="hero"><h1 tabindex="-1">'+(visit?'تقييم ميداني لـ«'+esc(D.association)+'»':field?'تعبئة مكتبية لـ«'+esc(D.association)+'»':'أهلاً بكم، نحن هنا لنساعد')+'</h1><p>'+(visit?'تُسجَّل ملاحظات الزيارة على عشرة محاور. الإجابة الجزئية مقبولة، وكل ما تكتبه يُحفظ تلقائياً.':field?'يُقيِّم الفريق ما يعرفه من بيانات اللوحة والتواصل مع الجمعية. العبارات المعلَّمة «من بيانات اللوحة» مقترحة ويمكن تعديلها.':'هذا التقييم يساعد مجلس الجمعيات على فهم وضع جمعيتكم وتحديد الدعم الأنسب لها من استشارات ومهام وخبراء متطوعين. ليس اختباراً ولا رقابة.')+'</p>'
- +'<ul><li>عشرة محاور، و'+Object.keys(ITEMS).length+' عبارة قصيرة، في 15 إلى 20 دقيقة تقريباً.</li><li>لكل عبارة اختر ما يصف الواقع اليوم، لا ما تطمحون إليه.</li><li>يُحفظ تلقائياً، ويمكنكم العودة للرابط نفسه وإكمال ما بقي.</li>'+(field?'':'<li>بعد الإرسال تظهر لكم قراءة أولية، ثم تقرير معتمد بعد مراجعة المجلس.</li>')+'</ul></div>';
+ let h='<div class="hero"><span class="tag">'+esc(D.kindLabel)+'</span><h1 tabindex="-1">'+(visit?'تقييم ميداني لـ«'+esc(D.association)+'»':field?'تعبئة مكتبية لـ«'+esc(D.association)+'»':'أهلاً بكم، نحن هنا لنساعد')+'</h1><p>'+(visit?'سجّل ما تشاهده وتطّلع عليه في الزيارة على عشرة محاور. الإجابة الجزئية مقبولة.':field?'يُقيِّم الفريق ما يعرفه من بيانات اللوحة والتواصل مع الجمعية. العبارات المعلَّمة «من بيانات اللوحة» مقترحة ويمكن تعديلها.':'يساعد هذا التقييم المجلس على فهم وضع جمعيتكم وترشيح الدعم الأنسب لها من استشارات وخبراء متطوعين. ليس اختباراً ولا رقابة.')+'</p></div>';
+ h+='<div class="tiles"><div>'+ICO.t+'<b>'+(field?'جزئي مقبول':'15–20 دقيقة')+'</b>'+Object.keys(ITEMS).length+' عبارة في 10 محاور</div><div>'+ICO.s+'<b>حفظ تلقائي</b>أكملوا متى شئتم من الرابط نفسه</div><div>'+ICO.l+'<b>سري</b>لفريق المجلس فقط ولا يُنشر</div></div>';
  if(D.note&&editable)h+='<div class="note"><b>ملاحظة من فريق المجلس:</b> '+esc(D.note)+'</div>';
- h+='<div class="card"><h2>'+(visit?'بيانات الزيارة':field?'بيانات التعبئة':'من يعبّئ التقييم؟')+'</h2><p class="lead">'+(visit?'لا تُسجَّل أسماء أو أرقام الحاضرين، صفاتهم فقط.':field?'من قام بالتعبئة، وصفة من استُقيت منه المعلومات إن وُجد.':'اختر صفتكم في الجمعية (لا نطلب اسماً).')+'</p>';
+ h+='<div class="card"><h2>'+(visit?'بيانات الزيارة':field?'بيانات التعبئة':'من يعبّئ التقييم؟')+'</h2><p class="lead">'+(visit?'لا تُسجَّل أسماء أو أرقام الحاضرين، صفاتهم فقط.':field?'من قام بالتعبئة، وصفة من استُقيت منه المعلومات إن وُجد.':'اختر صفتكم في الجمعية، لا نطلب اسماً.')+'</p>';
  if(field&&!visit)h+='<label class="f"><span>اسم المُقيِّم</span><input type="text" id="iAss" maxlength="120" value="'+esc(INFO.assessor||'')+'"></label><p style="margin:0 0 6px;font-weight:600">صفة مصدر المعلومات (اختياري)</p>';
  if(visit)h+='<div class="g2"><label class="f"><span>اسم المُقيِّم أو جهته</span><input type="text" id="iAss" maxlength="120" value="'+esc(INFO.assessor||'')+'"></label><label class="f"><span>تاريخ الزيارة</span><input type="date" id="iDate" value="'+esc(INFO.visit_on||'')+'"></label></div><label class="f"><span>صفات من حضر من الجمعية</span><small>مثال: المدير التنفيذي، المحاسب، عضو مجلس الإدارة</small><input type="text" id="iAtt" maxlength="300" value="'+esc(INFO.attendees||'')+'"></label><p style="margin:0 0 6px;font-weight:600">صفة من أجاب عن أغلب العبارات</p>';
  h+='<div class="chips" role="group" aria-label="صفة المجيب">'+roles+'</div>';
  if(visit)h+='<label class="chk" style="margin-top:14px"><input type="checkbox" id="iCons" '+(INFO.consent?'checked':'')+'><span>وافقت الجمعية على التسجيل الصوتي والتصوير لأغراض التقييم فقط (لا يُنشر).</span></label>';
- h+='</div><div class="card"><h2 style="font-size:16px">مقياس الإجابة</h2><div class="bars" style="gap:6px">'+SCALE.map(s=>'<div><b>'+s[1]+'</b> <span style="color:var(--mute)">— '+s[2]+'</span></div>').join('')+'</div></div>';
+ h+='</div><div class="card"><h2 style="font-size:17px">كيف تُجيبون؟</h2><p class="lead" style="margin-bottom:12px">اختاروا لكل عبارة ما يصف الواقع اليوم، لا ما تطمحون إليه.</p><div class="legend">'+SCALE.map(s=>'<div><i style="background:'+LC[s[0]]+'">'+s[0]+'</i><div><b>'+s[1]+'</b><span>'+s[2]+'</span></div></div>').join('')+'</div></div>';
  return h}
-function axisScreen(a){const n=axDone(a);let h='<div class="axh"><div><h2 tabindex="-1">'+esc(a.t)+'</h2><small>'+esc(a.d)+'</small></div><span class="cnt">'+n+' / '+a.items.length+'</span></div>';
- a.items.forEach((it,i)=>{const x=A[it.id]||{},v=x.v;
-  const opts=SCALE.map(s=>'<label><input type="radio" name="'+it.id+'" value="'+s[0]+'" '+(v===s[0]?'checked':'')+(editable?'':' disabled')+'><span><b>'+s[0]+'</b>'+s[1]+'</span></label>').join('')+(it.na?'<label><input type="radio" name="'+it.id+'" value="na" '+(v==='na'?'checked':'')+(editable?'':' disabled')+'><span><b>—</b>لا ينطبق</span></label>':'');
-  h+='<fieldset class="q'+(v!=null?' done':'')+'" id="q-'+it.id+'"><legend><span class="qn">'+(i+1)+'</span>'+esc(it.t)+'</legend><div class="opts'+(it.na?' na':'')+'">'+opts+'</div><div class="qx">'
+function axisScreen(a){const n=axDone(a),idx=AX.indexOf(a)+1;let h='<div class="axh"><div><span class="kick">المحور '+idx+' من '+AX.length+'</span><h2 tabindex="-1">'+esc(a.t)+'</h2><small>'+esc(a.d)+'</small></div><span class="cnt" style="--v:'+Math.round(n*100/a.items.length)+'" aria-label="أُجيب عن '+n+' من '+a.items.length+'"><span>'+n+'/'+a.items.length+'</span></span></div>';
+ a.items.forEach((it,i)=>{const x=A[it.id]||{},v=x.v,dis=editable?'':' disabled';
+  const opts=SCALE.map(s=>'<label class="o'+s[0]+'"><input type="radio" name="'+it.id+'" value="'+s[0]+'" '+(v===s[0]?'checked':'')+dis+'><span><i>'+s[0]+'</i>'+s[1]+'</span></label>').join('');
+  const d=typeof v=='number'?'<b>'+SCALE[v][1]+':</b> '+SCALE[v][2]:v==='na'?'<b>لا ينطبق</b> على هذه الجمعية':'اختر ما يصف الواقع اليوم.';
+  h+='<fieldset class="q'+(v!=null?' done':'')+'" id="q-'+it.id+'"><legend><span class="qn" aria-hidden="true">'+(v!=null?'✓':i+1)+'</span><span>'+esc(it.t)+'</span></legend><div class="opts">'+opts+'</div><p class="desc" id="d-'+it.id+'">'+d+'</p><div class="qx">'
+   +(it.na?'<label class="na"><input type="radio" name="'+it.id+'" value="na" '+(v==='na'?'checked':'')+dis+'>لا ينطبق</label>':'')
    +(x.src=='desk'?'<span class="src">من بيانات اللوحة</span>':'')+(it.ev?'<span class="ev">الدليل: '+esc(it.ev)+'</span>':'')
-   +'<button type="button" class="lnk" data-nt="'+it.id+'" aria-expanded="'+(!!x.note)+'">'+(x.note?'ملاحظة':'+ إضافة ملاحظة')+'</button></div>'
+   +'<button type="button" class="lnk" data-nt="'+it.id+'" aria-expanded="'+(!!x.note)+'">'+(x.note?'ملاحظة':'+ ملاحظة')+'</button></div>'
    +'<div data-ntb="'+it.id+'" '+(x.note?'':'hidden')+'><label class="sr" for="n-'+it.id+'">ملاحظة على العبارة</label><textarea id="n-'+it.id+'" data-n="'+it.id+'" maxlength="600" style="margin-top:8px;min-height:64px" placeholder="مثال: توجد لائحة لكنها غير معتمدة"'+(editable?'':' readonly')+'>'+esc(x.note||'')+'</textarea></div></fieldset>'});
- h+='<div class="card"><label class="f"><span>تحديات هذا المحور بكلماتكم</span><small>ما الذي يعيقكم هنا؟ اكتب أو سجّل صوتياً.</small><textarea data-axn="'+a.id+'" maxlength="1000"'+(editable?'':' readonly')+'>'+esc(INFO.axisNotes[a.id]||'')+'</textarea></label>'+attachUI(a.id)+'</div>';
+ h+='<div class="card"><label class="f"><span>تحديات هذا المحور بكلماتكم</span><small>ما الذي يعيقكم هنا؟ اكتبوا أو سجّلوا صوتياً.</small><textarea data-axn="'+a.id+'" maxlength="1000"'+(editable?'':' readonly')+'>'+esc(INFO.axisNotes[a.id]||'')+'</textarea></label>'+attachUI(a.id)+'</div>';
  return h}
 function openScreen(){let h='<h2 tabindex="-1">أسئلة ختامية</h2><p class="lead">إجاباتكم المكتوبة تساعد فريق المجلس على فهم ما لا تقيسه العبارات.</p>';
  T.open.forEach(q=>{h+='<div class="card"><label class="f"><span>'+esc(q.t)+(q.req&&!field?' <small style="display:inline;color:var(--bad)">(مطلوب)</small>':'')+'</span><textarea data-op="'+q.id+'" maxlength="1500" rows="4"'+(editable?'':' readonly')+'>'+esc(INFO.open[q.id]||'')+'</textarea></label></div>'});
  h+='<div class="card"><h2 style="font-size:16px">مرفقات عامة</h2><p class="lead" style="margin:0 0 8px">'+(field?'صور من الزيارة، أو مستندات اطّلعت عليها، أو تسجيل لملخص اللقاء.':'يمكنكم إرفاق تقرير أو لائحة أو تسجيل صوتي يشرح وضع الجمعية.')+'</p>'+attachUI(null)+'</div>';return h}
-function reviewScreen(){const sc=SC(),[d,n]=progress();let h='<h2 tabindex="-1">المراجعة والإرسال</h2><p class="lead">أُجيب عن '+d+' من '+n+' عبارة ('+sc.cov+'%).'+(field?' الإرسال الجزئي مقبول بعد 30%.':' يلزم الإجابة عن كل العبارات قبل الإرسال.')+'</p><div class="rv">';
- AX.forEach((a,i)=>{const k=axDone(a),full=k==a.items.length;h+='<button type="button" data-s="'+(i+1)+'"><span>'+esc(a.t)+'</span><span class="'+(full?'full':'miss')+'">'+(full?'مكتمل ✓':(a.items.length-k)+' بلا إجابة')+'</span></button>'});
- const top=(INFO.open.top||'').trim();h+='<button type="button" data-s="'+(AX.length+1)+'"><span>أسئلة ختامية</span><span class="'+(top||field?'full':'miss')+'">'+(top?'مكتمل ✓':field?'اختياري':'أكبر التحديات مطلوب')+'</span></button></div>';
+function reviewScreen(){const sc=SC(),[d,n]=progress(),pc=Math.round(d*100/n),R=34,C=2*Math.PI*R;
+ let h='<h2 tabindex="-1">المراجعة والإرسال</h2><div class="card ring"><svg width="84" height="84" viewBox="0 0 84 84" aria-hidden="true"><circle cx="42" cy="42" r="'+R+'" fill="none" stroke="#E8EEFF" stroke-width="9"/><circle cx="42" cy="42" r="'+R+'" fill="none" stroke="'+(pc==100?'#1FB37A':'#1249FF')+'" stroke-width="9" stroke-linecap="round" stroke-dasharray="'+(C*pc/100)+' '+C+'" transform="rotate(-90 42 42)"/><text x="42" y="47" text-anchor="middle" font-size="17" font-weight="800" fill="#13205B">'+pc+'%</text></svg><div><b>'+d+' من '+n+' عبارة</b><small>'+(pc==100?'اكتملت كل المحاور.':field?'الإرسال الجزئي مقبول بعد 30%.':'يلزم إكمال كل العبارات قبل الإرسال.')+'</small></div></div><div class="rv">';
+ AX.forEach((a,i)=>{const k=axDone(a),N=a.items.length,cls=k==N?'full':k?'part':'';h+='<button type="button" class="'+cls+'" data-s="'+(i+1)+'"><span>'+esc(a.t)+'</span><span class="st">'+(k==N?'✓ مكتمل':k?'بقي '+(N-k):'لم يبدأ')+'</span><i><em style="width:'+Math.round(k*100/N)+'%"></em></i></button>'});
+ const top=(INFO.open.top||'').trim();h+='<button type="button" class="'+(top?'full':'')+'" data-s="'+(AX.length+1)+'"><span>أسئلة ختامية</span><span class="st">'+(top?'✓ مكتمل':field?'اختياري':'أكبر التحديات مطلوب')+'</span></button></div>';
  if(team&&sc.total!=null)h+='<div class="card" style="margin-top:14px"><h2 style="font-size:16px">القراءة الحالية</h2>'+results(sc,true)+'</div>';
  const can=field?sc.cov>=30:(sc.cov==100&&top&&INFO.role);
- h+='<div class="card" style="margin-top:14px"><label class="chk"><input type="checkbox" id="conf"><span>'+(field?'أؤكد أن ما سجّلته يعكس ما شاهدته واطّلعت عليه في الزيارة.':'نؤكد أن الإجابات تعكس واقع الجمعية بحسب علمنا.')+'</span></label><button class="btn p" type="button" id="send" '+(can?'':'disabled')+'>إرسال التقييم</button>'+(!can?'<p style="color:var(--bad);font-size:14px;margin:8px 0 0">'+(field?'أجب عن 30% من العبارات على الأقل.':!INFO.role?'اختر صفة من يعبّئ التقييم في الصفحة الأولى.':sc.cov<100?'أكمل العبارات المتبقية أعلاه.':'اكتب أكبر التحديات في الأسئلة الختامية.')+'</p>':'')+'<p style="color:var(--mute);font-size:13px;margin:10px 0 0">بعد الإرسال لا يمكن التعديل إلا إذا أعاده فريق المجلس.</p></div>';return h}
+ h+='<div class="card" style="margin-top:14px"><label class="chk"><input type="checkbox" id="conf"><span>'+(field?'أؤكد أن ما سجّلته يعكس ما شاهدته واطّلعت عليه في الزيارة.':'نؤكد أن الإجابات تعكس واقع الجمعية بحسب علمنا.')+'</span></label><button class="btn p" type="button" id="send" style="width:100%" '+(can?'':'disabled')+'>إرسال التقييم</button>'+(!can?'<p style="color:#8A4B00;font-size:14px;margin:8px 0 0">'+(field?'أجب عن 30% من العبارات على الأقل.':!INFO.role?'اختر صفة من يعبّئ التقييم في صفحة البداية.':sc.cov<100?'أكمل العبارات المتبقية بالضغط على المحور.':'اكتب أكبر التحديات في الأسئلة الختامية.')+'</p>':'')+'<p style="color:var(--mute);font-size:13px;margin:10px 0 0">بعد الإرسال لا يمكن التعديل إلا إذا أعاده فريق المجلس.</p></div>';return h}
 // ─── النتائج ───
 const COL={ok:'#1FB37A',info:'#1249FF',warn:'#F5A524',bad:'#E5484D'};
 function radar(sc){const N=AX.length,R=120,C=160,pt=(i,r)=>{const t=-Math.PI/2+i*2*Math.PI/N;return [C+r*Math.cos(t),C+r*Math.sin(t)]};
@@ -224,7 +240,13 @@ function render(){progress();
  const s=STEPS[step];let body=s.k=='intro'?intro():s.k=='open'?openScreen():s.k=='review'?reviewScreen():axisScreen(AX.find(a=>a.id==s.k));
  app.innerHTML='<nav class="steps noprint" id="steps" aria-label="مراحل التقييم"></nav>'+body+navBar();stepsBar();bind()}
 function bind(){const p=$('#prev'),n=$('#next');p&&(p.onclick=()=>go(step-1));n&&(n.onclick=()=>go(step+1));
- app.querySelectorAll('.opts input').forEach(r=>r.onchange=()=>{const k=r.name,v=r.value=='na'?'na':+r.value;A[k]=Object.assign({},A[k]||{},{v});delete A[k].src;mark();const fs=r.closest('fieldset');fs.classList.add('done');const c=app.querySelector('.cnt');const a=AX.find(x=>x.id==ITEMS[k].ax);c&&(c.textContent=axDone(a)+' / '+a.items.length);fs.querySelector('.src')&&fs.querySelector('.src').remove()});
+ app.querySelectorAll('fieldset.q input[type=radio]').forEach(r=>r.onchange=()=>{const k=r.name,first=!A[k]||A[k].v==null,v=r.value=='na'?'na':+r.value;A[k]=Object.assign({},A[k]||{},{v});delete A[k].src;mark();
+  const fs=r.closest('fieldset');fs.classList.add('done');fs.querySelector('.qn').textContent='✓';const ds=$('#d-'+k);ds&&(ds.innerHTML=v==='na'?'<b>لا ينطبق</b> على هذه الجمعية':'<b>'+SCALE[v][1]+':</b> '+SCALE[v][2]);
+  const a=AX.find(x=>x.id==ITEMS[k].ax),c=app.querySelector('.cnt'),n=axDone(a);if(c){c.style.setProperty('--v',Math.round(n*100/a.items.length));c.querySelector('span').textContent=n+'/'+a.items.length;c.setAttribute('aria-label','أُجيب عن '+n+' من '+a.items.length)}
+  fs.querySelector('.src')&&fs.querySelector('.src').remove();
+  // الانتقال للعبارة التالية بلا إجابة (تمرير فقط، دون نقل التركيز)
+  if(first){const nx=[...app.querySelectorAll('fieldset.q:not(.done)')][0];app.querySelectorAll('fieldset.q.cur').forEach(f=>f.classList.remove('cur'));
+   const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;setTimeout(()=>{if(nx){nx.classList.add('cur');nx.scrollIntoView({behavior:rm?'auto':'smooth',block:'center'})}else{const nb=$('#next');nb&&nb.scrollIntoView({behavior:rm?'auto':'smooth',block:'end'})}},260)}});
  app.querySelectorAll('[data-nt]').forEach(b=>b.onclick=()=>{const box=app.querySelector('[data-ntb="'+b.dataset.nt+'"]');box.hidden=!box.hidden;b.setAttribute('aria-expanded',!box.hidden);if(!box.hidden)box.querySelector('textarea').focus()});
  app.querySelectorAll('[data-n]').forEach(t=>t.oninput=()=>{const k=t.dataset.n;A[k]=Object.assign({},A[k]||{},{note:t.value});mark()});
  app.querySelectorAll('[data-axn]').forEach(t=>t.oninput=()=>{INFO.axisNotes[t.dataset.axn]=t.value;mark()});

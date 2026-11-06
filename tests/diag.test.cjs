@@ -51,7 +51,7 @@ const axe = async (p, sel) => { if (!(await p.evaluate(() => typeof axe !== 'und
   }
   ok(axi === 10, 'عشرة محاور مُجابة (' + axi + ')');
   await v.fill('[data-op="top"]', 'ضعف انتظام الجمعية العمومية، وقلة الموارد، ونقص الكوادر'); await v.click('#next'); await v.waitForTimeout(1300);
-  ok(await v.evaluate(() => /مكتمل ✓/.test(document.body.textContent) && !document.querySelector('#send').disabled), 'شاشة المراجعة: مكتمل وزر الإرسال متاح');
+  ok(await v.evaluate(() => /✓ مكتمل/.test(document.body.textContent) && !document.querySelector('#send').disabled), 'شاشة المراجعة: مكتمل وزر الإرسال متاح');
   await v.click('#send'); await v.waitForTimeout(400); ok(/أكّد/.test(await v.textContent('#toast')), 'الإرسال يتطلب تأكيد الصحة');
   await v.check('#conf'); await v.click('#send'); await v.waitForTimeout(1200);
   ok(/وصل التقييم/.test(await v.textContent('h1')) && (await v.$$('.radar')).length === 1, 'شكر وقراءة أولية بمخطط');

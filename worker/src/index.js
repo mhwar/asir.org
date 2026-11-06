@@ -124,8 +124,9 @@ async function servePortal(req, env, token) {
   return withHeaders(new Response(html, { headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer', 'Set-Cookie': await rq.assetPassCookie(env) } }));
 }
 
-function diagPin(msg = '', status = 200) {
-  return shell(`<h1>التشخيص المؤسسي للجمعية</h1><p>أدخل رمز الدخول المكوّن من 6 أرقام، المرسل لكم مع الرابط من مجلس الجمعيات الأهلية بعسير.</p>
+function diagPin(msg = '', status = 200, name = '') {
+  const e = (x) => String(x).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  return shell(`<h1>التشخيص المؤسسي للجمعية</h1>${name ? `<p><b>${e(name)}</b></p>` : ''}<p>أدخل رمز الدخول المكوّن من 6 أرقام، المرسل لكم مع الرابط من مجلس الجمعيات الأهلية بعسير.</p>
 <form method="post"><input name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus aria-label="رمز الدخول" placeholder="••••••">
 <button type="submit">متابعة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لم يصلكم الرمز؟ تواصلوا مع فريق المجلس.</div>`, status, { 'Referrer-Policy': 'no-referrer' });
 }
@@ -135,10 +136,10 @@ async function serveDiag(req, env, token) {
   if (!r) return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط التقييم غير صالح أو انتهت مدته.</p><p>تواصلوا مع فريق المجلس لإرسال رابط جديد.</p>`, 404);
   if (req.method === 'POST') {
     const v = await dg.verifyPin(env, req, r, token);
-    if (!v.ok) return diagPin(v.message, v.locked ? 429 : 401);
+    if (!v.ok) return diagPin(v.message, v.locked ? 429 : 401, r.association);
     return withHeaders(new Response(null, { status: 303, headers: { Location: `/d/${token}`, 'Set-Cookie': v.cookie, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
   }
-  if (!(await dg.pinOk(env, req, r))) return diagPin();
+  if (!(await dg.pinOk(env, req, r))) return diagPin('', 200, r.association);
   await dg.opened(env, r);
   return diagHtml(env, diagPage(await dg.pageState(env, r, 'link'), `/api/d/${token}`));
 }
