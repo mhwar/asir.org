@@ -100,6 +100,12 @@ if DEPLOY:
         open(os.path.join(ASSET_DIR, names[tag]), 'wb').write(out_js)
         print(f'  {names[tag]}  {len(out_js)//1024} KB')
     src = src[:a] + '<script>' + '\n'.join(keep) + f'</script>\n<script src="/assets/{names["app"]}" data-pub="/assets/{names["pub"]}"></script>' + src[b + 9:]
+    # 3) أنماط الزائر: تُحذف القواعد التي تذكر أصنافاً لا تظهر في كود الزائر ولا في HTML الصفحة (tools/cssfilter.py)
+    import cssfilter
+    pcss, st = cssfilter.filter_css(css.decode(), mini(pub), src)
+    pcss = pcss.encode(); pname = f'pub.{_hash(pcss)}.css'; open(os.path.join(ASSET_DIR, pname), 'wb').write(pcss)
+    src = src.replace(f'<link rel="stylesheet" href="/assets/{cname}">', f'<link rel="stylesheet" href="/assets/{cname}" data-pub="/assets/{pname}">', 1)
+    print(f'  {cname}  {len(css)//1024} KB · {pname}  {len(pcss)//1024} KB (حُذفت {st[1]} قاعدة من {st[0]})')
 out = P('dist', 'site', 'index.html') if DEPLOY else P('dist', 'asir-council-site.html')
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf8').write(src)

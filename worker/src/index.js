@@ -16,6 +16,7 @@ import * as al from './alerts.js';
 import * as adm from './admin.js';
 import * as dc from './docs.js';
 import * as seo from './seo.js';
+import * as ts from './turnstile.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -77,7 +78,7 @@ async function servePage(req, env, user, match) {
   const { raw, pub, synced } = await db.pagePayload(env);
   const url = new URL(req.url);
   const meta = seo.head(env, url, match || seo.matchPage('/'), pub);
-  html = seo.apply(html, meta);
+  html = seo.apply(html, meta).replace('</head>', ts.meta(env) + '</head>');
   const missing = match && match.lic && !pub.some((x) => String(x.lic) === match.lic);
   html = inject(html, 'PUB', bigJson(pub));
   html = inject(html, 'STATE', bigJson(await readState(env, user)));
@@ -94,6 +95,7 @@ async function servePage(req, env, user, match) {
   if (!user && !new URL(req.url).searchParams.has('full')) {
     // الزائر يأخذ حزمة الموقع العام فقط (بلا كود لوحة التحكم)؛ الفريق والبوابة يأخذان الحزمة الكاملة
     html = html.replace(/<script src="(\/assets\/app\.[0-9a-f]{10}\.js)" data-pub="(\/assets\/pub\.[0-9a-f]{10}\.js)"><\/script>/, '<script src="$2"></script>');
+    html = html.replace(/<link rel="stylesheet" href="(\/assets\/app\.[0-9a-f]{10}\.css)" data-pub="(\/assets\/pub\.[0-9a-f]{10}\.css)">/, '<link rel="stylesheet" href="$2">');
   }
   const h = { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' };
   if (env.SITE_MODE !== 'public') h['X-Robots-Tag'] = 'noindex, nofollow';
@@ -211,7 +213,10 @@ async function api(req, env, url) {
   if (path === '/api/public/contact' && m === 'POST') {
     const origin = req.headers.get('Origin');
     if (origin && origin !== url.origin) fail(403, 'bad_origin', 'مصدر الطلب غير مسموح');
-    return json(await msg.submitMessage(env, req, await readJson(req)), 201);
+    const body = await readJson(req);
+    const v = await ts.verify(env, req, body && body.ts);
+    if (v === 'unverified' && body) body.details = { ...(body.details && typeof body.details === 'object' ? body.details : {}), _ts: 'unverified' };
+    return json(await msg.submitMessage(env, req, body), 201);
   }
 
   // Association update link (no account: the link itself is the credential)
