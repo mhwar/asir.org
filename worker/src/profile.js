@@ -1,6 +1,6 @@
 // Full association record for the council: official data + public profile + contacts & leadership.
 import { fail } from './http.js';
-import { audit, updateAssociation, getAssociation, dataIssues } from './db.js';
+import { audit, updateAssociation, getAssociation, dataIssues, resolveFlags, FLAG_KINDS } from './db.js';
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
@@ -30,7 +30,7 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
   const contacts = Object.fromEntries(Object.entries(CONTACT).map(([k, col]) => [k, ct[col] || '']));
   contacts.board = ct.board_json ? JSON.parse(ct.board_json) : [];
   contacts.consent = !!a.contact_consent;
-  const { results: notes } = await env.DB.prepare('SELECT id, field, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
+  const { results: notes } = await env.DB.prepare('SELECT id, field, kind, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
   const { results: log } = await env.DB.prepare('SELECT id, channel, outcome, summary, next_on, created_by, created_at FROM association_contact_log WHERE association_id = ?1 ORDER BY id DESC LIMIT 100').bind(id).all();
   const checks = dataIssues(a, ct);
   if (logReveal) await audit(env, req, user.email, 'reveal', 'association_contacts', id);
@@ -88,6 +88,7 @@ export async function saveFull(env, req, user, id, body) {
       if (r.meta.changes) { await audit(env, req, user.email, 'update', 'associations', id, { contact_consent: 1 - want }, { contact_consent: want }); changed.push('contact_consent'); }
     }
   }
+  await resolveFlags(env, id, changed.filter((c) => !/_id$|_on$|^name_ar$|^license_no$/.test(c)));
   return { changed };
 }
 
@@ -112,7 +113,7 @@ export async function setLogo(env, req, user, id, file) {
 }
 
 async function listNotes(env, id) {
-  const { results } = await env.DB.prepare('SELECT id, field, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
+  const { results } = await env.DB.prepare('SELECT id, field, kind, text, visible, status, created_by, created_at, resolved_by, resolved_at FROM association_notes WHERE association_id = ?1 ORDER BY status, id DESC').bind(id).all();
   return results;
 }
 export async function addNote(env, req, user, id, body) {
@@ -120,9 +121,14 @@ export async function addNote(env, req, user, id, body) {
   const text = String(body.text || '').trim();
   if (text.length < 3 || text.length > 500) fail(422, 'invalid', 'نص الملاحظة بين 3 و500 حرف');
   const field = body.field ? String(body.field).slice(0, 30) : null;
-  const r = await env.DB.prepare('INSERT INTO association_notes (association_id, field, text, visible, created_by) VALUES (?1, ?2, ?3, ?4, ?5) RETURNING id')
-    .bind(id, field, text, body.visible === false ? 0 : 1, user.email).first();
-  await audit(env, req, user.email, 'create', 'association_notes', r.id, null, { association_id: id, field, text });
+  const kind = body.kind == null || body.kind === '' ? null : String(body.kind);
+  if (kind && !FLAG_KINDS.includes(kind)) fail(422, 'invalid', 'نوع العلامة غير معروف');
+  if (kind && !field) fail(422, 'invalid', 'العلامة تحتاج حقلاً محدداً');
+  // العلامة داخلية دائماً: لا تظهر للجمعية في رابط التحديث
+  const visible = kind ? 0 : body.visible === false ? 0 : 1;
+  const r = await env.DB.prepare('INSERT INTO association_notes (association_id, field, kind, text, visible, created_by) VALUES (?1, ?2, ?3, ?4, ?5, ?6) RETURNING id')
+    .bind(id, field, kind, text, visible, user.email).first();
+  await audit(env, req, user.email, 'create', 'association_notes', r.id, null, { association_id: id, field, kind, text });
   return { id: r.id, notes: await listNotes(env, id) };
 }
 export async function setNote(env, req, user, id, noteId, body) {

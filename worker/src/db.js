@@ -104,6 +104,7 @@ export async function updateAssociation(env, id, body) {
     ).bind(id, ...cols.map((c) => patch[c])).run();
   } catch (e) { sqliteError(e); }
   const changed = Object.fromEntries(cols.filter((c) => before[c] !== patch[c]).map((c) => [c, before[c]]));
+  await resolveFlags(env, id, Object.keys(changed));
   return { before: changed, after: Object.fromEntries(Object.keys(changed).map((c) => [c, patch[c]])) };
 }
 
@@ -212,4 +213,28 @@ export async function pagePayload(env) {
     return o;
   });
   return { raw, pub, synced: meta.results[0]?.synced || null };
+}
+
+// ─── علامات «بيانات تحتاج تحقق» (0020) ───
+export const FLAG_KINDS = ['assumed', 'verify', 'missing', 'conflict'];
+// عمود في القاعدة ← مفتاح العلامة (نفس مفاتيح حقول البوابة حيث وُجدت)
+const FLAG_COL = { name_ar: 'n', license_no: 'lic', governorate_id: 'gov', supervisor_id: 'sup', field_id: 'field', founded_on: 'founded',
+  license_issued_on: 'exp', license_expires_on: 'exp', email: 'email', mobile: 'mobile', website: 'web', phone_official: 'phone', address: 'address',
+  president_name: 'pres', delegate_name: 'del' };
+// يغلق العلامات المفتوحة على الحقول التي تغيّرت قيمتها فعلاً
+export async function resolveFlags(env, id, cols, by = 'تلقائي: عُدّل الحقل') {
+  const keys = [...new Set((cols || []).map((c) => FLAG_COL[c]).filter(Boolean))];
+  if (!keys.length) return 0;
+  const r = await env.DB.prepare(
+    `UPDATE association_notes SET status = 'resolved', resolved_by = ?2, resolved_at = strftime('%Y-%m-%dT%H:%M:%SZ','now')
+      WHERE association_id = ?1 AND status = 'open' AND kind IS NOT NULL AND field IN (${keys.map((_, i) => `?${i + 3}`).join(', ')})`
+  ).bind(id, by, ...keys).run();
+  return r.meta.changes || 0;
+}
+export async function listFlags(env) {
+  const { results } = await env.DB.prepare(
+    `SELECT n.id, n.association_id AS aid, n.field, n.kind, n.text, n.created_at FROM association_notes n
+       JOIN associations a ON a.id = n.association_id AND a.deleted_at IS NULL
+      WHERE n.status = 'open' AND n.kind IS NOT NULL ORDER BY n.association_id, n.id`).all();
+  return results;
 }

@@ -348,6 +348,8 @@ async function api(req, env, url) {
       return json({ data: await db.getAssociation(env, id) }, 201);
     }
   }
+  // كل العلامات المفتوحة («بيانات تحتاج تحقق») لكل الجمعيات — لقائمة جودة البيانات والسجل
+  if (path === '/api/flags' && m === 'GET') { requirePerm(user, 'directory'); return json({ data: await db.listFlags(env) }); }
   const nm = path.match(/^\/api\/associations\/(\d+)\/notes(?:\/(\d+))?$/);
   if (nm) {
     requirePerm(user, 'directory', 'write');
