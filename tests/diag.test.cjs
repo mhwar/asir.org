@@ -16,11 +16,13 @@ const axe = async (p, sel) => { if (!(await p.evaluate(() => typeof axe !== 'und
   await t.goto(BASE + '/#/admin', { waitUntil: 'networkidle' }); await t.waitForTimeout(800);
   const aid = await t.evaluate(() => { window.__noConfirm = 1; const o = DB.find((o) => !o.closed && !TRB.cases.some((c) => c.aid == o.id) && !PRO.needs.some((n) => n.aid == o.id)); return o.id; });
   await t.evaluate((id) => { ADM.dg = {}; open360(id, 'diag'); }, aid); await t.waitForTimeout(1200);
-  ok(await t.evaluate(() => /التشخيص المؤسسي/.test(document.querySelector('#acontent').textContent) && document.querySelectorAll('.dgacts .jbtn').length >= 4), 'تبويب «التشخيص» في ملف الجمعية بأزراره الأربعة');
+  ok(await t.evaluate(() => /التشخيص المؤسسي/.test(document.querySelector('#acontent').textContent) && /تقييم جديد/.test(document.querySelector('.dgacts .jbtn.pri').textContent)), 'تبويب «التشخيص» في ملف الجمعية بزر «تقييم جديد»');
   ok((await axe(t, '#acontent')).length === 0, 'axe على تبويب التشخيص ' + (await axe(t, '#acontent')).join(' '));
 
   // ── 1. رابط تقييم ذاتي ──
-  await t.click('.dgacts .jbtn.pri'); await t.waitForTimeout(900);
+  await t.click('.dgacts .jbtn.pri'); await t.waitForTimeout(400);
+  ok(await t.evaluate(() => document.querySelectorAll('[data-uc=k]').length === 4), 'نافذة «تقييم جديد» بأربع طرق تعبئة');
+  await t.click('[data-uc=k][data-v=self]'); await t.click('#dgGo'); await t.waitForTimeout(900);
   const link = await t.evaluate(() => ({ url: document.querySelector('.dgshare input').value, pin: document.querySelector('.dgshare .pinbox b').textContent, wa: document.querySelector('.dgshare a[href*="wa.me"]').href }));
   ok(/\/d\/[A-Za-z0-9_-]{20,}$/.test(link.url) && /^\d{6}$/.test(link.pin), 'نافذة الإرسال: رابط ورمز من 6 أرقام');
   ok(/wa\.me\/\d*\?text=/.test(link.wa) && decodeURIComponent(link.wa).includes(link.url) && !decodeURIComponent(link.wa).includes(link.pin), 'رسالة واتساب فيها الرابط دون الرمز');
