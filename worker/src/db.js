@@ -168,13 +168,17 @@ export function dataIssues(a, c) {
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 export async function pagePayload(env) {
-  const [adm, meta, prof, con, nts] = await env.DB.batch([
+  const [adm, meta, prof, con, nts, asm] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
     env.DB.prepare("SELECT max(updated_at) AS synced FROM associations"),
     env.DB.prepare('SELECT association_id AS id, short_name, about, website, social, beneficiaries, programs, logo_key FROM association_profiles'),
     env.DB.prepare('SELECT * FROM association_contacts'),
-    env.DB.prepare("SELECT association_id AS id, text FROM association_notes WHERE status = 'open'"),
+    env.DB.prepare("SELECT association_id AS id, text FROM association_notes WHERE status = 'open' AND kind IS NULL"),
+    // قيم وضعها الفريق افتراضياً (علامة «قيمة مؤقتة» مفتوحة) لا تُعرض للزوار على أنها حقيقة
+    env.DB.prepare("SELECT association_id AS id, field FROM association_notes WHERE status = 'open' AND kind = 'assumed'"),
   ]);
+  const ASM = {};
+  for (const f of asm.results) (ASM[f.id] = ASM[f.id] || new Set()).add(f.field);
   const N = {};
   for (const n of nts.results) (N[n.id] = N[n.id] || []).push('ملاحظة المجلس: ' + n.text);
   const C = Object.fromEntries(con.results.map((c) => [c.association_id, c]));
@@ -200,6 +204,8 @@ export async function pagePayload(env) {
     const p = P[a.id] || {};
     const o = { id: a.id, n: a.name, lic: a.license_no, y: a.founded_on ? Number(a.founded_on.slice(0, 4)) : null,
       sup: a.supervisor, gov: a.governorate, grp: a.field_group, s1: a.field_category, s2: a.field_subcategory };
+    const as = ASM[a.id];
+    if (as) { if (as.has('gov')) o.gov = 'غير محددة'; if (as.has('sup')) o.sup = 'غير محددة'; if (as.has('field')) { o.grp = 'غير محدد'; o.s1 = ''; o.s2 = ''; } if (as.has('founded')) o.y = null; }
     if (p.logo_key) o.lg = `/u-logo/${a.id}`;
     if (p.about) o.ab = p.about;
     if (p.short_name) o.sh = p.short_name;
