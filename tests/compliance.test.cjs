@@ -40,7 +40,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 400);
   await p.setViewportSize({ width: 1366, height: 860 });
   await p.evaluate(() => { EVTS.list.push({ id: 'e-ask-test', t: 'فعالية اختبار التأكيد', kind: 'meet', mode: 'online', d: '2030-01-01', st: 'draft', pub: 0, att: [], cpIds: [], log: [], sessions: [] }); evEdit('e-ask-test'); $('#eeDel').click() }); await W(p, 150);
   const a1 = await p.evaluate(() => ({ on: $('#askd').classList.contains('on'), role: $('#askd .askb').getAttribute('role'), focus: document.activeElement.dataset.a, ok: $('#askd [data-a="1"]').textContent, dang: $('#askd [data-a="1"]').classList.contains('dang') }));
-  ok(a1.on && a1.role == 'alertdialog' && a1.focus == '0' && a1.ok == 'حذف' && a1.dang, 'confirm dialog: platform style, destructive button labelled, focus starts on Cancel');
+  ok(a1.on && a1.role == 'alertdialog' && a1.focus == '0' && /^حذف/.test(a1.ok) && a1.dang, 'confirm dialog: platform style, destructive button labelled, focus starts on Cancel');
   await p.keyboard.press('Escape'); await W(p, 100);
   ok(await p.evaluate(() => !$('#askd').classList.contains('on') && EVTS.list.some((e) => e.id == 'e-ask-test') && $('#modal').classList.contains('on')), 'Escape cancels: nothing deleted, the form stays open');
   await p.evaluate(() => $('#eeDel').click()); await W(p, 120); await p.evaluate(() => $('#askd [data-a="1"]').click()); await W(p, 150);

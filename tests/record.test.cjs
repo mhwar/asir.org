@@ -32,7 +32,7 @@ const BASE = process.env.BASE || 'http://127.0.0.1:8787';
   // print
   await p.evaluate(() => recPrint(24)); await p.waitForTimeout(600);
   await p.screenshot({ path: 'tests/out/rec_print.png' });
-  const [dl] = await Promise.all([p.waitForEvent('download', { timeout: 8000 }).catch(() => null), p.click('#prF [data-fmt=xlsx]')]);
+  const [dl] = await Promise.all([p.waitForEvent('download', { timeout: 8000 }).catch(() => null), (async () => { await p.click('[data-uc=fmt][data-v=xlsx]'); await p.click('#exGo'); })()]);
   // mobile modal
   const m = await (await b.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 })).newPage();
   await m.goto(BASE + '/'); await m.waitForTimeout(600); await m.evaluate(() => { go('admin'); }); await m.waitForTimeout(400);

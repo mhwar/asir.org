@@ -23,7 +23,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 400);
   ok(await p.evaluate(() => !!$('#kPanel') && $$('[data-kn]').length > 0), 'users page shows login-links panel and a "login link" button per active user');
   await p.click(`[data-kn="${uid}"]`); await W(p, 300);
   await p.fill('#kF input[name=label]', 'جوال العمل'); await p.selectOption('#kF select[name=days]', '7');
-  await p.click('#kF .btn'); await W(p, 700);
+  await p.click('#kF .uiff2 .btn.p'); await W(p, 700);
   const url = await p.evaluate(() => $('#kUrl') && $('#kUrl').value);
   ok(/\/k\/[A-Za-z0-9_-]{32}$/.test(url || ''), 'link created and shown once in the modal');
   const stored = await p.evaluate(async () => (await (await fetch('/api/login-links')).json()).data[0]);

@@ -12,7 +12,7 @@ const RUN = (sel) => axe.run(sel, { runOnly: { type: 'tag', values: ['wcag2a', '
     await p.evaluate((t) => { document.documentElement.dataset.theme = t }, theme);
     const mods = await p.evaluate(() => MODS.map((m) => m[0]).filter((m) => can(m)));
     const bad = [];
-    for (const m of mods) { await p.evaluate((m) => { closeAll(); goMod(m) }, m); await p.waitForTimeout(220); const v = await p.evaluate(`(${RUN.toString()})('#adminRoot')`); if (v.length) bad.push({ m, v }) }
+    for (const m of mods) { await p.evaluate((m) => { closeAll(); goMod(m) }, m); await p.waitForTimeout(220); await p.evaluate(() => Promise.all(document.getAnimations().map((x) => x.finished.catch(() => 0)))); const v = await p.evaluate(`(${RUN.toString()})('#adminRoot')`); if (v.length) bad.push({ m, v }) }
     ok(!bad.length, `${theme}: all ${mods.length} dashboard pages pass WCAG A/AA ` + JSON.stringify(bad).slice(0, 600));
     await p.evaluate(() => { closeAll(); goMod('partners'); ADM.ptTab = 'ov'; ptOpen(16) }); await p.waitForTimeout(300);
     const d = await p.evaluate(`(${RUN.toString()})('#adrawer')`);
