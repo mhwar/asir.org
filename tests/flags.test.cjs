@@ -8,6 +8,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const p = await (await b.newContext({ viewport: { width: 1400, height: 900 } })).newPage(); p.on('pageerror', (e) => errs.push(e.message));
   await p.goto(BASE + '/'); await p.waitForTimeout(600);
   const A = 31;
+  await p.evaluate(async (A) => { const L = (await (await fetch('/api/flags')).json()).data.filter((x) => x.aid == A); for (const f of L) await fetch(`/api/associations/${A}/notes/${f.id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'resolved' }) }); }, A);
   const r = await p.evaluate(async (A) => {
     const post = async (b) => { const r = await fetch(`/api/associations/${A}/notes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }); return [r.status, await r.json()]; };
     const bad = (await post({ field: 'gov', kind: 'weird', text: 'xxx' }))[0];
@@ -50,7 +51,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(auto.length == 1 && auto[0] == 'field', 'editing the governorate auto-resolved its flag');
   // manual resolve from the banner
   await p.evaluate(async () => { await flagsLoad(true); }); await p.waitForTimeout(300);
-  await p.evaluate((A) => open360(A, 'ov'), A); await p.waitForTimeout(1500);
+  await p.evaluate((A) => open360(A, 'quality'), A); await p.waitForTimeout(1500);
   await p.click('.flgban li .flga button:last-child'); await p.waitForTimeout(900);
   const left = await p.evaluate(async (A) => ({ api: (await (await fetch('/api/flags')).json()).data.filter((x) => x.aid == A).length, ban: !!document.querySelector('.flgban') }), A);
   ok(left.api == 0 && !left.ban, '«تأكدنا منها» resolves the flag and the banner disappears');
