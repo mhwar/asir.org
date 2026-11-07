@@ -19,6 +19,7 @@ import * as adm from './admin.js';
 import * as dc from './docs.js';
 import * as seo from './seo.js';
 import * as ts from './turnstile.js';
+import * as ncnp from './ncnp.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -334,6 +335,9 @@ async function api(req, env, url) {
 
   if (path === '/api/me') return json({ email: user.email, name: user.name, role: user.role, roleName: user.roleName, permissions: Object.fromEntries(user.perms) });
   if (path === '/api/lookups') return json(await db.lookups(env));
+
+  // استيراد دليل المركز الوطني (ملء الفارغ فقط + بانتظار تأكيد الجمعية). dry=true للمعاينة
+  if (path === '/api/ncnp/import' && m === 'POST') { requirePerm(user, 'directory', 'write'); return json(await ncnp.importNcnp(env, req, user, await readJson(req, 2_000_000))); }
 
   if (path === '/api/associations') {
     if (m === 'GET') { requirePerm(user, 'directory'); return json({ data: await db.listAssociations(env, url.searchParams) }); }

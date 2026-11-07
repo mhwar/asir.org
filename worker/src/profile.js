@@ -4,7 +4,7 @@ import { audit, updateAssociation, getAssociation, dataIssues } from './db.js';
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
-const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
+const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', phone: 'phone_official', address: 'address', postal: 'postal_code', pobox: 'po_box', donate: 'donate_url', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
 const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', presEmail: 'president_email', presMobile: 'president_mobile',
   del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile' };
 const V = (k) => (k === 'presMobile' ? UFIELDS.mobile.v : UFIELDS[k].v);
@@ -34,7 +34,8 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
   const { results: log } = await env.DB.prepare('SELECT id, channel, outcome, summary, next_on, created_by, created_at FROM association_contact_log WHERE association_id = ?1 ORDER BY id DESC LIMIT 100').bind(id).all();
   const checks = dataIssues(a, ct);
   if (logReveal) await audit(env, req, user.email, 'reveal', 'association_contacts', id);
-  return { association: a, profile, contacts, notes, checks, log };
+  const ncnp = pr.ncnp_id ? { id: pr.ncnp_id, score: pr.gov_score, year: pr.gov_score_year, cls: pr.ncnp_class, sub: pr.ncnp_subclass, synced: pr.ncnp_synced_at, fax: pr.fax, pending: pr.ncnp_pending ? JSON.parse(pr.ncnp_pending) : [] } : null;
+  return { association: a, profile, contacts, notes, checks, log, ncnp };
 }
 
 export async function saveFull(env, req, user, id, body) {

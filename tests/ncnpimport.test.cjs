@@ -1,0 +1,14 @@
+// NCNP import endpoint: fill-empty only, pending marks, license/name matching, idempotent re-run.
+// Pre (local): UPDATE association_profiles/contacts to NULL for ids 54,214,163 (see PLATFORM.md).
+const { chromium } = require('playwright');
+let fails=0;const ok=(c,m)=>{console.log((c?'PASS ':'FAIL ')+m);if(!c)fails++};
+(async()=>{const b=await chromium.launch();const p=await (await b.newContext()).newPage();await p.goto('http://127.0.0.1:8787/');await p.waitForTimeout(500);
+const rows=[{id:14,no:'17',name:'الجمعية الخيرية بخميس مشيط',sup:'وزارة الموارد البشرية والتنمية الاجتماعية',cls:'المجموعة الرابعة',sub:'خدمات الفئات الاجتماعية',donate:'https://store.km.org.sa/',gov:96.5,govYear:2024,addr:'خميس مشيط _ حي شماعة',email:'KGM-017@hotmail.com',fax:'01772237557',phone:'0533059989',pob:'60',web:'https://www.km.org.sa/',zip:'61961'},
+{id:425,no:'434',name:'جمعية البر الخيرية بمركز قنا',sup:'وزارة الموارد البشرية والتنمية الاجتماعية',cls:'x',sub:'y',donate:'',gov:80,govYear:2024,addr:'قنا',email:'pr1429@hotmail.com',fax:'',phone:'0172345678',pob:'',web:'www.br-qana.org.sa',zip:''},
+{id:1,no:'99999999',name:'جمعيه أفياء النسائيه بمنطقه عسير',sup:'وزارة الموارد البشرية والتنمية الاجتماعية',cls:'',sub:'',gov:null,email:'bad',phone:'abc'},
+{id:2,no:'88888888',name:'جمعية لا توجد',sup:''}];
+const f=async(d)=>p.evaluate(async([rows,d])=>{const r=await fetch('/api/ncnp/import',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({rows,dry:d})});return [r.status,await r.json()]},[rows,d]);
+const dry=await f(true);const D=dry[1];ok(dry[0]==200&&D.dry&&D.matched==3&&D.byLicense==2&&D.byName==1,'dry-run matching 2 by license + 1 by name');ok(D.unmatched.length==1&&D.licDiff.length==1,'unmatched and license-diff reported');ok(D.filled.web==2&&D.filled.email==2&&D.filled.mobile==1,'fill counts (bare domain normalised, landline not a mobile)');
+const real=await f(false);const again=await f(false);
+const full=await p.evaluate(async()=>{const a=(await (await fetch('/api/associations/54/full')).json()).data;const b=(await (await fetch('/api/associations/214/full')).json()).data;return {a:{p:a.profile.web,d:a.profile.donate,ph:a.profile.phone,m:a.contacts.mobile,e:a.contacts.email,n:a.ncnp},b:{p:b.profile.web,ph:b.profile.phone,m:b.contacts.mobile,n:b.ncnp}}});
+ok(real[0]==200,'import 200');ok(again[1].filledTotal==0,'re-run fills nothing (no overwrite)');ok(full.a.e=='kgm-017@hotmail.com'&&full.a.m=='0533059989'&&full.a.n.score==96.5&&full.a.n.pending.length==8,'values + pending stored');ok(full.b.p=='https://www.br-qana.org.sa'&&full.b.m=='','landline kept out of mobile');const st=await p.evaluate(async()=>(await fetch('/api/ncnp/import',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})).status);ok(st==422,'empty body 422');await b.close();console.log(fails?fails+' failed':'all passed');process.exit(fails?1:0)})();

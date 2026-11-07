@@ -15,6 +15,7 @@ const txt = (max) => (v) => { v = String(v ?? '').trim(); if (v.length > max) fa
 const date = (v) => { if (!v) return null; if (!DATE.test(v) || isNaN(Date.parse(v))) fail(422, 'invalid', 'تاريخ غير صالح'); return v; };
 const email = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (/@test\.com$/i.test(v) || !/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v)) fail(422, 'invalid', 'بريد غير صالح'); return v.toLowerCase(); };
 const mobile = (v) => { v = String(v ?? '').replace(/[\s-]/g, ''); if (!v) return null; if (!/^(05\d{8}|\+9665\d{8})$/.test(v)) fail(422, 'invalid', 'رقم الجوال بصيغة 05xxxxxxxx'); return v; };
+const phone = (v) => { v = String(v ?? '').replace(/[\s-]/g, ''); if (!v) return null; if (!/^(\+966|0)?\d{8,10}$/.test(v)) fail(422, 'invalid', 'رقم الهاتف غير صحيح'); return v; };
 const url = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!/^https?:\/\/[^\s]+\.[^\s]+$/i.test(v) || v.length > 200) fail(422, 'invalid', 'رابط غير صالح (يبدأ بـ https://)'); return v; };
 const int = (max) => (v) => { if (v === '' || v == null) return null; const n = Number(String(v).replace(/[^\d]/g, '')); if (!Number.isInteger(n) || n < 0 || n > max) fail(422, 'invalid', `رقم غير صالح (0 – ${max})`); return n; };
 const year = (v) => { if (!v) return null; const n = Number(v); if (!Number.isInteger(n) || n < 1990 || n > 2100) fail(422, 'invalid', 'سنة غير صالحة'); return n; };
@@ -35,6 +36,11 @@ export const UFIELDS = {
   volHours:  { l: 'ساعات التطوع (آخر سنة)', kind: 'profile', col: 'vol_hours', v: int(100000000) },
   volOpps:   { l: 'الفرص التطوعية (آخر سنة)', kind: 'profile', col: 'vol_opps', v: int(1000000) },
   volYear:   { l: 'سنة أرقام التطوع', kind: 'profile', col: 'vol_year', v: year },
+  phone:     { l: 'الهاتف الرسمي', kind: 'profile', col: 'phone_official', v: phone },
+  address:   { l: 'العنوان', kind: 'profile', col: 'address', v: txt(200) },
+  postal:    { l: 'الرمز البريدي', kind: 'profile', col: 'postal_code', v: txt(10) },
+  pobox:     { l: 'صندوق البريد', kind: 'profile', col: 'po_box', v: txt(20) },
+  donate:    { l: 'موقع التبرعات', kind: 'profile', col: 'donate_url', v: url },
   benef:     { l: 'عدد المستفيدين (آخر سنة)', kind: 'profile', col: 'beneficiaries_count', v: int(100000000) },
   assembly:  { l: 'تاريخ آخر جمعية عمومية', kind: 'profile', col: 'last_assembly_on', v: date },
   finYear:   { l: 'آخر سنة مالية اعتُمدت قوائمها', kind: 'profile', col: 'fin_year', v: year },
@@ -72,7 +78,7 @@ export async function currentValues(env, id, withPersonal) {
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
-            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
+            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id
@@ -80,6 +86,7 @@ export async function currentValues(env, id, withPersonal) {
   if (!a) fail(404, 'not_found', 'الجمعية غير موجودة');
   a.ben = a.ben ? JSON.parse(a.ben) : [];
   a.consent = !!a.consent;
+  a.ncnpPending = a.ncnpPending ? JSON.parse(a.ncnpPending) : [];
   if (withPersonal) {
     const c = await env.DB.prepare('SELECT * FROM association_contacts WHERE association_id = ?1').bind(id).first();
     for (const [k, f] of Object.entries(UFIELDS)) if (f.kind === 'contact') a[k] = c ? c[f.col] : null;
@@ -246,14 +253,24 @@ export async function submitRequest(env, req, link) {
     files[k] = { key, name: String(file.name || '').slice(0, 120), type: file.type, size: file.size };
     changes[k] = { old: k === 'logo' ? cur.logo || null : null, new: key };
   }
-  if (!Object.keys(changes).length) fail(422, 'empty', 'لا توجد تعديلات جديدة');
+  // تأكيد ما عُبّئ من السجل الوطني كما هو: يُرفع عن الحقول علامة «بانتظار التأكيد» مباشرة (الجمعية نفسها عبر رابطها برمز الدخول)
+  let confirmed = [];
+  try { confirmed = JSON.parse(form.get('confirm') || '[]'); } catch { confirmed = []; }
+  const pend = cur.ncnpPending || [];
+  confirmed = Array.isArray(confirmed) ? confirmed.filter((k) => pend.includes(k) && !changes[k]) : [];
+  if (confirmed.length) {
+    const left = pend.filter((k) => !confirmed.includes(k) && !changes[k]);
+    await env.DB.prepare('UPDATE association_profiles SET ncnp_pending = ?2 WHERE association_id = ?1').bind(link.association_id, left.length ? JSON.stringify(left) : null).run();
+    await audit(env, req, 'link:' + link.id, 'update', 'association_profiles', link.association_id, null, { ncnp_confirmed: confirmed });
+  }
+  if (!Object.keys(changes).length) { if (confirmed.length) return { id: null, fields: [], confirmed }; fail(422, 'empty', 'لا توجد تعديلات جديدة'); }
   const who = txt(120)(form.get('submitter_name')), role = txt(80)(form.get('submitter_role')), note = txt(600)(form.get('note'));
   const r = await env.DB.prepare(
     `INSERT INTO update_requests (association_id, link_id, changes, files, submitter_name, submitter_role, note) VALUES (?1,?2,?3,?4,?5,?6,?7) RETURNING id`
   ).bind(link.association_id, link.id, JSON.stringify(changes), Object.keys(files).length ? JSON.stringify(files) : null, who, role, note).first();
   await env.DB.prepare('UPDATE update_links SET submissions = submissions + 1 WHERE id = ?1').bind(link.id).run();
   await audit(env, req, 'link:' + link.id, 'create', 'update_requests', r.id, null, { association_id: link.association_id, fields: Object.keys(changes) });
-  return { id: r.id, fields: Object.keys(changes) };
+  return { id: r.id, fields: Object.keys(changes), confirmed };
 }
 
 // ─── council side ────────────────────────────────────────
@@ -335,6 +352,8 @@ export async function reviewRequest(env, req, user, id, body) {
   await env.DB.prepare(
     `UPDATE update_requests SET status = ?2, reviewed_by = ?3, reviewed_at = ${NOW}, review_note = ?4, applied = ?5 WHERE id = ?1 AND status = 'pending'`
   ).bind(id, status, user.email, note, JSON.stringify(apply)).run();
+  if (status !== 'rejected') // راجعت الجمعية بياناتها: ما عُبّئ من السجل الوطني صار مؤكداً
+    await env.DB.prepare(`UPDATE association_profiles SET ncnp_pending = NULL WHERE association_id = ?1`).bind(r.association_id).run();
   if (apply.length) // corrected fields close the council notes attached to them
     await env.DB.prepare(
       `UPDATE association_notes SET status = 'resolved', resolved_by = ?2, resolved_at = ${NOW} WHERE association_id = ?1 AND status = 'open' AND field IN (${apply.map((_, i) => `?${i + 3}`).join(',')})`
