@@ -14,8 +14,8 @@ const W = (p, ms) => p.waitForTimeout(ms || 400);
   const pv = await p.evaluate(() => { const fr = $('#cmpPv iframe'); return { w: fr.style.width, ok: !!fr.contentDocument && !!fr.contentDocument.querySelector('header.top'), vw: fr.contentWindow.innerWidth } });
   ok(pv.w == '820px' && pv.ok && pv.vw == 820, 'device preview renders the site at the real device width (same-origin frame allowed)');
   // النوافذ والأدراج
-  await p.evaluate(() => goMod('partners')); await W(p, 300);
-  await p.evaluate(() => { const b = $$('#acontent [data-po]')[0]; b.focus(); b.click() }); await W(p, 700);
+  await p.evaluate(() => goMod('directory')); await W(p, 300);
+  await p.evaluate(() => { const b = $$('#acontent tr.clk, #acontent tr[data-id], #acontent [data-open]')[0]; b.focus(); openRec(DB.find((o) => !o.closed).id) }); await W(p, 700);
   const d = await p.evaluate(() => ({ role: $('#adrawer').getAttribute('role'), modal: $('#adrawer').getAttribute('aria-modal'), lbl: !!$('#adrawer').getAttribute('aria-labelledby'), inF: $('#adrawer').contains(document.activeElement), lock: getComputedStyle(document.body).overflow }));
   ok(d.role == 'dialog' && d.modal == 'true' && d.lbl && d.inF && d.lock == 'hidden', 'drawer: dialog role, labelled, focus moves inside, page behind locked ' + JSON.stringify(d));
   for (let i = 0; i < 60; i++) await p.keyboard.press('Tab');

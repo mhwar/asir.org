@@ -33,7 +33,7 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   ok(cp.st == 'أُرسلت' && cp.aud > 0 && cp.n == cp.aud, 'campaign send snapshots audience');
   ok(cp.did && cp.pid && cp.logD, 'campaign linked to decision + project and logged');
   await p.evaluate(() => { closeAll(); goMod('campaigns') }); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('#acontent [data-cp]').length == 1 && $$('#acontent [data-cnew]').length >= 3), 'campaigns page: table + opportunities');
+  ok(await p.evaluate(() => $$('#acontent [data-cp]').length == 1 && $$('#acontent [data-cnew]').length >= 3), 'campaigns page: table + opportunities ' + await p.evaluate(() => JSON.stringify([$$('#acontent [data-cp]').length, $$('#acontent [data-cnew]').length, ADM.mod, CAMPS.list.length])));
   await p.evaluate(() => { DECX = []; PROJS = []; CAMPS.list = []; ADM.dec = {}; SS('asirDecX', DECX); SS('asirProjects', PROJS); SS('asirDec', ADM.dec) });
   ok(!errs.length, 'no page errors ' + errs.join('|'));
   await b.close();

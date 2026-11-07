@@ -23,7 +23,7 @@ const ok = (c, m) => { if (c) { pass++; console.log('✓ ' + m); } else { fail++
   await t.click('.trpage [onclick^="proCaseDis"]'); await t.waitForTimeout(400);
   ok(await t.evaluate(() => !document.querySelector('.trpage [onclick^="proCaseDis"]')), 'التجاهل يخفي الاقتراح');
   await t.click('.trpage .trneeds .jbtn'); await t.waitForTimeout(400);
-  ok(await t.evaluate(() => !!document.querySelector('#adrawer.on, #modal.on')), 'فتح الاحتياج القائم يعمل من الصفحة');
+  ok(await t.evaluate(() => ADM.mod == 'need' && !!document.querySelector('.aspage')), 'فتح الاحتياج القائم يفتح صفحة الاحتياج');
   // قياس الأثر: المقارنة تُثبَّت عند الاعتماد ولا تتبع التغيرات اللاحقة
   const imp = await t.evaluate((a) => { const o = DBI[a], c0 = o.comp; const g = { id: 'GX1', aid: a, an: o.n, st: 'work', base: proSnap(a), ms: [], hrs: [], log: [] };
     o.comp = Math.min(100, c0 + 25); g.st = 'done'; g.after = proSnap(a); o.comp = 0; PRO.engs.push(g);

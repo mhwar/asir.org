@@ -22,31 +22,28 @@ const W = (p, ms) => p.waitForTimeout(ms || 450);
   await p.goto(BASE + '/#/admin/mops?f=done&k=forum'); await W(p, 1600);
   const rl = await E(p, () => ({ mod: ADM.mod, f: ADM.evF, k: ADM.evK, on: ($('#acontent .csf button.on') || {}).textContent || '', rows: $$('#acontent [data-ev]').length, kinds: [...new Set($$('#acontent [data-ev]').map((r) => EVTS.list.find((e) => e.id == r.dataset.ev).kind))] }));
   ok(rl.mod == 'mops' && rl.f == 'done' && rl.k == 'forum' && rl.on.includes('المنتهية') && rl.rows > 0 && rl.kinds.join() == 'forum', 'opening a shared link restores page + filters');
-  // 4) فتح سجل = خطوة في سجل التصفح؛ الرجوع يغلق الدرج ويبقى في الصفحة
-  await E(p, () => { ADM.evTab = 'ov'; evOpen('c-x-ev-tawasul') }); await W(p, 200);
-  const o = await E(p, () => ({ h: location.hash, on: $('#adrawer').classList.contains('on') }));
-  ok(o.on && /open=ev:c-x-ev-tawasul/.test(o.h) && /f=done/.test(o.h), 'opening a record adds it to the URL with the page filters ' + o.h);
-  await p.goBack(); await W(p, 500);
-  const bk = await E(p, () => ({ h: location.hash, on: $('#adrawer').classList.contains('on'), mod: ADM.mod, f: ADM.evF }));
-  ok(!bk.on && bk.mod == 'mops' && bk.f == 'done' && !/open=/.test(bk.h), 'browser back closes the drawer and keeps the page/filters');
-  await p.goForward(); await W(p, 500);
-  ok(await E(p, () => $('#adrawer').classList.contains('on') && /تواصل/.test($('#adrawer .dh').textContent)), 'browser forward reopens the same record');
-  // 5) إغلاق الدرج بـ× لا يترك أثراً في الرابط؛ الرجوع بعدها ينتقل للصفحة السابقة لا لدرج مغلق
-  await E(p, () => $('#adrawer .dh .x').click()); await W(p, 700);
-  ok(!(await E(p, () => /open=/.test(location.hash))), 'closing the drawer with × cleans the URL');
-  await E(p, () => goMod('partners')); await W(p, 200);
+  // 4) فتح سجل = صفحة كاملة وخطوة في سجل التصفح؛ الرجوع يعود إلى القائمة بفلاترها
+  await E(p, () => { ADM.evTab = 'ov'; evOpen('c-x-ev-tawasul') }); await W(p, 300);
+  const o = await E(p, () => ({ h: location.hash, mod: ADM.mod, page: !!document.querySelector('.aspage'), dark: !!document.querySelector('.aspage .dh:not(.dhl)'), back: ($('#jstick .jback button') || {}).textContent }));
+  ok(o.mod == 'ev' && o.page && !o.dark && /#\/admin\/ev-c-x-ev-tawasul/.test(o.h) && /العودة إلى الفعاليات/.test(o.back), 'opening a record opens a light full page with its own URL and a back link ' + o.h);
   await p.goBack(); await W(p, 600);
-  ok((await E(p, () => ADM.mod + '|' + $('#adrawer').classList.contains('on'))) == 'mops|false', 'back returns to the previous page (not a closed drawer)');
-  // 6) رابط مباشر لسجل مفتوح مع تبويب الدرج
-  await p.goto(BASE + '/#/admin/partners?open=pt:16&dt=ob'); await W(p, 1600);
-  const dl = await E(p, () => ({ on: $('#adrawer').classList.contains('on'), t: ($('#adrawer [data-ptt].on') || {}).dataset || {}, h: location.hash }));
-  ok(dl.on && dl.t.ptt == 'ob', 'deep link opens the record on the requested drawer tab');
-  // 7) تبديل تبويب الدرج يحدّث الرابط، وEsc يغلق الطبقة العليا فقط
-  await E(p, () => $('#adrawer [data-ptt="fu"]').click()); await W(p, 200);
-  ok(/dt=fu/.test(await E(p, () => location.hash)), 'drawer tab is kept in the URL');
+  const bk = await E(p, () => ({ h: location.hash, page: !!document.querySelector('.aspage'), mod: ADM.mod, f: ADM.evF }));
+  ok(!bk.page && bk.mod == 'mops' && bk.f == 'done' && /f=done/.test(bk.h), 'browser back returns to the list and keeps its filters');
+  await p.goForward(); await W(p, 600);
+  ok(await E(p, () => ADM.mod == 'ev' && /تواصل/.test($('.aspage .dh').textContent)), 'browser forward reopens the same record page');
+  // 5) زر العودة في الرأس يعود إلى القائمة
+  await E(p, () => $('#jstick .jback button').click()); await W(p, 500);
+  ok(await E(p, () => ADM.mod == 'mops' && !document.querySelector('.aspage')), 'header back link returns to the list');
+  // 6) رابط مباشر لسجل مع تبويبه
+  await p.goto(BASE + '/#/admin/pt-16?dt=ob'); await W(p, 1600);
+  const dl = await E(p, () => ({ mod: ADM.mod, t: ($('#adrawer [data-ptt].on') || {}).dataset || {}, h: location.hash }));
+  ok(dl.mod == 'pt' && dl.t.ptt == 'ob', 'deep link opens the record page on the requested tab');
+  // 7) تبديل التبويب يحدّث الرابط، وEsc يغلق النافذة فقط ويبقي الصفحة
+  await E(p, () => $('#adrawer [data-ptt="fu"]').click()); await W(p, 300);
+  ok(/dt=fu/.test(await E(p, () => location.hash)), 'record tab is kept in the URL');
   await E(p, () => ptEdit(16)); await W(p, 150); await p.keyboard.press('Escape'); await W(p, 150);
-  ok(await E(p, () => !$('#modal').classList.contains('on') && $('#adrawer').classList.contains('on')), 'Escape closes the modal and keeps the drawer underneath');
-  await p.keyboard.press('Escape'); await W(p, 600);
+  ok(await E(p, () => !$('#modal').classList.contains('on') && ADM.mod == 'pt' && !!document.querySelector('.aspage')), 'Escape closes the modal and keeps the record page');
+  await E(p, () => goMod('partners')); await W(p, 400);
   // 8) الترويسة تتجدد مع التبويب (زر الإنشاء يتبع التبويب)
   const hd = await E(p, () => { ADM.pt.tab = 'between'; AM.partners($('#acontent')); const a = $('#jstick .acts2').textContent; ADM.pt.tab = 'council'; AM.partners($('#acontent')); return { a, b: $('#jstick .acts2').textContent } });
   ok(/توثيق شراكة/.test(hd.a) && /شراكة جديدة/.test(hd.b), 'header create action follows the active tab');
@@ -55,9 +52,10 @@ const W = (p, ms) => p.waitForTimeout(ms || 450);
   ok(bl.n > 0 && String(bl.n) == String(bl.cnt) && bl.closed && bl.mod != 'partners', 'bell opens the attention list, badge matches, item navigates');
   // 10) لوحة المفاتيح: الصفوف قابلة للتركيز وEnter يفتح
   await E(p, () => goMod('projects')); await W(p, 200);
-  const kb = await E(p, async () => { goMod('mops'); ADM.evF = 'done'; AM.mops($('#acontent')); await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))); const r = $('#acontent tr.cl'); r.focus(); r.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); return { tab: r.tabIndex, open: $('#adrawer').classList.contains('on'), pressed: $('#acontent .csf button.on').getAttribute('aria-pressed') } });
-  ok(kb.tab == 0 && kb.open && kb.pressed == 'true', 'rows are keyboard-focusable, Enter opens, filter buttons expose aria-pressed');
-  await E(p, () => closeAll()); await W(p, 500);
+  const kb = await E(p, async () => { goMod('mops'); ADM.evF = 'done'; AM.mops($('#acontent')); await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 50))); const r = $('#acontent tr.cl'); const pressed = $('#acontent .csf button.on').getAttribute('aria-pressed'); r.focus(); r.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true })); return { tab: r.tabIndex, pressed } });
+  await W(p, 300);
+  ok(kb.tab == 0 && kb.pressed == 'true' && await E(p, () => ADM.mod == 'ev'), 'rows are keyboard-focusable, Enter opens the record page, filter buttons expose aria-pressed');
+  await E(p, () => goMod('mops')); await W(p, 500);
   // 11) شريط التقدم لا يتداخل مع النسبة، وعرض الجوال يطوي البطاقات
   ok(await E(p, () => { goMod('directory'); const c = $('#dirT .cbar'); return !c || getComputedStyle(c).overflow != 'hidden' }), 'completeness bar no longer clips its label');
   await p.setViewportSize({ width: 390, height: 844 }); await W(p, 300);
