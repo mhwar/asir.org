@@ -5482,7 +5482,7 @@ function dgPick(aid){const o=DBI[aid],M=uiMem('dgnew'),X={k:M.k||'self',days:M.d
  draw()}
 
 /* ---------- صفحة «دليل الواجهة»: المكوّنات حيّة مع قواعد استخدامها ---------- */
-AM.uikit=el=>{const ex=(t,d,h)=>`<div class="panel uikx"><h3>${t}</h3><p class="d">${d}</p><div class="uikd">${h}</div></div>`;
+AM.uikit=el=>{const ex=(t,d,h)=>`<div class="panel span6 uikx"><h3>${t}</h3><p class="d">${d}</p><div class="uikd">${h}</div></div>`;
  el.innerHTML=`<p class="alead">كل نافذة يتخذ فيها الفريق قراراً (تصدير، إنشاء روابط، تقييم، علامة) تُبنى من هذه القطع، فتتشابه في الشكل والسلوك. القواعد في آخر الصفحة.</p>
  <div class="agrid">
  ${ex('بطاقات الخيار','لخيار له أثر مختلف: أيقونة، اسم، وسطر يشرح النتيجة. لا قائمة منسدلة لخيارين أو ثلاثة.',uiCards('d1',[{k:'a',l:'Excel',d:'منسّق بهوية المجلس',ic:'grid'},{k:'b',l:'PDF',d:'جاهز للطباعة',ic:'file'},{k:'c',l:'CSV',d:'بيانات خام',ic:'db'}],'a'))}
@@ -5492,7 +5492,7 @@ AM.uikit=el=>{const ex=(t,d,h)=>`<div class="panel uikx"><h3>${t}</h3><p class="
  ${ex('مفتاح بأثره','عنوان، وتحته سطر يقول ماذا سيحدث الآن، ويتغيّر مع الحالة.',`<div class="uio">${uiSwitch('d5','إخفاء جزء من البيانات الشخصية','تظهر مموّهة، مثل a•••@mail.com',1)}</div>`)}
  ${ex('الملاحظات','أثر جانبي أو تحذير قبل التنفيذ. البرتقالي لما يُلغى أو يضيع.',`<div class="uio">${uiNote('يظهر الرابط مرة واحدة بعد الإنشاء.',0,'link')}${uiNote('3 روابط فعّالة سابقة ستُلغى.',1)}</div>`)}
  ${ex('الشريط السفلي','ثابت دائماً: النتيجة قبل التنفيذ، ثم «إلغاء»، ثم زر يسمّي الفعل بعدده.',`<div class="uikfoot">${uiFoot('24 رابطاً · صالحة 30 يوماً',['uikGo','إنشاء 24 رابطاً'],{note:'يُسجَّل في سجل النشاط'})}</div>`)}
- <div class="panel uikx"><h3>جرّبها</h3><p class="d">النوافذ المبنية بهذه المكوّنات حتى الآن.</p><div class="uikb"><button class="jbtn" onclick="expDir()">نافذة التصدير</button><button class="jbtn" onclick="expReport(rpCur())">تصدير تقرير</button><button class="jbtn" onclick="updLink([DB[0].id])">رابط تحديث</button><button class="jbtn" onclick="dgPick(DB[0].id)">تقييم جديد</button><button class="jbtn" onclick="flagAdd(DB[0].id)">علامة «تحتاج تحقق»</button><button class="jbtn" onclick="recPrint(DB[0].id)">ملف جمعية</button></div></div>
+ <div class="panel span6 uikx"><h3>جرّبها</h3><p class="d">النوافذ المبنية بهذه المكوّنات حتى الآن.</p><div class="uikb"><button class="jbtn" onclick="expDir()">نافذة التصدير</button><button class="jbtn" onclick="expReport(rpCur())">تصدير تقرير</button><button class="jbtn" onclick="updLink([DB[0].id])">رابط تحديث</button><button class="jbtn" onclick="dgPick(DB[0].id)">تقييم جديد</button><button class="jbtn" onclick="flagAdd(DB[0].id)">علامة «تحتاج تحقق»</button><button class="jbtn" onclick="recPrint(DB[0].id)">ملف جمعية</button></div></div>
  <div class="panel span12 uikr"><h3>القواعد</h3><ol>
   <li><b>نافذة أم درج؟</b> النافذة لقرار قصير ينتهي بفعل واحد. الدرج الجانبي لتحرير سجل. الإجراء السريع يبقى في مكانه في الصفحة.</li>
   <li><b>الزر الرئيسي يسمّي الفعل وعدده:</b> «إنشاء 24 رابطاً»، «تصدير Excel». لا «موافق» ولا «حفظ» وحدهما.</li>
