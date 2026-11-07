@@ -23,7 +23,7 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   ok(await p.evaluate(() => $$('#acontent [data-pj]').length >= 1), 'projects page lists projects');
   // المشروع: مرحلة، شريك، مستفيد، مخرج، وحالة تنعكس على القرار
   const pj = await p.evaluate(() => { const x = PROJS[0]; ADM.pjTab = 'ph'; pjOpen(x.id); $('#phA').t.value = 'متابعة لاحقة'; $('#phA').requestSubmit(); ADM.pjTab = 'pb'; pjOpen(x.id); const f = $('#prA'); f.n.value = 'جهة اختبار'; f.amt.value = '1000'; f.requestSubmit();
-    ADM.pjTab = 'out'; pjOpen(x.id); $('#otA').t.value = 'تقرير'; $('#otA').requestSubmit(); ADM.pjTab = 'ov'; pjOpen(x.id); $('#adrawer [data-pst="مكتمل"]').click();
+    ADM.pjTab = 'out'; pjOpen(x.id); $('#otA').t.value = 'تقرير'; $('#otA').requestSubmit(); ADM.pjTab = 'ov'; pjOpen(x.id); $('#acontent [data-pst="مكتمل"]').click();
     const D = DECX.find((d) => d.id == x.did); return { ph: x.phases.length, pa: x.partners.length, out: x.outs.length, st: x.st, dst: D.st, prog: pjProg(x) } });
   ok(pj.ph == 4 && pj.pa == 1 && pj.out == 1, 'project phases/partners/outputs editable');
   ok(pj.st == 'مكتمل' && pj.dst == 'منفّذ' && pj.prog == 1, 'project completion closes decision');

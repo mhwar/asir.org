@@ -31,7 +31,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate((id) => !DECX.some((x) => x.id == id), did), 'decision deleted');
   // بقية النماذج: كل نموذج له شريط موحّد
   const others = await p.evaluate(async () => {
-    const out = {}; const t = async (k, fn) => { try { closeAll(); await fn(); await new Promise((r) => setTimeout(r, 250)); const f = $('#modal form .uiff2'); out[k] = f ? f.querySelector('.btn.p').textContent : 'NO'; } catch (e) { out[k] = 'ERR ' + e.message; } };
+    const out = {}; const t = async (k, fn) => { try { closeAll(); await fn(); await new Promise((r) => setTimeout(r, 250)); const f = $('#modal form .uiff2'), u = $('#modal .uifoot'); out[k] = f ? f.querySelector('.btn.p').textContent : u ? (u.querySelector('.btn.p')).textContent : 'NO'; } catch (e) { out[k] = 'ERR ' + e.message; } };
     await t('pjCreate', () => pjCreate({}));
     await t('ptNew', () => ptNew());
     await t('campNew', () => campNew({}));
