@@ -45,7 +45,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.click('[data-uc=fmt][data-v=pdf]'); await p.waitForTimeout(150);
   const pdfUI = await p.evaluate(() => ({ cover: !!$('[data-usw=cover]'), defs: !!$('[data-usw=defs]'), btn: $('#exGo').textContent }));
   ok(pdfUI.cover && pdfUI.defs && /PDF/.test(pdfUI.btn), 'PDF options (cover, definitions) appear');
-  await p.click('[data-usw=cover]'); await p.evaluate(() => { window.print = () => {}; }); await p.click('#exGo'); await p.waitForTimeout(500);
+  if (await p.evaluate(() => $('[data-usw=cover]').checked)) await p.click('[data-usw=cover]'); await p.evaluate(() => { window.print = () => {}; }); await p.click('#exGo'); await p.waitForTimeout(500);
   const doc = await p.evaluate(() => ({ cover: !!$('#rptDoc .rpcov'), rows: $$('#rptDoc table tbody tr').length, masked: /•••@/.test($('#rptDoc').textContent), land: !!$('#rptDoc .rpd.land') }));
   ok(!doc.cover && doc.rows > 0, 'PDF built without cover page (' + doc.rows + ' rows)');
   ok(doc.land, 'many columns → landscape');

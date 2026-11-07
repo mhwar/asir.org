@@ -2285,7 +2285,7 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
 .rps h2{display:flex;align-items:center;gap:10px;font-size:18px;color:var(--rn);margin:0 0 6px;padding-bottom:8px;border-bottom:2px solid var(--rl)}
 .rps h2 i{font-style:normal;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;background:var(--rn);color:#fff;font-size:13px;flex:none}
 .rpi{font-size:12.5px;color:var(--rm);margin:0 0 12px}
-.rps>*+*{margin-top:14px}
+.rps>*+*,.rkeep>*+*{margin-top:14px}
 .rk{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
 .rkc{padding:12px 14px;border:1px solid var(--rl);border-radius:12px;background:#fff;break-inside:avoid}
 .rkc small{display:block;font-size:11.5px;color:var(--rm);line-height:1.5}.rkc>b{display:block;font-size:24px;color:var(--rn);line-height:1.3;margin-top:2px}.rkc>b i{font-style:normal;font-size:12px;color:var(--rm);font-weight:600}
@@ -2348,6 +2348,104 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
  #rptDoc .rmx{overflow:visible}#rptDoc .rmx th,#rptDoc .rmx td{font-size:7.6pt;padding:3px 2px}#rptDoc .rmx thead th span{min-width:0}
  #rptDoc .rb2{font-size:9pt}#rptDoc .rbr{break-inside:avoid}
  #rptDoc .rkc>b{font-size:17pt}
+}
+/* ===== تقارير PDF v3: غلاف للتحليلية، رأس مختصر للسجلات، صفحات عرضية للجداول العريضة ===== */
+.rpd{--ok:#0E7C5A;--okb:#E3F5EC;--wa:#B54708;--wab:#FEF0C7;--ba:#B42318;--bab:#FEE4E2;--in:#175CD3;--inb:#E0EAFF;--mu:#475467;--mub:#EEF1F6}
+.rpcov{background:#fff;gap:22px}
+.rpct h1{font-size:34px;letter-spacing:-.2px}
+.rpey{background:var(--rn);color:#fff;letter-spacing:.2px}
+.rpch{display:grid;grid-template-columns:repeat(var(--c,4),1fr);gap:10px}
+.rpch div{border:0;border-radius:14px;background:linear-gradient(160deg,#F5F8FF,#EEF3FF);border-top:0;position:relative;overflow:hidden;padding:16px 16px 14px}
+.rpch div::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,#42ACFD,var(--rn))}
+.rpch b{font-size:26px;font-variant-numeric:tabular-nums}
+.rptoc{columns:auto;padding:16px 18px;border:1px solid var(--rl);border-radius:14px;background:#FBFCFE}
+.rptoc h6{margin:0 0 10px;font-size:11.5px;color:var(--rm);font-weight:700;letter-spacing:.3px}
+.rptoc ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:repeat(var(--r,6),auto);grid-auto-flow:column;gap:6px 22px}
+.rptoc li{display:flex;align-items:center;gap:9px;font-size:12.5px;color:#26304F;padding:0}
+.rptoc li i{font-style:normal;width:22px;height:22px;border-radius:7px;display:grid;place-items:center;background:#EAF0FF;color:var(--rn);font-size:11px;font-weight:800;flex:none}
+.rptoc li.ap i{background:#F2F4F7;color:var(--rm)}.rptoc li.ap span{color:var(--rm)}
+/* الرأس المختصر */
+.rpmh{position:relative;padding:30px 52px 22px;border-bottom:1px solid var(--rl);display:grid;gap:16px;background:linear-gradient(180deg,#F7F9FE,#fff)}
+.rpmh::before{content:"";position:absolute;inset:0 0 auto 0;height:5px;background:linear-gradient(90deg,#42ACFD,var(--rn))}
+.rpmb{display:flex;align-items:center;gap:12px;font-size:11px;color:var(--rm);font-weight:600}.rpmb img{height:38px}.rpmb em{margin-inline-start:auto;font-style:normal;font-weight:500}
+.rpmt{display:flex;align-items:center;gap:16px}
+.rpav{width:64px;height:64px;border-radius:18px;background:#EAF0FF;color:var(--rn);display:grid;place-items:center;font-size:28px;font-weight:800;flex:none;overflow:hidden;border:1px solid var(--rl)}.rpav img{width:100%;height:100%;object-fit:contain;background:#fff}
+.rpmt h1{font-size:25px;line-height:1.35;color:var(--rn);margin:6px 0 2px;text-wrap:balance}
+.rpmt .rpsc{font-size:13px}.rpld{margin:6px 0 0;font-size:12.5px;color:#3D4462;line-height:1.7;max-width:640px}
+.rpchip{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.rpch.mh{grid-template-columns:repeat(var(--c),minmax(0,190px))}.rpch.mh b{font-size:22px}
+.rcut{margin:6px 0 0;font-size:11px;color:var(--rm);padding:6px 10px;border-radius:8px;background:#F5F7FC}
+.rpnote{margin:0;padding:8px 12px;border-radius:10px;background:#FEF0C7;color:#93370D;font-size:11.5px;font-weight:600}
+/* الأقسام */
+.rps h2{border-bottom:0;padding-bottom:0;margin-bottom:4px;break-inside:avoid}
+.rps h2 span{flex:1;padding-bottom:8px;border-bottom:2px solid var(--rl)}
+.rps.app h2 i{background:#EEF1F6;color:var(--rm)}
+.rh4{margin:12px 0 6px;font-size:13px;color:var(--rn)}
+.rtx{margin:0;font-size:13px;line-height:1.95;color:#26304F;text-align:justify}.rtx.mute{color:var(--rm)}
+.rls{margin:0;padding-inline-start:20px;display:grid;gap:4px;font-size:12.5px;color:#26304F}.rls li::marker{color:var(--rb);font-weight:700}
+.rpp{display:grid;grid-template-columns:1fr 1fr;gap:10px}.rpp div{padding:12px 14px;border:1px solid var(--rl);border-radius:12px;display:grid;gap:2px;break-inside:avoid}.rpp small{font-size:11px;color:var(--rm)}.rpp b{font-size:14px;color:var(--rn)}.rpp bdi{font-size:12px;color:#3D4462}
+/* البطاقات: صفوف متوازنة */
+.rk{display:flex;flex-wrap:wrap;gap:10px}
+.rk .rkc{flex:1 1 calc((100% - (var(--c,4) - 1)*10px)/var(--c,4));min-width:0}
+.rkc{border-radius:12px;background:#fff;position:relative}
+.rkc::before{content:"";position:absolute;inset-block:12px;inset-inline-start:0;width:3px;border-radius:3px;background:#DDE5F7}
+.rkc>b{font-variant-numeric:tabular-nums}
+/* الحقائق */
+.rf{border-radius:12px}
+.rf.c1{grid-template-columns:1fr}.rf.c2{grid-template-columns:1fr 1fr}
+.rf div{background:#fff!important}.rf div.z{background:var(--rz)!important}.rf div.sp{grid-column:1/-1}
+.rf.c2 div:nth-child(odd){border-inline-end:1px solid var(--rl)}.rf.c2 div.sp{border-inline-end:0}
+.rf dd{max-width:62%}
+/* الشارات */
+.rst{display:inline-block;padding:1px 8px;border-radius:999px;font-size:.92em;font-weight:700;white-space:nowrap;line-height:1.6}
+.rst.ok{background:var(--okb);color:var(--ok)}.rst.warn{background:var(--wab);color:var(--wa)}.rst.bad{background:var(--bab);color:var(--ba)}.rst.info{background:var(--inb);color:var(--in)}.rst.mute{background:var(--mub);color:var(--mu)}
+.rnil{color:#B4BCD0}
+/* الجداول */
+.rt table{table-layout:fixed;border-radius:10px;overflow:hidden}
+.rt th{background:#EEF2FB;color:var(--rn);border-bottom:2px solid var(--rn);font-size:11px}
+.rt td{overflow-wrap:anywhere}
+.rt tbody tr:nth-child(even) td{background:#F8FAFE}
+.rt.many td,.rt.many th{padding:5px 6px}
+/* مسار المراحل */
+.rsp{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(var(--n),1fr);gap:0;break-inside:avoid;counter-reset:s}
+.rsp li{position:relative;display:grid;justify-items:center;text-align:center;gap:4px;padding:0 4px}
+.rsp li::before{content:"";position:absolute;top:14px;inset-inline:0;height:3px;background:#D5DCEA}
+.rsp li:first-child::before{inset-inline-start:50%}.rsp li:last-child::before{inset-inline-end:50%}
+.rsp li.done::before{background:#14A37F}.rsp li.cur::before{background:linear-gradient(90deg,#D5DCEA 50%,#14A37F 50%)}
+[dir=rtl] .rsp li.cur::before{background:linear-gradient(270deg,#D5DCEA 50%,#14A37F 50%)}
+.rsp i{position:relative;z-index:1;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;font-weight:800;font-size:12px;background:#fff;border:2px solid #D0D7E6;color:var(--rm)}
+.rsp li.done i{background:#14A37F;border-color:#14A37F;color:#fff}.rsp li.cur i{border-color:var(--rb);color:var(--rb);box-shadow:0 0 0 4px #EAF0FF}
+.rsp b{font-size:11.5px;color:#26304F}.rsp li.cur b{color:var(--rb)}.rsp small{font-size:10.5px;color:var(--rm)}
+/* أشرطة التقدم */
+.rpg{display:grid;grid-template-columns:minmax(140px,240px) minmax(0,1fr) 48px auto;gap:0 12px;align-items:center;font-size:12.5px}
+.rpg.nob{grid-template-columns:minmax(140px,240px) minmax(0,1fr) 48px}.rpgr{display:contents}.rpgr>*{padding:6px 0;border-bottom:1px solid #F0F2F7}
+.rpgr .l{color:#1E2340;line-height:1.45}.rpgr .l small{display:block;color:var(--rm);font-size:10.5px}
+.rpgr .t{position:relative;height:100%;display:flex;align-items:center}
+.rpgr .t::before{content:"";position:absolute;inset-inline:0;height:10px;border-radius:6px;background:#EEF1F6}
+.rpgr .t i{position:relative;height:10px;border-radius:6px;background:var(--rb);min-width:3px}
+.rpgr.ok .t i{background:#14A37F}.rpgr.cur .t i{background:linear-gradient(90deg,var(--rn),var(--rb))}.rpgr.cur .l{font-weight:700;color:var(--rn)}
+.rpgr .t u{position:absolute;top:50%;width:2px;height:18px;margin-top:-9px;background:#E58A00;border-radius:2px}
+.rpgr b{text-align:center;color:var(--rn);font-variant-numeric:tabular-nums}.rpgr em{font-style:normal;color:var(--rm);text-align:center;font-size:11.5px}
+.rpgk{grid-column:1/-1;display:flex;gap:16px;padding-top:6px;font-size:11px;color:var(--rm)}.rpgk span{display:inline-flex;align-items:center;gap:6px}.rpgk i{width:14px;height:8px;border-radius:3px;background:var(--rb)}.rpgk u{width:2px;height:12px;background:#E58A00}
+@media (max-width:760px){.rpmh{padding-inline:18px}.rpch{grid-template-columns:1fr 1fr}.rptoc ol{grid-template-columns:1fr}.rpp{grid-template-columns:1fr}.rpg{grid-template-columns:minmax(90px,130px) minmax(0,1fr) 40px auto}.rsp b{font-size:10px}}
+@media print{
+ #rptDoc .rpcov{min-height:254mm;padding:4mm 6mm 0;gap:8mm}
+ #rptDoc .rpct{padding-top:18mm}#rptDoc .rpct h1{font-size:27pt}
+ #rptDoc .rpch b{font-size:19pt}
+ #rptDoc .rpmh{padding:0 0 5mm;margin-bottom:6mm;background:#fff}#rptDoc .rpmh::before{inset:-4mm 0 auto 0;height:3px}
+ #rptDoc .rpmt h1{font-size:19pt}
+ #rptDoc .rps.land{page:land}
+ #rptDoc .rps.land .rt table{font-size:8.2pt}
+ #rptDoc .rps h2{break-inside:avoid;break-after:avoid}
+ #rptDoc .rpg,#rptDoc .rpp,#rptDoc .rsp,#rptDoc .rpdefs dl div,#rptDoc .rtx{break-inside:avoid}
+ #rptDoc .rpgr>*{break-inside:avoid}
+ #rptDoc .rt th{font-size:7.8pt}#rptDoc .rt.many table{font-size:7.8pt}
+ #rptDoc .rst{font-size:7.6pt;padding:0 6px}
+ #rptDoc .rkc>b{font-size:16pt}
+ #rptDoc .rps.app{break-before:page}
+ #rptDoc .rkeep{break-inside:avoid}
+ #rptDoc .rpdefs{break-before:auto}
+ #rptDoc .rpdefs dl{grid-template-columns:1fr 1fr}#rptDoc .rpdefs dl div{grid-template-columns:30mm 1fr;padding:5px 10px;background:#fff!important;border-bottom:1px solid var(--rl)}#rptDoc .rpdefs dt,#rptDoc .rpdefs dd{font-size:8pt;line-height:1.6}
 }
 /* الفعاليات والملتقيات */
 .evx{padding-bottom:10px}
@@ -3358,7 +3456,7 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       <div><h2 class="fh5">الخدمات</h2><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/pro">تطوّع بخبرتك</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h2 class="fh5">روابط</h2><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.85</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.86</span></div>
   </div>
 </footer>
 
@@ -5494,7 +5592,7 @@ function dirFilterText(){const d=ADM.dir,L=[];if(d.q)L.push('بحث «'+d.q+'»'
 function expOpen(src){if(!canExport()){toast('التصدير غير مسموح لدورك',1);return}
  const M=expMem(src.key),rows=src.kind=='rows',rep=src.kind=='report',sec=src.kind=='sections';
  const fmts=src.fmts||(rows?['xlsx','pdf','csv']:['xlsx','pdf','csv']);
- const X={fmt:src.fmt||M.fmt||fmts[0],scope:src.scope||M.scope||'filtered',mask:M.mask!==false,cover:M.cover!==false,defs:M.defs!==false,name:''};
+ const X={fmt:src.fmt||M.fmt||fmts[0],scope:src.scope||M.scope||'filtered',mask:M.mask!==false,cover:M.cover2!=null?M.cover2:(rep?RCOV.includes(src.R.kind):false),defs:M.defs!==false,orient:M.orient||'auto',full:!!M.full,name:''};
  if((rep||sec)&&X.fmt=='csv'||!fmts.includes(X.fmt))X.fmt=fmts[0]=='csv'?'xlsx':fmts[0];
  const on=new Set(M.cols&&M.cols.length?M.cols:EXP_COLS.filter(c=>c[2]).map(c=>c[0]));
  if(!ADM.reveal)EXP_COLS.forEach(c=>{if(c[4])on.delete(c[0])});
@@ -5506,7 +5604,7 @@ function expOpen(src){if(!canExport()){toast('التصدير غير مسموح �
  const rowsOf=()=>X.scope=='all'?src.all:X.scope=='sel'?src.sel:src.filtered;
  const colsOf=()=>EXP_COLS.filter(c=>on.has(c[0]));
  X.name=fileName((src.title||'تصدير')+' '+new Date().toISOString().slice(0,10));
- const est=()=>{if(!rows){const n=secs.filter(s=>s.on).length;return X.fmt=='pdf'?`${n} أقسام · ≈ ${n+(X.cover&&rep?1:0)+(X.defs&&defs0.length?1:0)} صفحات أو أكثر`:`${n} أقسام`+(rep?` · ${n+1} أوراق عمل`:'')}
+ const est=()=>{if(!rows){const n=secs.filter(s=>s.on).length;if(X.fmt=='pdf'&&rep){const R=src.R,b={noCover:R.noCover,defs:R.defs,orient:R.orient,land:R.land,fullLists:R.fullLists};R.noCover=!X.cover;R.fullLists=X.full;R.defs=X.defs?defs0:[];R.orient=X.orient;R.land=X.orient=='l'?1:R.land0||0;const pg=rPages(R);Object.assign(R,b);return `${n} أقسام · نحو ${pg} ${pg<=2?'صفحة':pg<=10?'صفحات':'صفحة'}`}return X.fmt=='pdf'?`${n} أقسام`:`${n} أقسام`+(rep?` · ${n+1} أوراق عمل`:'')}
   const L=rowsOf(),C=colsOf();if(!C.length)return 'اختر عموداً واحداً على الأقل';
   const smp=L.slice(0,200),per=smp.length?smp.map(o=>C.map(c=>String(expVal(o,c)??'')).join(',')).join('\n').length/smp.length:0;
   const csv=Math.round((per*L.length+C.map(c=>c[1]).join().length)*1.7);
@@ -5521,24 +5619,25 @@ function expOpen(src){if(!canExport()){toast('التصدير غير مسموح �
     +uiGrid(EXP_COLS.map(c=>({k:c[0],l:c[1],on:on.has(c[0]),pii:!!c[4],lock:c[4]&&!ADM.reveal,t:c[4]&&!ADM.reveal?'فعّل «إظهار البيانات الشخصية» من أعلى الصفحة أولاً':''})))
     +(ADM.reveal?'':uiNote('الأعمدة الشخصية مقفلة لأن البيانات الشخصية مخفية. فعّل إظهارها من أعلى الصفحة إن احتجتها.',0,'lock'))
    :uiSec('الأقسام',`${secs.filter(s=>s.on).length} من ${secs.length}`,[['all',secs.every(s=>s.on||(s.pii&&!ADM.reveal))?'إلغاء الكل':'تحديد الكل']])
-    +uiGrid(secs.map((s,i)=>({k:String(i),l:esc(s.t),on:s.on,pii:!!s.pii,lock:s.pii&&!ADM.reveal,t:s.pii&&!ADM.reveal?'فعّل «إظهار البيانات الشخصية» من أعلى الصفحة أولاً':''})))
+    +uiGrid(secs.map((s,i)=>({k:String(i),l:esc(s.t)+(s.app?' <small style="color:var(--mute)">(ملحق)</small>':''),on:s.on,pii:!!s.pii,lock:s.pii&&!ADM.reveal,t:s.pii&&!ADM.reveal?'فعّل «إظهار البيانات الشخصية» من أعلى الصفحة أولاً':''})))
     +(sec&&!ADM.reveal&&secs.some(s=>s.pii)?uiNote('الأقسام الشخصية مقفلة لأن البيانات الشخصية مخفية.',0,'lock'):''))
   +`<div class="uio">${pers?uiSwitch('mask','إخفاء جزء من البيانات الشخصية',`${pers} ${rows?'أعمدة':'أقسام'} شخصية مختارة · ${X.mask?'تظهر مموّهة، مثل a•••@mail.com':'تظهر كاملة: لا تُرسل الملف خارج الفريق'}`,X.mask):''}
-   ${X.fmt=='pdf'&&!sec?uiSwitch('cover','صفحة الغلاف','شعار المجلس وعنوان التقرير وأبرز الأرقام',X.cover)+(defs0.length||rows?uiSwitch('defs','التعريفات والمنهجية','كيف حُسبت الحالات والمؤشرات، في آخر التقرير',X.defs):''):''}
+   ${X.fmt=='pdf'&&rep?uiSec('اتجاه الصفحات')+uiSeg('orient',[['auto','تلقائي'],['p','طولي'],['l','عرضي']],X.orient)+`<p class="uim" style="margin:6px 0 10px">${X.orient=='auto'?'طولي، والجداول العريضة والمصفوفات في صفحات عرضية':X.orient=='p'?'كل الصفحات طولية، والجداول العريضة بخط أصغر':'كل الصفحات عرضية'}</p>`:''}
+   ${X.fmt=='pdf'&&!sec?uiSwitch('cover','صفحة غلاف',X.cover?'غلاف بالشعار وأبرز الأرقام وفهرس المحتويات':'رأس مختصر في أعلى الصفحة الأولى، ويبدأ المحتوى مباشرة',X.cover)+(rep&&rCutK(src.R)&&src.R.sections.some(s=>s.blocks.some(b=>b.type=='table'&&b.rows.length>RCUT[0]))?uiSwitch('full','القوائم الطويلة كاملة',X.full?'كل صفوف القوائم في متن التقرير':'أول '+RCUT[1]+' صفاً من كل قائمة طويلة، والكاملة في Excel',X.full):'')+(defs0.length||rows?uiSwitch('defs','التعريفات والمنهجية','كيف حُسبت الحالات والمؤشرات، في آخر التقرير',X.defs):''):''}
    ${X.fmt=='csv'?uiNote('بترميز UTF-8 يفتح مباشرة في Excel وGoogle Sheets، بلا تنسيق ولا ألوان.'):''}
    ${rows&&X.fmt=='pdf'&&C.length>6?uiNote(`${C.length} أعمدة: سيُطبع الجدول بعرض الصفحة (أفقياً)${C.length>9?' بخط أصغر. للتحليل استخدم Excel':''}.`,1):''}</div>`
   +(sec?'':uiName('exN',X.name,X.fmt))
   +uiFoot(est(),['exGo',X.fmt=='pdf'?'إنشاء PDF':'تصدير '+EXP_F[X.fmt][0]],{note:'يُسجَّل في سجل النشاط'}),{cls:'exw'});
-  uiBind(md,{card:(n,v)=>{keep();X.fmt=v;draw()},seg:(n,v)=>{keep();X.scope=v;draw()},
+  uiBind(md,{card:(n,v)=>{keep();X.fmt=v;draw()},seg:(n,v)=>{keep();if(n=='orient')X.orient=v;else X.scope=v;draw()},
    grid:(k,c)=>{keep();if(rows)c?on.add(k):on.delete(k);else secs[+k].on=c;draw()},sw:(k,c)=>{keep();X[k]=c;draw()},
    link:id=>{keep();if(!rows){const v=!secs.every(s=>s.on||(s.pii&&!ADM.reveal));secs.forEach(s=>s.on=v&&!(s.pii&&!ADM.reveal))}else if(id=='def'){on.clear();EXP_COLS.filter(c=>c[2]).forEach(c=>on.add(c[0]))}else{const v=on.size<avail.length;on.clear();(v?avail:EXP_COLS.slice(0,1)).forEach(c=>on.add(c[0]))}draw()}});
   $('#exGo').onclick=()=>{const name=fileName(($('#exN')||{value:''}).value.trim()||src.title);
    if(sec){const ks=secs.filter(s=>s.on).map(s=>s.k);if(!ks.length){toast('اختر قسماً واحداً على الأقل',1);return}expSave(src.key,{fmt:X.fmt,mask:X.mask,secs:Object.fromEntries(secs.map(s=>[s.k,s.on]))});closeAll();src.run(X.fmt,ks,X.mask);return}
-   if(rep){if(!secs.some(s=>s.on)){toast('اختر قسماً واحداً على الأقل',1);return}const R=src.R;R.noCover=!X.cover;R.defs=X.defs?defs0:[];R.fname=name;
-    expSave(src.key,{fmt:X.fmt,cover:X.cover,defs:X.defs});closeAll();X.fmt=='pdf'?rPDF(R):rXLSX(R);return}
+   if(rep){if(!secs.some(s=>s.on)){toast('اختر قسماً واحداً على الأقل',1);return}const R=src.R;R.noCover=!X.cover;R.defs=X.defs?defs0:[];R.fname=name;if(R.land0==null)R.land0=R.land||0;R.orient=X.orient;R.land=X.orient=='l'?1:R.land0;R.fullLists=X.full;
+    expSave(src.key,{fmt:X.fmt,cover2:X.cover,defs:X.defs,orient:X.orient,full:X.full});closeAll();X.fmt=='pdf'?rPDF(R):rXLSX(R);return}
    const C=colsOf(),L=rowsOf();if(!C.length){toast('اختر عموداً واحداً على الأقل',1);return}if(!L.length){toast('لا توجد جمعيات في هذا النطاق',1);return}
    const mk=PMASK(X.mask),val=(o,c)=>{const v=expVal(o,c);return c[4]&&v?mk(String(v),c[4]):v};
-   expSave(src.key,{fmt:X.fmt,scope:X.scope,mask:X.mask,cover:X.cover,defs:X.defs,cols:[...on]});closeAll();
+   expSave(src.key,{fmt:X.fmt,scope:X.scope,mask:X.mask,cover2:X.cover,defs:X.defs,cols:[...on]});closeAll();
    const scopeT=X.scope=='all'?'كل الجمعيات النشطة':X.scope=='sel'?'جمعيات محددة':(dirFilterText().join(' · ')||'كل الجمعيات النشطة');
    if(X.fmt=='csv'){const q=v=>{let x=String(v??'');if(/^[=+\-@]/.test(x))x="'"+x;return '"'+x.replace(/"/g,'""')+'"'};
     const csv='﻿'+C.map(c=>q(c[1])).join(',')+'\r\n'+L.map(o=>C.map(c=>{const v=val(o,c);return q(c[3]=='p'&&v!=null?Math.round(v*100)+'%':v)}).join(',')).join('\r\n');
@@ -5948,22 +6047,22 @@ AM.projects=el=>{pjNorm();if(typeof hsAll=='function')hsAll();
 var HDR_PJ=()=>`<button class="jbtn" onclick="goMod('decisions')">${I(P.target,'width:16px;height:16px')}القرارات</button><button class="jbtn pri" onclick="pjCreate()">${I('<path d="M12 5v14M5 12h14"/>','width:16px;height:16px')}مشروع جديد</button><button class="jbtn" onclick="dlCSV('مشاريع المجلس',[['المشروع','القرار المرتبط','المسؤول','من','إلى','الحالة','الإنجاز','المهام','الميزانية المخططة','المصروف','الشركاء','المستفيدون'],...PROJS.map(p=>{const D=pjDec(p),T=pjTasks(p);return [p.n,D?D.d:'',p.o||'',p.from||'',p.to||'',p.st,Math.round(pjProg(p)*100)+'%',T.filter(t=>t.done).length+'/'+T.length,p.budget.plan||0,p.budget.spent||0,p.partners.map(x=>x.n).join('، '),pjBenef(p).all.length]})])">${I(P.dl,'width:16px;height:16px')}تنزيل</button>`;
 /* تقارير حالة التعثر والمشروع بالنموذج الموحّد (PDF/Excel عبر محرك التصدير) */
 function trReport(aid){const o=DBI[aid],c=TRB.cases.filter(x=>x.aid==aid).sort((a,b)=>(b.upd||'').localeCompare(a.upd||''))[0];if(!o||!c)return toast('لا حالة لهذه الجمعية',1);trNorm(c);const E=trEvidence(o,c),st=TR_STAGES.find(x=>x[0]==c.stage)||TR_STAGES[0];
- const S=[{id:'sum',t:'الملخص',blocks:[RB.kpis([{l:'المرحلة',v:st[1],t:'s'},{l:'مفتوحة منذ (يوم)',v:trDaysSince(c.at),t:'c'},{l:'تدخلات منفَّذة',v:c.ints.filter(x=>x.st=='done').length,t:'c'},{l:'مؤشرات تحسّنت',v:E.length?E.filter(e=>e.ok).length/E.length:0,t:'r'}]),RB.facts([['الجمعية',o.n],['الترخيص',o.lic],['المحافظة',o.gov],['الجهة الإشرافية',o.sup],['نوع التعثر',c.types.join('، ')],['الأولوية',c.sev],['المسؤول',c.owner||'—'],['المتابعة التالية',c.next?c.next+(c.nextWhat?' · '+c.nextWhat:''):'—'],['رُصدت',trDate(c.at)+(c.src=='auto'?' (تلقائياً)':'')]])]},
+ const si=TR_STG_I(c.stage);const S=[{id:'sum',t:'الملخص',blocks:[{type:'steps',items:TR_STAGES.map(([k,l],i)=>({l,st:i<si||(c.stage=='done'&&i==si)?'done':i==si?'cur':''}))},RB.kpis([{l:'مفتوحة منذ',v:trDaysSince(c.at),t:'c',unit:'يوماً'},{l:'تدخلات منفَّذة',v:c.ints.filter(x=>x.st=='done').length,t:'c'},{l:'مؤشرات تحسّنت',v:E.length?E.filter(e=>e.ok).length/E.length:0,t:'r'}]),RB.facts([['الجمعية',o.n],['الترخيص',o.lic],['المحافظة',o.gov],['الجهة الإشرافية',o.sup],['نوع التعثر',c.types.join('، ')],['الأولوية',c.sev],['المسؤول',c.owner||'—'],['المتابعة التالية',c.next?c.next+(c.nextWhat?' · '+c.nextWhat:''):'—'],['رُصدت',trDate(c.at)+(c.src=='auto'?' (تلقائياً)':'')]])]},
   {id:'diag',t:'التشخيص',intro:c.cause||'لم يُسجَّل السبب الجذري بعد.',blocks:[RB.table([{h:'المؤشر',w:70},{h:'الحالة',w:30}],E.map(e=>[e.t,e.ok?'إيجابي':'لم يتحقق']),{sheet:'التشخيص'})]},
   {id:'plan',t:'خطة المعالجة',blocks:[c.plan.length?RB.table([{h:'الهدف',w:50},{h:'المسؤول'},{h:'المهلة'},{h:'الحالة'}],c.plan.map(x=>[x.t,x.owner||'—',x.due||'—',x.done?'تحقق':'قائم']),{sheet:'الخطة'}):RB.facts([['الأهداف','لم تُحدَّد بعد']])]},
   {id:'ints',t:'التدخلات',blocks:[c.ints.length?RB.table([{h:'التدخل',w:34},{h:'المسؤول'},{h:'الموعد'},{h:'الحالة'},{h:'النتيجة',w:34}],c.ints.map(x=>[x.t,x.owner||x.by||'—',x.due||'—',x.st=='done'?'نُفّذ'+(x.doneAt?' '+trDate(x.doneAt):''):'مخطط',x.out||x.note||'—']),{sheet:'التدخلات'}):RB.facts([['التدخلات','لا تدخلات بعد']])]},
   {id:'log',t:'سجل الحالة',blocks:[RB.table([{h:'التاريخ',w:16},{h:'الحدث',w:40},{h:'التفاصيل',w:44}],c.log.slice(0,80).map(l=>[trDate(l.at),l.t,l.d||'']),{sheet:'السجل'})]}];
  if(c.stage=='done')S.splice(1,0,{id:'close',t:'الإغلاق',blocks:[RB.facts([['النتيجة',(TR_OUT[c.outcome]||TR_OUT.resolved)[0]],['ملاحظة الإغلاق',(c.log.find(l=>l.k=='st'&&/معالجة|إحالة|إغلاق/.test(l.t))||{}).d||'—'],['درس مستفاد',c.lessons||'—']])]});
- const R=rDoc('تقرير حالة تعثر: '+o.n,c.types.join('، '),'trcase',S,{count:1},{});R.defs=[['حالة التعثر','سجل متابعة داخلي للمجلس: المراحل والتدخلات تُسجَّل من فريق المجلس، والمؤشرات تُحسب من بيانات المنصة يوم الاستخراج.'],['المؤشرات','الترخيص وسجل التواصل واكتمال البيانات والتقييم التشخيصي ومؤشر الصحة كما هي في اللوحة.']];R.fname='حالة-تعثر-'+o.lic;expReport(R)}
+ const R=rDoc('تقرير حالة تعثر: '+o.n,o.gov+' · '+o.grp+' · ترخيص '+o.lic,'trcase',S,{count:1},{});R.hero={img:o.logo||'',ini:o.n.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0),chips:[[st[1],c.stage=='done'?'ok':'info'],['أولوية '+c.sev,c.sev=='عالية'?'bad':c.sev=='متوسطة'?'warn':'mute'],...c.types.map(t=>[t,'mute'])]};R.defs=[['حالة التعثر','سجل متابعة داخلي للمجلس: المراحل والتدخلات تُسجَّل من فريق المجلس، والمؤشرات تُحسب من بيانات المنصة يوم الاستخراج.'],['المؤشرات','الترخيص وسجل التواصل واكتمال البيانات والتقييم التشخيصي ومؤشر الصحة كما هي في اللوحة.']];R.fname='حالة-تعثر-'+o.lic;expReport(R)}
 function pjReport(id){const p=PROJS.find(z=>z.id==id);if(!p)return;const K=pjKind(p),B=pjBenef(p).all,M=K.metric?pjMetric(p):null,L=pjLinked(p),T=pjTasks(p),pr=pjProg(p),ph=pjPhase(p);
  const S=[{id:'sum',t:'الملخص',blocks:[RB.kpis([{l:'الإنجاز',v:pr,t:'r'},{l:'المستفيدون',v:B.length,t:'c'},{l:'مهام منجزة',v:T.filter(t=>t.done).length+'/'+T.length,t:'s'},M?{l:M.l,v:M.v==null?'—':M.v+(M.u||''),t:'s'}:{l:'الميزانية المخططة',v:+p.budget.plan||0,t:'c'}]),RB.facts([['نوع المشروع',K.l+(p.trType?' · '+p.trType:'')],['الهدف',p.goal||'—'],['المسؤول',p.o||'—'],['الفترة',(p.from||'—')+(p.to?' → '+p.to:'')],['الحالة',p.st+(pjLate(p)?' (متأخر)':'')],['المرحلة الحالية',ph?ph.t:'—'],['الأولوية',p.pri]])]},
-  {id:'phases',t:'المراحل والمهام',blocks:[RB.table([{h:'المرحلة',w:26},{h:'الفترة',w:20},{h:'المهام',w:14},{h:'المنجز',w:14},{h:'المهام المتبقية',w:26}],(p.phases||[]).map(f=>[f.t,(f.from||'—')+(f.to?' → '+f.to:''),f.tasks.length,f.tasks.filter(t=>t.done).length,f.tasks.filter(t=>!t.done).map(t=>t.t).join('؛ ')||'—']),{sheet:'المراحل'})]}];
- if(M)S.push({id:'impact',t:'الأثر',intro:p.base?'خط الأساس ثُبّت في '+p.base.at+(p.base.v!=null?' عند '+p.base.v+(M.u||''):'')+'، والقيمة الحالية '+(M.v==null?'بلا قياس':M.v+(M.u||''))+'.':'لم يُثبَّت خط أساس.',blocks:[RB.kpis([{l:'خط الأساس',v:p.base&&p.base.v!=null?p.base.v+(M.u||''):'—',t:'s'},{l:'الآن',v:M.v==null?'—':M.v+(M.u||''),t:'s'},{l:'جمعيات تحققت لها النتيجة',v:B.length?B.filter(o=>pjDoneOf(p,o)).length/B.length:0,t:'r'}]),K.expect&&K.expect.length?RB.chips(K.expect.map(t=>({l:t,s:'نتيجة متوقعة'}))):RB.facts([['النتائج المتوقعة','—']])]});
+  {id:'phases',t:'المراحل والمهام',blocks:[{type:'prog',rows:(p.phases||[]).map(f=>({l:f.t,s:(f.from||f.to)?(f.from||'—')+(f.to?' → '+f.to:''):'',v:f.tasks.length?f.tasks.filter(t=>t.done).length/f.tasks.length:0,tone:f===ph?'cur':''}))},RB.table([{h:'المرحلة',w:26},{h:'الفترة',w:20},{h:'المهام',w:14},{h:'المنجز',w:14},{h:'المهام المتبقية',w:26}],(p.phases||[]).map(f=>[f.t,(f.from||'—')+(f.to?' → '+f.to:''),f.tasks.length,f.tasks.filter(t=>t.done).length,f.tasks.filter(t=>!t.done).map(t=>t.t).join('؛ ')||'—']),{sheet:'المراحل'})]}];
+ const pct=M&&M.u=='%';if(M)S.push({id:'impact',t:'الأثر',intro:p.base?'خط الأساس ثُبّت في '+p.base.at+(p.base.v!=null?' عند '+p.base.v+(M.u||''):'')+'، والقيمة الحالية '+(M.v==null?'بلا قياس':M.v+(M.u||''))+'.':'لم يُثبَّت خط أساس.',blocks:[RB.kpis([{l:'خط الأساس',v:p.base&&p.base.v!=null?p.base.v+(M.u||''):'—',t:'s'},{l:'الآن',v:M.v==null?'—':M.v+(M.u||''),t:'s'},{l:'جمعيات تحققت لها النتيجة',v:B.length?B.filter(o=>pjDoneOf(p,o)).length/B.length:0,t:'r'}]),K.expect&&K.expect.length?RB.chips(K.expect.map(t=>({l:t,s:'نتيجة متوقعة'}))):RB.facts([['النتائج المتوقعة','—']]),...(pct&&B.some(o=>M.per[o.id]!=null)?[{type:'prog',rows:B.filter(o=>M.per[o.id]!=null).sort((a,b)=>M.per[a.id]-M.per[b.id]).slice(0,20).map(o=>({l:o.n,s:o.gov,v:M.per[o.id]/100,b:p.base&&p.base.per&&p.base.per[o.id]!=null?p.base.per[o.id]/100:null,tone:pjDoneOf(p,o)?'ok':''}))}]:[])]});
  S.push({id:'benef',t:'المستفيدون',blocks:[B.length?RB.table([{h:'الجمعية',w:34},{h:'المحافظة'},{h:'المجال'},...(M?[{h:'خط الأساس'},{h:'الآن'},{h:'النتيجة'}]:[])],B.map(o=>[o.n,o.gov,o.grp,...(M?[p.base&&p.base.per&&p.base.per[o.id]!=null?p.base.per[o.id]+(M.u||''):'—',M.per[o.id]==null?'—':M.per[o.id]+(M.u||''),pjDoneOf(p,o)?'تحققت':'قيد المتابعة']:[])]),{sheet:'المستفيدون'}):RB.facts([['المستفيدون','لا مستفيدين بعد']])]});
  S.push({id:'tools',t:'ما نُفّذ عبر المنصة',blocks:[RB.facts([['حملات',L.camps.length],['فعاليات وبرامج',L.evts.length],['مجتمعات',L.comms.length],['احتياجات دعم مهني',L.needs.length+(L.needs.length?' ('+L.needs.filter(n=>n.st=='closed'||n.st=='done').length+' منجز)':'')],['حالات تعثر مرتبطة',L.cases.length+(L.cases.length?' ('+L.cases.filter(c=>c.outcome=='resolved').length+' عولجت)':'')],['روابط تحديث/تقييم',L.links]])]});
  if((p.outs||[]).length)S.push({id:'outs',t:'المخرجات',blocks:[RB.table([{h:'المخرج',w:70},{h:'الحالة',w:30}],p.outs.map(x=>[x.t,x.done?'مُنجز':'قائم']),{sheet:'المخرجات'})]});
  S.push({id:'log',t:'السجل',blocks:[RB.table([{h:'التاريخ',w:18},{h:'الحدث',w:82}],(p.log||[]).slice(0,60).map(l=>[trDate(l.at),l.t]),{sheet:'السجل'})]});
- const R=rDoc('تقرير مشروع: '+p.n,K.l,'proj',S,{count:B.length},{});R.defs=[['الأثر','يُقاس من بيانات المنصة (اكتمال البيانات، حالة الترخيص، حالة التعثر، أو درجة محور التشخيص) عند تثبيت خط الأساس وعند استخراج التقرير.'],['المستفيدون','الجمعيات المدرجة في المشروع يدوياً أو من نطاق القرار المرتبط أو من قاعدة النوع.']];R.fname='مشروع-'+p.n.slice(0,40).replace(/[\\/:*?"<>|]/g,'-');expReport(R)}
+ const R=rDoc('تقرير مشروع: '+p.n,K.l+(p.trType?' · '+p.trType:''),'proj',S,{count:B.length},{});R.lead=p.goal||'';R.hero={ini:'',chips:[[p.st,rStOf(p.st)||'mute'],...(pjLate(p)?[['متأخر','bad']]:[]),['أولوية '+p.pri,p.pri=='عالية'?'bad':p.pri=='متوسطة'?'warn':'mute'],...(p.o?[['المسؤول: '+p.o,'mute']]:[])]};R.defs=[['الأثر','يُقاس من بيانات المنصة (اكتمال البيانات، حالة الترخيص، حالة التعثر، أو درجة محور التشخيص) عند تثبيت خط الأساس وعند استخراج التقرير.'],['المستفيدون','الجمعيات المدرجة في المشروع يدوياً أو من نطاق القرار المرتبط أو من قاعدة النوع.']];R.fname='مشروع-'+p.n.slice(0,40).replace(/[\\/:*?"<>|]/g,'-');expReport(R)}
 function pjCreate(pre){pre=pre||{};const free=DECX.filter(x=>!x.pid&&!['مستبعد'].includes(x.st));const M=uiMem('pjnew');
  const X={kind:pre.kind||M.kind||'data',inc:true,did:pre.did||'',n:pre.n||'',goal:pre.goal||'',o:pre.o||'',to:pre.to||'',pri:'متوسطة',plan:''};if(typeof dgSumLoad=='function')dgSumLoad();
  const draw=()=>{const K=PJ_KINDS[X.kind],W=X.kind=='custom'?[]:pjWho(X.kind),act=PROJS.filter(p=>p.kind==X.kind&&!['مكتمل','ملغى'].includes(p.st));
@@ -6570,28 +6669,19 @@ function profileXLSX(F,f){const m=!!f.mask,mk=PMASK(m),a=F.association,p=F.profi
  if(f.notes){const N=profNotes(F);if(N.length)T.push({name:'الملاحظات المفتوحة',cols:[{h:'الملاحظة',w:60},{h:'الحقل',w:24},{h:'المصدر',w:16}],rows:N.map(n=>[n.t,FLD_L[n.f]||'—',n.src])})}
  dlXLSX({title:'ملف جمعية: '+a.name,sub:'مجلس الجمعيات الأهلية بمنطقة عسير'+(m?' · البيانات الشخصية مموّهة':''),kpis:[['حالة الترخيص',a.license_state||'—'],['المحافظة',a.governorate],['الملاحظات المفتوحة',String(profNotes(F).length)]],tables:T})}
 function profNotes(F){return [...F.notes.filter(n=>n.status=='open').map(n=>({t:n.text,f:n.field,src:'المجلس'})),...F.checks.map(x=>({t:x.t,f:x.f,src:'فحص تلقائي'}))]}
-function profilePDF(F,f){const m=!!f.mask,mk=PMASK(m),a=F.association,p=F.profile,c=F.contacts;
- let box=$('#printProf');if(!box){box=document.createElement('div');box.id='printProf';document.body.appendChild(box)}
- const v=x=>x?esc(x):'<span class="pp-e">—</span>',dl=rows=>`<dl class="pp-dl">${rows.map(([k,x,w])=>`<div class="${w?'w':''}"><dt>${k}</dt><dd>${x}</dd></div>`).join('')}</dl>`;
- const person=(role,n,e,ph)=>`<div class="pp-person"><small>${role}</small><b>${v(mk(n,'n'))}</b>${e?`<span dir="ltr">${esc(mk(e,'e'))}</span>`:''}${ph?`<span dir="ltr">${esc(mk(ph,'p'))}</span>`:''}</div>`;
- const N=profNotes(F),lg=$('header.top .logo .d'),today=new Date().toLocaleDateString('ar-SA-u-nu-latn',{dateStyle:'long'});
- const stc={ساري:'ok','ينتهي خلال 90 يوماً':'warn',منتهي:'bad',مغلقة:'mute'}[a.license_state]||'mute';
- box.innerHTML=`<div class="pp-top">${lg?`<img src="${lg.src}" alt="">`:''}<div><b>ملف جمعية</b><span>${today}</span></div></div>
- <div class="pp-hero">${p.logo?`<img src="${p.logo}" alt="">`:`<span class="pp-ph">${esc(a.name.replace(/^(جمعية|الجمعية)\s+/,'').charAt(0))}</span>`}<div><h1>${esc(a.name)}</h1>${p.short?`<p>${esc(p.short)}</p>`:''}<div class="pp-chips"><span>${esc(a.field_group)}</span><span>محافظة ${esc(a.governorate)}</span><span class="st ${stc}">${esc(a.license_state||'—')}</span></div></div></div>
- ${f.gen?`<div class="pp-facts"><div><small>رقم الترخيص</small><b dir="ltr">${v(a.license_no)}</b></div><div><small>تاريخ التأسيس</small><b dir="ltr">${v(a.founded_on)}</b></div><div><small>انتهاء الترخيص</small><b dir="ltr">${v(a.license_expires_on)}</b></div><div><small>الرقم الموحد</small><b dir="ltr">${v(a.unified_no)}</b></div></div>
- <div class="pp-sec"><h2>البيانات الرئيسية</h2>${dl([['الجهة المشرفة',v(a.supervisor),1],['التصنيف',`${v(a.field_group)} › ${v(a.field_category)} › ${v(a.field_subcategory)}`,1],['إصدار الترخيص',`<bdi dir="ltr">${v(a.license_issued_on)}</bdi>`],['حالة السجل',v(a.registry_status)],['الظهور في الدليل العام',a.is_published?'نعم':'لا'],['الإغلاق',a.closed_on?`مغلقة منذ ${esc(a.closed_on)} — ${esc(a.closure_reason||'')}`:'غير مغلقة']])}</div>`:''}
- ${f.prof?`<div class="pp-sec"><h2>الملف التعريفي</h2>${p.about?`<p class="pp-about">${esc(p.about)}</p>`:'<p class="pp-e">لم تُضف نبذة.</p>'}
-  ${p.ben.length?`<h3>الفئات المستفيدة</h3><div class="pp-chips soft">${p.ben.map(x=>`<span>${esc(x)}</span>`).join('')}</div>`:''}
-  ${p.progs?`<h3>البرامج والخدمات</h3><ol class="pp-ol">${p.progs.split('\n').filter(x=>x.trim()).map(x=>`<li>${esc(x)}</li>`).join('')}</ol>`:''}
-  ${p.web||p.social?dl([['الموقع الإلكتروني',`<bdi dir="ltr">${v(p.web)}</bdi>`],['التواصل الاجتماعي',`<bdi dir="ltr">${v(p.social)}</bdi>`]]):''}</div>`:''}
- ${f.con?`<div class="pp-sec"><h2>التواصل</h2>${dl([['البريد الرسمي',`<bdi dir="ltr">${v(mk(c.email,'e'))}</bdi>`],['الجوال',`<bdi dir="ltr">${v(mk(c.mobile,'p'))}</bdi>`],['موافقة نشر التواصل',c.consent?'نعم':'لا']])}</div>`:''}
- ${f.lead?`<div class="pp-sec"><h2>مجلس الإدارة والمفوض</h2><div class="pp-people">${person('رئيس مجلس الإدارة',c.pres,c.presEmail,c.presMobile)}${person('المفوض',c.del,c.delEmail,c.delMobile)}</div>
-  ${c.board.length?`<h3>أعضاء مجلس الإدارة</h3><table class="pp-t"><thead><tr><th>الاسم</th><th>الصفة</th><th>البريد</th><th>الجوال</th></tr></thead><tbody>${c.board.map(x=>`<tr><td>${v(mk(x.name,'n'))}</td><td>${v(x.role)}</td><td dir="ltr">${v(mk(x.email,'e'))}</td><td dir="ltr">${v(mk(x.mobile,'p'))}</td></tr>`).join('')}</tbody></table>`:''}</div>`:''}
- ${f.notes&&N.length?`<div class="pp-sec"><h2>الملاحظات المفتوحة (${N.length})</h2><ul class="pp-notes">${N.map(n=>`<li><b>${esc(n.t)}</b><small>${n.f?esc(FLD_L[n.f]||n.f)+' · ':''}${n.src}</small></li>`).join('')}</ul></div>`:''}
- <div class="pp-foot">مجلس الجمعيات الأهلية بمنطقة عسير · ملف داخلي${m?' · البيانات الشخصية مموّهة جزئياً':''}</div>`;
- document.body.classList.add('printprof');const t0=document.title;document.title=fileName('ملف '+a.name);
- const done=()=>{document.body.classList.remove('printprof');document.title=t0;removeEventListener('afterprint',done)};addEventListener('afterprint',done);
- const imgs=[...box.querySelectorAll('img')];Promise.all(imgs.map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r}))).then(()=>{try{window.print()}catch(e){done()}setTimeout(done,2500)})}
+function profilePDF(F,f){const m=!!f.mask,mk=PMASK(m),a=F.association,p=F.profile,c=F.contacts,N=profNotes(F);const v=x=>x||'—',M=(x,k)=>x?mk(x,k):'';
+ const S=[],sec=(id,t,intro,blocks,o={})=>S.push({id,t,intro,blocks,on:1,...o});
+ if(f.gen)sec('gen','البيانات الرئيسية','',[RB.facts([['رقم الترخيص',v(a.license_no)],['الرقم الموحد',v(a.unified_no)],['تاريخ التأسيس',v(a.founded_on)],['إصدار الترخيص',v(a.license_issued_on)],['انتهاء الترخيص',v(a.license_expires_on)],['حالة الترخيص',v(a.license_state)],['الجهة المشرفة',v(a.supervisor)],['حالة السجل',v(a.registry_status)],['التصنيف',[a.field_group,a.field_category,a.field_subcategory].filter(Boolean).join(' › ')||'—'],['الظهور في الدليل العام',a.is_published?'نعم':'لا'],['الإغلاق',a.closed_on?`مغلقة منذ ${a.closed_on}${a.closure_reason?' — '+a.closure_reason:''}`:'غير مغلقة']])]);
+ if(f.prof){const B=[p.about?{type:'text',t:p.about}:{type:'text',t:'لم تُضف نبذة.',mute:1}];if((p.ben||[]).length)B.push({type:'sub',t:'الفئات المستفيدة'},RB.chips(p.ben.map(x=>({l:x}))));const pr=String(p.progs||'').split('\n').map(x=>x.trim()).filter(Boolean);if(pr.length)B.push({type:'list',items:pr,ordered:1,title:'البرامج والخدمات'});if(p.web||p.social)B.push(RB.facts([['الموقع الإلكتروني',v(p.web)],['التواصل الاجتماعي',v(p.social)]],{cols:1}));sec('prof','الملف التعريفي','',B)}
+ if(f.con)sec('con','التواصل','',[RB.facts([['البريد الرسمي',v(M(c.email,'e'))],['الجوال',v(M(c.mobile,'p'))],['موافقة نشر التواصل',c.consent?'نعم':'لا']],{cols:1})]);
+ if(f.lead){const B=[{type:'people',items:[{role:'رئيس مجلس الإدارة',n:M(c.pres,'n'),lines:[M(c.presEmail,'e'),M(c.presMobile,'p')].filter(Boolean)},{role:'المفوض',n:M(c.del,'n'),lines:[M(c.delEmail,'e'),M(c.delMobile,'p')].filter(Boolean)}]}];
+  if((c.board||[]).length)B.push({type:'sub',t:'أعضاء مجلس الإدارة'},RB.table([{h:'الاسم',w:30},{h:'الصفة',w:20},{h:'البريد',w:30,ltr:1},{h:'الجوال',w:20,ltr:1}],c.board.map(x=>[M(x.name,'n')||'—',x.role||'—',M(x.email,'e')||'—',M(x.mobile,'p')||'—'])));sec('lead','مجلس الإدارة والمفوض','',B)}
+ if(f.notes&&N.length)sec('notes','الملاحظات المفتوحة',N.length+' ملاحظة تحتاج متابعة.',[RB.table([{h:'الملاحظة',w:58},{h:'الحقل',w:20},{h:'المصدر',w:22}],N.map(n=>[n.t,n.f?(FLD_L[n.f]||n.f):'—',n.src]))]);
+ const R=rDoc(a.name,[a.field_group,a.governorate?'محافظة '+a.governorate:''].filter(Boolean).join(' · '),'profile',S,{count:1},{});
+ R.hero={img:p.logo||'',ini:a.name.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0),chips:[[a.license_state||'',rStOf(a.license_state)||(/90/.test(a.license_state||'')?'warn':'mute')],[a.license_no?'ترخيص '+a.license_no:'','mute']]};R.lead=p.short||'';
+ const pii=f.con||f.lead;R.sub=pii?(m?'ملف داخلي · البيانات الشخصية مموّهة جزئياً':'ملف داخلي يتضمن بيانات شخصية كاملة · لا يُرسل خارج فريق المجلس'):'';
+ R.defs=[['الخصوصية',pii?(m?'الأسماء والبريد والجوال تظهر مموّهة جزئياً.':'يتضمن الملف بيانات شخصية كاملة؛ يُستخدم داخل فريق المجلس فقط.'):'لا يتضمن الملف بيانات شخصية.'],['مصدر البيانات','ملف الجمعية في منصة المجلس كما هو في تاريخ الاستخراج.']];
+ R.fname=fileName('ملف '+a.name);rPDF(R)}
 function rowMenu(id,btn,rer){const o=DBI[id],d=ADM.dir;let m=$('#rmenu');if(!m){m=document.createElement('div');m.id='rmenu';m.className='rmenu';document.body.appendChild(m)}
  const it=(k,ic,l,c='')=>`<button data-a="${k}" style="${c}">${I(P[ic]||P.file,'width:16px;height:16px')}${l}</button>`;
  m.innerHTML=it('full','file','الملف الكامل (360°)')+it('open','eye','نظرة سريعة')+(SESSION?it('edit','file','تعديل البيانات')+it('lead','people','تعديل مجلس الإدارة والتواصل')+it('link','link','إرسال رابط تحديث')+it('comm','people','إضافة إلى مجتمع')+it('print','dl','تصدير ملف الجمعية'):'')+it('page','globe','الصفحة العامة')+it('sel','check',d.sel.has(id)?'إلغاء التحديد':'تحديد')+(SESSION?'<hr>'+it('close','lock',o.closed?'إلغاء تسجيل الإغلاق':'تسجيل إغلاق الجمعية',o.closed?'color:#14804A':'color:#B42318'):'');
@@ -7136,9 +7226,13 @@ function rDist(L,dim,ref,o={}){const all=cntBy(L,dim),n=L.length||1,R=ref?cntBy(
 const rEras=L=>{const Y=TODAY.getFullYear(),E=[['قبل 2000',y=>y<2000],['2000 – 2009',y=>y>=2000&&y<2010],['2010 – 2014',y=>y>=2010&&y<2015],['2015 – 2019',y=>y>=2015&&y<2020],['2020 – '+(Y-3),y=>y>=2020&&y<=Y-3],[(Y-2)+' وما بعد',y=>y>Y-3]],n=L.length||1;
  return [...E.map(([l,f])=>{const v=L.filter(o=>{const y=rYear(o);return y&&f(y)}).length;return {l,v,p:v/n}}),{l:'غير مسجّل',v:L.filter(o=>!rYear(o)).length,p:L.filter(o=>!rYear(o)).length/n}].filter(r=>r.v||r.l!='غير مسجّل')};
 const rMiss=L=>{const n=L.length||1;return [['بريد الجمعية','email'],['جوال الجمعية','mobile'],['اسم رئيس المجلس','pres'],['بريد الرئيس','presEmail'],['اسم المفوض','del'],['بريد المفوض','delEmail']].map(([l,k])=>{const v=L.filter(o=>!o[k]).length;return {l:'بلا '+l,v,p:v/n}})};
-const rListCols=(skip)=>[{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'رقم الترخيص',w:13},...['gov','grp','sup'].filter(d=>d!=skip).map(d=>({h:RDIM[d][0],w:d=='sup'?26:18})),{h:'التأسيس',t:'y',w:9},{h:'حالة الترخيص',w:13},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c',w:11},{h:'اكتمال الملف',t:'r',w:11}];
+const rListCols=(skip)=>[{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'رقم الترخيص',w:13},...['gov','grp','sup'].filter(d=>d!=skip).map(d=>({h:RDIM[d][0],w:d=='sup'?26:18})),{h:'التأسيس',t:'y',w:9},{h:'حالة الترخيص',w:13},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c',w:11,dd:1},{h:'اكتمال الملف',t:'r',w:11}];
 const rListRows=(L,skip)=>L.slice().sort((a,b)=>a.n.localeCompare(b.n,'ar')).map((o,i)=>[i+1,o.n,o.lic,...['gov','grp','sup'].filter(d=>d!=skip).map(d=>rLab(d,o[d])),rYear(o),o.st,o.exp||'',o.days,o.comp/100]);
 const rExpRows=L=>L.filter(o=>o.days!=null&&o.days>=0&&o.days<=90).sort((a,b)=>a.days-b.days);
+/* جمعيات تحتاج انتباهاً: منتهية الترخيص أو مؤشرها دون 40، الأضعف أولاً */
+function rAtt(L,skip){if(typeof hsAll=='function')hsAll();const X=L.map(o=>({o,h:hsOf(o)})).filter(x=>x.o.st=='منتهي'||(x.h.s!=null&&x.h.s<40)).sort((a,b)=>(a.h.s??0)-(b.h.s??0));
+ const od=['gov','grp'].filter(d=>d!=skip)[0];const why=h=>(h.parts||[]).filter(x=>x.m&&x.v/x.m<.5).sort((a,b)=>a.v/a.m-b.v/b.m).slice(0,2).map(x=>x.l).join('، ')||'—';
+ return {n:X.length,block:RB.table([{h:'#',t:'c',w:4},{h:'الجمعية',w:34},{h:RDIM[od][0],w:14},{h:'الترخيص',w:11},{h:'المتبقي (يوم)',t:'c',w:12,dd:1},{h:'المؤشر',t:'c',w:8},{h:'أضعف المحاور',w:24}],X.slice(0,15).map((x,i)=>[i+1,x.o.n,rLab(od,x.o[od]),x.o.st,x.o.days,x.h.s,why(x.h)]),{sheet:'تحتاج انتباهاً'})}}
 function rSegTable(L,dim){const ref=L.length||1;const keys=cntBy(L,dim).map(x=>x[0]);
  const rows=keys.map(k=>{const S=L.filter(o=>o[dim]==k),m=rMet(S);return [rLab(dim,k),m.n,m.n/ref,m.ok,m.okP,m.soon,m.exp,m.comp,m.medYear]});const T=rMet(L);
  return RB.table([{h:RDIM[dim][0],w:30},{h:'الجمعيات',t:'c',bar:1},{h:'الحصة',t:'r'},{h:'سارية',t:'c'},{h:'نسبة السارية',t:'r'},{h:'تنتهي خلال 90 يوماً',t:'c'},{h:'منتهية',t:'c'},{h:'متوسط اكتمال الملف',t:'r'},{h:'وسيط سنة التأسيس',t:'y'}],rows,{total:['الإجمالي',T.n,1,T.ok,T.okP,T.soon,T.exp,T.comp,T.medYear],sheet:RDIM[dim][1]})}
@@ -7158,8 +7252,10 @@ function rBuild(kind,key,opt={}){if(typeof hsAll=='function')hsAll();if(kind=='h
   sec('cov','التغطية: المحافظات × مجالات العمل','عدد الجمعيات في كل مجال داخل كل محافظة. الخانة الفارغة تعني عدم وجود جمعية مسجّلة.',[RB.matrix(govs,grps,govs.map(g=>grps.map(f=>A.filter(o=>o.gov==g&&o.grp==f).length)),{sheet:'التغطية'})],{wide:1});
   sec('era','فترات التأسيس','حسب سنة التأسيس المسجّلة.',[RB.bars(rEras(A),{unit:'جمعية',keep:1})]);
   sec('data','اكتمال بيانات التواصل','عدد الجمعيات التي ينقص ملفها كل حقل. القيم نفسها لا تظهر في التقرير.',[RB.bars(rMiss(A),{unit:'جمعية',keep:1,tone:'warn'})]);
-  const X=rExpRows(A);sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length+' جمعية، مرتبة حسب الأقرب انتهاءً.',[RB.table([{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'المحافظة'},{h:'مجال العمل'},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],X.map((o,i)=>[i+1,o.n,o.gov,o.grp,o.exp,o.days]),{sheet:'تنتهي قريباً'})]);
-  sec('list','قائمة الجمعيات',A.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(),rListRows(A),{sheet:'الجمعيات'})],{off:1});
+  const X=rExpRows(A),XC=[{h:'#',t:'c',w:5},{h:'الجمعية',w:42},{h:'المحافظة'},{h:'مجال العمل'},{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],XR=X.map((o,i)=>[i+1,o.n,o.gov,o.grp,o.exp,o.days]);
+  sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length+' جمعية، مرتبة حسب الأقرب انتهاءً.',[RB.table(XC,XR,{sheet:'تنتهي قريباً'})]);
+  {const T=rAtt(A);if(T.n)sec('att','جمعيات تحتاج انتباهاً',`${T.n} جمعية منتهية الترخيص أو مؤشرها دون 40 من 100. الأضعف ${Math.min(15,T.n)} منها:`,[T.block])}
+  sec('list','قائمة الجمعيات الكاملة',A.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(),rListRows(A),{sheet:'الجمعيات'})],{off:1,app:1});
   return rDoc('تقرير جمعيات منطقة عسير','المنطقة كاملة','region',S,meta,opt)}
  if(kind=='gov'||kind=='grp'||kind=='sup'){const dim=kind,L=A.filter(o=>o[dim]==key),m=rMet(L),nm=rLab(dim,key);if(!L.length)return null;
   const others=['gov','grp','sup'].filter(d=>d!=dim);
@@ -7173,8 +7269,10 @@ function rBuild(kind,key,opt={}){if(typeof hsAll=='function')hsAll();if(kind=='h
    sec('gap',dim=='gov'?'مجالات بلا جمعيات في المحافظة':'محافظات بلا جمعيات في هذا المجال',`${miss.length} من ${all.length} ${RDIM[gapDim][1]}.`,[miss.length?RB.chips(miss.map(k=>{const v=A.filter(o=>o[gapDim]==k).length;return {l:rLab(gapDim,k),s:v+' في المنطقة'}})):RB.facts([['النتيجة',`كل ${RDIM[gapDim][1]} ممثَّلة`]])])}
   sec('era','فترات التأسيس','',[RB.bars(rEras(L).map(r=>({...r,q:(rEras(A).find(x=>x.l==r.l)||{}).p})),{unit:'جمعية',keep:1,cmp:1})]);
   sec('data','اكتمال بيانات التواصل','',[RB.bars(rMiss(L).map(r=>({...r,q:(rMiss(A).find(x=>x.l==r.l)||{}).p})),{unit:'جمعية',keep:1,cmp:1,tone:'warn'})]);
-  const X=rExpRows(L);sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length?X.length+' جمعية.':'لا توجد.',X.length?[RB.table([{h:'#',t:'c',w:5},{h:'الجمعية',w:42},...others.map(d=>({h:RDIM[d][0]})),{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],X.map((o,i)=>[i+1,o.n,...others.map(d=>rLab(d,o[d])),o.exp,o.days]),{sheet:'تنتهي قريباً'})]:[]);
-  sec('list','قائمة الجمعيات',L.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(dim),rListRows(L,dim),{sheet:'الجمعيات'})]);
+  const X=rExpRows(L),XC=[{h:'#',t:'c',w:5},{h:'الجمعية',w:42},...others.map(d=>({h:RDIM[d][0]})),{h:'انتهاء الترخيص',t:'dt',w:13},{h:'المتبقي (يوم)',t:'c'}],XR=X.map((o,i)=>[i+1,o.n,...others.map(d=>rLab(d,o[d])),o.exp,o.days]);
+  sec('exp','تراخيص تنتهي خلال 90 يوماً',X.length?X.length+' جمعية، مرتبة حسب الأقرب انتهاءً.':'لا توجد.',X.length?[RB.table(XC,XR,{sheet:'تنتهي قريباً'})]:[]);
+  {const T=rAtt(L,dim);if(T.n)sec('att','جمعيات تحتاج انتباهاً',`${T.n} جمعية منتهية الترخيص أو مؤشرها دون 40 من 100. الأضعف ${Math.min(15,T.n)} منها:`,[T.block])}
+  sec('list','قائمة الجمعيات الكاملة',L.length+' جمعية بالحقول العامة فقط.',[RB.table(rListCols(dim),rListRows(L,dim),{sheet:'الجمعيات'})],{off:1,app:1});
   return rDoc((dim=='gov'?'تقرير محافظة ':dim=='grp'?'تقرير مجال ':'تقرير جهة إشرافية: ')+nm,RDIM[dim][0]+': '+nm,kind,S,{...meta,count:L.length},opt)}
  if(kind=='assoc'){const o=DB.find(x=>x.id==key);if(!o)return null;
   const F=A.filter(x=>x.grp==o.grp),G=A.filter(x=>x.gov==o.gov),FG=F.filter(x=>x.gov==o.gov),y=rYear(o),age=y?TODAY.getFullYear()-y:null;
@@ -7194,7 +7292,8 @@ function rBuild(kind,key,opt={}){if(typeof hsAll=='function')hsAll();if(kind=='h
   const has=[['بريد الجمعية','email'],['جوال الجمعية','mobile'],['اسم رئيس المجلس','pres'],['بريد الرئيس','presEmail'],['اسم المفوض','del'],['بريد المفوض','delEmail']];
   sec('data','اكتمال الملف','الحقول المسجّلة دون إظهار قيمها.',[RB.chips(has.map(([l,k])=>({l,s:o[k]?'مسجّل':'ناقص',on:!!o[k]})))]);
   const PE=FG.filter(x=>x.id!=o.id);sec('peers','جمعيات المجال نفسه في المحافظة',PE.length?PE.length+' جمعية.':'لا توجد جمعيات أخرى في المجال نفسه داخل المحافظة.',PE.length?[RB.table(rListCols('gov'),rListRows(PE,'gov'),{sheet:'النظيرات'})]:[]);
-  return rDoc('تقرير جمعية: '+o.n,o.gov+' · '+o.grp,kind,S,{...meta,count:1},opt)}
+  {const ps=S.find(x=>x.id=='peers');if(ps&&ps.blocks.length){ps.app=1}}
+  const R=rDoc('تقرير جمعية: '+o.n,o.gov+' · '+o.grp,kind,S,{...meta,count:1},opt);R.hero={img:o.logo||'',ini:o.n.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0),chips:[[o.st,rStOf(o.st)||'mute'],['ترخيص '+o.lic,'mute']]};return R}
  if(kind=='cmp'){const dim=opt.dim||'gov',keys=(opt.keys||[]).filter(k=>A.some(o=>o[dim]==k));if(keys.length<2)return null;
   const Ls=keys.map(k=>A.filter(o=>o[dim]==k)),Ms=Ls.map(rMet),labs=keys.map(k=>rLab(dim,k));
   sec('tbl','جدول المقارنة',`${keys.length} ${RDIM[dim][1]} مع قيمة المنطقة. القيمة الأعلى في كل صف بخط عريض.`,[RB.table([{h:'المؤشر',w:34},...labs.map(l=>({h:l,w:16})),{h:'المنطقة',w:14}],RKPI.map(([k,l,t])=>[l,...Ms.map(m=>m[k]),R0[k]]),{rowTypes:RKPI.map(x=>x[2]),hiMax:1,sheet:'المقارنة'})]);
@@ -7205,7 +7304,7 @@ function rBuild(kind,key,opt={}){if(typeof hsAll=='function')hsAll();if(kind=='h
   sec('data','اكتمال بيانات التواصل','',[RB.table([{h:'المؤشر',w:30},...labs.map(l=>({h:l})),{h:'المنطقة'}],[['متوسط اكتمال الملف',...Ms.map(m=>m.comp),R0.comp],['نسبة الملفات المكتملة',...Ms.map(m=>m.fullP),R0.fullP],['بلا بريد',...Ms.map(m=>m.noEmail),R0.noEmail],['بلا جوال',...Ms.map(m=>m.noMobile),R0.noMobile],['بلا بيانات الرئيس',...Ms.map(m=>m.noPres),R0.noPres],['بلا بيانات المفوض',...Ms.map(m=>m.noDel),R0.noDel]],{rowTypes:['r','r','c','c','c','c'],sheet:'اكتمال البيانات'})]);
   return rDoc('مقارنة '+RDIM[dim][1]+': '+labs.join('، '),'مقارنة '+RDIM[dim][1],kind,S,{...meta,count:Ls.reduce((s,L)=>s+L.length,0)},opt)}
  return null}
-function rDoc(title,scope,kind,S,meta,opt){const off=opt.off||{};S.forEach(s=>{s.on=off[s.id]!==undefined?!off[s.id]:!s.off});
+function rDoc(title,scope,kind,S,meta,opt){const off=opt.off||{};S.forEach(s=>{if(s.id=='list'&&!s.app){s.app=1;if(s.off==null)s.off=1}s.on=off[s.id]!==undefined?!off[s.id]:!s.off});
  const at=new Date();return {title,scope,kind,sections:S,meta,at,
   dateAr:at.toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{year:'numeric',month:'long',day:'numeric'}),dateH:at.toLocaleDateString('ar-SA-u-ca-islamic-umalqura-nu-latn',{year:'numeric',month:'long',day:'numeric'}),
   defs:[['الجمعيات المشمولة','الجمعيات النشطة في دليل المجلس. الجمعيات المسجّل إغلاقها لا تدخل في الأرقام، ويُذكر عددها في الملخص.'],['حالة الترخيص','تُحسب من تاريخ الانتهاء في يوم استخراج التقرير: «ساري» أكثر من 90 يوماً، «ينتهي قريباً» من 0 إلى 90 يوماً، «منتهي» إذا مضى التاريخ، «غير معروف» إذا لم يُسجّل التاريخ.'],['اكتمال ملف التواصل','نسبة الحقول المسجّلة من ستة حقول: بريد الجمعية وجوالها، واسم الرئيس وبريده، واسم المفوض وبريده.'],['وسيط سنة التأسيس','السنة التي تقع في منتصف سنوات التأسيس المسجّلة بعد ترتيبها.'],['الترتيب','ترتيب تنازلي بين المجموعات المماثلة (1 = الأعلى قيمة)، ولا يحمل حكماً بالأفضلية.'],['الفرق عن المنطقة','للنسب: الفرق بالنقاط المئوية بين القيمة وقيمة المنطقة. للأعداد: الحصة من إجمالي المنطقة.'],['الخصوصية','لا يتضمن التقرير أسماء أو بريداً أو أرقام جوال لأشخاص.'],['مصدر البيانات','دليل جمعيات منطقة عسير في منصة المجلس، كما هو في تاريخ استخراج التقرير.']]}}
@@ -7216,42 +7315,86 @@ function specToR(spec){const S=[];
  const R=rDoc(spec.title,spec.sub||'',spec.kind||'export',S,{count:null},{});R.defs=R.defs.filter(d=>['الخصوصية','مصدر البيانات'].includes(d[0]));return R}
 /* ---------- العرض: HTML واحد للمعاينة والطباعة ---------- */
 function rCellT(tb,col,ri,ci){if(ci==0)return 's';if(tb.rowTypes)return tb.rowTypes[ri];return col.t}
-function rCell(v,t){if(v==null||v==='')return '—';if(typeof v!='number')return xe(v);return t=='r'||t=='p'?Math.round(v*100)+'%':t=='y'?String(v):v.toLocaleString('en')}
+const RPST={'ساري':'ok','منتهي':'bad','ينتهي قريباً':'warn','غير معروف':'mute','مغلقة':'mute','تحققت':'ok','قيد المتابعة':'mute','مخطط':'info','قائم':'mute','مُنجز':'ok','لم يتحقق':'warn','إيجابي':'ok','عولجت':'ok','أُحيلت':'info','قيد التنفيذ':'info','قيد التخطيط':'mute','مكتمل':'ok','متوقف':'warn','ملغى':'mute','نعم':'ok','لا':'mute'};
+const rTx=x=>xe(x).replace(/(-?\d[\d,.]*%)/g,'<bdi dir="ltr">$1</bdi>');
+const rStOf=s=>RPST[s]||(/^نُفّذ/.test(s)?'ok':/^منتهٍ/.test(s)?'bad':'');
+function rCell(v,t,col){col=col||{};if(v==null||v==='')return '<span class="rnil">—</span>';
+ if(col.dd&&typeof v=='number')return v<0?`<span class="rst bad">منتهٍ منذ ${(-v).toLocaleString('en')}</span>`:v.toLocaleString('en');
+ if(typeof v!='number'){const x=String(v),st=col.nost?'':rStOf(x);if(st)return `<span class="rst ${st}">${xe(x)}</span>`;return col.ltr||/^[\w.+@-]+$/.test(x)&&/[A-Za-z@]/.test(x)?`<bdi dir="ltr">${xe(x)}</bdi>`:rTx(x)}
+ const o=t=='r'||t=='p'?Math.round(v*100)+'%':t=='y'?String(v):v.toLocaleString('en');return v<0?`<bdi dir="ltr">${o}</bdi>`:o}
 const rNum=(v,t)=>typeof v=='number'||t=='r'||t=='c'||t=='y';
+const rKc=n=>n<=4?n:n<=6?3:n<=8?4:n==9?3:n==10?5:4;
+const rPct=v=>Math.max(0,Math.min(100,(v||0)*100));
 function rBlock(b){
- if(b.type=='kpis')return `<div class="rk ${b.small?'sm':''} ${b.cmp?'cmp':''}">${b.items.map(k=>{const f=k.t=='r'?'p':k.t=='y'?'y':'n';const sub=[];
-   if(k.ref!=null&&b.cmp)sub.push(`المنطقة: <b>${rFmt(k.ref,f)}</b>`);
+ if(b.type=='kpis')return `<div class="rk ${b.small?'sm':''} ${b.cmp?'cmp':''}" style="--c:${rKc(b.items.length)}">${b.items.map(k=>{const f=k.t=='r'?'p':k.t=='y'?'y':'n';const sub=[];
+   if(k.ref!=null&&b.cmp)sub.push(`المنطقة: <b><bdi dir="ltr">${rFmt(k.ref,f)}</bdi></b>`);
    if(k.diff!=null&&b.cmp)sub.push(k.t=='y'?`الفرق: <b dir="ltr">${k.diff>0?'+':''}${k.diff}</b> سنة`:`الفرق: <b dir="ltr">${k.diff>0?'+':''}${Math.round(k.diff*100)}</b> نقطة`);
-   if(k.share!=null&&b.cmp)sub.push(`الحصة من المنطقة: <b>${rFmt(k.share,'p')}</b>`);
-   if(k.sub)sub.push(xe(k.sub));
-   return `<div class="rkc"><small>${xe(k.l)}</small><b>${k.v==null?'—':rFmt(k.v,f)}${k.unit&&k.v!=null?` <i>${xe(k.unit)}</i>`:''}</b>${sub.length?`<p>${sub.join('<br>')}</p>`:''}${k.rank&&b.cmp?`<em>الترتيب ${k.rank[0]} من ${k.rank[1]}</em>`:''}</div>`}).join('')}</div>`;
- if(b.type=='facts')return `<dl class="rf ${b.cols==2?'c2':''}">${b.rows.map(([k,v])=>`<div><dt>${xe(k)}</dt><dd>${typeof v=='number'?v.toLocaleString('en'):xe(v)}</dd></div>`).join('')}</dl>`;
+   if(k.share!=null&&b.cmp)sub.push(`الحصة من المنطقة: <b><bdi dir="ltr">${rFmt(k.share,'p')}</bdi></b>`);
+   if(k.sub)sub.push(rTx(k.sub));
+   const val=k.v==null?'—':typeof k.v=='number'&&k.v<0?`<bdi dir="ltr">${rFmt(k.v,f)}</bdi>`:rFmt(k.v,f);
+   return `<div class="rkc"><small>${xe(k.l)}</small><b>${val}${k.unit&&k.v!=null?` <i>${xe(k.unit)}</i>`:''}</b>${sub.length?`<p>${sub.join('<br>')}</p>`:''}${k.rank&&b.cmp?`<em>الترتيب ${k.rank[0]} من ${k.rank[1]}</em>`:''}</div>`}).join('')}</div>`;
+ if(b.type=='facts'){const n=b.rows.length,c=b.cols||(n<=3?1:2);return `<dl class="rf c${c}">${b.rows.map(([k,v],i)=>`<div class="${Math.floor(i/c)%2?'z':''}${c==2&&i==n-1&&n%2?' sp':''}"><dt>${xe(k)}</dt><dd>${typeof v=='number'?v.toLocaleString('en'):rCell(v,'s',{})}</dd></div>`).join('')}</dl>`}
  if(b.type=='chips')return `<div class="rch">${b.items.map(c=>`<span class="${c.on===false?'off':c.on?'on':''}"><b>${xe(c.l)}</b>${c.s?`<small>${xe(c.s)}</small>`:''}</span>`).join('')}</div>`;
+ if(b.type=='sub')return `<h4 class="rh4">${xe(b.t)}</h4>`;
+ if(b.type=='text')return `<p class="rtx ${b.mute?'mute':''}">${xe(b.t).replace(/\n/g,'<br>')}</p>`;
+ if(b.type=='list')return `${b.title?`<h4 class="rh4">${xe(b.title)}</h4>`:''}<${b.ordered?'ol':'ul'} class="rls">${b.items.map(x=>`<li>${xe(x)}</li>`).join('')}</${b.ordered?'ol':'ul'}>`;
+ if(b.type=='people')return `<div class="rpp">${b.items.map(x=>`<div><small>${xe(x.role)}</small><b>${x.n?xe(x.n):'<span class="rnil">—</span>'}</b>${(x.lines||[]).map(l=>`<bdi dir="ltr">${xe(l)}</bdi>`).join('')}</div>`).join('')}</div>`;
+ if(b.type=='steps')return `<ol class="rsp" style="--n:${b.items.length}">${b.items.map((x,i)=>`<li class="${x.st||''}"><i>${x.st=='done'?'✓':i+1}</i><b>${xe(x.l)}</b>${x.s?`<small>${xe(x.s)}</small>`:''}</li>`).join('')}</ol>`;
+ if(b.type=='prog'){const hasB=b.rows.some(r=>r.b!=null);return `<div class="rpg${hasB?'':' nob'}">${b.rows.map(r=>`<div class="rpgr ${r.tone||''}"><span class="l">${xe(r.l)}${r.s?`<small>${xe(r.s)}</small>`:''}</span><span class="t"><i style="width:${rPct(r.v)}%"></i>${r.b!=null?`<u style="inset-inline-start:${rPct(r.b)}%"></u>`:''}</span><b>${r.v==null?'—':Math.round(r.v*100)+'%'}</b>${hasB?`<em>${r.b==null?'—':Math.round(r.b*100)+'%'}</em>`:''}</div>`).join('')}${hasB?'<div class="rpgk"><span><i></i>الآن</span><span><u></u>خط الأساس</span></div>':''}</div>`}
  if(b.type=='stack'){const T=b.total||1;return `<div class="rs"><div class="rsh"><b>${xe(b.label)}</b><small>${T.toLocaleString('en')} جمعية</small></div><div class="rsb">${b.parts.map(p=>`<i style="flex:${p.v};background:${p.c};color:${txtOn(p.c)}" title="${xe(p.l)}">${p.v/T>=.08?Math.round(p.v/T*100)+'%':''}</i>`).join('')}</div><div class="rsl">${b.parts.map(p=>`<span><i style="background:${p.c}"></i>${xe(p.l)} <b>${p.v.toLocaleString('en')}</b> <small>(${Math.round(p.v/T*100)}%)</small></span>`).join('')}</div></div>`}
  if(b.type=='bars'){let rows=b.rows.slice();if(b.top&&!b.keep&&rows.length>b.top){const rest=rows.slice(b.top-1);rows=rows.slice(0,b.top-1);rows.push({l:`أخرى (${rest.length})`,v:rest.reduce((s,r)=>s+r.v,0),p:rest.reduce((s,r)=>s+r.p,0),q:b.cmp?rest.reduce((s,r)=>s+(r.q||0),0):undefined,other:1})}
   const mx=b.cmp?Math.max(...rows.map(r=>Math.max(r.p||0,r.q||0)),.0001):Math.max(...rows.map(r=>r.v),1);
   return `<div class="rb2 ${b.cmp?'cmp':''} ${b.tone||''}"><div class="rbh"><span></span><span></span><span>العدد</span><span>الحصة</span>${b.cmp?'<span>المنطقة</span>':''}</div>${rows.map(r=>`<div class="rbr ${r.other?'oth':''}"><span class="l">${xe(r.l)}</span><span class="t">${b.cmp?`<i style="width:${(r.p||0)/mx*100}%"></i><u style="width:${(r.q||0)/mx*100}%"></u>`:`<i style="width:${r.v/mx*100}%"></i>`}</span><b>${r.v.toLocaleString('en')}</b><em>${Math.round((r.p||0)*100)}%</em>${b.cmp?`<em class="q">${r.q==null?'—':Math.round(r.q*100)+'%'}</em>`:''}</div>`).join('')}${b.cmp?'<div class="rbk"><span><i></i>النطاق المختار</span><span><u></u>المنطقة</span></div>':''}</div>`}
  if(b.type=='matrix'){const mx=Math.max(1,...b.cells.flat());return `<div class="rmx"><table><thead><tr><th></th>${b.cl.map(c=>`<th><span>${xe(c)}</span></th>`).join('')}<th>الإجمالي</th></tr></thead><tbody>${b.rl.map((r,i)=>`<tr><th>${xe(r)}</th>${b.cells[i].map(v=>{const hc=v?hmCell(Math.sqrt(v/mx)):0;return `<td style="${v?`background:${hc[0]};color:${hc[1]}`:''}">${v||''}</td>`}).join('')}<td class="tt">${b.cells[i].reduce((s,v)=>s+v,0)}</td></tr>`).join('')}</tbody></table></div>`}
  if(b.type=='table'){const hi=b.hiMax?b.rows.map(r=>{const xs=r.slice(1,-1).filter(v=>typeof v=='number');return xs.length?Math.max(...xs):null}):[];
-  return `<div class="rt"><table><thead><tr>${b.cols.map((c,ci)=>`<th class="${ci&&rNum(null,c.t)?'n':''}">${xe(c.h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map((r,ri)=>`<tr>${r.map((v,ci)=>{const t=rCellT(b,b.cols[ci]||{},ri,ci);return `<td class="${ci&&(typeof v=='number'||v==null||t=='dt'||t=='y')?'n':''}${b.hiMax&&ci>0&&ci<r.length-1&&v===hi[ri]&&v!=null?' hi':''}">${rCell(v,t)}</td>`}).join('')}</tr>`).join('')}</tbody>${b.total?`<tfoot><tr>${b.total.map((v,ci)=>`<td class="${ci?'n':''}">${rCell(v,(b.cols[ci]||{}).t)}</td>`).join('')}</tr></tfoot>`:''}</table></div>`}
+  const W=b.cols.map(c=>c.w||(rNum(null,c.t)?9:16)),TW=W.reduce((a,x)=>a+x,0);
+  return `<div class="rt ${b.cols.length>=9?'many':''}"><table><colgroup>${W.map(w=>`<col style="width:${(w/TW*100).toFixed(2)}%">`).join('')}</colgroup><thead><tr>${b.cols.map((c,ci)=>`<th class="${ci&&rNum(null,c.t)?'n':''}">${xe(c.h)}</th>`).join('')}</tr></thead><tbody>${b.rows.map((r,ri)=>`<tr>${r.map((v,ci)=>{const col=b.cols[ci]||{},t=rCellT(b,col,ri,ci);return `<td class="${typeof v=='number'||ci&&(v==null||t=='dt'||t=='y')?'n':''}${b.hiMax&&ci>0&&ci<r.length-1&&v===hi[ri]&&v!=null?' hi':''}">${ci==0?rCell(v,t,{nost:1}):rCell(v,t,col)}</td>`}).join('')}</tr>`).join('')}</tbody>${b.total?`<tfoot><tr>${b.total.map((v,ci)=>`<td class="${ci?'n':''}">${rCell(v,(b.cols[ci]||{}).t,{nost:1})}</td>`).join('')}</tr></tfoot>`:''}</table></div>`}
  return ''}
-function rHTML(R){const S=R.sections.filter(s=>s.on&&s.blocks.length),lg=$('header.top .logo .d');
- const k0=S.flatMap(s=>s.blocks).find(b=>b.type=='kpis');
- const head=k0?k0.items.slice(0,4):[];
- return `<div class="rpd${R.land?' land':''}" dir="rtl">${R.noCover?'':`<section class="rpcov"><div class="rpcl">${lg?`<img src="${lg.src}" alt="">`:''}<span>مجلس الجمعيات الأهلية بمنطقة عسير</span></div>
-  <div class="rpct"><span class="rpey">تقرير بيانات</span><h1>${xe(R.title)}</h1>${R.scope?`<p class="rpsc">${xe(R.scope)}</p>`:''}<p class="rpdt">${xe(R.dateAr)} م · ${xe(R.dateH)}</p></div>
-  ${head.length?`<div class="rpch">${head.map(k=>`<div><b>${k.v==null?'—':rFmt(k.v,k.t=='r'?'p':k.t=='y'?'y':'n')}</b><small>${xe(k.l)}</small></div>`).join('')}</div>`:''}
-  ${S.length>1?`<ol class="rptoc">${S.map(s=>`<li><span>${xe(s.t)}</span></li>`).join('')}</ol>`:''}
-  <p class="rpcf">${R.sub&&/شخصية/.test(R.sub)?xe(R.sub):'تقرير داخلي لفريق المجلس · أرقام مستخرجة من دليل الجمعيات دون توصيات · لا يتضمن بيانات شخصية'}</p></section>`}
-  ${S.map((s,i)=>`<section class="rps ${s.wide?'wide':''}"><h2><i>${i+1}</i>${xe(s.t)}</h2>${s.intro?`<p class="rpi">${xe(s.intro)}</p>`:''}${s.blocks.map(rBlock).join('')}</section>`).join('')}
-  ${R.defs&&R.defs.length?`<section class="rps rpdefs"><h2><i>${S.length+1}</i>التعريفات والمنهجية</h2><dl>${R.defs.map(([k,v])=>`<div><dt>${xe(k)}</dt><dd>${xe(v)}</dd></div>`).join('')}</dl></section>`:''}</div>`}
+/* الغلاف للتقارير التحليلية، والرأس المختصر لتقارير السجل (جمعية، حالة، مشروع، ملف، قائمة) */
+const RCOV=['region','gov','grp','sup','cmp','health','period'];
+const REYE={region:'تقرير المنطقة',gov:'تقرير محافظة',grp:'تقرير مجال عمل',sup:'تقرير جهة إشرافية',cmp:'تقرير مقارنة',health:'الصحة المؤسسية',period:'تقرير دوري',assoc:'تقرير جمعية',trcase:'حالة تعثر',proj:'تقرير مشروع',profile:'ملف جمعية',export:'قائمة بيانات'};
+const rCover=R=>R.noCover===undefined?RCOV.includes(R.kind):!R.noCover;
+const RCUT=[25,20],rCutK=R=>RCOV.includes(R.kind)||R.kind=='assoc';
+const rWide=(s,R)=>!R.land&&R.orient!='p'&&(s.wide||s.blocks.some(b=>b.type=='table'&&b.cols.length>=11));
+function rBH(b,wide){const n=x=>(x||[]).length;switch(b.type){case 'kpis':return Math.ceil(n(b.items)/rKc(n(b.items)))*(b.cmp?34:24)+4;case 'facts':return Math.ceil(n(b.rows)/(b.cols||(n(b.rows)<=3?1:2)))*8.5+4;case 'stack':return 28;case 'bars':return Math.min(n(b.rows),b.keep?99:(b.top||99))*7.4+10;
+ case 'table':return (Math.min(n(b.rows),b.cut&&n(b.rows)>RCUT[0]?RCUT[1]+1:1e9)+1)*(wide?6.6:(b.cols.length>=9?9.5:7.6))+6;case 'matrix':return (n(b.rl)+2)*6.4;case 'chips':return Math.ceil(n(b.items)/4)*12+4;case 'steps':return 26;case 'prog':return n(b.rows)*8+10;case 'text':return Math.ceil(String(b.t||'').length/110)*6+4;case 'list':return n(b.items)*6.5+(b.title?8:0);case 'people':return 30;case 'sub':return 9;default:return 10}}
+function rPages(R){const S=R.sections.filter(s=>s.on&&s.blocks.length),P=R.land?172:256,L=172;let pg=rCover(R)?1:0,mm=rCover(R)?0:58;
+ S.forEach(s=>{const w=rWide(s,R);const h=16+(s.intro?8:0)+s.blocks.reduce((a,b)=>a+rBH(!s.app&&!R.fullLists&&rCutK(R)?{...b,cut:1}:b,w),0);if(w){if(mm>0){pg+=Math.ceil(mm/P);mm=0}pg+=Math.ceil(h/L)}else mm+=h+6});
+ if(R.defs&&R.defs.length)mm+=18+R.defs.length*9;pg+=Math.ceil(mm/P);return Math.max(1,pg)}
+function rHTML(R){const all=R.sections.filter(s=>s.on&&s.blocks.length),S=all.filter(s=>!s.app),AP=all.filter(s=>s.app),lg=$('header.top .logo .d'),cov=rCover(R);
+ const k0=S.flatMap(s=>s.blocks).find(b=>b.type=='kpis'),head=cov&&k0?k0.items.slice(0,4):[];const headL=new Set(head.map(k=>k.l));
+ const kfmt=k=>k.v==null?'—':rFmt(k.v,k.t=='r'?'p':k.t=='y'?'y':'n');
+ let mhk=[];let SS=S;if(!cov&&S[0]&&S[0].id=='sum'&&S[0].blocks.length==1&&S[0].blocks[0].type=='kpis'&&S[0].blocks[0].items.length<=4){mhk=S[0].blocks[0].items;SS=S.slice(1)}
+ const H=R.hero||{},chips=(H.chips||[]).filter(c=>c&&c[0]);
+ const cut=(s,b)=>b.type=='table'&&!s.app&&!R.fullLists&&rCutK(R)&&b.rows.length>RCUT[0];
+ const blocks=(s)=>s.blocks.map(b=>{if(b===k0&&head.length){const it=b.items.filter(k=>!headL.has(k.l));return it.length?rBlock({...b,items:it}):''}
+  if(cut(s,b))return rBlock({...b,rows:b.rows.slice(0,RCUT[1]),total:null})+`<p class="rcut">يظهر أول ${RCUT[1]} من ${b.rows.length.toLocaleString('en')}. القائمة كاملة في ملف Excel، أو فعّل «القوائم الطويلة كاملة» عند التصدير.</p>`;return rBlock(b)}).join('');
+ const secH=(s,num)=>{const w=rWide(s,R),b0=s.blocks[0],keep=b0&&rBH(b0,w)<110;const hd=`<h2><i>${num}</i><span>${xe(s.t)}</span></h2>${s.intro?`<p class="rpi">${rTx(s.intro)}</p>`:''}`;
+  return `<section class="rps${w?' land':''}${s.app?' app':''}">${keep?`<div class="rkeep">${hd}${blocks({...s,blocks:[b0]})}</div>${blocks({...s,blocks:s.blocks.slice(1)})}`:hd+blocks(s)}</section>`};
+ const L='أبجدهوزحطي';
+ const top=cov?`<section class="rpcov"><div class="rpcl">${lg?`<img src="${lg.src}" alt="">`:''}<span>مجلس الجمعيات الأهلية بمنطقة عسير</span></div>
+  <div class="rpct"><span class="rpey">${xe(REYE[R.kind]||'تقرير بيانات')}</span><h1>${xe(R.title)}</h1>${R.scope?`<p class="rpsc">${xe(R.scope)}</p>`:''}<p class="rpdt">${xe(R.dateAr)} م · ${xe(R.dateH)}</p></div>
+  ${head.length?`<div class="rpch">${head.map(k=>`<div><b>${kfmt(k)}</b><small>${xe(k.l)}</small></div>`).join('')}</div>`:''}
+  ${S.length>1?`<div class="rptoc"><h6>محتويات التقرير</h6><ol style="--r:${Math.ceil((S.length+AP.length+(R.defs&&R.defs.length?1:0))/2)}">${S.map((s,i)=>`<li><i>${i+1}</i><span>${xe(s.t)}</span></li>`).join('')}${R.defs&&R.defs.length?`<li><i>${S.length+1}</i><span>التعريفات والمنهجية</span></li>`:''}${AP.map((s,i)=>`<li class="ap"><i>${L[i]}</i><span>ملحق: ${xe(s.t)}</span></li>`).join('')}</ol></div>`:''}
+  <p class="rpcf">${R.sub&&/شخصية/.test(R.sub)?xe(R.sub):'تقرير داخلي لفريق المجلس · أرقام مستخرجة من دليل الجمعيات دون توصيات · لا يتضمن بيانات شخصية'}</p></section>`
+ :`<header class="rpmh"><div class="rpmb">${lg?`<img src="${lg.src}" alt="">`:''}<span>مجلس الجمعيات الأهلية بمنطقة عسير</span><em>${xe(R.dateAr)} م · ${xe(R.dateH)}</em></div>
+  <div class="rpmt">${H.img||H.ini?`<span class="rpav">${H.img?`<img src="${H.img}" alt="">`:xe(H.ini)}</span>`:''}<div><span class="rpey">${xe(REYE[R.kind]||'تقرير بيانات')}</span><h1>${xe(R.title)}</h1>${R.scope?`<p class="rpsc">${xe(R.scope)}</p>`:''}${R.lead?`<p class="rpld">${xe(R.lead)}</p>`:''}${chips.length?`<div class="rpchip">${chips.map(c=>`<span class="rst ${c[1]||'mute'}">${xe(c[0])}</span>`).join('')}</div>`:''}</div></div>
+  ${mhk.length?`<div class="rpch mh" style="--c:${mhk.length}">${mhk.map(k=>`<div><b>${kfmt(k)}</b><small>${xe(k.l)}</small></div>`).join('')}</div>`:''}
+  ${R.sub&&/شخصية/.test(R.sub)?`<p class="rpnote">${xe(R.sub)}</p>`:''}</header>`;
+ return `<div class="rpd${R.land?' land':''}${cov?'':' compact'}" dir="rtl">${top}
+  ${SS.map((s,i)=>secH(s,i+1)).join('')}
+  ${R.defs&&R.defs.length?`<section class="rps rpdefs"><h2><i>${SS.length+1}</i><span>التعريفات والمنهجية</span></h2><dl>${R.defs.map(([k,v])=>`<div><dt>${xe(k)}</dt><dd>${xe(v)}</dd></div>`).join('')}</dl></section>`:''}
+  ${AP.map((s,i)=>secH({...s,t:'ملحق '+L[i]+': '+s.t},L[i])).join('')}</div>`}
 function rPDF(R){if(!R)return toast('لا توجد بيانات لهذا التقرير',1);let box=$('#rptDoc');if(!box){box=document.createElement('div');box.id='rptDoc';document.body.appendChild(box)}
  box.innerHTML=rHTML(R);let st=$('#rptPage');if(!st){st=document.createElement('style');st.id='rptPage';document.head.appendChild(st)}
- const q=s=>'"'+String(s).replace(/["\\]/g,'')+'"';
- st.textContent=`@media print{@page{size:${R.land?'A4 landscape':'A4'};margin:16mm 13mm 16mm;@top-right{content:${q('مجلس الجمعيات الأهلية بمنطقة عسير')};font-size:8pt;color:#8A93AE}@top-left{content:${q(R.title.slice(0,70))};font-size:8pt;color:#8A93AE}@bottom-left{content:"صفحة " counter(page) " من " counter(pages);font-size:8pt;color:#8A93AE}@bottom-right{content:${q('تقرير داخلي · '+R.dateAr)};font-size:8pt;color:#8A93AE}}@page :first{@top-right{content:none}@top-left{content:none}@bottom-left{content:none}@bottom-right{content:none}}}`;
+ const q=x=>'"'+String(x).replace(/["\\]/g,'')+'"',f='font-size:7.5pt;color:#8A93AE';
+ const mb=`@top-right{content:${q('مجلس الجمعيات الأهلية بمنطقة عسير')};${f}}@top-left{content:${q(R.title.slice(0,70))};${f}}@bottom-left{content:"صفحة " counter(page) " من " counter(pages);${f}}@bottom-right{content:${q('تقرير داخلي · '+R.dateAr)};${f}}`;
+ const no='content:none';
+ st.textContent=`@media print{@page{size:${R.land?'A4 landscape':'A4'};margin:16mm 13mm 15mm;${mb}}@page land{size:A4 landscape;margin:13mm 13mm 13mm;${mb}}@page :first{@top-right{${no}}@top-left{${no}}${rCover(R)?`@bottom-left{${no}}@bottom-right{${no}}`:''}}}`;
  document.body.classList.add('printrpt');const t0=document.title;document.title=R.fname||fileName(R.title);
  const done=()=>{document.body.classList.remove('printrpt');document.title=t0;removeEventListener('afterprint',done)};addEventListener('afterprint',done);
- alog('تقرير PDF: '+R.title);setTimeout(()=>{try{window.print()}catch(e){done()}setTimeout(done,2500)},80)}
+ alog('تقرير PDF: '+R.title);const imgs=[...box.querySelectorAll('img')];
+ Promise.all(imgs.map(i=>i.complete?1:new Promise(r=>{i.onload=i.onerror=r;setTimeout(r,2500)}))).then(()=>setTimeout(()=>{try{window.print()}catch(e){done()}setTimeout(done,2500)},80))}
 /* ---------- Excel بهوية المجلس: ورقة لكل قسم، ترويسة ثابتة، تنسيقات أرقام، أشرطة بيانات ---------- */
 function rParts(s,R){const P=[];const hasT=s.blocks.some(b=>b.type=='table'||b.type=='matrix');
  s.blocks.forEach(b=>{
@@ -7262,6 +7405,11 @@ function rParts(s,R){const P=[];const hasT=s.blocks.some(b=>b.type=='table'||b.t
   if(b.type=='stack')P.push({title:'حالة التراخيص — '+b.label,cols:[{h:'الحالة',w:24},{h:'العدد',t:'c',w:12},{h:'النسبة',t:'r',w:12}],rows:b.parts.map(p=>[p.l,p.v,p.v/(b.total||1)]),total:['الإجمالي',b.total,1]});
   if(b.type=='bars'&&!hasT)P.push({title:s.t,cols:[{h:'البند',w:34},{h:'العدد',t:'c',w:12,bar:1},{h:'الحصة',t:'r',w:12},...(b.cmp?[{h:'حصة المنطقة',t:'r',w:14}]:[])],rows:b.rows.map(r=>[r.l,r.v,r.p,...(b.cmp?[r.q==null?null:r.q]:[])])});
   if(b.type=='table')P.push({title:hasT&&s.blocks.filter(x=>x.type=='table').length>1?b.sheet:'',cols:b.cols,rows:b.rows,total:b.total,rowTypes:b.rowTypes,hiMax:b.hiMax});
+  if(b.type=='steps')P.push({title:'المراحل',cols:[{h:'المرحلة',w:30},{h:'الحالة',w:16},{h:'ملاحظة',w:40}],rows:b.items.map(x=>[x.l,x.st=='done'?'مكتملة':x.st=='cur'?'الحالية':'لاحقة',x.s||''])});
+  if(b.type=='prog')P.push({title:'التقدم',cols:[{h:'البند',w:36},{h:'الآن',t:'r',w:12},{h:'خط الأساس',t:'r',w:12},{h:'ملاحظة',w:30}],rows:b.rows.map(r=>[r.l,r.v,r.b==null?null:r.b,r.s||''])});
+  if(b.type=='text')P.push({title:'نص',cols:[{h:'النص',w:100}],rows:[[b.t]]});
+  if(b.type=='list')P.push({title:b.title||'قائمة',cols:[{h:'#',t:'c',w:6},{h:b.title||'البند',w:80}],rows:b.items.map((x,i)=>[i+1,x])});
+  if(b.type=='people')P.push({title:'الأشخاص',cols:[{h:'الصفة',w:24},{h:'الاسم',w:30},{h:'التواصل',w:40}],rows:b.items.map(x=>[x.role,x.n||'',(x.lines||[]).join(' · ')])});
   if(b.type=='matrix')P.push({cols:[{h:'',w:20},...b.cl.map(c=>({h:c,t:'c',w:Math.max(9,Math.min(16,c.length+2))})),{h:'الإجمالي',t:'c',w:10}],rows:b.rl.map((r,i)=>[r,...b.cells[i].map(v=>v||null),b.cells[i].reduce((a,v)=>a+v,0)]),heat:1})});
  return P}
 function rXLSX(R){if(!R)return toast('لا توجد بيانات لهذا التقرير',1);
@@ -7441,7 +7589,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.85)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.86)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['links','روابط دخول شخصية لكل صاحب صلاحية بدوره (المرحلة الحالية)',()=>true,'done','من «المستخدمون»: رابط لكل شخص بمدة وإلغاء فوري، وكل دخول مسجّل باسمه.'],['access','الربط ببريد المجلس عبر Cloudflare Access (مؤجل حتى تكتمل تجربة الروابط)',()=>!!(SESSION&&SESSION.authAccess),'later','من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
