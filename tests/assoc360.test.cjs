@@ -53,6 +53,9 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   // الشريط اللاصق يظهر عند التمرير
   await p.evaluate(() => $('.a3rail').scrollIntoView()); await p.waitForTimeout(500);
   ok(await p.evaluate(() => $('.a3sticky').classList.contains('on') && $('.a3sticky b').textContent.length > 2), 'sticky summary bar appears on scroll');
+  const lg = await p.evaluate(() => { const o = DB.find((x) => x.logo); if (!o) return 'skip'; open360(o.id); return new Promise((r) => setTimeout(() => r(!!document.querySelector('.a3sticky img.a3slogo') && document.querySelector('.a3sticky img.a3slogo').getAttribute('src') == o.logo), 1200)); });
+  ok(lg === 'skip' || lg === true, 'sticky bar shows the association logo when it has one');
+  await p.evaluate((A) => open360(A), A); await p.waitForTimeout(1200);
   await p.evaluate(() => window.scrollTo(0, 0));
   // الأسهم تنتقل بين الجمعيات
   const before = await p.evaluate(() => ADM.aid); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
