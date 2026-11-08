@@ -167,11 +167,21 @@ export function dataIssues(a, c) {
 }
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
+// مؤشرات الصحة v2 (27): حقائق غير شخصية لكل جمعية — وجود البيانات وحالة التفعيل، لا الأسماء ولا التواصل
+function healthFacts(p, c) {
+  let ver = {}; try { ver = p.verified_json ? JSON.parse(p.verified_json) : {}; } catch { ver = {}; }
+  let bd = 0; try { bd = c.board_json ? JSON.parse(c.board_json).length : 0; } catch { bd = 0; }
+  const n = (x) => (x === null || x === undefined || x === '' ? null : Number(x));
+  return { ex: c.exec_name ? 1 : 0, exc: c.exec_email || c.exec_mobile ? 1 : 0, exT: p.exec_type || '', exS: p.exec_since || '', bd, pm: c.president_mobile ? 1 : 0, dm: c.delegate_mobile ? 1 : 0,
+    vs: p.vol_status || '', vr: p.vol_ref ? 1 : 0, vl: p.vol_last_on || '', vy: n(p.vol_year), vo: n(p.vol_opps), vh: n(p.vol_hours), vn: n(p.volunteers_count),
+    es: p.ehsan_status || '', er: p.ehsan_ref ? 1 : 0, dn: p.donate_url ? 1 : 0, web: p.website ? 1 : 0,
+    asm: p.last_assembly_on || '', fin: n(p.fin_year), stf: n(p.staff_count), ver, dv: p.data_verified_on || '', pu: p.updated_at || '', gs: n(p.gov_score), gy: n(p.gov_score_year) };
+}
 export async function pagePayload(env) {
   const [adm, meta, prof, con, nts, asm] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
     env.DB.prepare("SELECT max(updated_at) AS synced FROM associations"),
-    env.DB.prepare('SELECT association_id AS id, short_name, about, website, social, beneficiaries, programs, logo_key FROM association_profiles'),
+    env.DB.prepare('SELECT association_id AS id, * FROM association_profiles'),
     env.DB.prepare('SELECT * FROM association_contacts'),
     env.DB.prepare("SELECT association_id AS id, text FROM association_notes WHERE status = 'open' AND kind IS NULL"),
     // قيم وضعها الفريق افتراضياً (علامة «قيمة مؤقتة» مفتوحة) لا تُعرض للزوار على أنها حقيقة
@@ -193,6 +203,7 @@ export async function pagePayload(env) {
     c.email || '', c.mobile || '', c.delegate_name || '', c.delegate_email || '', c.president_name || '', c.president_email || '',
     a.contact_consent ? 'نعم' : 'لا', [...dataIssues(a, c).map((x) => x.t), ...(N[a.id] || [])].join('؛ '),
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
+    healthFacts(P[a.id] || {}, c),
   ]; });
   // public list — published and not closed
   // سياسة الحقول من اللوحة (asirFieldPol): ظهور بيانات التواصل في الموقع — pub دائماً، con بموافقة الجمعية، int أبداً

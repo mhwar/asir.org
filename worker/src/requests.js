@@ -20,6 +20,9 @@ const url = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!/^htt
 const int = (max) => (v) => { if (v === '' || v == null) return null; const n = Number(String(v).replace(/[^\d]/g, '')); if (!Number.isInteger(n) || n < 0 || n > max) fail(422, 'invalid', `رقم غير صالح (0 – ${max})`); return n; };
 const year = (v) => { if (!v) return null; const n = Number(v); if (!Number.isInteger(n) || n < 1990 || n > 2100) fail(422, 'invalid', 'سنة غير صالحة'); return n; };
 export const REV_BANDS = ['أقل من 500 ألف', '500 ألف – 2 مليون', '2 – 10 ملايين', 'أكثر من 10 ملايين'];
+export const PLAT_ST = ['غير مسجّلة', 'مسجّلة غير مفعّلة', 'مفعّلة'];
+export const EXEC_TYPES = ['متفرغ', 'غير متفرغ', 'متطوع', 'شاغر'];
+const oneOf = (L) => (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!L.includes(v)) fail(422, 'invalid', 'قيمة غير معروفة: ' + v); return v; };
 const band = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!REV_BANDS.includes(v)) fail(422, 'invalid', 'شريحة غير معروفة'); return v; };
 const list = (v) => { const a = Array.isArray(v) ? v.map((x) => String(x).trim()).filter(Boolean).slice(0, 20) : []; return a.length ? a : null; };
 
@@ -45,6 +48,14 @@ export const UFIELDS = {
   assembly:  { l: 'تاريخ آخر جمعية عمومية', kind: 'profile', col: 'last_assembly_on', v: date },
   finYear:   { l: 'آخر سنة مالية اعتُمدت قوائمها', kind: 'profile', col: 'fin_year', v: year },
   revBand:   { l: 'شريحة الإيرادات السنوية', kind: 'profile', col: 'revenue_band', v: band },
+  // مؤشر الصحة v2 (0021): المدير التنفيذي (تنظيمي) والمنصات — التسجيل غير التفعيل
+  execSince: { l: 'تاريخ تعيين المدير التنفيذي', kind: 'profile', col: 'exec_since', v: date },
+  execType:  { l: 'طبيعة عمل المدير التنفيذي', kind: 'profile', col: 'exec_type', v: oneOf(EXEC_TYPES) },
+  volSt:     { l: 'حساب الجمعية في المنصة الوطنية للعمل التطوعي', kind: 'profile', col: 'vol_status', v: oneOf(PLAT_ST) },
+  volRef:    { l: 'رابط أو رقم حساب الجمعية في منصة العمل التطوعي', kind: 'profile', col: 'vol_ref', v: txt(200) },
+  volLast:   { l: 'تاريخ آخر فرصة تطوعية منشورة', kind: 'profile', col: 'vol_last_on', v: date },
+  ehsanSt:   { l: 'حساب الجمعية في منصة إحسان', kind: 'profile', col: 'ehsan_status', v: oneOf(PLAT_ST) },
+  ehsanRef:  { l: 'رابط صفحة الجمعية في منصة إحسان', kind: 'profile', col: 'ehsan_ref', v: txt(200) },
   logo:      { l: 'شعار الجمعية', kind: 'profile', col: 'logo_key', file: { max: 5, types: ['image/png', 'image/svg+xml', 'image/jpeg', 'image/webp'] } },
   founded:   { l: 'تاريخ التأسيس', kind: 'assoc', col: 'founded_on', v: date },
   gov:       { l: 'المحافظة', kind: 'assoc', col: 'governorate_id', v: txt(40), gov: true },
@@ -65,6 +76,9 @@ export const UFIELDS = {
   del:       { l: 'اسم المفوض', kind: 'contact', col: 'delegate_name', v: txt(120), personal: true },
   delEmail:  { l: 'بريد المفوض', kind: 'contact', col: 'delegate_email', v: email, personal: true },
   delMobile: { l: 'جوال المفوض', kind: 'contact', col: 'delegate_mobile', v: mobile, personal: true },
+  exec:      { l: 'اسم المدير التنفيذي', kind: 'contact', col: 'exec_name', v: txt(120), personal: true },
+  execEmail: { l: 'بريد المدير التنفيذي', kind: 'contact', col: 'exec_email', v: email, personal: true },
+  execMobile:{ l: 'جوال المدير التنفيذي', kind: 'contact', col: 'exec_mobile', v: mobile, personal: true },
 };
 
 export async function collectPersonal(env) {
@@ -78,7 +92,7 @@ export async function currentValues(env, id, withPersonal) {
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
-            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
+            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id

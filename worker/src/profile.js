@@ -4,9 +4,14 @@ import { audit, updateAssociation, getAssociation, dataIssues, resolveFlags, FLA
 import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
-const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', phone: 'phone_official', address: 'address', postal: 'postal_code', pobox: 'po_box', donate: 'donate_url', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band' };
+const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', phone: 'phone_official', address: 'address', postal: 'postal_code', pobox: 'po_box', donate: 'donate_url', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band',
+  execSince: 'exec_since', execType: 'exec_type', volSt: 'vol_status', volRef: 'vol_ref', volLast: 'vol_last_on', ehsanSt: 'ehsan_status', ehsanRef: 'ehsan_ref' };
 const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', presEmail: 'president_email', presMobile: 'president_mobile',
-  del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile' };
+  del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile',
+  exec: 'exec_name', execEmail: 'exec_email', execMobile: 'exec_mobile' };
+// مجموعات البيانات التي يؤكد الفريق صحتها (تحقق) — تدخل في «سلامة البيانات» بمؤشر الصحة
+export const VERIFY_KEYS = ['lic', 'con', 'lead', 'exec', 'board', 'vol', 'ehsan', 'gov', 'all'];
+const VERIFY_SRC = ['اتصال', 'زيارة', 'مستند', 'المنصة الرسمية', 'رابط التحديث'];
 const V = (k) => (k === 'presMobile' ? UFIELDS.mobile.v : UFIELDS[k].v);
 
 function board(list) {
@@ -26,6 +31,9 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
   ]);
   const pr = p.results[0] || {}, ct = c.results[0] || {};
   const profile = Object.fromEntries(Object.entries(PROFILE).map(([k, col]) => [k, col === 'beneficiaries' ? (pr[col] ? JSON.parse(pr[col]) : []) : (pr[col] ?? '')]));
+  try { profile.verified = pr.verified_json ? JSON.parse(pr.verified_json) : {}; } catch { profile.verified = {}; }
+  profile.dataVerified = pr.data_verified_on || '';
+  profile.updated = pr.updated_at || '';
   profile.logo = pr.logo_key ? `/u-logo/${id}?v=${encodeURIComponent(pr.updated_at || '')}` : '';
   const contacts = Object.fromEntries(Object.entries(CONTACT).map(([k, col]) => [k, ct[col] || '']));
   contacts.board = ct.board_json ? JSON.parse(ct.board_json) : [];
@@ -62,6 +70,21 @@ export async function saveFull(env, req, user, id, body) {
         Object.fromEntries(cols.map((c) => [c, cur[c] ?? null])), Object.fromEntries(cols.map((c) => [c, vals[c]])));
       changed.push(...cols);
     }
+  }
+  if (body.verify && Array.isArray(body.verify.keys) && body.verify.keys.length) {
+    const keys = body.verify.keys.filter((k) => VERIFY_KEYS.includes(k));
+    if (!keys.length) fail(422, 'invalid', 'مجموعة بيانات غير معروفة');
+    const src = VERIFY_SRC.includes(body.verify.src) ? body.verify.src : 'اتصال';
+    const cur = (await env.DB.prepare('SELECT verified_json, data_verified_on FROM association_profiles WHERE association_id = ?1').bind(id).first()) || {};
+    let V = {}; try { V = cur.verified_json ? JSON.parse(cur.verified_json) : {}; } catch { V = {}; }
+    const today = new Date().toISOString().slice(0, 10);
+    const all = keys.includes('all') ? VERIFY_KEYS.filter((k) => k !== 'all') : keys;
+    for (const k of all) V[k] = { on: today, by: user.email, src };
+    const dv = keys.includes('all') ? today : (cur.data_verified_on || null);
+    await env.DB.prepare(`INSERT INTO association_profiles (association_id, verified_json, data_verified_on) VALUES (?1, ?2, ?3)
+       ON CONFLICT(association_id) DO UPDATE SET verified_json = excluded.verified_json, data_verified_on = excluded.data_verified_on`).bind(id, JSON.stringify(V), dv).run();
+    await audit(env, req, user.email, 'verify', 'association_profiles', id, null, { keys: all, src });
+    changed.push('verified_json');
   }
   if (body.contacts && Object.keys(body.contacts).length) {
     const vals = {};
