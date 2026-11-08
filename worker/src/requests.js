@@ -22,6 +22,7 @@ const year = (v) => { if (!v) return null; const n = Number(v); if (!Number.isIn
 export const REV_BANDS = ['أقل من 500 ألف', '500 ألف – 2 مليون', '2 – 10 ملايين', 'أكثر من 10 ملايين'];
 export const PLAT_ST = ['غير مسجّلة', 'مسجّلة غير مفعّلة', 'مفعّلة'];
 export const EXEC_TYPES = ['متفرغ', 'غير متفرغ', 'متطوع', 'شاغر'];
+export const REP_IS = ['المفوض', 'المدير التنفيذي', 'رئيس مجلس الإدارة', 'شخص آخر'];
 const oneOf = (L) => (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!L.includes(v)) fail(422, 'invalid', 'قيمة غير معروفة: ' + v); return v; };
 const band = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!REV_BANDS.includes(v)) fail(422, 'invalid', 'شريحة غير معروفة'); return v; };
 const list = (v) => { const a = Array.isArray(v) ? v.map((x) => String(x).trim()).filter(Boolean).slice(0, 20) : []; return a.length ? a : null; };
@@ -51,6 +52,7 @@ export const UFIELDS = {
   // مؤشر الصحة v2 (0021): المدير التنفيذي (تنظيمي) والمنصات — التسجيل غير التفعيل
   execSince: { l: 'تاريخ تعيين المدير التنفيذي', kind: 'profile', col: 'exec_since', v: date },
   execType:  { l: 'طبيعة عمل المدير التنفيذي', kind: 'profile', col: 'exec_type', v: oneOf(EXEC_TYPES) },
+  repIs:     { l: 'ممثل البيانات', kind: 'profile', col: 'rep_is', v: oneOf(REP_IS) },
   volSt:     { l: 'حساب الجمعية في المنصة الوطنية للعمل التطوعي', kind: 'profile', col: 'vol_status', v: oneOf(PLAT_ST) },
   volRef:    { l: 'رابط أو رقم حساب الجمعية في منصة العمل التطوعي', kind: 'profile', col: 'vol_ref', v: txt(200) },
   volLast:   { l: 'تاريخ آخر فرصة تطوعية منشورة', kind: 'profile', col: 'vol_last_on', v: date },
@@ -79,6 +81,10 @@ export const UFIELDS = {
   exec:      { l: 'اسم المدير التنفيذي', kind: 'contact', col: 'exec_name', v: txt(120), personal: true },
   execEmail: { l: 'بريد المدير التنفيذي', kind: 'contact', col: 'exec_email', v: email, personal: true },
   execMobile:{ l: 'جوال المدير التنفيذي', kind: 'contact', col: 'exec_mobile', v: mobile, personal: true },
+  repName:   { l: 'اسم ممثل البيانات', kind: 'contact', col: 'rep_name', v: txt(120), personal: true },
+  repRole:   { l: 'صفة ممثل البيانات', kind: 'contact', col: 'rep_role', v: txt(80), personal: true },
+  repEmail:  { l: 'بريد ممثل البيانات', kind: 'contact', col: 'rep_email', v: email, personal: true },
+  repMobile: { l: 'جوال ممثل البيانات', kind: 'contact', col: 'rep_mobile', v: mobile, personal: true },
 };
 
 export async function collectPersonal(env) {
@@ -92,7 +98,7 @@ export async function currentValues(env, id, withPersonal) {
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.license_issued_on AS issued, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
-            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
+            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.rep_is AS repIs, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id
@@ -200,7 +206,7 @@ export async function portalPayload(env, link) {
   const p0 = pr.results[0] || {}, c0 = ct.results[0] || {};
   let snap = null; try { snap = p0.hs_snap ? JSON.parse(p0.hs_snap) : null; } catch { snap = null; }
   const hs = { snap, hx: healthFacts(p0, c0), flags: fl.results[0]?.n || 0, approved: ap.results[0]?.n || 0,
-    has: { email: !!c0.email, mobile: !!c0.mobile, pres: !!c0.president_name, del: !!c0.delegate_name, exec: !!c0.exec_name } };
+    has: { email: !!c0.email, mobile: !!c0.mobile, pres: !!c0.president_name, del: !!c0.delegate_name, exec: !!c0.exec_name, rep: !!c0.rep_name } };
   return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n), notes, hs };
 }
 
@@ -219,6 +225,15 @@ async function sign(env, msg) {
 }
 const eqs = (a, b) => { if (a.length !== b.length) return false; let x = 0; for (let i = 0; i < a.length; i++) x |= a.charCodeAt(i) ^ b.charCodeAt(i); return x === 0; };
 const UCOOKIE = 'asir_u', UHOURS = 12;
+
+// تعريف مختصر بالجمعية لصفحة رمز الدخول: اسمها ورقم ترخيصها ومحافظتها وشعارها فقط (حامل الرابط يعرفها أصلاً) — لا بيانات شخصية
+export async function linkIntro(env, link) {
+  const a = await env.DB.prepare(
+    `SELECT a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, (p.logo_key IS NOT NULL) AS logo
+       FROM associations a JOIN governorates g ON g.id = a.governorate_id LEFT JOIN association_profiles p ON p.association_id = a.id
+      WHERE a.id = ?1`).bind(link.association_id).first();
+  return a ? { ...a, id: link.association_id, expires: link.expires_at } : null;
+}
 
 export async function pinOk(env, req, link) {
   if (!link.pin_hash) return true;

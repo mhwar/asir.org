@@ -5,10 +5,11 @@ import { UFIELDS } from './requests.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
 const PROFILE = { short: 'short_name', about: 'about', web: 'website', social: 'social', ben: 'beneficiaries', progs: 'programs', staff: 'staff_count', vols: 'volunteers_count', volHours: 'vol_hours', phone: 'phone_official', address: 'address', postal: 'postal_code', pobox: 'po_box', donate: 'donate_url', volOpps: 'vol_opps', volYear: 'vol_year', benef: 'beneficiaries_count', assembly: 'last_assembly_on', finYear: 'fin_year', revBand: 'revenue_band',
-  execSince: 'exec_since', execType: 'exec_type', volSt: 'vol_status', volRef: 'vol_ref', volLast: 'vol_last_on', ehsanSt: 'ehsan_status', ehsanRef: 'ehsan_ref' };
+  execSince: 'exec_since', execType: 'exec_type', volSt: 'vol_status', volRef: 'vol_ref', volLast: 'vol_last_on', ehsanSt: 'ehsan_status', ehsanRef: 'ehsan_ref', repIs: 'rep_is' };
 const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', presEmail: 'president_email', presMobile: 'president_mobile',
   del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile',
-  exec: 'exec_name', execEmail: 'exec_email', execMobile: 'exec_mobile' };
+  exec: 'exec_name', execEmail: 'exec_email', execMobile: 'exec_mobile',
+  repName: 'rep_name', repRole: 'rep_role', repEmail: 'rep_email', repMobile: 'rep_mobile' };
 // مجموعات البيانات التي يؤكد الفريق صحتها (تحقق) — تدخل في «سلامة البيانات» بمؤشر الصحة
 export const VERIFY_KEYS = ['lic', 'con', 'lead', 'exec', 'board', 'vol', 'ehsan', 'gov', 'prof', 'all'];
 const VERIFY_SRC = ['اتصال', 'زيارة', 'مستند', 'المنصة الرسمية', 'رابط التحديث'];

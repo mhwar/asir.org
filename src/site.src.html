@@ -567,6 +567,8 @@ header.top.solid .cta2{border-color:var(--line);color:var(--hd)}
 .a3more>div{display:none;min-width:240px}.a3more.open>div{display:grid}.a3more>div small{font-size:11px;color:var(--mute2);padding:8px 12px 2px;font-weight:600}
 @media(max-width:760px){.a3tabs{grid-template-columns:1fr 1fr 1fr auto;top:108px;gap:6px}.a3tabs button{padding:8px 10px}.a3tabs button small{display:none}}
 .a3tabs{grid-template-columns:repeat(3,1fr) auto}.a3tabs button b{display:flex;align-items:center;gap:8px}.a3ts{font-style:normal;font-size:12px;font-weight:800;color:var(--c);background:color-mix(in srgb,var(--c) 12%,transparent);border-radius:999px;padding:1px 8px;min-width:30px;text-align:center}
+.pvwho{display:flex;flex-wrap:wrap;gap:6px}.pvwho button{display:grid;text-align:start;border:1.5px solid var(--line);background:var(--sf);border-radius:12px;padding:7px 12px;font:inherit;cursor:pointer;min-width:110px}.pvwho button b{font-size:13px;color:var(--hd)}.pvwho button small{font-size:11.5px;color:var(--mute)}.pvwho button.on{border-color:#1249FF;background:#F4F6FF;box-shadow:0 0 0 1px #1249FF}
+.pvrep{display:grid;gap:2px;padding:12px 14px;border-radius:12px;background:#F4F6FF;border:1px solid #DCE4FF}.pvrep b{font-size:14px;color:var(--hd)}.pvrep small{font-size:12.5px;color:var(--mute)}.pvrep small.w{color:#B54708}.pvrep .lnk{justify-self:start}
 .a3tabs .a3lay-b{display:grid;place-items:center;padding:0 12px;color:var(--mute)}.a3tabs .a3lay-b:hover{color:var(--hd);border-color:var(--hd)}
 .a3lay{display:grid;gap:8px}.a3lay>div{display:grid;grid-template-columns:200px 1fr;gap:10px;align-items:center}.a3lay>div>b{font-size:13px;color:var(--hd)}@media(max-width:600px){.a3lay>div{grid-template-columns:1fr}}
 .a3mini{display:flex;gap:6px;margin:2px 0}.a3mini button{border:1px solid var(--line);background:var(--sf);border-radius:999px;padding:2px 10px;font:inherit;font-size:12px;color:var(--mute);cursor:pointer}.a3mini button b{font-size:12.5px;color:var(--hd)}.a3mini button:hover{border-color:var(--hd)}
@@ -3516,7 +3518,7 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       <div><h2 class="fh5">الخدمات</h2><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/pro">تطوّع بخبرتك</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h2 class="fh5">روابط</h2><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.89</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.90</span></div>
   </div>
 </footer>
 
@@ -4492,11 +4494,18 @@ const PF=[
  {sec:'lead',k:'del',l:'اسم المفوض',t:'text',v:'int',m:'direct',req:1},
  {sec:'lead',k:'delEmail',l:'بريد المفوض',t:'text',v:'int',m:'direct',req:1,ltr:1,chk:'email'},
  {sec:'lead',k:'delMobile',l:'جوال المفوض',t:'text',v:'int',m:'direct',ltr:1,chk:'mobile'},
- {sec:'lead',k:'exec',l:'اسم المدير التنفيذي',t:'text',v:'int',m:'direct'},
- {sec:'lead',k:'execEmail',l:'بريد المدير التنفيذي',t:'text',v:'int',m:'direct',ltr:1,chk:'email'},
- {sec:'lead',k:'execMobile',l:'جوال المدير التنفيذي',t:'text',v:'int',m:'direct',ltr:1,chk:'mobile'},
+ {sec:'lead',k:'execSame',l:'المدير التنفيذي هو المفوض نفسه',t:'same',v:'int',m:'direct',virt:1,d:'تُنسخ بيانات المفوض إلى المدير التنفيذي تلقائياً وتبقى متطابقة',when:()=>PS.d.execType!='شاغر'},
+ {sec:'lead',k:'exec',l:'اسم المدير التنفيذي',t:'text',v:'int',m:'direct',when:()=>!PS.d.execSame&&PS.d.execType!='شاغر'},
+ {sec:'lead',k:'execEmail',l:'بريد المدير التنفيذي',t:'text',v:'int',m:'direct',ltr:1,chk:'email',when:()=>!PS.d.execSame&&PS.d.execType!='شاغر'},
+ {sec:'lead',k:'execMobile',l:'جوال المدير التنفيذي',t:'text',v:'int',m:'direct',ltr:1,chk:'mobile',when:()=>!PS.d.execSame&&PS.d.execType!='شاغر'},
  {sec:'lead',k:'execType',l:'طبيعة عمل المدير التنفيذي',t:'sel',opts:()=>['','متفرغ','غير متفرغ','متطوع','شاغر'],v:'int',m:'direct',np:1},
  {sec:'lead',k:'execSince',l:'تاريخ تعيين المدير التنفيذي',t:'date',v:'int',m:'direct',np:1},
+ {sec:'rep',k:'repIs',l:'من يتابع بيانات الجمعية مع المجلس؟',t:'sel',opts:()=>['',...REP_IS],v:'int',m:'direct',np:1,full:1},
+ {sec:'rep',k:'repInfo',l:'ممثل البيانات',t:'info',v:'int',m:'direct',virt:1,full:1,when:()=>PS.d.repIs&&PS.d.repIs!='شخص آخر'&&PF.some(f=>f.k=='del')},
+ {sec:'rep',k:'repName',l:'اسم ممثل البيانات',t:'text',v:'int',m:'direct',when:()=>PS.d.repIs=='شخص آخر'},
+ {sec:'rep',k:'repRole',l:'صفته في الجمعية',t:'text',v:'int',m:'direct',ph:'مثال: مسؤول البيانات، المحاسب، منسق العلاقات',when:()=>PS.d.repIs=='شخص آخر'},
+ {sec:'rep',k:'repEmail',l:'بريده',t:'text',v:'int',m:'direct',ltr:1,chk:'email',when:()=>PS.d.repIs=='شخص آخر'},
+ {sec:'rep',k:'repMobile',l:'جواله',t:'text',v:'int',m:'direct',ltr:1,chk:'mobile',ph:'05xxxxxxxx',when:()=>PS.d.repIs=='شخص آخر'},
  {sec:'plat',k:'volSt',l:'حسابكم في المنصة الوطنية للعمل التطوعي',t:'sel',opts:()=>['','غير مسجّلة','مسجّلة غير مفعّلة','مفعّلة'],v:'int',m:'direct'},
  {sec:'plat',k:'volRef',l:'رابط حسابكم أو رقمه في المنصة',t:'text',v:'int',m:'direct',ltr:1},
  {sec:'plat',k:'volLast',l:'تاريخ آخر فرصة تطوعية نشرتموها',t:'date',v:'int',m:'direct'},
@@ -4516,7 +4525,7 @@ const PF=[
  {sec:'lic',k:'exp',l:'تاريخ انتهاء الترخيص',t:'date',v:'int',m:'review',req:1},
  {sec:'lic',k:'licFile',l:'صورة الترخيص الساري',t:'file',v:'int',m:'review',full:1}
 ];
-const PSEC=[['id','هوية الجمعية','building','تظهر في صفحة الجمعية العامة ودليل الجمعيات'],['field','المجال والخدمات','grid','تساعد المستفيدين والداعمين على الوصول لجمعيتك'],['contact','التواصل','chat','لا يظهر للزوار إلا بموافقتكم'],['lead','القيادة','user','بيانات داخلية للمجلس فقط ولا تظهر في الموقع'],['size','الحجم والحوكمة','chart','أرقام تنظيمية تساعد المجلس على فهم حجم الجمعية ودعمها، ولا تُنشر'],['plat','المنصات الرقمية','link','«مسجّلة» = لكم حساب، «مفعّلة» = نشرتم فرصة أو اعتمدتم ساعات خلال 12 شهراً'],['lic','الترخيص','shield','للمتابعة الداخلية وتذكيركم قبل انتهاء الترخيص']];
+const PSEC=[['id','هوية الجمعية','building','تظهر في صفحة الجمعية العامة ودليل الجمعيات'],['field','المجال والخدمات','grid','تساعد المستفيدين والداعمين على الوصول لجمعيتك'],['contact','التواصل','chat','لا يظهر للزوار إلا بموافقتكم'],['lead','القيادة','user','بيانات داخلية للمجلس فقط ولا تظهر في الموقع'],['rep','ممثل البيانات','people','من يتابع تحديث بيانات الجمعية مع المجلس، وإليه تُرسل روابط التحديث القادمة'],['size','الحجم والحوكمة','chart','أرقام تنظيمية تساعد المجلس على فهم حجم الجمعية ودعمها، ولا تُنشر'],['plat','المنصات الرقمية','link','«مسجّلة» = لكم حساب، «مفعّلة» = نشرتم فرصة أو اعتمدتم ساعات خلال 12 شهراً'],['lic','الترخيص','shield','للمتابعة الداخلية وتذكيركم قبل انتهاء الترخيص']];
 var PS_NCNP={};
 const VIS={pub:['pub','عام'],con:['con','بموافقتكم'],int:['int','داخلي']};
 let PS=null; // portal state
@@ -4546,6 +4555,10 @@ function validate(f,v){if(!v)return '';if(f.chk=='email'){if(/@test\.com$/i.test
  if(f.chk=='mobile'&&!/^(05\d{8}|\+9665\d{8})$/.test(v.replace(/[\s-]/g,'')))return 'اكتب الرقم بصيغة 05xxxxxxxx';if(f.chk=='int'&&!/^\d{1,9}$/.test(String(v).trim()))return 'أرقام فقط';if(f.chk=='url'&&!/^https?:\/\/[^\s]+\.[^\s]+$/i.test(String(v).trim()))return 'اكتب الرابط كاملاً يبدأ بـ https://';if(f.chk=='year'&&!/^(19|20)\d{2}$/.test(String(v).trim()))return 'اكتب السنة بأربعة أرقام';return ''}
 function completeness(){const R=PF.filter(f=>f.req);return Math.round(R.filter(fieldOK).length/R.length*100)}
 /* 0.88: صفحة تحديث البيانات بلغة المنصة: رأس الهوية والمؤشر، «ما يرفع مؤشركم»، أقسام بطاقات، وشريط جانبي للتنقل */
+const REP_IS=['المفوض','المدير التنفيذي','رئيس مجلس الإدارة','شخص آخر'];
+const pfVis=f=>!f.when||f.when();
+/* ممثل البيانات الفعلي: من الحقول المسجّلة حسب الاختيار */
+function repWho(d){d=d||PS.d;const k=d.repIs;if(k=='المفوض')return {n:d.del,r:'المفوض',e:d.delEmail,m:d.delMobile};if(k=='المدير التنفيذي')return d.execSame?{n:d.del,r:'المدير التنفيذي والمفوض',e:d.delEmail,m:d.delMobile}:{n:d.exec,r:'المدير التنفيذي',e:d.execEmail,m:d.execMobile};if(k=='رئيس مجلس الإدارة')return {n:d.pres,r:'رئيس مجلس الإدارة',e:d.presEmail,m:''};if(k=='شخص آخر')return {n:d.repName,r:d.repRole||'ممثل البيانات',e:d.repEmail,m:d.repMobile};return null}
 /* مؤشر ← حقل في صفحة التحديث (أول حقل موجود منها) */
 const PV_HSK={d_lic:['exp'],a_lic:['licFile'],d_con:['email','mobile'],d_lead:['pres','del'],d_exec:['exec','execType'],a_exec:['execType'],d_board:['board'],d_plat:['volSt','ehsanSt'],a_vol:['volSt'],a_don:['ehsanSt','donate'],d_gov:['assembly','finYear'],a_gov:['assembly','finYear'],d_prof:['about','progs','benef']};
 const pvHsF=k=>(PV_HSK[k]||[]).find(f=>PF.some(x=>x.k==f))||null;
@@ -4579,7 +4592,7 @@ function notesCard(){const N=PS.portal&&PORTAL.notes||[];if(!N.length)return'';c
 function renderDash(){if(PS.portal&&!PS.base)PS.base=JSON.parse(JSON.stringify(PS.d));
  const secSt=k=>{const F=PF.filter(f=>f.sec==k),m=F.filter(f=>f.req&&!fieldOK(f)).length;return m?`<span class="pill2 p-warn">${m} ناقص</span>`:`<span class="pill2 p-ok">مكتمل</span>`};
  $('#pbody').innerHTML=`<div class="wrap pv"><div id="pvHead">${pvHead()}</div><div id="pvNeed">${pvNeed()}</div>
- <div class="pvwrap"><main>${notesCard()}${PSEC.map(s=>`<section class="pvsec" id="ps_${s[0]}"><div class="pvsh"><i>${I(P[s[2]]||P.file,'width:18px;height:18px')}</i><div><h3>${s[1]}</h3><p>${s[3]}</p></div>${secSt(s[0])}</div><div class="flds">${PF.filter(f=>f.sec==s[0]).map(fieldHTML).join('')}</div></section>`).join('')}
+ <div class="pvwrap"><main>${notesCard()}${PSEC.map(s=>`<section class="pvsec" id="ps_${s[0]}"><div class="pvsh"><i>${I(P[s[2]]||P.file,'width:18px;height:18px')}</i><div><h3>${s[1]}</h3><p>${s[3]}</p></div>${secSt(s[0])}</div><div class="flds">${PF.filter(f=>f.sec==s[0]&&pfVis(f)).map(fieldHTML).join('')}</div></section>`).join('')}
  <div class="psave"><p id="psaveTxt"></p><button class="btn p" onclick="saveProfile()">${PS.portal?'إرسال للمجلس':'حفظ التحديثات'}</button></div></main><aside class="pside pvrail">${pvRail()}</aside></div></div>`;
  bindFields();updSave();
 }
@@ -4592,6 +4605,8 @@ function fieldHTML(f){const v=PS.d[f.k]??'',err=validate(f,v),miss=f.req&&!v&&f.
  if(f.t=='area')inp=`<textarea rows="3" data-k="${f.k}" maxlength="${f.max||800}" placeholder="${f.ph||''}">${v}</textarea>${f.max?`<span class="hint"><span id="cnt_${f.k}">${v.length}</span>/${f.max} حرف</span>`:''}`;
  else if(f.t=='sel')inp=`<select data-k="${f.k}">${f.opts().map(o=>`<option ${o==v?'selected':''}>${o}</option>`).join('')}</select>`;
  else if(f.t=='chips')inp=`<div class="chips" data-k="${f.k}">${f.opts.map(o=>`<button type="button" class="${(v||[]).includes(o)?'on':''}">${o}</button>`).join('')}</div>`;
+ else if(f.t=='same')return `<div class="fld full" id="pf_${f.k}"><div class="consent"><p>${f.l}<small>${f.d||''}</small></p><button type="button" class="tg ${v?'on':''}" data-k="${f.k}" aria-pressed="${!!v}" aria-label="${f.l}"></button></div></div>`;
+ else if(f.t=='info'){const w=repWho();return `<div class="fld full" id="pf_${f.k}"><div class="pvrep">${w&&w.n?`<b>${esc(w.n)}</b><small>${esc(w.r)}${w.e?' · <span dir="ltr">'+esc(w.e)+'</span>':''}${w.m?' · <span dir="ltr">'+esc(w.m)+'</span>':''}</small>`:`<b>${esc(PS.d.repIs)}</b><small class="w">لم تُسجَّل بياناته بعد في قسم «القيادة»</small><button type="button" class="lnk" onclick="goSec('lead')">أكملوها ←</button>`}</div></div>`}
  else if(f.t=='consent')return `<div class="fld full"><div class="consent"><p>نوافق على عرض البريد والجوال الرسميين في صفحة الجمعية العامة<small>إذا لم توافقوا، تصلكم طلبات التواصل عبر المجلس دون نشر بياناتكم</small></p><button class="tg ${v?'on':''}" data-k="consent" aria-pressed="${!!v}" aria-label="موافقة نشر التواصل"></button></div></div>`;
  else if(f.t=='file')inp=`<input type="file" data-k="${f.k}" accept="application/pdf,image/*"><span class="hint">ارفعوا الترخيص المجدد عند التجديد ليُحدّث تاريخ الانتهاء بعد مراجعته</span>`;
  else inp=`<input type="${f.t=='date'?'date':'text'}" data-k="${f.k}" value="${v}" placeholder="${f.ph||''}" ${f.m=='locked'?'readonly':''} ${f.ltr?'style="direction:ltr;text-align:right"':''}>`;
@@ -4602,9 +4617,9 @@ function fieldHTML(f){const v=PS.d[f.k]??'',err=validate(f,v),miss=f.req&&!v&&f.
 function bindFields(){
  $$('#pbody [data-k]').forEach(el=>{const k=el.dataset.k,f=PF.find(x=>x.k==k);
   if(el.classList.contains('chips'))el.onclick=e=>{const b=e.target.closest('button');if(!b)return;const arr=PS.d[k]||(PS.d[k]=[]);const i=arr.indexOf(b.textContent);i<0?arr.push(b.textContent):arr.splice(i,1);b.classList.toggle('on');updSide();updSave()};
-  else if(el.classList.contains('tg'))el.onclick=()=>{PS.d.consent=!PS.d.consent;el.classList.toggle('on',PS.d.consent);el.setAttribute('aria-pressed',PS.d.consent);updSave()};
+  else if(el.classList.contains('tg'))el.onclick=()=>{PS.d[k]=!PS.d[k];el.classList.toggle('on',PS.d[k]);el.setAttribute('aria-pressed',PS.d[k]);updSave();if(PF.some(f=>f.when))pvRerender()};
   else if(el.type=='file')el.onchange=()=>{if(el.files[0]){PS.d[k]=el.files[0].name;if(PS.files)PS.files[k]=el.files[0];updSave()}};
-  else{el.oninput=()=>{PS.d[k]=el.value;const c=$('#cnt_'+k);if(c)c.textContent=el.value.length;updSave()};el.onchange=()=>{PS.d[k]=el.value;setTimeout(()=>refreshField(k),0)}}});
+  else{el.oninput=()=>{PS.d[k]=el.value;const c=$('#cnt_'+k);if(c)c.textContent=el.value.length;updSave()};el.onchange=()=>{PS.d[k]=el.value;setTimeout(()=>PV_GOV.includes(k)?pvRerender():refreshField(k),0)}}});
  const inp=$('#logoIn'),drop=$('#drop');if(!inp)return;
  inp.onchange=()=>inp.files[0]&&handleLogo(inp.files[0]);
  drop.ondragover=e=>{e.preventDefault();drop.classList.add('over')};drop.ondragleave=()=>drop.classList.remove('over');
@@ -4675,8 +4690,12 @@ function logoPrev(src,m){m=m||{w:0,h:0};const lo=!m.svg&&Math.min(m.w,m.h)<1000,
  <span class="${m.png||m.svg?'y':'m'}">${I(m.png||m.svg?P.check:P.info,'width:16px;height:16px')}${m.png||m.svg?'الصيغة تدعم الخلفية الشفافة':'صيغة JPG لا تدعم الشفافية، يُفضّل PNG'}</span></div>`}
 function goSec(k){PS.sec=k;$$('.pnav button,.pvnav button').forEach((b,i)=>b.classList.toggle('on',PSEC[i][0]==k));$('#ps_'+k).scrollIntoView({behavior:'smooth'})}
 function goField(k){const el=$('#pf_'+k);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{const i=el.querySelector('input:not([hidden]),textarea,select');i&&i.focus()},400)}
-function changed(){return PF.filter(f=>(f.m!='locked'&&JSON.stringify(PS.d[f.k]??'')!==JSON.stringify(PS.orig[f.k]??''))||(PS.fix&&PS.fix[f.k]!=null))}
-function updSave(){if(typeof pvLive=='function')pvLive();const c=changed(),rv=c.filter(f=>f.m=='review').length;$('#psaveTxt').innerHTML=c.length?`<b>${c.length} تعديل غير محفوظ</b>${rv?` · ${rv} منها يُراجع من المجلس`:''}`:(PS.portal&&Object.keys(PS_NCNP).length?`<b>${Object.keys(PS_NCNP).length} من بيانات السجل الوطني بانتظار تأكيدكم</b> · راجعوها ثم اضغطوا إرسال`:'كل التعديلات محفوظة')}
+/* حقول تغيّر ما يظهر من غيرها */
+const PV_GOV=['execType','repIs','del','delEmail','delMobile','exec','pres'];
+function pvSync(){const d=PS&&PS.d;if(!d||!PF.some(f=>f.k=='execSame'))return;if(d.execSame){d.exec=d.del||'';d.execEmail=d.delEmail||'';d.execMobile=d.delMobile||''}}
+function pvRerender(){if(typeof renderDash!='function'||!$('#pbody .pv'))return;const y=scrollY,a=document.activeElement&&document.activeElement.dataset&&document.activeElement.dataset.k;renderDash();scrollTo(0,y);if(a){const e=$(`#pbody [data-k="${a}"]`);e&&e.focus({preventScroll:true})}}
+function changed(){return PF.filter(f=>!f.virt&&(f.m!='locked'&&JSON.stringify(PS.d[f.k]??'')!==JSON.stringify(PS.orig[f.k]??''))||(PS.fix&&PS.fix[f.k]!=null))}
+function updSave(){pvSync();if(typeof pvLive=='function')pvLive();const c=changed(),rv=c.filter(f=>f.m=='review').length;$('#psaveTxt').innerHTML=c.length?`<b>${c.length} تعديل غير محفوظ</b>${rv?` · ${rv} منها يُراجع من المجلس`:''}`:(PS.portal&&Object.keys(PS_NCNP).length?`<b>${Object.keys(PS_NCNP).length} من بيانات السجل الوطني بانتظار تأكيدكم</b> · راجعوها ثم اضغطوا إرسال`:'كل التعديلات محفوظة')}
 function saveProfile(){const c=changed();if(!c.length&&!(PS.portal&&Object.keys(PS_NCNP).length)){toast('لا توجد تعديلات جديدة');return}
  const bad=PF.filter(f=>PS.d[f.k]&&validate(f,PS.d[f.k]));if(bad.length){goField(bad[0].k);toast('صحّح الحقول المظللة بالأحمر أولاً',1);return}
  if(PS.portal)return portalSubmit(c);
@@ -6705,6 +6724,7 @@ async function recEdit(id,sec){let L,F;try{[L,F]=await Promise.all([recLookups()
   <section data-rp="lead"><h4>المدير التنفيذي <span class="vis int">داخلي</span></h4><div class="g3">${inp('c.exec','الاسم',c.exec)}${inp('c.execEmail','البريد',c.execEmail,{ltr:1,t:'email'})}${inp('c.execMobile','الجوال',c.execMobile,{ltr:1,im:'tel'})}${sel('p.execType','طبيعة العمل',[['','غير محدد'],['متفرغ','متفرغ'],['غير متفرغ','غير متفرغ'],['متطوع','متطوع'],['شاغر','المنصب شاغر']],p.execType||'')}${inp('p.execSince','تاريخ التعيين',p.execSince,{t:'date'})}</div>
    <h4>رئيس مجلس الإدارة <span class="vis int">داخلي</span></h4><div class="g3">${inp('c.pres','الاسم',c.pres)}${inp('c.presEmail','البريد',c.presEmail,{ltr:1,t:'email'})}${inp('c.presMobile','الجوال',c.presMobile,{ltr:1,im:'tel'})}</div>
    <h4>المفوض</h4><div class="g3">${inp('c.del','الاسم',c.del)}${inp('c.delEmail','البريد',c.delEmail,{ltr:1,t:'email'})}${inp('c.delMobile','الجوال',c.delMobile,{ltr:1,im:'tel'})}</div>
+   <h4>ممثل البيانات <span class="vis int">من يتابع البيانات مع المجلس</span></h4><div class="g3">${sel('p.repIs','من هو',[['','غير محدد'],...REP_IS.map(x=>[x,x])],p.repIs||'')}${inp('c.repName','الاسم (إن كان شخصاً آخر)',c.repName)}${inp('c.repRole','صفته',c.repRole)}${inp('c.repEmail','البريد',c.repEmail,{ltr:1,t:'email'})}${inp('c.repMobile','الجوال',c.repMobile,{ltr:1,im:'tel'})}</div>
    <h4>أعضاء مجلس الإدارة</h4><div id="recBoard">${c.board.map(mem).join('')}</div><button type="button" class="btn o" id="recAddM">+ إضافة عضو</button></section>
   <section data-rp="notes" class="recnotes"><h4>سجل الملاحظات <span class="vis con">تظهر للجمعية في رابط التحديث</span></h4>
    ${F.checks.length?`<div class="rn-auto"><b>فحص تلقائي (${F.checks.length})</b>${F.checks.map(x=>`<span>${esc(x.t)}</span>`).join('')}<small>تُحسب من البيانات وتختفي عند تصحيحها، وتظهر للجمعية تلقائياً.</small></div>`:''}
@@ -7681,7 +7701,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.89)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.90)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['links','روابط دخول شخصية لكل صاحب صلاحية بدوره (المرحلة الحالية)',()=>true,'done','من «المستخدمون»: رابط لكل شخص بمدة وإلغاء فوري، وكل دخول مسجّل باسمه.'],['access','الربط ببريد المجلس عبر Cloudflare Access (مؤجل حتى تكتمل تجربة الروابط)',()=>!!(SESSION&&SESSION.authAccess),'later','من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
@@ -8359,7 +8379,7 @@ AM.assoc=el=>{const o=DBI[ADM.aid];if(!o){el.innerHTML=`<div class="empty">اخ�
  // ---- البطاقات ----
  const licBody=`<div class="fl2">${F('تاريخ الإصدار',o.issued)}${F('تاريخ الانتهاء',o.exp)}${F('الحالة المحسوبة',stPill(o)+(o.days!=null?` <small style="display:inline">${o.days<0?'منذ '+(-o.days):'بعد '+o.days} يوماً</small>`:''))}${F('الحالة في الملف الأصلي',o.origSt)}${F('رقم الترخيص',o.lic)}${F('الرقم الموحد',pv(o.uid,'u'))}${F('المحافظة',o.gov)}${F('تاريخ التأسيس',o.founded)}${F('الجهة المشرفة',esc(o.sup),1)}${F('التصنيف الفرعي',esc(o.s1))}${F('التصنيف الفرعي الثاني',esc(o.s2))}</div>${full&&full.ncnp?ncnpPanel(full).replace(/^<div class="panel">/,'<div class="a3sub">'):''}`;
  const licHead=o.closed?chip('مغلقة'):`${stPill(o)}${o.days!=null?`<small>${o.days<0?'منذ '+(-o.days):'بعد '+o.days} يوماً</small>`:''}${full&&full.ncnp&&full.ncnp.score!=null?chip('حوكمة '+Math.round(full.ncnp.score)+'%',full.ncnp.score>=70?'p-ok':'p-warn'):''}`;
- const conBody=`<div class="fl2">${F('بريد الجمعية',pv(o.email,'e'))}${F('جوال الجمعية',pv(o.mobile,'p'))}${full&&full.profile&&full.profile.phone?F('الهاتف الرسمي',esc(full.profile.phone)):''}${F('رئيس مجلس الإدارة',pv(o.pres,'n'))}${F('بريد الرئيس',pv(o.presEmail,'e'))}${F('المفوض',pv(o.del,'n'))}${F('بريد المفوض',pv(o.delEmail,'e'))}${full&&full.profile&&full.profile.address?F('العنوان',esc(full.profile.address),1):''}</div>${ADM.reveal?'':'<div class="demoNote">البيانات الشخصية مخفية. فعّل «إظهار البيانات الشخصية» من أعلى الصفحة لعرضها.</div>'}${full&&full.contacts&&full.contacts.board&&full.contacts.board.length?`<p class="d" style="margin:10px 0 0">مجلس الإدارة: ${full.contacts.board.length} أعضاء مسجّلين. <button class="lnk" onclick="recEdit(${o.id},'lead')">عرض وتعديل ←</button></p>`:''}`;
+ const conBody=`<div class="fl2">${F('بريد الجمعية',pv(o.email,'e'))}${F('جوال الجمعية',pv(o.mobile,'p'))}${full&&full.profile&&full.profile.phone?F('الهاتف الرسمي',esc(full.profile.phone)):''}${F('رئيس مجلس الإدارة',pv(o.pres,'n'))}${F('بريد الرئيس',pv(o.presEmail,'e'))}${F('المفوض',pv(o.del,'n'))}${F('بريد المفوض',pv(o.delEmail,'e'))}${full&&full.profile&&full.profile.repIs?F('ممثل البيانات',esc(full.profile.repIs)+(full.profile.repIs=='شخص آخر'&&full.contacts&&full.contacts.repName?' · '+pv(full.contacts.repName,'n')+(full.contacts.repRole?' ('+esc(full.contacts.repRole)+')':''):'')):''}${full&&full.profile&&full.profile.address?F('العنوان',esc(full.profile.address),1):''}</div>${ADM.reveal?'':'<div class="demoNote">البيانات الشخصية مخفية. فعّل «إظهار البيانات الشخصية» من أعلى الصفحة لعرضها.</div>'}${full&&full.contacts&&full.contacts.board&&full.contacts.board.length?`<p class="d" style="margin:10px 0 0">مجلس الإدارة: ${full.contacts.board.length} أعضاء مسجّلين. <button class="lnk" onclick="recEdit(${o.id},'lead')">عرض وتعديل ←</button></p>`:''}`;
  const conHead=`${compBar(o.comp)}${o.comp==0?chip('لا تواصل','p-bad'):''}`;
  const qBody=`${fl.length?flagBanner(o).replace('class="flgban"','class="flgban a3in"'):'<p class="d a3ok">'+I(P.check,'width:14px;height:14px')+' لا بيانات تحتاج تحقق.</p>'}
   ${ncp?`<div class="a3sub"><b>${ncp} من بيانات السجل الوطني بانتظار تأكيد الجمعية</b><p class="d">${full.ncnp.pending.map(k=>NCNP_L[k]||k).join('، ')}. تؤكدها الجمعية من رابط التحديث، أو يعتمدها الفريق باعتماد أي طلب تحديث.</p></div>`:''}
@@ -9533,12 +9553,12 @@ function portalBoot(){
  const A=PORTAL.a;ALLG.length=0;ALLG.push(...PORTAL.govs);
  // حقول البوابة على المنصة: تاريخ تأسيس بدل السنة، وكل تعديل يُراجع من المجلس، والحقول الشخصية حسب قرار الفريق
  const yi=PF.findIndex(f=>f.k=='y');if(yi>=0)PF.splice(yi,1,{sec:'id',k:'founded',l:'تاريخ التأسيس',t:'date',v:'pub',m:'review',req:1});
- for(let i=PF.length-1;i>=0;i--){const f=PF[i];if(f.k=='uid'||(!PORTAL.personal&&(f.sec=='contact'||f.sec=='lead')&&!f.np))PF.splice(i,1);else if(f.m!='locked')f.m='review'}
+ for(let i=PF.length-1;i>=0;i--){const f=PF[i];if(f.k=='uid'||(!PORTAL.personal&&(f.sec=='contact'||f.sec=='lead'||f.sec=='rep')&&!f.np))PF.splice(i,1);else if(f.m!='locked')f.m='review'}
  for(let i=PSEC.length-1;i>=0;i--)if(!PF.some(f=>f.sec==PSEC[i][0]))PSEC.splice(i,1);
  {const L=PSEC.find(x=>x[0]=='lead');if(L&&!PORTAL.personal){L[1]='الإدارة التنفيذية';L[3]='طبيعة عمل المدير التنفيذي وتاريخ تعيينه: بيانات تنظيمية لا تُنشر'}}
- const d={n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1||'',founded:A.founded||'',exp:A.exp||'',short:A.short||'',about:A.about||'',web:A.web||'',social:A.social||'',ben:A.ben||[],progs:A.progs||'',logo:A.logo||'',y:A.founded?A.founded.slice(0,4):'',staff:A.staff??'',vols:A.vols??'',volHours:A.volHours??'',volOpps:A.volOpps??'',volYear:A.volYear??'',benef:A.benef??'',assembly:A.assembly||'',finYear:A.finYear??'',revBand:A.revBand||'',donate:A.donate||'',phone:A.phone||'',address:A.address||'',postal:A.postal||'',pobox:A.pobox||'',execType:A.execType||'',execSince:A.execSince||'',volSt:A.volSt||'',volRef:A.volRef||'',volLast:A.volLast||'',ehsanSt:A.ehsanSt||'',ehsanRef:A.ehsanRef||''};
+ const d={n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1||'',founded:A.founded||'',exp:A.exp||'',short:A.short||'',about:A.about||'',web:A.web||'',social:A.social||'',ben:A.ben||[],progs:A.progs||'',logo:A.logo||'',y:A.founded?A.founded.slice(0,4):'',staff:A.staff??'',vols:A.vols??'',volHours:A.volHours??'',volOpps:A.volOpps??'',volYear:A.volYear??'',benef:A.benef??'',assembly:A.assembly||'',finYear:A.finYear??'',revBand:A.revBand||'',donate:A.donate||'',phone:A.phone||'',address:A.address||'',postal:A.postal||'',pobox:A.pobox||'',execType:A.execType||'',execSince:A.execSince||'',volSt:A.volSt||'',volRef:A.volRef||'',volLast:A.volLast||'',ehsanSt:A.ehsanSt||'',ehsanRef:A.ehsanRef||'',repIs:A.repIs||''};
  PS_NCNP=Object.fromEntries((A.ncnpPending||[]).map(k=>[k,1]));
- if(PORTAL.personal){Object.assign(d,{consent:!!A.consent});['email','mobile','pres','presEmail','del','delEmail','delMobile','exec','execEmail','execMobile'].forEach(k=>d[k]=A[k]||'')}
+ if(PORTAL.personal){Object.assign(d,{consent:!!A.consent});['email','mobile','pres','presEmail','del','delEmail','delMobile','exec','execEmail','execMobile','repName','repRole','repEmail','repMobile'].forEach(k=>d[k]=A[k]||'');d.execSame=!!(d.exec&&d.exec==d.del&&(d.execEmail||'')==(d.delEmail||''))}
  PS={a:{n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1},auth:true,portal:true,d,orig:JSON.parse(JSON.stringify(d)),pending:Object.fromEntries(PORTAL.pending.map(k=>[k,1])),sec:'id',files:{}};
  document.body.classList.add('portalmode');
  const t=$('#portal .demo');if(t)t.textContent='رابط خاص بجمعيتكم';
@@ -9551,14 +9571,20 @@ function portalFix(l){const f=PF.find(x=>x.l==l);if(!f)return;
  $('#ov').classList.add('on');$('#ov').style.zIndex=96;$('#modal').style.zIndex=97;$('#modal').classList.add('on');
  $('#fixF').onsubmit=e=>{e.preventDefault();const v=e.target.v.value.trim();if(!v||v==PS.d[f.k]){toast('اكتب قيمة مختلفة عن الحالية',1);return}
   PS.fix=PS.fix||{};PS.fix[f.k]=v;const d=e.target.doc.files[0];if(d)PS.files.fixDoc=d;closeAll();updSave();toast('أُضيف التصحيح، أرسله مع التحديثات')}}
+/* من يرسل: الأشخاص المسجّلون في الصفحة، ومُختار مسبقاً ممثل البيانات */
+function pvSenders(){const d=PS.d,L=[],w=repWho(d);const add=(r,n)=>{if(!L.some(x=>x.r==r))L.push({r,n:n||''})};
+ if(w&&d.repIs=='شخص آخر')add(w.r,w.n);add('المفوض',d.del);if(!d.execSame&&d.execType!='شاغر')add('المدير التنفيذي',d.exec);add('رئيس مجلس الإدارة',d.pres);L.push({r:'شخص آخر',n:''});
+ const on=w?L.find(x=>x.r==w.r||(d.repIs=='المدير التنفيذي'&&d.execSame&&x.r=='المفوض')):null;if(on)on.on=1;if(d.execSame){const x=L.find(x=>x.r=='المفوض');if(x)x.r='المفوض والمدير التنفيذي'}return L}
 function portalSubmit(c){
  const keys=c.map(f=>f.k),conf=Object.keys(PS_NCNP).filter(k=>!keys.includes(k)&&PS.d[k]);
  $('#modal').innerHTML=`<div class="ic">${I(P.file)}</div><h3>${keys.length?'إرسال التحديثات للمجلس':'تأكيد بيانات الجمعية'}</h3><p>${keys.length?keys.length+' تعديل سيصل لفريق المجلس للمراجعة قبل اعتماده. ':''}${conf.length?`وتؤكدون ${conf.length} من البيانات المأخوذة من السجل الوطني كما هي (${conf.map(k=>(PF.find(f=>f.k==k)||{l:k}).l).join('، ')}). `:''}عرّفونا بمن يرسل:</p>
- <form class="form" id="psubf" style="grid-template-columns:1fr;margin-top:14px"><label>الاسم<input name="submitter_name" required maxlength="120" autocomplete="name"></label>
- <label>الصفة في الجمعية<input name="submitter_role" required maxlength="80" placeholder="مثال: المدير التنفيذي"></label>
+ <form class="form" id="psubf" style="grid-template-columns:1fr;margin-top:14px">${(()=>{const W=pvSenders();return W.length>1?`<div class="pvwho" role="radiogroup" aria-label="من يرسل">${W.map((w,i)=>`<button type="button" role="radio" aria-checked="${!!w.on}" class="${w.on?'on':''}" data-i="${i}"><b>${esc(w.r)}</b>${w.n?`<small>${esc(w.n)}</small>`:''}</button>`).join('')}</div>`:''})()}
+ <label>الاسم<input name="submitter_name" required maxlength="120" autocomplete="name" value="${esc((pvSenders().find(w=>w.on)||{}).n||'')}"></label>
+ <label>الصفة في الجمعية<input name="submitter_role" required maxlength="80" placeholder="مثال: المدير التنفيذي" value="${esc((pvSenders().find(w=>w.on&&w.r!='شخص آخر')||{}).r||'')}"></label>
  <label>ملاحظة للمجلس (اختياري)<textarea name="note" rows="2" maxlength="600"></textarea></label>
  <button class="btn n" style="justify-content:center" id="psubb">إرسال الطلب</button></form>`;
  $('#ov').classList.add('on');$('#ov').style.zIndex=96;$('#modal').style.zIndex=97;$('#modal').classList.add('on');
+ {const W=pvSenders(),F=$('#psubf');F.querySelectorAll('.pvwho button').forEach(b=>b.onclick=()=>{const w=W[+b.dataset.i];F.querySelectorAll('.pvwho button').forEach(x=>{x.classList.toggle('on',x==b);x.setAttribute('aria-checked',x==b)});F.submitter_name.value=w.n||'';F.submitter_role.value=w.r=='شخص آخر'?'':w.r;(w.n?F.submitter_role:F.submitter_name).focus()})}
  $('#psubf').onsubmit=async e=>{e.preventDefault();const b=$('#psubb');b.disabled=true;b.textContent='جارٍ الإرسال…';
   const fd=new FormData(e.target),data={};
   keys.forEach(k=>{if(!PS.files[k])data[k]=PS.fix&&PS.fix[k]!=null?PS.fix[k]:PS.d[k]});if(PS.files.fixDoc&&!keys.includes('fixDoc'))keys.push('fixDoc');

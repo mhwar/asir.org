@@ -110,10 +110,10 @@ async function servePortal(req, env, token) {
   if (!link) return shell(`<h1>مجلس الجمعيات الأهلية بعسير</h1><p>رابط التحديث غير صالح أو انتهت مدته.</p><p>تواصل مع فريق المجلس لإرسال رابط جديد.</p>`, 404);
   if (req.method === 'POST') {
     const r = await rq.verifyPin(env, req, link, token);
-    if (!r.ok) return pinForm(r.message, r.locked ? 429 : 401);
+    if (!r.ok) return pinForm(await rq.linkIntro(env, link), r.message, r.locked ? 429 : 401);
     return withHeaders(new Response(null, { status: 303, headers: { Location: `/u/${token}`, 'Set-Cookie': r.cookie, 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
   }
-  if (!(await rq.pinOk(env, req, link))) return pinForm();
+  if (!(await rq.pinOk(env, req, link))) return pinForm(await rq.linkIntro(env, link));
   const asset = await env.ASSETS.fetch(new Request(new URL('/', req.url), { headers: req.headers }));
   let html = await asset.text();
   // public directory fields only (what the public site will show); internal data stays out
@@ -181,10 +181,34 @@ function previewForm(msg = '', status = 401) {
 <button type="submit">دخول</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لديك رابط دخول خاص؟ افتحه مباشرة.<br>للفريق فقط — لا يُنشر</div>`, status);
 }
 
-function pinForm(msg = '', status = 200) {
-  return shell(`<h1>تحديث بيانات الجمعية</h1><p>أدخل رمز الدخول المكوّن من 6 أرقام، المرسل لكم مع الرابط من مجلس الجمعيات الأهلية بعسير.</p>
-<form method="post"><input name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus aria-label="رمز الدخول" placeholder="••••••">
-<button type="submit">متابعة</button></form>${msg ? `<div class="e">${msg}</div>` : ''}<div class="n">لم يصلكم الرمز؟ تواصلوا مع فريق المجلس.</div>`, status, { 'Referrer-Policy': 'no-referrer' });
+const escH = (v) => String(v ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+// صفحة الترحيب ورمز الدخول لرابط تحديث البيانات: هوية المجلس، الجمعية المعنية، ما ستفعلونه وما تحتاجونه، ثم الرمز
+function pinForm(a, msg = '', status = 200) {
+  const ini = a ? escH(String(a.n).replace(/^(جمعية|الجمعية)\s+/, '').trim().charAt(0)) : '';
+  const exp = a && a.expires ? new Date(a.expires).toLocaleDateString('ar-SA-u-nu-latn-ca-gregory', { day: 'numeric', month: 'long', year: 'numeric' }) : '';
+  return withHeaders(new Response(`<!doctype html><html lang="ar" dir="rtl"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>تحديث بيانات الجمعية — مجلس الجمعيات الأهلية بمنطقة عسير</title>
+<style>*{box-sizing:border-box}body{font-family:system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;margin:0;background:#F4F6FA;color:#111182;min-height:100vh;display:grid;place-items:center;padding:24px 16px}
+.w{width:min(520px,100%);display:grid;gap:14px}.top{display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:4px}.top img{height:64px}
+.c{background:#fff;border-radius:20px;box-shadow:0 10px 40px -14px #11118233;padding:26px 24px}
+.org{display:flex;align-items:center;gap:14px;padding-bottom:18px;border-bottom:1px solid #E6EAF3;margin-bottom:18px}.lg{width:58px;height:58px;border-radius:16px;background:#EEF2FF;display:grid;place-items:center;flex:none;overflow:hidden;font-size:24px;font-weight:800;color:#1249FF}.lg img{width:100%;height:100%;object-fit:contain;background:#fff}
+.org small{display:block;font-size:12px;color:#6B7393;margin-bottom:2px}.org h1{font-size:18px;margin:0 0 4px;line-height:1.4}.org p{margin:0;font-size:12.5px;color:#6B7393}
+h2{font-size:15.5px;margin:0 0 6px}.lead{color:#4A5270;font-size:14px;line-height:1.8;margin:0 0 16px}
+.st{list-style:none;margin:0 0 16px;padding:0;display:grid;gap:8px}.st li{display:flex;gap:10px;align-items:flex-start;font-size:13.5px;color:#4A5270;line-height:1.6}.st b{color:#111182}.st i{flex:none;width:24px;height:24px;border-radius:50%;background:#EEF2FF;color:#1249FF;font-style:normal;font-weight:800;font-size:12.5px;display:grid;place-items:center}
+.nd{background:#F7F8FC;border-radius:14px;padding:12px 14px;margin-bottom:18px}.nd b{font-size:13px}.nd ul{margin:6px 0 0;padding:0 18px 0 0;font-size:13px;color:#4A5270;line-height:1.8}
+label{display:block;font-size:13.5px;font-weight:700;margin-bottom:8px}input{width:100%;padding:14px;border:1.5px solid #D7DCE6;border-radius:14px;font-size:22px;text-align:center;letter-spacing:10px;direction:ltr;font-weight:700;color:#111182}input:focus{outline:none;border-color:#1249FF;box-shadow:0 0 0 4px #1249FF22}
+button{width:100%;margin-top:12px;padding:14px;border:0;border-radius:14px;background:#1249FF;color:#fff;font-size:15.5px;font-weight:700;cursor:pointer}button:hover{background:#0E3BD6}
+.e{color:#B42318;background:#FEF3F2;border-radius:10px;padding:8px 12px;font-size:13px;margin-top:10px}.h{font-size:12.5px;color:#6B7393;margin-top:12px;line-height:1.7;text-align:center}
+.pv{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;color:#4A5270;line-height:1.7;background:#EDF8F2;border-radius:12px;padding:10px 12px}.f{text-align:center;font-size:12px;color:#8A93A6}
+</style><body><main class="w"><div class="top"><img src="/brand-kit/asir-council-logo-navy.svg" alt="مجلس الجمعيات الأهلية بمنطقة عسير"></div>
+<div class="c">${a ? `<div class="org"><div class="lg">${a.logo ? `<img src="/u-logo/${a.id}" alt="">` : ini}</div><div><small>رابط خاص بتحديث بيانات</small><h1>${escH(a.n)}</h1><p>ترخيص ${escH(a.lic)} · ${escH(a.gov)}${exp ? ` · الرابط صالح حتى ${exp}` : ''}</p></div></div>` : ''}
+<h2>أهلاً بكم</h2><p class="lead">يجدّد مجلس الجمعيات الأهلية بمنطقة عسير دليل جمعيات المنطقة، ليصل المستفيدون والداعمون إلى جمعيتكم ببيانات صحيحة، ويعرف المجلس احتياجكم فيدعمكم.</p>
+<ol class="st"><li><i>1</i><span><b>أدخلوا رمز الدخول</b> المرسل لكم مع الرابط.</span></li><li><i>2</i><span><b>راجعوا بيانات جمعيتكم وأكملوها</b>، ويظهر لكم ما يرفع مؤشر جمعيتكم أولاً بأول (نحو 15 دقيقة).</span></li><li><i>3</i><span><b>أرسلوها للمجلس</b>، فيراجعها الفريق ويعتمدها.</span></li></ol>
+<div class="nd"><b>يُستحسن أن يكون بين أيديكم:</b><ul><li>شهادة الترخيص السارية</li><li>بيانات المفوض والمدير التنفيذي ومن يتابع البيانات مع المجلس</li><li>حسابكم في المنصة الوطنية للعمل التطوعي ومنصة إحسان</li><li>تاريخ آخر جمعية عمومية وآخر قوائم مالية معتمدة</li></ul></div>
+<form method="post"><label for="pin">رمز الدخول</label><input id="pin" name="pin" inputmode="numeric" pattern="[0-9]*" maxlength="6" autocomplete="one-time-code" required autofocus placeholder="••••••" aria-describedby="pinh">
+<button type="submit">الدخول إلى بيانات الجمعية</button></form>${msg ? `<div class="e" role="alert">${escH(msg)}</div>` : ''}
+<p class="h" id="pinh">الرمز 6 أرقام. لم يصلكم أو انتهت صلاحيته؟ تواصلوا مع فريق المجلس ليرسل لكم رابطاً جديداً.</p></div>
+<div class="pv"><span>🔒</span><span>بيانات المسؤولين والتواصل الشخصية لا تُنشر، ولا يظهر في صفحة جمعيتكم العامة إلا ما تختارون نشره بعد اعتماد المجلس.</span></div>
+<p class="f">مجلس الجمعيات الأهلية بمنطقة عسير</p></main></body></html>`, { status, headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store', 'Referrer-Policy': 'no-referrer' } }));
 }
 
 function keyPage(msg = '', status = 200) {
@@ -479,6 +503,8 @@ export default {
       if (pm) return await servePortal(req, env, pm[1]);
       const bm = url.pathname.match(/^\/brand\/([a-z0-9-]+)$/);
       if (bm) return withHeaders(await serveBrand(env, bm[1]));
+      // شعار المجلس عام (حزمة الهوية): يُعرض في صفحة رمز الدخول قبل أي تحقق
+      if (url.pathname === '/brand-kit/asir-council-logo-navy.svg') return withHeaders(await env.ASSETS.fetch(req), assetCache(url, env));
       const lg = url.pathname.match(/^\/u-logo\/(\d+)$/);
       if (lg) { const k = await rq.logoKey(env, Number(lg[1])); if (!k) return json({ error: { code: 'not_found' } }, 404); return withHeaders(await rq.serveFile(env, k)); }
       if (url.pathname.startsWith('/files/public/')) { const r = await dc.servePublic(env, decodeURIComponent(url.pathname.slice(7)), url.searchParams.has('dl')); if (r) return withHeaders(r); return json({ error: { code: 'not_found' } }, 404); }
