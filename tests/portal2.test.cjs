@@ -10,8 +10,8 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const id = await p.evaluate(() => DB.filter((o) => !o.closed && o.st == 'ساري')[9].id);
   await p.evaluate((id) => open360(id), id); await p.waitForTimeout(1500);
   await p.click('.a360s .hspk'); await p.waitForTimeout(300);
-  const pk = await p.evaluate(() => ({ on: !!$('#hsPk'), dims: $$('#hsPk .hsdl').length, conf: /ثقة/.test($('#hsPk').textContent), gaps: $$('#hsPk li').length, btns: $$('#hsPk .hspf button').length }));
-  ok(pk.on && pk.dims == 2 && pk.conf && pk.gaps > 0 && pk.btns >= 2, 'clicking the header index opens the index panel (dimensions, confidence, biggest gains, actions)');
+  const pk = await p.evaluate(() => ({ on: !!$('#hsPk'), dims: $$('#hsPk .hspr').length, conf: /ثقة/.test($('#hsPk').textContent), gaps: $$('#hsPk li').length, btns: $$('#hsPk .hspf button').length }));
+  ok(pk.on && pk.dims == 3 && pk.conf && pk.gaps > 0 && pk.btns >= 2, 'clicking the header index opens the index panel (three scores, confidence, biggest gains, actions)');
   await p.keyboard.press('Escape'); await p.waitForTimeout(200);
   ok(await p.evaluate(() => !$('#hsPk')), 'Escape closes the panel');
   await p.click('.a360s .hspk'); await p.waitForTimeout(200); await p.evaluate(() => $$('#hsPk .hspf button')[0].click()); await p.waitForTimeout(700);
@@ -31,10 +31,10 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const s0 = await q.evaluate(() => hsPortal(PS.d).s);
   await set('volSt', 'مفعّلة'); await set('volLast', new Date(Date.now() - 15 * 864e5).toISOString().slice(0, 10)); await set('execType', 'متفرغ'); await q.waitForTimeout(500);
   const up = await q.evaluate(() => ({ s: hsPortal(PS.d).s, em: $('.pvidx em').textContent, ring: $('.pvidx text').textContent }));
-  ok(up.s > s0 && /▲ \+\d+/.test(up.em) && up.ring == String(up.s), `index rises live while filling (${s0} → ${up.s}, «${up.em}»)`);
+  ok(up.s > s0 && /▲ الفاعلية \+\d+/.test(up.em) && up.ring == String(up.s), `index rises live while filling (${s0} → ${up.s}, «${up.em}»)`);
   // 4) تفاصيل المؤشر للجمعية
   await q.click('.pvidx'); await q.waitForTimeout(400);
-  ok(await q.evaluate(() => $('#modal').classList.contains('on') && $$('.pviw .pvil li').length == 16 && /كان \d+ عند فتح الرابط/.test($('.pviw').textContent)), 'index details: 16 indicators with state and before/after');
+  ok(await q.evaluate(() => $('#modal').classList.contains('on') && $$('.pviw .pvil li').length == HS_IND.filter((i) => i.dim != 'eng').length && /كانت \d+ عند فتح الرابط/.test($('.pviw').textContent)), 'index details: profile completeness and effectiveness indicators, with before/after');
   await q.evaluate(() => closeAll());
   // 5) الإرسال يحمل الحقول الجديدة
   await q.evaluate(() => saveProfile()); await q.waitForTimeout(500);

@@ -10,7 +10,7 @@ const CONTACT = { email: 'email', mobile: 'mobile', pres: 'president_name', pres
   del: 'delegate_name', delEmail: 'delegate_email', delMobile: 'delegate_mobile',
   exec: 'exec_name', execEmail: 'exec_email', execMobile: 'exec_mobile' };
 // مجموعات البيانات التي يؤكد الفريق صحتها (تحقق) — تدخل في «سلامة البيانات» بمؤشر الصحة
-export const VERIFY_KEYS = ['lic', 'con', 'lead', 'exec', 'board', 'vol', 'ehsan', 'gov', 'all'];
+export const VERIFY_KEYS = ['lic', 'con', 'lead', 'exec', 'board', 'vol', 'ehsan', 'gov', 'prof', 'all'];
 const VERIFY_SRC = ['اتصال', 'زيارة', 'مستند', 'المنصة الرسمية', 'رابط التحديث'];
 const V = (k) => (k === 'presMobile' ? UFIELDS.mobile.v : UFIELDS[k].v);
 

@@ -175,7 +175,8 @@ export function healthFacts(p, c) {
   return { ex: c.exec_name ? 1 : 0, exc: c.exec_email || c.exec_mobile ? 1 : 0, exT: p.exec_type || '', exS: p.exec_since || '', bd, pm: c.president_mobile ? 1 : 0, dm: c.delegate_mobile ? 1 : 0,
     vs: p.vol_status || '', vr: p.vol_ref ? 1 : 0, vl: p.vol_last_on || '', vy: n(p.vol_year), vo: n(p.vol_opps), vh: n(p.vol_hours), vn: n(p.volunteers_count),
     es: p.ehsan_status || '', er: p.ehsan_ref ? 1 : 0, dn: p.donate_url ? 1 : 0, web: p.website ? 1 : 0,
-    asm: p.last_assembly_on || '', fin: n(p.fin_year), stf: n(p.staff_count), ver, dv: p.data_verified_on || '', pu: p.updated_at || '', gs: n(p.gov_score), gy: n(p.gov_score_year) };
+    asm: p.last_assembly_on || '', fin: n(p.fin_year), stf: n(p.staff_count), ver, dv: p.data_verified_on || '', pu: p.updated_at || '', gs: n(p.gov_score), gy: n(p.gov_score_year),
+    ab: p.about ? 1 : 0, pg: p.programs ? 1 : 0, bn: n(p.beneficiaries_count) };
 }
 export async function pagePayload(env) {
   const [adm, meta, prof, con, nts, asm] = await env.DB.batch([

@@ -1,7 +1,7 @@
 // ملف الجمعية 0.78: رأس بثلاث مناطق (هوية، مؤشر بسببه، يحتاج تدخلاً)، زر سياقي، شبكة بطاقات برؤوس أعداد، طي يُحفظ، open360 يمرّر للبطاقة.
 const { chromium } = require('playwright');
 const BASE = process.env.BASE || 'http://127.0.0.1:8787';
-const a360OrderExpected = (r) => ({ admin: 'lic,contact,quality,diag,rel,eco,pub,score', analyst: 'quality,lic,contact,score,rel,diag,eco,pub', consult: 'diag,rel,eco,contact,lic,quality,pub,score' })[r];
+const a360OrderExpected = (r) => A360_ORDER[r].join();
 let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); if (!c) fails++; };
 (async () => {
   const b = await chromium.launch(); const errs = [];
@@ -16,14 +16,14 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(/الترخيص/.test(await p.evaluate(() => $('.a3need li').textContent)), 'first item is the licence');
   ok(h.pri == 'رابط تحديث' && h.more, 'contextual primary button follows the top need; «المزيد» menu present');
   ok(h.why && h.why.length > 6, 'score has a one-line reason: ' + h.why);
-  ok(h.tabs == 0 && h.cards == 3, 'status tab shows its 3 cards + activity rail');
+  ok(h.tabs == 0 && h.cards == 4, 'effectiveness tab shows its 4 cards + activity rail');
   await p.screenshot({ path: 'tests/out/a360_header.png' });
   const heads = await p.evaluate(() => Object.fromEntries($$('.a3c').map((c) => [c.dataset.c, c.querySelector('.a3hs').textContent.trim()])));
-  ok(heads.lic && heads.contact && heads.quality, 'card heads carry status/counts: ' + JSON.stringify(heads).slice(0, 160));
-  const rail = await p.evaluate(() => ({ rail: !!$('.a3rail'), comp: !!$('.a3rail #clF'), filters: $$('.a3rf button').length, items: $$('.a3ti').length, months: $$('.a3rm').length, jump: $$('.a3tabs [role=tab]').length, tabsOn: ($$('.a3tabs [role=tab]').findIndex((b) => b.classList.contains('on')) == 0 ? 'status' : 'other'), order: $$('.a3c').map((c) => c.dataset.c).join(',') }));
+  ok(heads.score && heads.trouble && heads.req, 'card heads carry status/counts: ' + JSON.stringify(heads).slice(0, 160));
+  const rail = await p.evaluate(() => ({ rail: !!$('.a3rail'), comp: !!$('.a3rail #clF'), filters: $$('.a3rf button').length, items: $$('.a3ti').length, months: $$('.a3rm').length, jump: $$('.a3tabs [role=tab]').length, tabsOn: ($$('.a3tabs [role=tab]').findIndex((b) => b.classList.contains('on')) == 1 ? 'eff' : 'other'), order: $$('.a3c').map((c) => c.dataset.c).join(',') }));
   ok(rail.rail && rail.comp && rail.filters >= 2 && rail.items > 0 && rail.months > 0, 'activity rail: composer, filters, grouped feed (' + rail.items + ')');
-  ok(rail.jump == 3 && rail.tabsOn == 'status', '3 tabs; admin lands on «الوضع»');
-  ok(rail.order == 'lic,contact,quality', 'admin order inside «الوضع»: ' + rail.order);
+  ok(rail.jump == 3 && rail.tabsOn == 'eff', '3 tabs; admin lands on «الفاعلية»');
+  ok(rail.order == 'score,trouble,req,diag', 'admin order inside «الفاعلية»: ' + rail.order);
   const tb = await p.evaluate(() => ({ bad: $$('.a3tabs .dot.bad').length, warn: $$('.a3tabs .dot.warn').length }));
   ok(tb.bad + tb.warn >= 1, 'tab shows a status dot when a card inside has an issue');
   // «المزيد» لا يكرر الزر الرئيسي، ومقسّم
@@ -35,10 +35,10 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => $('#modal').classList.contains('on') && $$('[data-uc=fmt]').length == 2 && /ملف/.test($('.uiw h3').textContent)), 'export goes through the unified export dialog (PDF/Excel)');
   await p.evaluate(() => closeAll());
   // التبويبات: التطوير والعلاقة
-  await p.evaluate(() => a360Tab('dev')); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'diag,score'), '«التطوير» tab: diag + score');
+  await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'dprof,lic,contact,quality,pub'), '«البيانات» tab: completeness + licence + contact + quality + public profile');
   await p.keyboard.press('3'); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'rel,eco,pub'), 'key 3 → «العلاقة» tab: rel + eco + pub');
+  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'eng,rel,eco'), 'key 3 → «العلاقة» tab: engagement + rel + eco');
   await p.keyboard.press('1'); await p.waitForTimeout(300);
   // تصفية السجل
   const fk = await p.evaluate(() => { const b = $$('.a3rf button').find((x) => x.dataset.a3f); b.click(); return b.dataset.a3f; }); await p.waitForTimeout(200);
@@ -49,7 +49,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => /مكالمة اختبار من العمود الجانبي/.test($('.a3rail').textContent)), 'composer logs a contact; feed updates');
   await p.evaluate(() => a360Tab('rel')); await p.waitForTimeout(300);
   ok(await p.evaluate(() => /تواصل/.test($('.a3c[data-c=rel] .a3hs').textContent)), 'relation card head reflects the new contact');
-  await p.evaluate(() => a360Tab('status')); await p.waitForTimeout(200);
+  await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(200);
   // الشريط اللاصق يظهر عند التمرير
   await p.evaluate(() => $('.a3rail').scrollIntoView()); await p.waitForTimeout(500);
   ok(await p.evaluate(() => $('.a3sticky').classList.contains('on') && $('.a3sticky b').textContent.length > 2), 'sticky summary bar appears on scroll');
@@ -67,7 +67,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => $$('.a3c.new').length >= 1 && $$('.a3tabs .a3nd').length >= 1), '«changed since last visit» dots on cards and tabs');
   await p.evaluate(() => { localStorage.removeItem('asirUI:a360pin'); });
   // طي بطاقة ويبقى بعد إعادة الرسم
-  await p.evaluate(() => a360Tab('status')); await p.waitForTimeout(200);
+  await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(200);
   await p.click('.a3c[data-c=contact] .a3ch'); await p.waitForTimeout(100);
   ok(await p.evaluate(() => $('.a3c[data-c=contact]').classList.contains('fold') && $('.a3c[data-c=contact] .a3ch').getAttribute('aria-expanded') == 'false'), 'click folds a card (aria-expanded false)');
   await p.evaluate(() => AM.assoc($('#acontent'))); await p.waitForTimeout(300);
@@ -75,18 +75,18 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.click('.a3c[data-c=contact] .a3ch');
   // open360 بتبويب قديم يفتح البطاقة المقابلة
   await p.evaluate((A) => open360(A, 'diag'), A); await p.waitForTimeout(1500);
-  ok(await p.evaluate(() => $('.a3c[data-c=diag]') && !$('.a3c[data-c=diag]').classList.contains('fold') && $$('.a3tabs [role=tab]')[1].classList.contains('on')), 'open360(id,"diag") switches to «التطوير» and opens the card');
+  ok(await p.evaluate(() => $('.a3c[data-c=diag]') && !$('.a3c[data-c=diag]').classList.contains('fold') && $$('.a3tabs [role=tab]')[1].classList.contains('on')), 'open360(id,"diag") switches to «الفاعلية» and opens the card');
   await p.evaluate((A) => open360(A, 'data'), A); await p.waitForTimeout(800);
-  ok(await p.evaluate(() => $('.a3c[data-c=lic]') && $$('.a3tabs [role=tab]')[0].classList.contains('on')), 'old tab "data" maps to «الوضع»/licence');
+  ok(await p.evaluate(() => $('.a3c[data-c=lic]') && $$('.a3tabs [role=tab]')[0].classList.contains('on')), 'old tab "data" maps to «البيانات»');
   await p.evaluate((A) => open360(A, 'tl'), A); await p.waitForTimeout(800);
   ok(await p.evaluate(() => !!$('.a3rail')), 'old tab "tl" maps to the activity rail');
   // التشخيص داخل البطاقة يحمّل فعلاً
-  await p.evaluate(() => a360Tab('dev')); await p.waitForTimeout(400);
+  await p.evaluate(() => a360Tab('eff')); await p.waitForTimeout(400);
   const dg = await p.evaluate(() => $('.a3c[data-c=diag]').textContent);
   ok(/تقييم جديد/.test(dg) && !/جارٍ التحميل/.test(dg), 'diagnostic card loaded (no stuck loader)');
   // ترتيب حسب الدور
   const ro = await p.evaluate((A) => { const r0 = SESSION.role; SESSION.role = 'consult'; open360(A); const o = $$('.a3c').map((c) => c.dataset.c).join(','); SESSION.role = r0; return o; }, A); await p.waitForTimeout(300);
-  ok(ro == 'diag,score', 'consultant lands on «التطوير»: ' + ro);
+  ok(ro == 'trouble,diag,score,req', 'consultant lands on «الفاعلية», trouble and diagnosis first: ' + ro);
   // جمعية سليمة: «لا شيء عاجل» وزر تحرير
   const G = await p.evaluate(() => (DB.filter((o) => !o.closed && o.st == 'ساري' && o.comp >= 60 && (!flagsOf(o.id).length) && o.days > 120 && !(typeof trCase == 'function' && trCase(o.id))).sort((a, b) => b.hs - a.hs)[0] || {}).id);
   if (G) { await p.evaluate((G) => open360(G), G); await p.waitForTimeout(1800);
@@ -96,7 +96,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const Fid = await p.evaluate(async (A) => { const r = await (await fetch(`/api/associations/${A}/notes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ field: 'gov', kind: 'assumed', text: 'اختبار ملف الجمعية' }) })).json(); await flagsLoad(true); return r.id; }, A);
   const Fa = A;
   if (Fa) { await p.evaluate((Fa) => open360(Fa), Fa); await p.waitForTimeout(1800);
-    await p.evaluate(() => a360Tab('status')); await p.waitForTimeout(200);
+    await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(200);
     const f = await p.evaluate(() => ({ q: /تحتاج تحقق/.test($('.a3c[data-c=quality] .a3hs').textContent), n: /تحتاج تحقق/.test($('.a3need').textContent) }));
     ok(f.q && f.n, 'flags surface in quality card head and in the needs strip');
     await p.evaluate(([A, id]) => fetch(`/api/associations/${A}/notes/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'resolved' }) }), [A, Fid]); }
