@@ -168,7 +168,7 @@ export function dataIssues(a, c) {
 
 // ─── page payload in the exact shapes the 0.28 front-end expects ─────────
 // مؤشرات الصحة v2 (27): حقائق غير شخصية لكل جمعية — وجود البيانات وحالة التفعيل، لا الأسماء ولا التواصل
-function healthFacts(p, c) {
+export function healthFacts(p, c) {
   let ver = {}; try { ver = p.verified_json ? JSON.parse(p.verified_json) : {}; } catch { ver = {}; }
   let bd = 0; try { bd = c.board_json ? JSON.parse(c.board_json).length : 0; } catch { bd = 0; }
   const n = (x) => (x === null || x === undefined || x === '' ? null : Number(x));

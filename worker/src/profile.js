@@ -71,6 +71,11 @@ export async function saveFull(env, req, user, id, body) {
       changed.push(...cols);
     }
   }
+  if (body.hsSnap && typeof body.hsSnap === 'object') {  // لقطة المؤشر من اللوحة — لا تُدقَّق لأنها مشتقة لا بيانات
+    const j = JSON.stringify(body.hsSnap);
+    if (j.length > 6000) fail(422, 'invalid', 'لقطة المؤشر أكبر من المسموح');
+    await env.DB.prepare(`INSERT INTO association_profiles (association_id, hs_snap) VALUES (?1, ?2) ON CONFLICT(association_id) DO UPDATE SET hs_snap = excluded.hs_snap`).bind(id, j).run();
+  }
   if (body.verify && Array.isArray(body.verify.keys) && body.verify.keys.length) {
     const keys = body.verify.keys.filter((k) => VERIFY_KEYS.includes(k));
     if (!keys.length) fail(422, 'invalid', 'مجموعة بيانات غير معروفة');

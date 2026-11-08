@@ -501,7 +501,7 @@ header.top.solid .cta2{border-color:var(--line);color:var(--hd)}
 .flds{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .fld{display:flex;flex-direction:column;gap:6px}
 .fld.full{grid-column:span 2}
-.fld .lb{display:flex;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--hd);flex-wrap:wrap}
+.fld .lb{display:flex;flex-direction:row;position:static;align-items:center;gap:6px;font-size:13.5px;font-weight:600;color:var(--hd);flex-wrap:wrap}
 .vis{font-size:11px;font-weight:600;padding:2px 8px;border-radius:99px}
 .vis.pub{background:#E5F8EE;color:#14804A}.vis.con{background:#FFF4E0;color:#A35E00}.vis.int{background:#F1EEFF;color:#5B3FC4}
 .fld input,.fld textarea,.fld select{padding:12px 14px;border-radius:12px;border:1px solid var(--line);background:var(--sf);outline:0;transition:.2s;width:100%}
@@ -597,6 +597,33 @@ header.top.solid .cta2{border-color:var(--line);color:var(--hd)}
 .lchk{margin-top:12px;display:flex;flex-direction:column;gap:6px;font-size:13px}
 .lchk span{display:flex;gap:8px;align-items:center}
 .lchk .y{color:#14804A}.lchk .n{color:#B42318}.lchk .m{color:#A35E00}
+/* 0.88 صفحة تحديث البيانات بلغة المنصة */
+.pv{padding:22px 0 90px}
+.pvh{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:center;padding:20px 22px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(180deg,#F7F9FE,#fff);position:relative;overflow:hidden}
+.pvh::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:linear-gradient(90deg,#42ACFD,#111182)}
+.pvid{display:flex;gap:16px;align-items:center;min-width:0}.pvlg{width:72px;height:72px;border-radius:20px;border:1px solid var(--line);background:#fff;display:grid;place-items:center;overflow:hidden;flex:none}.pvlg img{width:100%;height:100%;object-fit:contain}.pvlg span{font-size:30px;font-weight:800;color:#111182}
+.pvey{display:inline-block;font-size:11.5px;font-weight:700;color:#fff;background:#111182;border-radius:999px;padding:2px 10px}
+.pvh h1{margin:6px 0 2px;font-size:24px;line-height:1.35;color:var(--hd);text-wrap:balance}
+.pvm{margin:0;display:flex;flex-wrap:wrap;gap:4px 14px;font-size:13px;color:var(--mute)}
+.pvch{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.pvidx{display:flex;gap:12px;align-items:center;padding:10px 14px 10px 18px;border:1px solid var(--line);border-radius:18px;background:#fff;cursor:pointer;font:inherit;text-align:start;min-width:300px;transition:box-shadow .15s,border-color .15s}
+.pvidx:hover,.pvidx:focus-visible{border-color:#1249FF;box-shadow:0 10px 28px rgba(18,73,255,.14)}.pvidx.st{cursor:default}
+.pvidx>span{display:grid;gap:3px;min-width:0;flex:1}.pvidx small{font-size:12px;color:var(--mute)}.pvidx b{font-size:17px;color:var(--hd)}.pvidx em{font-style:normal;font-size:12px;color:var(--mute)}.pvidx em.up{color:#0E7C5A;font-weight:800}.pvidx em.dn{color:#B42318;font-weight:800}.pvidx u{text-decoration:none;font-size:11.5px;color:#1249FF;margin-top:2px}
+.pvb{display:block;height:6px;border-radius:5px;background:#EEF1F6;overflow:hidden}.pvb span{display:block;height:100%;border-radius:5px;transition:width .3s}
+.pvneed{margin-top:12px;display:grid;grid-template-columns:auto 1fr;gap:10px 16px;align-items:start;padding:14px 18px;border-radius:16px;background:#FFFAEB;border:1px solid #FDE7B0}.pvneed>b{font-size:14px;color:#93370D;padding-top:6px;white-space:nowrap}
+.pvneed ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px}.pvneed li{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:8px 10px;border-radius:12px;background:#fff;border:1px solid #F6E3B4}.pvneed li b{display:block;font-size:13px;color:var(--hd)}.pvneed li small{display:block;font-size:11.5px;color:var(--mute);line-height:1.45}.pvneed li em{font-style:normal;font-weight:800;color:#0E7C5A;font-size:13px}
+.pvneed.ok{grid-template-columns:auto 1fr;background:#EDF8F2;border-color:#BFE6D1}.pvneed.ok>b{color:#0E7C5A;display:flex;gap:6px;align-items:center;padding:0}.pvneed.ok span{font-size:13px;color:var(--text)}
+.pvwrap{display:grid;grid-template-columns:minmax(0,1fr) 260px;gap:18px;margin-top:16px;align-items:start}
+.pvrail{position:sticky;top:84px;display:flex;flex-direction:column;gap:10px}
+.pvnav{display:flex;flex-direction:column;gap:2px;padding:6px;border:1px solid var(--line);border-radius:16px;background:#fff}
+.pvnav button{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:11px;border:0;background:none;font:inherit;font-size:13.5px;color:var(--text);cursor:pointer;text-align:start}.pvnav button span{flex:1}.pvnav button:hover{background:var(--mist)}.pvnav button.on{background:#EEF3FF;color:#111182;font-weight:700}
+.pvnav em{font-style:normal;font-size:11px;padding:1px 8px;border-radius:999px}.pvnav em.m{background:#FEF0C7;color:#B54708}.pvnav em.c{background:#E0EAFF;color:#175CD3}.pvnav em.p{background:#EEF1F6;color:#475467}.pvnav em.ok{color:#14A37F;display:grid}
+.pvx{padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fff;display:grid;gap:6px}.pvx b{display:flex;gap:6px;align-items:center;font-size:13.5px;color:var(--hd)}.pvx p{margin:0;font-size:12.5px;color:var(--mute);line-height:1.6}
+.pvsec{border:1px solid var(--line);border-radius:18px;background:#fff;padding:18px 20px;margin-bottom:14px;scroll-margin-top:90px}
+.pvsh{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--line)}.pvsh>i{width:38px;height:38px;border-radius:11px;background:#EEF3FF;color:#111182;display:grid;place-items:center}.pvsh h3{margin:0;font-size:16.5px;color:var(--hd)}.pvsh p{margin:2px 0 0;font-size:12.5px;color:var(--mute)}
+.pvi{display:grid;gap:6px}.pvil{list-style:none;margin:0;padding:0;display:grid;gap:6px}.pvil li{display:grid;grid-template-columns:1fr auto 64px;gap:8px;align-items:center;padding:8px 10px;border:1px solid var(--line);border-radius:12px}.pvil li b{display:block;font-size:13px;color:var(--hd)}.pvil li small{display:block;font-size:12px;color:var(--mute);line-height:1.5}.pvil .jbtn{justify-content:center;color:#0E7C5A;font-weight:800}
+@media (max-width:980px){.pvwrap{grid-template-columns:minmax(0,1fr)}.pvrail{position:static;order:-1}.pvnav{flex-direction:row;overflow:auto}.pvnav button{white-space:nowrap}.pvrail>.jbtn,.pvx{display:none}}
+@media (max-width:760px){.pvh{grid-template-columns:1fr}.pvidx{min-width:0}.pvh h1{font-size:19px}.pvlg{width:56px;height:56px}.pvneed{grid-template-columns:1fr}.pvsec{padding:14px}}
 .psave{position:sticky;bottom:16px;z-index:2;display:flex;align-items:center;gap:14px;padding:14px 18px;border-radius:18px;background:var(--navy);color:#fff;box-shadow:0 16px 40px -10px rgba(9,9,81,.6)}
 .psave p{flex:1;font-size:14px;color:#C6D2F2}
 .psave b{color:#fff}
@@ -2387,6 +2414,12 @@ html[data-theme=dark] .cftopics button.on,html[data-theme=dark] .fdc input:check
 .hsmt{width:100%;border-collapse:collapse;font-size:12.5px}.hsmt th{text-align:start;font-size:11.5px;color:var(--mute);padding:6px 8px;border-bottom:1px solid var(--line)}.hsmt td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.6;color:var(--text)}.hsmt td.n{text-align:center;font-weight:800;color:var(--hd)}.hsmt small{color:var(--mute)}
 .hsms{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hsms>div{display:flex;flex-direction:column;gap:4px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}.hsms small{font-size:12px;color:var(--mute)}
 @media(max-width:760px){.hsgs,.hsms{grid-template-columns:1fr}.hshd{grid-template-columns:1fr;justify-items:center}.hsdl{grid-template-columns:100px 1fr 30px}}
+.hspb{border:0;cursor:pointer;font:inherit}.hspk{border:0;background:none;padding:0;cursor:pointer;border-radius:50%;display:grid}.hspk:hover svg,.hspk:focus-visible svg{filter:drop-shadow(0 4px 10px rgba(18,73,255,.25))}
+.hspop{position:absolute;z-index:120;background:var(--sf);border:1px solid var(--line);border-radius:16px;box-shadow:0 18px 50px rgba(17,17,130,.18);padding:14px 16px;display:grid;gap:8px}
+.hsph{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center}.hsph b{display:block;font-size:15px;color:var(--hd);margin-bottom:4px}.hsph .x{border:0;background:none;color:var(--mute);cursor:pointer;align-self:start}
+.hspm{margin:0;font-size:12px;color:var(--mute);line-height:1.6}.hspop h6{margin:4px 0 0;font-size:12px;color:var(--mute)}
+.hspop ul{list-style:none;margin:0;padding:0;display:grid;gap:6px}.hspop li{display:grid;grid-template-columns:1fr auto auto;gap:8px;align-items:center;padding:6px 8px;border-radius:10px;background:var(--mist)}.hspop li b{display:block;font-size:12.5px;color:var(--hd)}.hspop li small{display:block;font-size:11.5px;color:var(--mute);line-height:1.4}.hspop li em{font-style:normal;font-weight:800;color:#0E7C5A;font-size:13px}
+.hspf{display:flex;gap:6px;flex-wrap:wrap;padding-top:6px;border-top:1px solid var(--line)}.hspf .pri{margin-inline-start:auto}
 .rpnote{margin:0;padding:8px 12px;border-radius:10px;background:#FEF0C7;color:#93370D;font-size:11.5px;font-weight:600}
 /* الأقسام */
 .rps h2{border-bottom:0;padding-bottom:0;margin-bottom:4px;break-inside:avoid}
@@ -3468,7 +3501,7 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       <div><h2 class="fh5">الخدمات</h2><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/pro">تطوّع بخبرتك</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h2 class="fh5">روابط</h2><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.87</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.88</span></div>
   </div>
 </footer>
 
@@ -4497,25 +4530,38 @@ function fieldOK(f){const v=PS.d[f.k];if(f.t=='chips')return v&&v.length>0;if(f.
 function validate(f,v){if(!v)return '';if(f.chk=='email'){if(/@test\.com$/i.test(v))return 'عنوان تجريبي غير صالح، أدخل البريد الصحيح';if(!/^[^@\s]+@[^@\s]+\.[a-z]{2,}$/i.test(v))return 'صيغة البريد غير صحيحة'}
  if(f.chk=='mobile'&&!/^(05\d{8}|\+9665\d{8})$/.test(v.replace(/[\s-]/g,'')))return 'اكتب الرقم بصيغة 05xxxxxxxx';if(f.chk=='int'&&!/^\d{1,9}$/.test(String(v).trim()))return 'أرقام فقط';if(f.chk=='url'&&!/^https?:\/\/[^\s]+\.[^\s]+$/i.test(String(v).trim()))return 'اكتب الرابط كاملاً يبدأ بـ https://';if(f.chk=='year'&&!/^(19|20)\d{2}$/.test(String(v).trim()))return 'اكتب السنة بأربعة أرقام';return ''}
 function completeness(){const R=PF.filter(f=>f.req);return Math.round(R.filter(fieldOK).length/R.length*100)}
-function sideHTML(){
- const a=PS.a,pc=completeness(),todo=PF.filter(f=>f.req&&!fieldOK(f));
- const secCount=k=>PF.filter(f=>f.sec==k&&f.req&&!fieldOK(f)).length;
- return `
-  <div class="card phead"><div class="plogo">${PS.d.logo?`<img src="${PS.d.logo}" alt="">`:I(P.building,'width:40px;height:40px')}</div><b>${a.n}</b><small>ترخيص ${a.lic} · ${a.gov}</small>
-   <div class="ring"><svg viewBox="0 0 120 120"><defs><linearGradient id="rgrad"><stop offset="0" stop-color="#1249FF"/><stop offset="1" stop-color="#42ACFD"/></linearGradient></defs><circle class="bg" cx="60" cy="60" r="50"/><circle class="fg" cx="60" cy="60" r="50" stroke-dasharray="314" stroke-dashoffset="${314-314*pc/100}"/></svg><span>${pc}%</span></div><small>اكتمال ملف الجمعية</small>
-   <button class="btn o" style="width:100%;justify-content:center;margin-top:12px" onclick="previewPublic()">${I(P.eye,'width:18px;height:18px')}معاينة صفحتنا العامة</button></div>
-  <div class="card todo"><h4>المطلوب منكم (${todo.length})</h4>${todo.length?todo.slice(0,6).map(f=>`<button onclick="goField('${f.k}')"><i style="background:${PS.d[f.k]&&validate(f,PS.d[f.k])?'#F04438':'#F5A524'}"></i>${PS.d[f.k]&&validate(f,PS.d[f.k])?'تصحيح':'إكمال'}: ${f.l}</button>`).join('')+(todo.length>6?`<small style="color:var(--mute);padding:0 12px">و${todo.length-6} أخرى</small>`:''):`<div class="ok">${I(P.check,'width:18px;height:18px')}ملف الجمعية مكتمل، شكراً لكم</div>`}</div>
-  ${PS.portal?`<div class="card xpportal"><h4>${I(P.hand,'width:18px;height:18px')}دعم من خبير متطوع</h4><p>استشارة أو مهمة تخصصية أو مرافقة، مجاناً عبر «تطوّع بخبرتك».</p><button class="btn o" onclick="proNeedForm({org:PS.a.n,lock:1})">اطلب دعماً</button></div>`:''}
-  <div class="card pnav">${PSEC.map(s=>`<button class="${PS.sec==s[0]?'on':''}" onclick="goSec('${s[0]}')">${I(P[s[2]],'width:18px;height:18px')}${s[1]}${secCount(s[0])?`<em>${secCount(s[0])} ناقص</em>`:''}</button>`).join('')}</div>
-`}
-function updSide(){$('.pside').innerHTML=sideHTML()}
+/* 0.88: صفحة تحديث البيانات بلغة المنصة: رأس الهوية والمؤشر، «ما يرفع مؤشركم»، أقسام بطاقات، وشريط جانبي للتنقل */
+const PV_SEC_K={id:'about',field:'progs',contact:'email',lead:'exec',size:'assembly',plat:'volSt',lic:'exp'};
+function pvHS(){return PS&&PS.portal&&typeof hsPortal=='function'?hsPortal(PS.d):null}
+function pvHead(){const a=PS.a,h=pvHS(),b0=PS.portal&&typeof hsPortal=='function'&&PS.base?hsPortal(PS.base):null,dl=h&&b0?h.s-b0.s:0,pc=completeness();
+ const pend=Object.keys(PS.pending||{}).length,nN=PS.portal&&PORTAL.notes?PORTAL.notes.length:0;
+ const ring=(v,sz,c)=>{const r=(sz-10)/2,C=2*Math.PI*r;return `<svg width="${sz}" height="${sz}" viewBox="0 0 ${sz} ${sz}" aria-hidden="true"><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="#E6EAF3" stroke-width="8"/><circle cx="${sz/2}" cy="${sz/2}" r="${r}" fill="none" stroke="${c}" stroke-width="8" stroke-linecap="round" stroke-dasharray="${C*v/100} ${C}" transform="rotate(-90 ${sz/2} ${sz/2})"/><text x="50%" y="50%" dy=".35em" text-anchor="middle" style="font-size:${sz*.28}px;font-weight:800;fill:#111182">${v}</text></svg>`};
+ const idx=h?`<button type="button" class="pvidx" onclick="pvIdx()" aria-label="مؤشر صحة جمعيتكم ${h.s}، اعرض التفاصيل">${ring(h.s,84,h.band[3])}<span><small>مؤشر صحة جمعيتكم</small><b>${h.band[1]} · ${h.s}</b>${dl?`<em class="${dl>0?'up':'dn'}">${dl>0?'▲ +':'▼ '}${dl} بعد تعديلاتكم</em>`:'<em>يرتفع مع كل حقل تكملونه</em>'}<i class="pvb"><span style="width:${h.data}%;background:#1249FF"></span></i><i class="pvb"><span style="width:${h.actS}%;background:#14A37F"></span></i><u>البيانات ${h.data} · التفعيل ${h.actS} · التفاصيل ←</u></span></button>`
+  :`<div class="pvidx st">${ring(pc,84,'#1249FF')}<span><small>اكتمال ملف الجمعية</small><b>${pc}%</b><em>أكملوا الحقول المطلوبة</em></span></div>`;
+ return `<header class="pvh"><div class="pvid"><div class="pvlg">${PS.d.logo?`<img src="${PS.d.logo}" alt="">`:`<span>${esc(String(a.n||'').replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0))}</span>`}</div><div><span class="pvey">تحديث بيانات الجمعية</span><h1>${esc(a.n)}</h1><p class="pvm"><span>ترخيص ${esc(a.lic)}</span><span>${esc(a.gov||'')}</span>${PS.portal&&PORTAL.expires?`<span>الرابط صالح حتى ${new Date(PORTAL.expires).toLocaleDateString('ar-SA-u-nu-latn',{dateStyle:'medium'})}</span>`:''}</p>
+  <div class="pvch">${pend?`<span class="pill2 p-info">${pend} بانتظار مراجعة المجلس</span>`:''}${nN?`<span class="pill2 p-warn">${nN} ملاحظة من المجلس</span>`:''}<span class="pill2 p-mute">اكتمال الحقول المطلوبة <bdi>${pc}%</bdi></span></div></div></div>${idx}</header>`}
+function pvNeed(){const h=pvHS();let L=[];
+ if(h){const MAP={d_lic:'exp',a_lic:'licFile',d_con:'email',d_lead:'exec',a_exec:'execType',d_plat:'volSt',a_vol:'volSt',a_don:'ehsanSt',a_gov:'assembly'};
+  L=h.parts.filter(p=>MAP[p.k]&&PF.some(f=>f.k==MAP[p.k]||(p.k=='d_lead'&&f.k=='execType'))&&hsGain(p)>=.5).sort((a,b)=>hsGain(b)-hsGain(a)).slice(0,4).map(p=>{const k=PF.some(f=>f.k==MAP[p.k])?MAP[p.k]:'execType';return {t:p.l,s:p.why,g:hsGain(p),k}})}
+ const todo=PF.filter(f=>f.req&&!fieldOK(f)).slice(0,Math.max(0,4-L.length)).map(f=>({t:(PS.d[f.k]&&validate(f,PS.d[f.k])?'تصحيح: ':'إكمال: ')+f.l,s:'حقل مطلوب',k:f.k}));
+ L=[...L,...todo];if(!L.length)return `<div class="pvneed ok"><b>${I(P.check,'width:16px;height:16px')}ملفكم مكتمل</b><span>راجعوا البيانات ثم أرسلوها للمجلس لاعتمادها.</span></div>`;
+ return `<div class="pvneed"><b>${h?'ما يرفع مؤشركم':'المطلوب منكم'}</b><ul>${L.map(x=>`<li><span><b>${esc(x.t)}</b><small>${esc(x.s)}</small></span>${x.g?`<em>+${x.g}</em>`:''}<button type="button" class="jbtn sm" onclick="goField('${x.k}')">إكمال</button></li>`).join('')}</ul></div>`}
+function pvRail(){const st=k=>{const F=PF.filter(f=>f.sec==k),m=F.filter(f=>f.req&&!fieldOK(f)).length,c=F.filter(f=>JSON.stringify(PS.d[f.k]??'')!==JSON.stringify(PS.orig[f.k]??'')).length,pd=F.filter(f=>PS.pending[f.k]).length;return {m,c,pd}};
+ return `<nav class="pvnav" aria-label="أقسام البيانات">${PSEC.map(s=>{const x=st(s[0]);return `<button type="button" class="${PS.sec==s[0]?'on':''}" onclick="goSec('${s[0]}')">${I(P[s[2]]||P.file,'width:16px;height:16px')}<span>${s[1]}</span>${x.m?`<em class="m">${x.m} ناقص</em>`:x.c?`<em class="c">${x.c} معدّل</em>`:x.pd?`<em class="p">بانتظار</em>`:`<em class="ok">${I(P.check,'width:12px;height:12px')}</em>`}</button>`}).join('')}</nav>
+  <button class="jbtn" style="width:100%;justify-content:center" onclick="previewPublic()">${I(P.eye,'width:16px;height:16px')}معاينة صفحتنا العامة</button>
+  ${PS.portal?`<div class="pvx"><b>${I(P.hand,'width:16px;height:16px')}دعم من خبير متطوع</b><p>استشارة أو مهمة تخصصية أو مرافقة مجاناً عبر «تطوّع بخبرتك».</p><button class="jbtn sm" onclick="proNeedForm({org:PS.a.n,lock:1})">اطلب دعماً</button></div>`:''}`}
+function sideHTML(){return pvRail()}
+let pvT=0;function pvLive(){clearTimeout(pvT);pvT=setTimeout(()=>{const h=$('#pvHead');if(h)h.innerHTML=pvHead();const n=$('#pvNeed');if(n)n.innerHTML=pvNeed();const r=$('.pvrail');if(r)r.innerHTML=pvRail()},120)}
+function updSide(){const r=$('.pside');if(r)r.innerHTML=pvRail();const h=$('#pvHead');if(h)h.innerHTML=pvHead();const n=$('#pvNeed');if(n)n.innerHTML=pvNeed()}
 function refreshField(k){const f=PF.find(x=>x.k==k),el=$('#pf_'+k);if(!el)return;const t=document.createElement('div');t.innerHTML=fieldHTML(f);el.replaceWith(t.firstElementChild);bindFields();updSide();updSave()}
 function notesCard(){const N=PS.portal&&PORTAL.notes||[];if(!N.length)return'';const has=k=>PF.some(f=>f.k==k);
  return `<section class="card pnotes" id="ps_notes"><h3>${I(P.info)}ملاحظات المجلس على بياناتكم <span class="cnt">${N.length}</span></h3><p>صحّحوا هذه النقاط في الحقول أدناه ثم أرسلوا التحديثات، وتُغلق كل ملاحظة تلقائياً عند اعتماد تصحيحها.</p>
  <ol>${N.map(n=>`<li class="${n.src}">${has(n.f)?`<button type="button" onclick="goField('${n.f}')">`:'<span>'}<b>${esc(n.t)}</b><small>${n.src=='council'?'من فريق المجلس':'فحص تلقائي'}${has(n.f)?' · انتقل للحقل ←':''}</small>${has(n.f)?'</button>':'</span>'}</li>`).join('')}</ol></section>`}
-function renderDash(){
- $('#pbody').innerHTML=`<div class="wrap pgrid"><aside class="pside">${sideHTML()} </aside><main>${notesCard()}${PSEC.map(s=>`<section class="card psec" id="ps_${s[0]}"><h3>${I(P[s[2]])}${s[1]}</h3><p>${s[3]}</p><div class="flds">${PF.filter(f=>f.sec==s[0]).map(fieldHTML).join('')}</div></section>`).join('')}
- <div class="psave"><p id="psaveTxt"></p><button class="btn p" onclick="saveProfile()">حفظ التحديثات</button></div></main></div>`;
+function renderDash(){if(PS.portal&&!PS.base)PS.base=JSON.parse(JSON.stringify(PS.d));
+ const secSt=k=>{const F=PF.filter(f=>f.sec==k),m=F.filter(f=>f.req&&!fieldOK(f)).length;return m?`<span class="pill2 p-warn">${m} ناقص</span>`:`<span class="pill2 p-ok">مكتمل</span>`};
+ $('#pbody').innerHTML=`<div class="wrap pv"><div id="pvHead">${pvHead()}</div><div id="pvNeed">${pvNeed()}</div>
+ <div class="pvwrap"><main>${notesCard()}${PSEC.map(s=>`<section class="pvsec" id="ps_${s[0]}"><div class="pvsh"><i>${I(P[s[2]]||P.file,'width:18px;height:18px')}</i><div><h3>${s[1]}</h3><p>${s[3]}</p></div>${secSt(s[0])}</div><div class="flds">${PF.filter(f=>f.sec==s[0]).map(fieldHTML).join('')}</div></section>`).join('')}
+ <div class="psave"><p id="psaveTxt"></p><button class="btn p" onclick="saveProfile()">${PS.portal?'إرسال للمجلس':'حفظ التحديثات'}</button></div></main><aside class="pside pvrail">${pvRail()}</aside></div></div>`;
  bindFields();updSave();
 }
 function fieldHTML(f){const v=PS.d[f.k]??'',err=validate(f,v),miss=f.req&&!v&&f.t!='chips'&&f.t!='logo';
@@ -4608,10 +4654,10 @@ function logoPrev(src,m){m=m||{w:0,h:0};const lo=!m.svg&&Math.min(m.w,m.h)<1000,
  <div class="lchk"><span class="${vlo?'n':lo?'m':'y'}">${I(vlo?P.x:P.check,'width:16px;height:16px')}الدقة: ${m.svg?'SVG (متجهي، ممتاز)':'<bdi dir=ltr>'+m.w+'×'+m.h+'</bdi> بكسل'}${vlo?' — منخفضة جداً، سيظهر الشعار مشوّشاً':lo?' — مقبولة، والأفضل 1000×1000':' — ممتازة'}</span>
  <span class="${sq?'y':'m'}">${I(sq?P.check:P.info,'width:16px;height:16px')}${sq?'أبعاد مربعة مناسبة':'الشعار مستطيل، سيُعرض داخل مربع بهوامش'}</span>
  <span class="${m.png||m.svg?'y':'m'}">${I(m.png||m.svg?P.check:P.info,'width:16px;height:16px')}${m.png||m.svg?'الصيغة تدعم الخلفية الشفافة':'صيغة JPG لا تدعم الشفافية، يُفضّل PNG'}</span></div>`}
-function goSec(k){PS.sec=k;$$('.pnav button').forEach((b,i)=>b.classList.toggle('on',PSEC[i][0]==k));$('#ps_'+k).scrollIntoView({behavior:'smooth'})}
+function goSec(k){PS.sec=k;$$('.pnav button,.pvnav button').forEach((b,i)=>b.classList.toggle('on',PSEC[i][0]==k));$('#ps_'+k).scrollIntoView({behavior:'smooth'})}
 function goField(k){const el=$('#pf_'+k);if(!el)return;el.scrollIntoView({behavior:'smooth',block:'center'});setTimeout(()=>{const i=el.querySelector('input:not([hidden]),textarea,select');i&&i.focus()},400)}
 function changed(){return PF.filter(f=>(f.m!='locked'&&JSON.stringify(PS.d[f.k]??'')!==JSON.stringify(PS.orig[f.k]??''))||(PS.fix&&PS.fix[f.k]!=null))}
-function updSave(){const c=changed(),rv=c.filter(f=>f.m=='review').length;$('#psaveTxt').innerHTML=c.length?`<b>${c.length} تعديل غير محفوظ</b>${rv?` · ${rv} منها يُراجع من المجلس`:''}`:(PS.portal&&Object.keys(PS_NCNP).length?`<b>${Object.keys(PS_NCNP).length} من بيانات السجل الوطني بانتظار تأكيدكم</b> · راجعوها ثم اضغطوا إرسال`:'كل التعديلات محفوظة')}
+function updSave(){if(typeof pvLive=='function')pvLive();const c=changed(),rv=c.filter(f=>f.m=='review').length;$('#psaveTxt').innerHTML=c.length?`<b>${c.length} تعديل غير محفوظ</b>${rv?` · ${rv} منها يُراجع من المجلس`:''}`:(PS.portal&&Object.keys(PS_NCNP).length?`<b>${Object.keys(PS_NCNP).length} من بيانات السجل الوطني بانتظار تأكيدكم</b> · راجعوها ثم اضغطوا إرسال`:'كل التعديلات محفوظة')}
 function saveProfile(){const c=changed();if(!c.length&&!(PS.portal&&Object.keys(PS_NCNP).length)){toast('لا توجد تعديلات جديدة');return}
  const bad=PF.filter(f=>PS.d[f.k]&&validate(f,PS.d[f.k]));if(bad.length){goField(bad[0].k);toast('صحّح الحقول المظللة بالأحمر أولاً',1);return}
  if(PS.portal)return portalSubmit(c);
@@ -6550,7 +6596,7 @@ AM.updates=el=>{if(!SESSION)return AM.updatesDemo(el);
 };
 const updMsg=l=>`السلام عليكم ورحمة الله،\nنأمل تحديث بيانات «${l.name}» في دليل مجلس الجمعيات الأهلية بمنطقة عسير عبر الرابط الخاص بجمعيتكم:\n${l.url}\n${l.pin?'سيصلكم رمز الدخول في رسالة منفصلة.\n':''}الرابط صالح لمدة 30 يوماً، وتُراجع التعديلات من فريق المجلس قبل اعتمادها.\nشاكرين تعاونكم.`;
 const updPinMsg=l=>`رمز الدخول لرابط تحديث بيانات «${l.name}»: ${l.pin}\nلا تشاركوا الرمز خارج الجمعية.`;
-async function updLinkRun(ids,bulk,days){try{const j=await api('/api/update-links',{method:'POST',body:JSON.stringify({association_ids:ids,days:days||30})});
+async function updLinkRun(ids,bulk,days){try{hsAll();const hs=Object.fromEntries(ids.map(i=>[i,DBI[i]&&hsSnapOf(DBI[i])]).filter(x=>x[1]));const j=await api('/api/update-links',{method:'POST',body:JSON.stringify({association_ids:ids,days:days||30,hs})});
  const exp=new Date(Date.now()+j.days*864e5).toISOString().slice(0,10);
  if(bulk||j.links.length>1){dlXLSX({title:'روابط تحديث بيانات الجمعيات',sub:`${j.links.length} رابطاً · صالحة حتى ${exp} · سرّية: تُرسل كل جمعية رابطها فقط`,tables:[{name:'الروابط',cols:[{h:'الجمعية',w:42},{h:'رقم الترخيص',w:14},{h:'المحافظة',w:14},{h:'الرابط',w:60},{h:'رمز الدخول',w:12},{h:'رسالة الرابط',w:80},{h:'رسالة الرمز (تُرسل منفصلة)',w:50}],rows:j.links.map(l=>[l.name,l.lic,l.gov,l.url,l.pin||'',updMsg(l),l.pin?updPinMsg(l):''])}]})}
  else{const l=j.links[0],msg=updMsg(l);$('#lkOut').innerHTML=`<div class="panel" style="background:var(--mist);margin:12px 0"><b style="color:var(--hd)">${esc(l.name)}</b><p class="d" style="margin:6px 0">الرابط يظهر الآن فقط. انسخه أو أرسله:</p>
@@ -7616,7 +7662,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.87)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.88)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['links','روابط دخول شخصية لكل صاحب صلاحية بدوره (المرحلة الحالية)',()=>true,'done','من «المستخدمون»: رابط لكل شخص بمدة وإلغاء فوري، وكل دخول مسجّل باسمه.'],['access','الربط ببريد المجلس عبر Cloudflare Access (مؤجل حتى تكتمل تجربة الروابط)',()=>!!(SESSION&&SESSION.authAccess),'later','من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
@@ -8002,7 +8048,7 @@ const HS_IND=[
  {k:'d_plat',dim:'data',l:'حالة الجمعية في المنصات',w:10,src:'رابط التحديث أو الفريق',how:'حالة الحساب في منصة العمل التطوعي (60%) ومنصة إحسان (40%) معروفة، أياً كانت.',
   f:(o,x)=>{const v=(x.vs?.6:0)+(x.es?.4:0);return {v,why:v==1?'الحالة معروفة في المنصتين':!x.vs&&!x.es?'لم تُسجَّل حالة الجمعية في أي منصة':!x.vs?'حالة منصة العمل التطوعي غير معروفة':'حالة منصة إحسان غير معروفة',rec:v<1?{p:3,t:'سؤال الجمعية عن حسابها في منصة العمل التطوعي ومنصة إحسان',a:`recEdit(${o.id},'plat')`,b:'تسجيل'}:null}}},
  {k:'d_q',dim:'data',l:'خلو البيانات من الملاحظات',w:15,src:'الفحص الآلي والعلامات',how:'كل ملاحظة آلية تخصم 25%، وكل علامة «تحتاج تحقق» مفتوحة 30%.',
-  f:o=>{const auto=o.issues.filter(x=>!x.startsWith('ملاحظة المجلس')).length,fl=typeof flagsOf=='function'?flagsOf(o.id).length:0;const v=Math.max(0,1-auto*.25-fl*.3);
+  f:o=>{const auto=o.issues.filter(x=>!x.startsWith('ملاحظة المجلس')).length,fl=o.flagsN!=null?o.flagsN:typeof flagsOf=='function'?flagsOf(o.id).length:0;const v=Math.max(0,1-auto*.25-fl*.3);
    return {v,why:!auto&&!fl?'لا ملاحظات ولا علامات تحقق':[auto&&auto+' ملاحظة آلية',fl&&fl+' بيانات تحتاج تحقق'].filter(Boolean).join('، '),rec:o.mismatch?{p:2,t:'مراجعة حالة السجل مع الجهة المشرفة (مفعّل رغم انتهاء الترخيص)',a:`recEdit(${o.id})`,b:'مراجعة'}:fl?{p:2,t:'التحقق من البيانات المعلَّمة',a:`open360(${o.id})`,b:'فتح'}:null}}},
  {k:'d_ver',dim:'data',l:'التحقق والحداثة',w:10,src:'تحقق الفريق وتحديثات الجمعية',how:'مراجعة شاملة من الفريق خلال 12 شهراً = 100%، أو تحقق جزئي بنسبة ما تحقق منه، أو تحديث من الجمعية خلال 12 شهراً = 50%.',
   f:(o,x)=>{const V=x.ver||{},keys=Object.keys(HS_VER).filter(k=>V[k]&&hsAge(V[k].on)<=365);const dv=hsAge(x.dv),pu=hsAge(x.pu),rp=HS_RESP[o.id]||{};
@@ -8041,13 +8087,21 @@ const HS_IND=[
   f:o=>{const a=hsActivity(o);return {v:Math.min(1,a.length/3),why:a.length?`${a.length} مشاركة: ${[...new Set(a.map(x=>x.k))].join('، ')}`:'لا مشاركات مسجّلة',rec:!a.length?{p:3,t:'دعوة للفعاليات القادمة أو لمجتمع مناسب',a:`cmAddTo(${o.id})`,b:'مجتمع'}:null}}},
  {k:'a_tr',dim:'act',l:'خلوّ من التعثر',w:10,src:'الجمعيات المتعثرة',how:'لا حالة تعثر مفتوحة = 100%؛ أولوية منخفضة 60%، متوسطة 30%، عالية 0.',
   f:o=>{const c=typeof trCase=='function'?trCase(o.id):null;const v=!c?1:c.sev=='منخفضة'?.6:c.sev=='متوسطة'?.3:0;return {v,why:c?`حالة تعثر (${c.types.join('، ')})`:'لا حالات تعثر مفتوحة',rec:c?{p:1,t:`متابعة حالة التعثر: ${c.types.join('، ')}`,a:`trOpen(${o.id})`,b:'فتح الحالة'}:null}}}];
-function hsOf(o){if(o.closed)return {s:null,band:null,parts:[],recs:[],act:[],data:null,actS:null,conf:null};
- const x=o.hx||{},R=[];const parts=HS_IND.map(I=>{let r;try{r=I.f(o,x)}catch(e){r={v:null,why:'—'}}if(r.rec)R.push(r.rec);const v=r.v==null?null:Math.max(0,Math.min(1,r.v));
-  const unk=v==null&&I.dim=='act';return {k:I.k,dim:I.dim,l:I.l,w:I.w,m:I.w,v:unk?0:Math.round((v||0)*I.w*10)/10,r:unk?null:(v||0),st:unk?'unk':hsSt(v||0),why:r.why||''}});
- const D=parts.filter(p=>p.dim=='data'),A=parts.filter(p=>p.dim=='act'),AK=A.filter(p=>p.st!='unk');
+/* الحساب نفسه في اللوحة وصفحة رابط التحديث: fix = قيم مثبّتة من لقطة اللوحة لمؤشرات لا تراها الجمعية (التعثر، التشخيص، المشاركة) */
+function hsCompute(o,x,fix){const R=[];const parts=HS_IND.map(I=>{let r;if(fix&&fix[I.k])r={v:fix[I.k][0],why:fix[I.k][1]};else{try{r=I.f(o,x)}catch(e){r={v:null,why:'—'}}if(r.rec)R.push(r.rec)}
+  const v=r.v==null?null:Math.max(0,Math.min(1,r.v));const unk=v==null&&I.dim=='act';return {k:I.k,dim:I.dim,l:I.l,w:I.w,m:I.w,v:unk?0:Math.round((v||0)*I.w*10)/10,r:unk?null:(v||0),st:unk?'unk':hsSt(v||0),why:r.why||''}});
+ return {...hsAgg(parts),parts,recs:R.sort((a,b)=>a.p-b.p)}}
+function hsAgg(parts){const D=parts.filter(p=>p.dim=='data'),A=parts.filter(p=>p.dim=='act'),AK=A.filter(p=>p.st!='unk');
  const data=Math.round(D.reduce((t,p)=>t+p.r*p.w,0)),kw=AK.reduce((t,p)=>t+p.w,0),got=AK.reduce((t,p)=>t+p.r*p.w,0),actK=kw?Math.round(got/kw*100):null,act=Math.round(got+HS_NEUTRAL*(100-kw)),conf=Math.round(kw);
- const s=Math.round(data*HS_DIM.data[1]+act*HS_DIM.act[1]);
- return {s,band:hsBand(s),parts,recs:R.sort((a,b)=>a.p-b.p),act:hsActivity(o),data,actS:act,actK,conf}}
+ const s=Math.round(data*HS_DIM.data[1]+act*HS_DIM.act[1]);return {s,band:hsBand(s),data,actS:act,actK,conf}}
+/* الربح المتوقع من إكمال مؤشر: نقاط المؤشر الكلي إن صار مكتملاً */
+const hsGain=p=>Math.round(p.w*(1-(p.r==null?HS_NEUTRAL:p.r))*HS_DIM[p.dim][1]*10)/10;
+function hsOf(o){if(o.closed)return {s:null,band:null,parts:[],recs:[],act:[],data:null,actS:null,conf:null};const h=hsCompute(o,o.hx||{});h.act=hsActivity(o);return h}
+/* لقطة للصفحة العامة لرابط التحديث: الأرقام كما يراها المجلس */
+function hsSnapOf(o){const h=hsOf(o);if(h.s==null)return null;return {at:new Date().toISOString().slice(0,10),s:h.s,data:h.data,act:h.actS,conf:h.conf,p:Object.fromEntries(h.parts.map(p=>[p.k,[p.st=='unk'?null:Math.round(p.r*100)/100,p.why]]))}}
+const HS_SENT={};
+function hsSnapSave(id){if(!SESSION||!canW('directory'))return;const o=DBI[id];if(!o)return;const sn=hsSnapOf(o);if(!sn)return;const sig=JSON.stringify({...sn,at:0});if(HS_SENT[id]==sig)return;HS_SENT[id]=sig;
+ api(`/api/associations/${id}/full`,{method:'PUT',body:JSON.stringify({hsSnap:sn})}).catch(()=>{delete HS_SENT[id]})}
 /* بطاقة المؤشر في ملف الجمعية */
 function hsCard(o,h){if(o.closed)return '<p class="d">الجمعية مغلقة نهائياً، خارج المؤشر.</p>';const cf=HS_CONF(h.conf);
  const bar=(v,c)=>`<i class="hsb"><span style="width:${v||0}%;background:${c}"></span></i>`;const col=r=>r==null?'#C4CBD9':r>=.85?'#14A37F':r>=.5?'#42ACFD':r>0?'#F5A524':'#F04438';
@@ -8058,6 +8112,19 @@ function hsCard(o,h){if(o.closed)return '<p class="d">الجمعية مغلقة 
   <p class="hsfx"><span class="pill2 ${cf[1]}">${cf[0]} · <bdi>${h.conf}%</bdi></span> ${h.conf<80?`${h.parts.filter(p=>p.st=='unk').length} مؤشرات تفعيل غير معروفة حُسبت بقيمة محايدة${h.actK!=null?` (على المعروف فقط: ${h.actK})`:''}.`:'معظم مؤشرات التفعيل معروفة.'} <button class="lnk" onclick="hsMethod()">كيف يُحسب؟</button></p></div></div>
   <div class="hsgs">${grp('data')}${grp('act')}</div>
   <div class="hsvf"><span>${vk.length?`${I(P.check,'width:13px;height:13px')} تحقق الفريق من: ${vk.map(k=>HS_VER[k]+' ('+V[k].on+')').join('، ')}`:'لم يتحقق الفريق من بيانات هذه الجمعية بعد.'}</span>${SESSION&&canW('directory')?`<button class="jbtn sm" onclick="hsVerify(${o.id})">${I(P.check,'width:13px;height:13px')}تسجيل تحقق</button>`:''}</div>`}
+/* نافذة المؤشر عند الضغط عليه في رأس الملف: الأرقام، أكبر ما يرفعه، والانتقال للتفاصيل */
+function hsPeek(id,btn){const o=DBI[id];if(!o||o.closed)return;const h=hsOf(o),cf=HS_CONF(h.conf);const old=$('#hsPk');if(old){old.remove();if(old.dataset.id==id)return}
+ const G=h.parts.filter(p=>hsGain(p)>=.5).sort((a,b)=>hsGain(b)-hsGain(a)).slice(0,4),RC=Object.fromEntries(HS_IND.map(I=>[I.k,I]));
+ const recFor=p=>{let r=null;try{r=RC[p.k].f(o,o.hx||{}).rec}catch(e){}return r};
+ const bar=(v,c)=>`<i class="hsb"><span style="width:${v||0}%;background:${c}"></span></i>`;
+ const d=document.createElement('div');d.id='hsPk';d.dataset.id=id;d.className='hspop';d.setAttribute('role','dialog');d.setAttribute('aria-label','مؤشر صحة الجمعية');
+ d.innerHTML=`<div class="hsph">${hsRing(h.s,64)}<div><b>${h.band[1]} · ${h.s} من 100</b><span class="pill2 ${cf[1]}">${cf[0]} · <bdi>${h.conf}%</bdi></span></div><button class="x" aria-label="إغلاق" onclick="$('#hsPk').remove()">${I(P.x,'width:14px;height:14px')}</button></div>
+  <div class="hsdl"><span>${HS_DIM.data[0]}</span>${bar(h.data,'#1249FF')}<b>${h.data}</b></div><div class="hsdl"><span>${HS_DIM.act[0]}</span>${bar(h.actS,'#14A37F')}<b>${h.actS}</b></div>
+  <p class="hspm">= <bdi>40%</bdi> × ${h.data} + <bdi>60%</bdi> × ${h.actS}${h.conf<100?` · ${h.parts.filter(p=>p.st=='unk').length} مؤشرات تفعيل غير معروفة محسوبة <bdi>50%</bdi>`:''}</p>
+  ${G.length?`<h6>أكبر ما يرفع المؤشر</h6><ul>${G.map(p=>{const r=recFor(p);return `<li><span><b>${p.l}</b><small>${esc(p.why)}</small></span><em>+${hsGain(p)}</em>${r&&SESSION?`<button class="jbtn sm" onclick="$('#hsPk').remove();${esc(r.a)}">${esc(r.b)}</button>`:''}</li>`}).join('')}</ul>`:'<p class="hspm">كل المؤشرات مكتملة تقريباً.</p>'}
+  <div class="hspf"><button class="jbtn sm" onclick="$('#hsPk').remove();a360Tab('dev');setTimeout(()=>{const c=$('#a3-score');if(c){if(c.classList.contains('fold'))a360Toggle('score');c.scrollIntoView({behavior:'smooth',block:'start'})}},150)">كل المؤشرات</button><button class="jbtn sm" onclick="$('#hsPk').remove();hsMethod()">كيف يُحسب؟</button>${SESSION?`<button class="jbtn sm pri" onclick="$('#hsPk').remove();updLink([${id}])">${I(P.link,'width:13px;height:13px')}رابط تحديث</button>`:''}</div>`;
+ document.body.appendChild(d);const r=btn.getBoundingClientRect(),W=Math.min(380,innerWidth-24);d.style.width=W+'px';d.style.top=(r.bottom+8+scrollY)+'px';d.style.left=Math.max(12,Math.min(innerWidth-W-12,r.left+r.width/2-W/2))+'px';
+ const close=e=>{if(!d.contains(e.target)&&!btn.contains(e.target)){d.remove();removeEventListener('mousedown',close);removeEventListener('keydown',esc2)}};const esc2=e=>{if(e.key=='Escape'){d.remove();btn.focus()}};setTimeout(()=>{addEventListener('mousedown',close);addEventListener('keydown',esc2)},0);d.querySelector('button.x').focus()}
 /* المنهجية: كيف يُحسب المؤشر */
 function hsMethod(){const T=dim=>`<table class="hsmt"><thead><tr><th>المؤشر</th><th>الوزن</th><th>كيف يُحسب</th><th>المصدر</th></tr></thead><tbody>${HS_IND.filter(I=>I.dim==dim).map(I=>`<tr><td><b>${I.l}</b></td><td class="n">${I.w}</td><td>${rTx(I.how)}</td><td><small>${esc(I.src)}</small></td></tr>`).join('')}</tbody></table>`;
  uiDialog(uiHead('كيف يُحسب مؤشر الصحة المؤسسية','من 100 نقطة لكل جمعية نشطة، ويُعاد حسابه فور تغيّر بياناتها')
@@ -8206,7 +8273,7 @@ function a360Why(o,h){if(o.closed||!h.parts.length)return '';const P=h.parts.fil
  const b=bad.length?bad.slice(0,2).map(p=>p.l).join(' و')+(bad.length==1?' ضعيف':' ضعيفان'):'';
  return g&&b?g+'، لكن '+b:g||b}
 AM.assoc=el=>{const o=DBI[ADM.aid];if(!o){el.innerHTML=`<div class="empty">اختر جمعية من السجل لفتح ملفها الكامل.<br><button class="jbtn sm" style="margin-top:12px" onclick="goMod('directory')">فتح السجل</button></div>`;return}
- hsAll();const h=hsOf(o),B=hsBench(o);const full=ADM.a360f&&ADM.a360f.id==o.id?ADM.a360f.data:null;
+  hsAll();const h=hsOf(o),B=hsBench(o);const full=ADM.a360f&&ADM.a360f.id==o.id?ADM.a360f.data:null;if(full&&!o.closed)setTimeout(()=>hsSnapSave(o.id),600);
  if(SESSION&&(!ADM.a360f||ADM.a360f.id!=o.id)){ADM.a360f={id:o.id,data:null};Promise.all([recFull(o.id).catch(()=>null),api('/api/update-links?association_id='+o.id).then(r=>r.data).catch(()=>[]),api('/api/update-requests').then(r=>r.data).catch(()=>[]),api('/api/audit?entity=associations&entity_id='+o.id+'&limit=50').then(r=>r.data).catch(()=>[])]).then(([f,l,r,a])=>{ADM.a360f={id:o.id,data:f};ADM.a360l=l;ADM.a360r=r;ADM.a360a=a;if(f)HS_NOTES[o.id]={open:f.notes.filter(n=>n.status=='open').length,resolved:f.notes.filter(n=>n.status=='resolved').length};if(ADM.mod=='assoc'&&ADM.aid==o.id)AM.assoc(el)})}
  if(SESSION&&can('diag')&&!ADM.dg[o.id]&&!ADM.__dgL)ADM.__dgL=dgLoad(o.id).then(()=>{ADM.__dgL=null;if(ADM.mod=='assoc'&&ADM.aid==o.id)AM.assoc(el)}).catch(()=>{ADM.__dgL=null});
  const F=(l,v,fullw)=>{const fg=FLAG_LBL[l]&&flagOn(o.id,FLAG_LBL[l]);return `<div class="${fullw?'full':''}${fg?' flgcell':''}"${fg?` style="--fc:${FLAG_K[fg.kind][2]};--fb:${FLAG_K[fg.kind][3]}" title="${esc(fg.text)}"`:''}><small>${l}${fg?' '+flagPill(fg.kind,1):''}</small><b>${v||'<span class="pill2 p-warn">ناقص</span>'}</b></div>`};
@@ -8265,13 +8332,13 @@ AM.assoc=el=>{const o=DBI[ADM.aid];if(!o){el.innerHTML=`<div class="empty">اخ�
  const HEADS={lic:licHead,contact:conHead,quality:qHead,diag:dgHead,rel:relHead,eco:ecoHead,pub:pubHead,score:scHead};
  const tone=k=>/p-bad/.test(HEADS[k]||'')?'bad':/p-warn/.test(HEADS[k]||'')?'warn':'';
  el.innerHTML=`<div class="a3h"><div class="a360id">${o.logo?`<img src="${o.logo}" alt="">`:`<span class="jav2" style="width:64px;height:64px;font-size:26px;background:${GC[o.grp]}1F;color:${GC[o.grp]}">${o.n.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0)}</span>`}<div><div class="a360t"><h2>${esc(o.n)}</h2>${stPill(o)}${c?chip('متعثرة','p-bad'):''}${!o.closed&&!isPub?chip('مخفية عن الموقع','p-warn'):''}</div><div class="a360m"><span${flagOn(o.id,'gov')?` class="flgtxt" style="--fc:${FLAG_K[flagOn(o.id,'gov').kind][2]}" title="${esc(flagOn(o.id,'gov').text)}"`:''}>${I(P.pin,'width:14px;height:14px')}${esc(o.gov)}${flagOn(o.id,'gov')?' (مؤقتة؟)':''}</span><span class="pill2" style="background:${GC[o.grp]}1A;color:${GC[o.grp]}">${esc(o.grp)}</span><span>${esc(o.sup.replace('وزارة ',''))}</span><span>ترخيص ${o.lic}</span>${o.founded?`<span>منذ ${o.founded.slice(0,4)}</span>`:''}</div></div></div>
-  <div class="a360s">${o.closed?'<span class="pill2 p-mute" style="font-size:14px">مغلقة نهائياً</span>':`${hsRing(h.s,92)}<div><small>مؤشر صحة الجمعية</small><b style="color:${a360Txt(h.band[3])}">${h.band[1]} ${h.s}</b><small>${esc(a360Why(o,h))||(h.recs.length?h.recs.length+' توصيات':'لا إجراءات مطلوبة')}</small></div>`}</div>
+  <div class="a360s">${o.closed?'<span class="pill2 p-mute" style="font-size:14px">مغلقة نهائياً</span>':`<button type="button" class="hspk" onclick="hsPeek(${o.id},this)" aria-haspopup="dialog" aria-label="تفاصيل مؤشر الصحة ${h.s}">${hsRing(h.s,92)}</button><div><small>مؤشر صحة الجمعية <span class="pill2 ${HS_CONF(h.conf)[1]}" style="font-size:10.5px">${HS_CONF(h.conf)[0]}</span></small><b style="color:${a360Txt(h.band[3])}">${h.band[1]} ${h.s}</b><small>${esc(a360Why(o,h))||(h.recs.length?h.recs.length+' توصيات':'لا إجراءات مطلوبة')}</small></div>`}</div>
   ${needsHTML}</div>
  <div class="a360a a3a"><button class="jbtn pri" onclick="${pri.a}">${pri.t}</button>${more}<span style="flex:1"></span><button class="jbtn ghost" onclick="a360Nav(-1)">${I(P.chev,'width:14px;height:14px')} السابقة</button><button class="jbtn ghost" onclick="a360Nav(1)">التالية ${I(P.chev,'width:14px;height:14px;transform:scaleX(-1)')}</button></div>
  ${(()=>{card('lic',licHead,licBody,{ts:TS.lic});card('contact',conHead,conBody,{ts:TS.contact});card('quality',qHead,qBody,{ts:TS.quality});card('diag',dgHead,dgBody,{ts:TS.diag,wide:1});card('rel',relHead,relBody,{ts:TS.rel});card('eco',ecoHead,ecoBody);card('pub',pubHead,pubBody,{ts:TS.pub});card('score',scHead,scBody,{wide:1});return ''})()}
  <div class="a3tabs" role="tablist" aria-label="أقسام ملف الجمعية">${A360_TABS.map(t=>{const tn=t[2].map(tone).includes('bad')?'bad':t[2].map(tone).includes('warn')?'warn':'';const nw=t[2].some(k=>a360New(SEEN,TS[k]));return `<button role="tab" aria-selected="${TAB==t[0]}" class="${TAB==t[0]?'on':''} ${tn}" onclick="a360Tab('${t[0]}')"><b>${t[1]}</b><small>${t[3]}</small>${tn?`<i class="dot ${tn}" title="${tn=='bad'?'فيه ما يحتاج تدخلاً':'فيه تحذير'}"></i>`:''}${nw?'<u class="a3nd" title="تغيّر منذ زيارتك الأخيرة"></u>':''}</button>`}).join('')}</div>
  <div class="a3wrap"><div class="a3grid" role="tabpanel">${a360Order().filter(k=>A360_TABS.find(t=>t[0]==TAB)[2].includes(k)).map(k=>CARDS[k]).join('')}</div>${a360Rail(o,full)}</div>`;
- const st=document.createElement('div');st.className='a3sticky';st.innerHTML=`${o.logo?`<img class="a3slogo" src="${o.logo}" alt="">`:`<span class="jav2" style="width:34px;height:34px;font-size:15px;background:${GC[o.grp]}1F;color:${GC[o.grp]}">${o.n.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0)}</span>`}<b>${esc(o.n)}</b>${o.closed?chip('مغلقة'):`<span class="hsp" style="--c:${h.band[3]}"><i></i>${h.s}</span>`}${N.length?chip(N.length==1?'بند يحتاج تدخلاً':N.length+' بنود تحتاج تدخلاً',N[0].tone=='bad'?'p-bad':'p-warn'):chip('لا شيء عاجل','p-ok')}<span style="flex:1"></span><button class="jbtn pri sm" onclick="${pri.a}">${pri.t}</button>`;el.prepend(st);
+ const st=document.createElement('div');st.className='a3sticky';st.innerHTML=`${o.logo?`<img class="a3slogo" src="${o.logo}" alt="">`:`<span class="jav2" style="width:34px;height:34px;font-size:15px;background:${GC[o.grp]}1F;color:${GC[o.grp]}">${o.n.replace(/^(جمعية|الجمعية)\s+/,'').trim().charAt(0)}</span>`}<b>${esc(o.n)}</b>${o.closed?chip('مغلقة'):`<button type="button" class="hsp hspb" style="--c:${h.band[3]}" onclick="hsPeek(${o.id},this)" aria-label="تفاصيل المؤشر"><i></i>${h.s}</button>`}${N.length?chip(N.length==1?'بند يحتاج تدخلاً':N.length+' بنود تحتاج تدخلاً',N[0].tone=='bad'?'p-bad':'p-warn'):chip('لا شيء عاجل','p-ok')}<span style="flex:1"></span><button class="jbtn pri sm" onclick="${pri.a}">${pri.t}</button>`;el.prepend(st);
  try{const hd=el.querySelector('.a3h');new IntersectionObserver(([e])=>{const on=!e.isIntersecting&&e.boundingClientRect.top<0;st.classList.toggle('on',on);const js=document.querySelector('.jstick');if(js)js.style.visibility=on?'hidden':''},{threshold:0}).observe(hd);
   const secs=[...el.querySelectorAll('.a3c, .a3rail')],io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const k=e.target.dataset.c||'rail';el.querySelectorAll('[data-a3j]').forEach(x=>x.classList.toggle('cur',x.dataset.a3j==k))}})},{rootMargin:'-30% 0px -60% 0px'});secs.forEach(x=>io.observe(x))}catch(e){}
  el.querySelectorAll('[data-a3j]').forEach(x=>x.onclick=e=>{e.preventDefault();const k=x.dataset.a3j,t=k=='rail'?el.querySelector('.a3rail'):el.querySelector(`.a3c[data-c="${k}"]`);if(!t)return;if(t.classList.contains('fold'))a360Toggle(k);t.scrollIntoView({behavior:'smooth',block:'start'})});
@@ -9351,15 +9418,38 @@ applyPref(sitePref());
  w('exportCSV',L=>expLog('سجل الجمعيات','csv',(L||[]).length));w('rXLSX',R=>R&&expLog(R.title||'تقرير','xlsx'));w('rPDF',R=>R&&expLog(R.title||'تقرير','pdf'));w('printEl',(el,t)=>el&&expLog(t||document.title,'print'))})();/*@/adm*/
 route();
 /* ─── بوابة التحديث عبر الرابط (المنصة) ─────────────────────────────── */
-/*@adm*/function portalBoot(){
+/*@adm*/
+/* مؤشر الجمعية في صفحة رابط التحديث: الحساب نفسه (hsCompute) على قيم الصفحة الحية + حقائق الخادم + لقطة اللوحة لما لا تراه الجمعية */
+function hsPortal(d){const A=PORTAL.a||{},H=PORTAL.hs||{},has=H.has||{},sn=H.snap,pf=k=>PF.some(f=>f.k==k),num=v=>v===''||v==null?null:Number(v);
+ const o={id:-1,n:A.n||'',exp:d.exp||'',issued:A.issued||'',email:pf('email')?d.email:(has.email?'x':''),mobile:pf('mobile')?d.mobile:(has.mobile?'x':''),pres:pf('pres')?d.pres:(has.pres?'x':''),del:pf('del')?d.del:(has.del?'x':''),flagsN:H.flags||0};
+ o.days=o.exp?Math.round((Date.parse(o.exp)-TODAY)/864e5):null;o.st=o.days==null?'غير معروف':o.days<0?'منتهي':o.days<=90?'ينتهي قريباً':'ساري';
+ const ch=new Set(PF.filter(f=>JSON.stringify(d[f.k]??'')!==JSON.stringify((PS.base||PS.orig)[f.k]??'')).map(f=>f.k));
+ o.issues=(PORTAL.notes||[]).filter(n=>n.src=='check'&&!ch.has(n.f)).map(n=>n.t);o.hasTest=/@test\.com$/i.test(o.email||'');o.mismatch=false;
+ const x={...(H.hx||{}),ex:pf('exec')?(d.exec?1:0):(has.exec?1:0),exT:d.execType||'',exS:d.execSince||'',vs:d.volSt||'',vr:d.volRef?1:0,vl:d.volLast||'',vy:num(d.volYear),vo:num(d.volOpps),vh:num(d.volHours),vn:num(d.vols),es:d.ehsanSt||'',dn:d.donate?1:0,asm:d.assembly||'',fin:num(d.finYear)};
+ HS_RESP[-1]={approved:(H.approved||0)>0,opened:1};
+ const fix={};['a_diag','a_eng','a_tr','d_board','d_ver',...(PORTAL.personal?[]:['d_q','d_con'])].forEach(k=>{if(sn&&sn.p&&sn.p[k])fix[k]=sn.p[k]});if(!fix.a_eng)fix.a_eng=[0,'لا مشاركات مسجّلة'];if(!fix.a_tr)fix.a_tr=[1,'لا حالات تعثر'];
+ return hsCompute(o,x,fix)}
+/* تفاصيل المؤشر للجمعية */
+function pvIdx(){const h=hsPortal(PS.d),b=PS.base?hsPortal(PS.base):null,cf=HS_CONF(h.conf);
+ const MAP={d_lic:'exp',a_lic:'licFile',d_con:'email',d_lead:'exec',a_exec:'execType',d_plat:'volSt',a_vol:'volSt',a_don:'ehsanSt',a_gov:'assembly'};
+ const row=p=>{const k=MAP[p.k]&&PF.some(f=>f.k==MAP[p.k])?MAP[p.k]:p.k=='d_lead'&&PF.some(f=>f.k=='execType')?'execType':null;return `<li class="${p.st}"><span><b>${p.l}</b><small>${esc(p.why)}</small></span><span class="pill2 ${HS_ST[p.st][1]}">${p.st=='unk'?'غير معروف':p.r>=.85?(p.dim=='act'?'مفعّل':'مكتمل'):p.r>0?'جزئي':(p.dim=='act'?'غير مفعّل':'ناقص')}</span>${k&&hsGain(p)>=.5?`<button type="button" class="jbtn sm" onclick="closeAll();goField('${k}')">+${hsGain(p)}</button>`:'<span></span>'}</li>`};
+ uiDialog(uiHead('مؤشر صحة جمعيتكم',`${h.s} من 100 · ${h.band[1]}${b&&h.s!=b.s?` · كان ${b.s} عند فتح الرابط`:''}`)
+  +`<div class="pvi"><div class="hsdl"><span>${HS_DIM.data[0]}</span><i class="hsb"><span style="width:${h.data}%;background:#1249FF"></span></i><b>${h.data}</b></div><div class="hsdl"><span>${HS_DIM.act[0]}</span><i class="hsb"><span style="width:${h.actS}%;background:#14A37F"></span></i><b>${h.actS}</b></div>
+   <p class="hspm"><span class="pill2 ${cf[1]}">${cf[0]}</span> المؤشر = <bdi>40%</bdi> سلامة البيانات + <bdi>60%</bdi> التفعيل. «سلامة البيانات» تقيس اكتمال بياناتكم وصحتها لدى المجلس، و«التفعيل» يقيس عمل الجمعية: ترخيص ساري، حساب مفعّل في منصة العمل التطوعي، جمعية عمومية وقوائم مالية، مدير تنفيذي. ما لم تُسجّلوه في التفعيل يُحسب <bdi>50%</bdi> حتى تُسجّلوه.</p></div>`
+  +uiSec(HS_DIM.data[0])+`<ul class="pvil">${h.parts.filter(p=>p.dim=='data').map(row).join('')}</ul>`
+  +uiSec(HS_DIM.act[0])+`<ul class="pvil">${h.parts.filter(p=>p.dim=='act').map(row).join('')}</ul>`
+  +`<div class="uio">${uiNote('الرقم يتحدّث فوراً مع كل حقل تكملونه، ويُعتمد رسمياً بعد مراجعة المجلس لتعديلاتكم. «مسجّلة» في منصة يُكمل بياناتكم، أما «مفعّلة» فتعني فرصة منشورة أو ساعات تطوع خلال آخر 12 شهراً.',0,'info')}</div>`
+  +uiFoot('',['pvIOk','متابعة التحديث']),{cls:'pviw',wide:1});$('#ov').style.zIndex=96;$('#modal').style.zIndex=97;$('#pvIOk').onclick=closeAll;$$('.pviw .uifoot .btn.o').forEach(b=>b.remove())}
+function portalBoot(){
  const A=PORTAL.a;ALLG.length=0;ALLG.push(...PORTAL.govs);
  // حقول البوابة على المنصة: تاريخ تأسيس بدل السنة، وكل تعديل يُراجع من المجلس، والحقول الشخصية حسب قرار الفريق
  const yi=PF.findIndex(f=>f.k=='y');if(yi>=0)PF.splice(yi,1,{sec:'id',k:'founded',l:'تاريخ التأسيس',t:'date',v:'pub',m:'review',req:1});
  for(let i=PF.length-1;i>=0;i--){const f=PF[i];if(f.k=='uid'||(!PORTAL.personal&&(f.sec=='contact'||f.sec=='lead')&&!f.np))PF.splice(i,1);else if(f.m!='locked')f.m='review'}
- if(!PORTAL.personal)for(let i=PSEC.length-1;i>=0;i--)if(PSEC[i][0]=='contact'||PSEC[i][0]=='lead')PSEC.splice(i,1);
- const d={n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1||'',founded:A.founded||'',exp:A.exp||'',short:A.short||'',about:A.about||'',web:A.web||'',social:A.social||'',ben:A.ben||[],progs:A.progs||'',logo:A.logo||'',y:A.founded?A.founded.slice(0,4):'',staff:A.staff??'',vols:A.vols??'',volHours:A.volHours??'',volOpps:A.volOpps??'',volYear:A.volYear??'',benef:A.benef??'',assembly:A.assembly||'',finYear:A.finYear??'',revBand:A.revBand||'',donate:A.donate||'',phone:A.phone||'',address:A.address||'',postal:A.postal||'',pobox:A.pobox||''};
+ for(let i=PSEC.length-1;i>=0;i--)if(!PF.some(f=>f.sec==PSEC[i][0]))PSEC.splice(i,1);
+ {const L=PSEC.find(x=>x[0]=='lead');if(L&&!PORTAL.personal){L[1]='الإدارة التنفيذية';L[3]='طبيعة عمل المدير التنفيذي وتاريخ تعيينه: بيانات تنظيمية لا تُنشر'}}
+ const d={n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1||'',founded:A.founded||'',exp:A.exp||'',short:A.short||'',about:A.about||'',web:A.web||'',social:A.social||'',ben:A.ben||[],progs:A.progs||'',logo:A.logo||'',y:A.founded?A.founded.slice(0,4):'',staff:A.staff??'',vols:A.vols??'',volHours:A.volHours??'',volOpps:A.volOpps??'',volYear:A.volYear??'',benef:A.benef??'',assembly:A.assembly||'',finYear:A.finYear??'',revBand:A.revBand||'',donate:A.donate||'',phone:A.phone||'',address:A.address||'',postal:A.postal||'',pobox:A.pobox||'',execType:A.execType||'',execSince:A.execSince||'',volSt:A.volSt||'',volRef:A.volRef||'',volLast:A.volLast||'',ehsanSt:A.ehsanSt||'',ehsanRef:A.ehsanRef||''};
  PS_NCNP=Object.fromEntries((A.ncnpPending||[]).map(k=>[k,1]));
- if(PORTAL.personal){Object.assign(d,{consent:!!A.consent});['email','mobile','pres','presEmail','del','delEmail','delMobile'].forEach(k=>d[k]=A[k]||'')}
+ if(PORTAL.personal){Object.assign(d,{consent:!!A.consent});['email','mobile','pres','presEmail','del','delEmail','delMobile','exec','execEmail','execMobile'].forEach(k=>d[k]=A[k]||'')}
  PS={a:{n:A.n,lic:A.lic,gov:A.gov,grp:A.grp,s1:A.s1},auth:true,portal:true,d,orig:JSON.parse(JSON.stringify(d)),pending:Object.fromEntries(PORTAL.pending.map(k=>[k,1])),sec:'id',files:{}};
  document.body.classList.add('portalmode');
  const t=$('#portal .demo');if(t)t.textContent='رابط خاص بجمعيتكم';

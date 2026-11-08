@@ -1,6 +1,6 @@
 // Association update links + update requests + council review.
 import { fail } from './http.js';
-import { audit, updateAssociation, dataIssues } from './db.js';
+import { audit, updateAssociation, dataIssues, healthFacts } from './db.js';
 
 const NOW = "strftime('%Y-%m-%dT%H:%M:%SZ','now')";
 const enc = new TextEncoder();
@@ -90,7 +90,7 @@ export async function collectPersonal(env) {
 export async function currentValues(env, id, withPersonal) {
   const a = await env.DB.prepare(
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
-            a.founded_on AS founded, a.license_expires_on AS exp, a.contact_consent AS consent,
+            a.founded_on AS founded, a.license_expires_on AS exp, a.license_issued_on AS issued, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
             p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
@@ -110,6 +110,12 @@ export async function currentValues(env, id, withPersonal) {
 
 // ─── links ───────────────────────────────────────────────
 export async function createLinks(env, req, user, body) {
+  // لقطات المؤشر المرسلة مع الروابط (من اللوحة) تُحفظ لتعرضها صفحة التحديث
+  if (body.hs && typeof body.hs === 'object') {
+    const st = Object.entries(body.hs).slice(0, 600).filter(([k, v]) => Number(k) > 0 && v && typeof v === 'object').map(([k, v]) => {
+      const j = JSON.stringify(v); return j.length <= 6000 ? env.DB.prepare('INSERT INTO association_profiles (association_id, hs_snap) VALUES (?1, ?2) ON CONFLICT(association_id) DO UPDATE SET hs_snap = excluded.hs_snap').bind(Number(k), j) : null; }).filter(Boolean);
+    for (let i = 0; i < st.length; i += 90) await env.DB.batch(st.slice(i, i + 90));
+  }
   const ids = [...new Set((body.association_ids || []).map(Number).filter((n) => Number.isInteger(n) && n > 0))];
   if (!ids.length) fail(422, 'invalid', 'اختر جمعية واحدة على الأقل');
   if (ids.length > 600) fail(422, 'invalid', 'الحد الأقصى 600 رابط في المرة');
@@ -178,16 +184,24 @@ export async function portalPayload(env, link) {
   const pending = [...new Set(results.flatMap((r) => Object.keys(JSON.parse(r.changes))))];
   const { results: govs } = await env.DB.prepare('SELECT name_ar AS n FROM governorates ORDER BY sort').all();
   // notes the association should fix: council notes (visible) + computed data-quality checks
-  const [ad, ct, nt] = await env.DB.batch([
+  const [ad, ct, nt, pr, fl, ap] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations WHERE id = ?1').bind(link.association_id),
     env.DB.prepare('SELECT * FROM association_contacts WHERE association_id = ?1').bind(link.association_id),
     env.DB.prepare("SELECT id, field, text, created_at FROM association_notes WHERE association_id = ?1 AND status = 'open' AND visible = 1 ORDER BY id").bind(link.association_id),
+    env.DB.prepare('SELECT * FROM association_profiles WHERE association_id = ?1').bind(link.association_id),
+    env.DB.prepare("SELECT count(*) AS n FROM association_notes WHERE association_id = ?1 AND status = 'open' AND kind IS NOT NULL").bind(link.association_id),
+    env.DB.prepare("SELECT count(*) AS n FROM update_requests WHERE association_id = ?1 AND status IN ('approved','partial')").bind(link.association_id),
   ]);
   const notes = [
     ...nt.results.map((n) => ({ f: n.field, t: n.text, src: 'council' })),
     ...dataIssues(ad.results[0] || {}, ct.results[0] || {}).filter((x) => personal || !['mobile', 'email', 'pres', 'presEmail', 'del', 'delEmail'].includes(x.f)).map((x) => ({ ...x, src: 'check' })),
   ];
-  return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n), notes };
+  // مؤشر الصحة في الصفحة: لقطة اللوحة + حقائق غير شخصية (وجود البيانات لا قيمها)
+  const p0 = pr.results[0] || {}, c0 = ct.results[0] || {};
+  let snap = null; try { snap = p0.hs_snap ? JSON.parse(p0.hs_snap) : null; } catch { snap = null; }
+  const hs = { snap, hx: healthFacts(p0, c0), flags: fl.results[0]?.n || 0, approved: ap.results[0]?.n || 0,
+    has: { email: !!c0.email, mobile: !!c0.mobile, pres: !!c0.president_name, del: !!c0.delegate_name, exec: !!c0.exec_name } };
+  return { a: cur, pending, personal, expires: link.expires_at, govs: govs.map((g) => g.n), notes, hs };
 }
 
 // ─── PIN gate ────────────────────────────────────────────
