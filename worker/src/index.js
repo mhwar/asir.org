@@ -17,6 +17,7 @@ import * as msg from './messages.js';
 import * as al from './alerts.js';
 import * as adm from './admin.js';
 import * as dc from './docs.js';
+import * as kb from './kb.js';
 import * as seo from './seo.js';
 import * as ts from './turnstile.js';
 import * as ncnp from './ncnp.js';
@@ -267,6 +268,9 @@ async function api(req, env, url) {
     return json(await db.lookups(env), 200, { 'Cache-Control': 'public, max-age=3600' });
   }
 
+  // المكتبة المعرفية: محتوى تشريعي عام، يُقرأ دون دخول (الموقع وصفحة رابط التحديث)
+  if (path === '/api/public/kb' && m === 'GET') return json({ data: await kb.listKb(env, false) }, 200, { 'Cache-Control': 'public, max-age=600' });
+
   // Contact form / founding help: open to visitors, rate-limited, honeypot-guarded
   if (path === '/api/public/contact' && m === 'POST') {
     const origin = req.headers.get('Origin');
@@ -465,6 +469,9 @@ async function api(req, env, url) {
   if (path === '/api/settings' && m === 'PATCH') { requirePerm(user, 'roles', 'write'); return json(await adm.setSettings(env, req, user, await readJson(req))); }
   // ─── ملفات الحوكمة: صور المجلس والوثائق ───
   if (path === '/api/board/photo' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.uploadBoardPhoto(env, req, user), 201); }
+  if (path === '/api/kb' && m === 'GET') { requirePerm(user, 'content'); return json({ data: await kb.listKb(env, true) }); }
+  if (path === '/api/kb' && m === 'POST') { requirePerm(user, 'content', 'write'); return json(await kb.saveKb(env, req, user, null, await readJson(req)), 201); }
+  { const km = path.match(/^\/api\/kb\/([a-z0-9-]{2,41})$/); if (km && m === 'PATCH') { requirePerm(user, 'content', 'write'); return json(await kb.saveKb(env, req, user, km[1], await readJson(req))); } }
   if (path === '/api/docs' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.uploadDoc(env, req, user), 201); }
   if (path === '/api/docs/vis' && m === 'PATCH') { requirePerm(user, 'board', 'write'); return json(await dc.setDocVis(env, req, user, await readJson(req))); }
   if (path === '/api/docs/delete' && m === 'POST') { requirePerm(user, 'board', 'write'); return json(await dc.deleteFile(env, req, user, String((await readJson(req)).key || ''))); }
