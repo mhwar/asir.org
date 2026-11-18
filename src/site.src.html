@@ -2288,6 +2288,54 @@ html[data-theme=dark] .fchip2{background:#1A2244;border-color:#2F3D7A;color:#AFC
 html[data-theme=dark] .dvpop>button:hover,html[data-theme=dark] .dvpop label:hover,html[data-theme=dark] .dvtabs>button:hover{background:#1E2440}
 html[data-theme=dark] #dirT tr.sel td{background:#1A2244}
 @media (max-width:900px){.dvlay span{display:none}.dvbar .dvq{flex-basis:100%;max-width:none}.dvbar .sp{display:none}.dvbulk{bottom:8px}.dvpop{position:fixed;top:auto;bottom:12px;left:12px!important;right:12px!important;width:auto!important;max-height:60vh}}
+
+/* ---------- 0.95: التحليلات (النطاق، المؤشرات، ما يحتاج انتباهك) ---------- */
+.anscb{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--sf);border:1px solid #E4E7EE;border-radius:14px;padding:8px 12px;margin-bottom:12px}
+.anscb>b{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--hd)}.anscb .sp{flex:1}
+.ansc{display:flex;align-items:center;gap:6px;border:1px solid #E4E7EE;border-radius:10px;padding:0 4px 0 10px;height:36px;font-size:12.5px;color:#5A6488}
+.ansc.on{border-color:#AFC0FF;background:#F3F6FF;color:#2F49C9}
+.ansc select{border:0;background:none;font:inherit;font-size:13px;color:var(--hd);max-width:190px;padding:0 4px;height:34px}
+.anks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.ank{background:var(--sf);border:1px solid #E4E7EE;border-radius:14px;padding:12px 14px;text-align:start;display:flex;flex-direction:column;gap:2px}
+.ank:hover{border-color:#C9D2EA;box-shadow:0 4px 14px rgba(14,21,80,.05)}
+.ank small{font-size:12.5px;color:#5A6488}.ank b{font-size:26px;color:var(--hd);line-height:1.25}.ank b span{font-size:14px;color:#5A6488;font-weight:600}
+.ank em{font-style:normal;font-size:12px}.ank em.gd{color:#14804A}.ank em.bd{color:#B42318}.ank em.ankn{color:#5A6488}.ank i{font-style:normal;font-size:11.5px;color:#5A6488}
+.anin{background:var(--sf);border:1px solid #E4E7EE;border-radius:16px;padding:14px 16px;margin-bottom:14px}
+.anin>header{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:6px}.anin h3{margin:0;font-size:15px;color:var(--hd)}.anin header small{color:#5A6488;font-size:12.5px}
+.aninr{display:flex;align-items:center;gap:12px;padding:10px 0;border-top:1px solid #EEF0F4}.aninr:first-of-type{border-top:0}
+.aninr>i{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;flex:none;background:#EEF4FF;color:#3555D6}
+.aninr.bad>i{background:#FEF3F2;color:#B42318}.aninr.warn>i{background:#FFFAEB;color:#B54708}
+.aninr p{flex:1;margin:0;font-size:13.5px;color:var(--hd);line-height:1.7}.aninr>span{display:flex;gap:6px;flex:none}
+.aninr .jbtn.sm{height:32px;padding:0 10px;font-size:12.5px}
+html[data-theme=dark] .anscb,html[data-theme=dark] .ank,html[data-theme=dark] .anin,html[data-theme=dark] .ansc{border-color:#2A3150}
+html[data-theme=dark] .aninr>i{background:#1A2244;color:#AFC0FF}html[data-theme=dark] .ank em.gd{color:#47CD89}html[data-theme=dark] .ank em.bd{color:#F97066}
+@media (max-width:1100px){.anks{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (max-width:700px){.anks{grid-template-columns:1fr 1fr}.aninr{flex-wrap:wrap}.aninr>span{width:100%;padding-inline-start:46px}.ansc{flex:1 1 100%}.ansc select{max-width:none;flex:1}}
+
+/* ---------- 0.95: مركز التقارير ---------- */
+.rptpl{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.rptc{background:var(--sf);border:1px solid #E4E7EE;border-radius:16px;padding:16px;text-align:start;display:flex;flex-direction:column;gap:6px;min-height:170px}
+.rptc:hover{border-color:#AFC0FF;box-shadow:0 6px 18px rgba(14,21,80,.06)}
+.rptc>i{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:#EEF4FF;color:#3555D6;margin-bottom:4px}
+.rptc.q>i{background:#ECFDF3;color:#14804A}
+.rptc b{font-size:15px;color:var(--hd)}.rptc p{margin:0;font-size:13px;color:#5A6488;line-height:1.7;flex:1}
+.rptc span{display:flex;gap:6px;flex-wrap:wrap}.rptc em{font-style:normal;font-size:11.5px;border:1px solid #E4E7EE;border-radius:6px;padding:0 7px;color:#5A6488}
+.rptc em.pu{border-color:#E3D9FF;color:#6941C6}.rptc em.lu{border-color:#AFC0FF;color:#2F49C9;background:#F3F6FF}
+.rptc.last{border-color:#AFC0FF}
+html[data-theme=dark] .rptc{border-color:#2A3150}html[data-theme=dark] .rptc>i{background:#1A2244;color:#AFC0FF}
+
+.xpw{display:flex;align-items:center;gap:16px;background:#F6F7FB;border:1px solid #E4E7EE;border-radius:12px;padding:12px 14px;margin-bottom:6px}
+.xpw>p{margin:0;font-size:12.5px;color:#5A6488;line-height:1.7;flex:1}
+.xpv{display:flex;gap:8px;flex:none}
+.xpg{width:58px;height:80px;background:#fff;border:1px solid #DDE1EA;border-radius:4px;padding:6px;display:flex;flex-direction:column;gap:4px;position:relative;box-shadow:0 2px 6px rgba(14,21,80,.06)}
+.xpg.land{width:80px;height:58px}.xpg b{height:5px;width:70%;background:#0E1550;border-radius:2px}.xpg s{height:3px;background:#DDE1EA;border-radius:2px}.xpg s.toc{width:60%}
+.xpg em{position:absolute;bottom:3px;left:0;right:0;text-align:center;font-style:normal;font-size:7px;color:#8A93AE}
+.xpg.cv{background:linear-gradient(180deg,#fff 0,#fff 70%,#F3F6FF 70%)}.xpg.cv .lg{width:12px;height:12px;border-radius:3px;background:#42ACFD}.xpg.cv .k{display:flex;gap:2px}.xpg.cv .k i{flex:1;height:9px;background:#EEF4FF;border-radius:2px}
+.xpg .tb{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}.xpg .tb i{height:4px;background:#EEF1F7}.xpg .tb i:nth-child(-n+3){background:#0E1550}
+.xpv.xls{flex-direction:column;gap:0;width:150px}.xpv.xls .gr{display:grid;grid-template-columns:repeat(6,1fr);border:1px solid #DDE1EA;background:#fff}.xpv.xls .gr i{height:9px;border:1px solid #EEF0F4}.xpv.xls .gr i:nth-child(-n+6){background:#0E1550}
+.xpv.xls .tabs{display:flex;gap:2px;margin-top:2px;overflow:hidden}.xpv.xls .tabs span{font-size:8.5px;padding:1px 5px;border:1px solid #DDE1EA;background:#fff;white-space:nowrap;color:#5A6488}.xpv.xls .tabs span.on{color:#14804A;border-bottom:2px solid #14804A}
+.xpv.csv code{display:block;background:#fff;border:1px solid #DDE1EA;border-radius:6px;padding:6px 8px;font-size:10px;color:#5A6488;max-width:190px;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+html[data-theme=dark] .xpw{background:#161B33;border-color:#2A3150}
 /* ---------- standalone read page (#/read/<id>) ---------- */
 .rdhero{position:relative;min-height:min(62vh,560px);display:flex;align-items:flex-end;background:var(--deep);color:#fff;overflow:hidden;padding:120px 0 40px}
 .rdhero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
@@ -3693,7 +3741,7 @@ html[data-theme=dark] .a11yt i{background:#30363D}
       <div><h2 class="fh5">الخدمات</h2><ul><li><a href="#/directory">دليل الجمعيات</a></li><li><a href="#/consult">الاستشارات</a></li><li><a href="#/pro">تطوّع بخبرتك</a></li><li><a href="#/communities">المجتمعات والفعاليات</a></li><li><a href="#/found">المساعدة في تأسيس جمعية</a></li><li><a href="#/brand">الهوية والشعار</a></li><li><a href="#/contact">تواصل معنا</a></li></ul></div>
       <div><h2 class="fh5">روابط</h2><ul><li><a href="https://ccsa.org.sa" target="_blank" rel="noopener">مجلس الجمعيات الأهلية</a></li><li><a data-gap-href="mailto:" data-gap="email" href="#" style="direction:ltr;display:inline-block"></a></li><li data-gap-wrap="phone"><a data-gap-href="tel:" data-gap="phone" href="#" style="direction:ltr;display:inline-block"></a></li></ul></div>
     </div>
-    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.94</span></div>
+    <div class="fbot"><span>© 2026 مجلس الجمعيات الأهلية بمنطقة عسير</span><div class="thseg" id="thm" role="radiogroup" aria-label="نمط العرض"><button role="radio" data-p="light" title="فاتح"><svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><span>فاتح</span></button><button role="radio" data-p="dark" title="داكن"><svg class="i" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><span>داكن</span></button><button role="radio" data-p="system" title="حسب الجهاز"><svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg><span>تلقائي</span></button></div><span>نموذج أولي للعرض — النسخة 0.95</span></div>
   </div>
 </footer>
 
@@ -5980,6 +6028,7 @@ function expOpen(src){if(!canExport()){toast('التصدير غير مسموح �
    :uiSec('الأقسام',`${secs.filter(s=>s.on).length} من ${secs.length}`,[['all',secs.every(s=>s.on||(s.pii&&!ADM.reveal))?'إلغاء الكل':'تحديد الكل']])
     +uiGrid(secs.map((s,i)=>({k:String(i),l:esc(s.t)+(s.app?' <small style="color:var(--mute)">(ملحق)</small>':''),on:s.on,pii:!!s.pii,lock:s.pii&&!ADM.reveal,t:s.pii&&!ADM.reveal?'فعّل «إظهار البيانات الشخصية» من أعلى الصفحة أولاً':''})))
     +(sec&&!ADM.reveal&&secs.some(s=>s.pii)?uiNote('الأقسام الشخصية مقفلة لأن البيانات الشخصية مخفية.',0,'lock'):''))
+  +expPrev(X,{rows,rep,sec,secs,C,est:est()})
   +`<div class="uio">${pers?uiSwitch('mask','إخفاء جزء من البيانات الشخصية',`${pers} ${rows?'أعمدة':'أقسام'} شخصية مختارة · ${X.mask?'تظهر مموّهة، مثل a•••@mail.com':'تظهر كاملة: لا تُرسل الملف خارج الفريق'}`,X.mask):''}
    ${X.fmt=='pdf'&&rep?uiSec('اتجاه الصفحات')+uiSeg('orient',[['auto','تلقائي'],['p','طولي'],['l','عرضي']],X.orient)+`<p class="uim" style="margin:6px 0 10px">${X.orient=='auto'?'طولي، والجداول العريضة والمصفوفات في صفحات عرضية':X.orient=='p'?'كل الصفحات طولية، والجداول العريضة بخط أصغر':'كل الصفحات عرضية'}</p>`:''}
    ${X.fmt=='pdf'&&!sec?uiSwitch('cover','صفحة غلاف',X.cover?'غلاف بالشعار وأبرز الأرقام وفهرس المحتويات':'رأس مختصر في أعلى الصفحة الأولى، ويبدأ المحتوى مباشرة',X.cover)+(rep&&rCutK(src.R)&&src.R.sections.some(s=>s.blocks.some(b=>b.type=='table'&&b.rows.length>RCUT[0]))?uiSwitch('full','القوائم الطويلة كاملة',X.full?'كل صفوف القوائم في متن التقرير':'أول '+RCUT[1]+' صفاً من كل قائمة طويلة، والكاملة في Excel',X.full):'')+(defs0.length||rows?uiSwitch('defs','التعريفات والمنهجية','كيف حُسبت الحالات والمؤشرات، في آخر التقرير',X.defs):''):''}
@@ -6006,6 +6055,14 @@ function expOpen(src){if(!canExport()){toast('التصدير غير مسموح �
    const R=specToR(spec);R.scope=scopeT;R.sub=spec.sub;R.meta={count:L.length};R.fname=name;R.noCover=!X.cover;R.land=C.length>6;if(!X.defs)R.defs=[];
    X.fmt=='pdf'?rPDF(R):rXLSX(R)}};
  draw()}
+
+/* 0.95: معاينة مصغّرة لشكل الملف داخل نافذة التصدير — تتغير مع الصيغة والخيارات */
+function expPrev(X,o){const t=(o.rows?['الجمعيات']:o.secs.filter(s=>s.on).map(s=>s.t)).slice(0,4);let h,cap;
+ if(X.fmt=='pdf'){h=`<div class="xpv pdf">${X.cover&&!o.sec?`<div class="xpg cv"><i class="lg"></i><b></b><s></s><div class="k"><i></i><i></i><i></i></div><s class="toc"></s><s class="toc"></s></div>`:''}<div class="xpg ${o.rows&&o.C.length>6?'land':''}"><b></b><div class="tb">${'<i></i>'.repeat(o.rows?12:6)}</div><s></s><em>1</em></div>${X.defs&&!o.sec?'<div class="xpg"><b></b><s></s><s></s><s></s><em>…</em></div>':''}</div>`;
+  cap=[X.cover&&!o.sec?'غلاف بالشعار وأبرز الأرقام وفهرس':'رأس مختصر في الصفحة الأولى',o.rows&&o.C.length>6?'صفحات عرضية':'A4',X.defs&&!o.sec?'التعريفات في الآخر':'','ترقيم الصفحات'].filter(Boolean).join(' · ')}
+ else if(X.fmt=='xlsx'){const all=o.rows?['الملخص','الجمعيات',...(X.defs?['التعريفات']:[])]:[...o.secs.filter(x=>x.on).map(x=>x.t),...(o.rep?['التعريفات']:[])],sh=all.slice(0,3);h=`<div class="xpv xls"><div class="gr">${'<i></i>'.repeat(18)}</div><div class="tabs">${sh.map((n,i)=>`<span class="${i==0?'on':''}">${esc(n)}</span>`).join('')}${all.length>3?`<span>+${all.length-3}</span>`:''}</div></div>`;cap=`${all.length} ${all.length<=10?'أوراق':'ورقة'} · ترويسة ثابتة وتصفية في كل ورقة · تنسيق أرقام ونسب`}
+ else {h=`<div class="xpv csv"><code dir="rtl">${o.rows?esc(o.C.slice(0,4).map(c=>c[1]).join(',')+(o.C.length>4?',…':'')):''}<br>…</code></div>`;cap='نص خام UTF-8، صف لكل جمعية، بلا تنسيق'}
+ return uiSec('معاينة',esc(o.est||''))+`<div class="xpw">${h}<p>${esc(cap)}</p></div>`}
 function expDir(L){const d=ADM.dir,sel=DB.filter(o=>d.sel&&d.sel.has(o.id)),bulk=d.__s;d.__s=0;expOpen({key:'dir',title:'سجل الجمعيات',kind:'rows',all:DB.filter(o=>!o.closed),filtered:L||(typeof dirList=='function'?dirList():dirRows()),sel,scope:bulk&&sel.length?'sel':null})}
 function expReport(R,fmt){if(!R)return toast('لا توجد بيانات لهذا التقرير',1);expOpen({key:'rpt:'+(R.kind||'r'),title:R.title,kind:'report',R,fmt})}
 
@@ -6130,30 +6187,66 @@ function profileSpec(by,k){const L=DB.filter(o=>o[by]==k),other=by=='gov'?'sup':
    {name:by=='gov'?'حسب الجهة':'حسب المحافظة',cols:[{h:by=='gov'?'الجهة الإشرافية':'المحافظة'},{h:'الجمعيات'},{h:'النسبة',t:'p'}],rows:cntBy(L,other).map(([g,t])=>[other=='sup'?supShort(g):g,t,t/(L.length||1)])}]}}
 ADM.pview='stats';ADM.pq='';
 function profile(by,k){closeAll();ADM.seg[by]=k;ADM.seg.sort=ADM.seg.sort||'n';goMod(by=='gov'?'bygov':'bysup')}
-AM.analytics=el=>{if(typeof hsAll=='function')hsAll();
- const govs=cntBy(DB,'gov').map(x=>x[0]),grps=cntBy(DB,'grp').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);
- const mx=Math.max(...govs.flatMap(g=>grps.map(p=>DB.filter(o=>o.gov==g&&o.grp==p).length)));
- const cell=(g,p)=>{const n=DB.filter(o=>o.gov==g&&o.grp==p).length;if(!n)return `<td class="z" title="${g} · ${p}: لا توجد" onclick="goMod('directory',{gov:'${g}'})">0</td>`;const hc=hmCell(Math.sqrt(n/mx));return `<td style="background:${hc[0]};color:${hc[1]}" title="${g} · ${p}: ${n}" onclick="goMod('directory',{gov:'${g}',grp:'${p}'})">${n}</td>`};
+AM.analytics=el=>{if(typeof hsAll=='function')hsAll();const SC=ADM.asc,SD=anaScope(DB);
+ const govs=cntBy(SD,'gov').map(x=>x[0]),grps=cntBy(SD,'grp').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);
+ const mx=Math.max(1,...govs.flatMap(g=>grps.map(p=>SD.filter(o=>o.gov==g&&o.grp==p).length)));
+ const cell=(g,p)=>{const n=SD.filter(o=>o.gov==g&&o.grp==p).length;if(!n)return `<td class="z" title="${g} · ${p}: لا توجد" onclick="goMod('directory',{gov:'${g}'})">0</td>`;const hc=hmCell(Math.sqrt(n/mx));return `<td style="background:${hc[0]};color:${hc[1]}" title="${g} · ${p}: ${n}" onclick="goMod('directory',{gov:'${g}',grp:'${p}'})">${n}</td>`};
  const G=ADM.agov||govs[0],GL=DB.filter(o=>o.gov==G),S=ADM.asup||sups[0],SL=DB.filter(o=>o.sup==S);
- const compRows=govs.map(g=>{const L=DB.filter(o=>o.gov==g);const v=pctOf(L.filter(o=>o.comp==100).length,L.length);return {label:g,total:v+'%',v,parts:[{v,c:v>=50?'#14A37F':v>=30?'#42ACFD':'#F5A524'}]}}).sort((a,b)=>a.v-b.v);
- const licRows=govs.map(g=>{const L=DB.filter(o=>o.gov==g);return [g,L.length,L.filter(o=>o.st=='ساري').length,L.filter(o=>o.st=='ينتهي قريباً').length,L.filter(o=>o.st=='منتهي').length]});
- const eras=ERAS2.map(([l,f])=>({label:l,total:DB.filter(o=>o.founded&&f(o)).length,parts:[{v:DB.filter(o=>o.founded&&f(o)).length,c:'#6CA6EE'}]}));
+ const compRows=govs.map(g=>{const L=SD.filter(o=>o.gov==g);const v=pctOf(L.filter(o=>o.comp==100).length,L.length);return {label:g,total:v+'%',v,parts:[{v,c:v>=50?'#14A37F':v>=30?'#42ACFD':'#F5A524'}]}}).sort((a,b)=>a.v-b.v);
+ const licRows=govs.map(g=>{const L=SD.filter(o=>o.gov==g);return [g,L.length,L.filter(o=>o.st=='ساري').length,L.filter(o=>o.st=='ينتهي قريباً').length,L.filter(o=>o.st=='منتهي').length]});
+ const eras=ERAS2.map(([l,f])=>({label:l,total:SD.filter(o=>o.founded&&f(o)).length,parts:[{v:SD.filter(o=>o.founded&&f(o)).length,c:'#6CA6EE'}]}));
  const mini=(L)=>{const st=segStats(L),h=rMet(L.filter(o=>!o.closed)).hs;return `<div class="kpis mini" style="grid-template-columns:repeat(4,1fr)"><div class="kpi"><i class="kic">${I(P.building,'width:15px;height:15px')}</i><small>الجمعيات</small><b>${L.length}</b><em style="color:var(--mute)">${pctOf(L.length,DB.length)}% من المنطقة</em></div><div class="kpi good"><i class="kic">${I(P.shield,'width:15px;height:15px')}</i><small>تراخيص سارية</small><b>${st.okP}%</b></div><div class="kpi"><i class="kic">${I(P.heart,'width:15px;height:15px')}</i><small>متوسط المؤشر</small><b>${h??'—'}</b></div><div class="kpi"><i class="kic">${I(P.check,'width:15px;height:15px')}</i><small>ملفات مكتملة</small><b>${st.fullP}%</b></div></div>`};
  const dec=decAuto().filter(a=>!(ADM.dec[a.id]||{}).conv&&(ADM.dec[a.id]||{}).st!='مستبعد').length;
  el.innerHTML=`<p class="alead">تحليلات داخلية لدعم قرارات المجلس، ولا يظهر شيء منها في الموقع. كل عنصر قابل للتنزيل (CSV) أو الطباعة، والتنزيلات تحوي حقولاً عامة فقط دون بيانات شخصية.</p>
  <button class="decban" onclick="goMod('decisions')">${I(P.target,'width:18px;height:18px')}<span><b>${dec} قرارات مقترحة</b> مستخرجة من هذه التحليلات بانتظار المتابعة</span><em>القرارات ←</em></button>
+ ${anaTop(SD)}
  <div class="agrid">
  ${apanel('heat','span12',`${I(P.grid,'width:18px;height:18px')}خريطة التغطية: المحافظات × المجالات`,'الخلايا المنقّطة = لا توجد جمعية في هذا المجال بالمحافظة (فجوة محتملة). اضغط خلية لفتح جمعياتها، أو اسم المحافظة لفتح ملفها.',`<div class="heat"><table><thead><tr><th></th>${grps.map(p=>`<th class="rot"><span>${p}</span></th>`).join('')}<th class="rot"><span>الإجمالي</span></th></tr></thead><tbody>${govs.map(g=>`<tr><td class="rowh"><button class="lk" onclick="profile('gov','${g}')">${g}</button></td>${grps.map(p=>cell(g,p)).join('')}<td class="tot">${DB.filter(o=>o.gov==g).length}</td></tr>`).join('')}</tbody></table></div>`,()=>dlCSV('خريطة التغطية',[['المحافظة',...grps,'الإجمالي'],...govs.map(g=>[g,...grps.map(p=>DB.filter(o=>o.gov==g&&o.grp==p).length),DB.filter(o=>o.gov==g).length])]))}
  ${apanel('pgov','span6',`${I(P.pin,'width:18px;height:18px')}ملف محافظة`,'',`<div class="apsel"><select id="agov">${govs.map(g=>`<option ${g==G?'selected':''}>${g}</option>`).join('')}</select></div>${mini(GL)}<div style="margin-top:12px">${hbars(cntBy(GL,'grp').map(([g,t])=>({label:g,total:t,parts:[{v:t,c:'var(--blue)'}]})),Math.max(...cntBy(GL,'grp').map(x=>x[1])))}</div><p class="d" style="margin-top:10px">مجالات غير موجودة: ${grps.filter(p=>!GL.some(o=>o.grp==p)).join('، ')||'لا شيء'}</p>`,()=>dlCSV('ملف محافظة '+G,[['المجال','الجمعيات'],...cntBy(GL,'grp')]),`<button class="xbtn pri" onclick="profile('gov',ADM.agov||'${G}')">الصفحة ←</button>`)}
  ${apanel('psup','span6',`${I(P.shield,'width:18px;height:18px')}ملف جهة إشرافية`,'',`<div class="apsel"><select id="asup">${sups.map(g=>`<option value="${esc(g)}" ${g==S?'selected':''}>${esc(supShort(g))}</option>`).join('')}</select></div><div class="apsl">${supLogo(S,'sm')}</div>${mini(SL)}<div style="margin-top:12px">${hbars(cntBy(SL,'gov').slice(0,8).map(([g,t])=>({label:g,total:t,parts:[{v:t,c:'var(--navy)'}]})),Math.max(...cntBy(SL,'gov').map(x=>x[1])))}</div>`,()=>dlCSV('ملف جهة '+supShort(S),[['المحافظة','الجمعيات'],...cntBy(SL,'gov')]),`<button class="xbtn pri" onclick="profile('sup',ADM.asup||'${esc(S)}')">الصفحة ←</button>`)}
- ${apanel('sups','span6',`${I(P.building,'width:18px;height:18px')}الجهات الإشرافية`,'اضغط أي جهة لفتح ملفها.',`<div class="supl">${cntBy(DB,'sup').map(([k,n])=>`<button onclick="profile('sup','${esc(k)}')">${supLogo(k,'xs')}<span>${esc(supShort(k))}</span><b>${n}</b></button>`).join('')}</div>`,()=>dlCSV('الجهات الإشرافية',[['الجهة','الجمعيات','سارية','منتهية'],...cntBy(DB,'sup').map(([k,n])=>[k,n,DB.filter(o=>o.sup==k&&o.st=='ساري').length,DB.filter(o=>o.sup==k&&o.st=='منتهي').length])]))}
+ ${apanel('sups','span6',`${I(P.building,'width:18px;height:18px')}الجهات الإشرافية`,'اضغط أي جهة لفتح ملفها.',`<div class="supl">${cntBy(SD,'sup').map(([k,n])=>`<button onclick="profile('sup','${esc(k)}')">${supLogo(k,'xs')}<span>${esc(supShort(k))}</span><b>${n}</b></button>`).join('')}</div>`,()=>dlCSV('الجهات الإشرافية',[['الجهة','الجمعيات','سارية','منتهية'],...cntBy(DB,'sup').map(([k,n])=>[k,n,DB.filter(o=>o.sup==k&&o.st=='ساري').length,DB.filter(o=>o.sup==k&&o.st=='منتهي').length])]))}
  ${apanel('lic','span6',`${I(P.shield,'width:18px;height:18px')}حالة التراخيص حسب المحافظة`,'',`<div class="licg">${licRows.map(r=>`<div><span>${r[0]}</span><div class="stk sm">${[[r[2],'#14A37F'],[r[3],'#F5A524'],[r[4],'#F04438']].map(x=>x[0]?`<i style="flex:${x[0]};background:${x[1]}"></i>`:'').join('')}</div><b>${r[1]}</b></div>`).join('')}</div><div class="stkl"><span><i style="background:#14A37F"></i>ساري</span><span><i style="background:#F5A524"></i>ينتهي قريباً</span><span><i style="background:#F04438"></i>منتهي</span></div>`,()=>dlCSV('حالة التراخيص حسب المحافظة',[['المحافظة','الجمعيات','سارية','تنتهي قريباً','منتهية'],...licRows]))}
  ${apanel('comp','span6',`${I(P.db,'width:18px;height:18px')}اكتمال بيانات التواصل حسب المحافظة`,'الأقل اكتمالاً أولاً.',hbars(compRows,100),()=>dlCSV('اكتمال البيانات حسب المحافظة',[['المحافظة','نسبة الملفات المكتملة'],...compRows.map(r=>[r.label,r.v+'%'])]))}
  ${apanel('eras','span6',`${I(P.chart,'width:18px;height:18px')}فترة التأسيس`,'قد يعكس التاريخ إعادة التسجيل لا التأسيس الفعلي.',hbars(eras,Math.max(...eras.map(e=>e.total))),()=>dlCSV('فترة التأسيس',[['الفترة','الجمعيات'],...eras.map(e=>[e.label,e.total])]))}
  </div>`;
+ anaBind(el);
  $('#agov').onchange=e=>{ADM.agov=e.target.value;AM.analytics(el)};
  $('#asup').onchange=e=>{ADM.asup=e.target.value;AM.analytics(el)};
 };
+
+/* ================= 0.95: التحليلات — النطاق، المؤشرات الرئيسية مقارنة باللقطة السابقة، وما يحتاج انتباهك =================
+   النطاق (محافظة/مجال/جهة) يطبَّق على كل لوحات الصفحة عدا «ملف محافظة» و«ملف جهة». لا بيانات شخصية. */
+ADM.asc=Object.assign({gov:'',grp:'',sup:''},LS('asirAnaScope',{})||{});
+const anaScope=L=>L.filter(o=>(!ADM.asc.gov||o.gov==ADM.asc.gov)&&(!ADM.asc.grp||o.grp==ADM.asc.grp)&&(!ADM.asc.sup||o.sup==ADM.asc.sup));
+const anaScopeT=()=>[ADM.asc.gov&&'محافظة '+ADM.asc.gov,ADM.asc.grp&&'مجال '+ADM.asc.grp,ADM.asc.sup&&supShort(ADM.asc.sup)].filter(Boolean).join(' · ')||'المنطقة كاملة';
+const anaDir=f=>Object.assign({},ADM.asc.gov?{gov:ADM.asc.gov}:{},ADM.asc.grp?{grp:ADM.asc.grp}:{},ADM.asc.sup?{sup:ADM.asc.sup}:{},f||{});
+function anaPrev(){if(ADM.asc.gov||ADM.asc.grp||ADM.asc.sup)return null;const now=Date.now(),L=(SNAPS&&SNAPS.list||[]).filter(x=>now-Date.parse(x.at)>20*864e5&&x.n);return L.length?L[L.length-1]:null}
+function anaInsights(SD){const A=SD.filter(o=>!o.closed),out=[],q=o=>esc(JSON.stringify(o));
+ const due=A.filter(o=>o.st=='منتهي'||o.st=='ينتهي قريباً');
+ if(due.length){const g=cntBy(due,'gov')[0];out.push(['bad',P.shield,`<b>${due.length.toLocaleString('en')}</b> ترخيصاً منتهياً أو ينتهي خلال 90 يوماً${g&&g[1]>1&&!ADM.asc.gov?`، أكثرها في ${esc(g[0])} (${g[1]})`:''}.`,{st:'due'},'lic'])}
+ const crit=A.filter(o=>o.hs!=null&&o.hs<40);
+ if(crit.length)out.push(['bad',P.heart,`<b>${crit.length.toLocaleString('en')}</b> جمعية مؤشر فاعليتها أقل من 40 (${pctOf(crit.length,A.length)}% من النطاق).`,{attn:'crit'},'trouble']);
+ if(!ADM.asc.gov){const G=cntBy(A,'gov').filter(x=>x[1]>=5).map(([g])=>{const L=A.filter(o=>o.gov==g);return [g,pctOf(L.filter(o=>o.comp==100).length,L.length),L.filter(o=>o.comp<100).length]}).sort((a,b)=>a[1]-b[1]);const all=pctOf(A.filter(o=>o.comp==100).length,A.length);
+  if(G.length&&G[0][2]&&G[0][1]<all)out.push(['warn',P.db,`أقل المحافظات اكتمالاً لبيانات التواصل: <b>${esc(G[0][0])}</b> بنسبة ${G[0][1]}% مقابل ${all}% للنطاق (${G[0][2]} ملفاً ناقصاً).`,{gov:G[0][0],comp:'part'},'data'])}
+ if(ADM.asc.gov||!out.some(x=>x[4]=='data')){const inc=A.filter(o=>o.comp<100).length;if(inc)out.push(['warn',P.db,`<b>${inc.toLocaleString('en')}</b> ملف تواصل ناقص في النطاق (${pctOf(inc,A.length)}%).`,{comp:'part'},'data'])}
+ const big=cntBy(DB.filter(o=>!o.closed),'grp').filter(x=>x[1]>=15).map(x=>x[0]),govs=cntBy(A,'gov').map(x=>x[0]);
+ const gaps=govs.flatMap(g=>big.filter(p=>(!ADM.asc.grp||p==ADM.asc.grp)&&!A.some(o=>o.gov==g&&o.grp==p)).map(p=>[g,p]));
+ if(gaps.length)out.push(['info',P.pin,`<b>${gaps.length}</b> فجوة تغطية محتملة في المجالات الكبيرة، مثل: لا توجد جمعية «${esc(gaps[0][1])}» في ${esc(gaps[0][0])}.`,null,'gap',{gov:gaps[0][0],grp:gaps[0][1]}]);
+ return out.map(([t,ic,h,f,tpl,sc])=>`<div class="aninr ${t}"><i>${I(ic,'width:17px;height:17px')}</i><p>${h}</p><span>${f?`<button class="jbtn sm" data-anv="${q(anaDir(f))}">عرض</button>`:'<button class="jbtn sm" data-anh>الخريطة</button>'}<button class="jbtn sm" data-anq="${tpl}" data-ansc="${q(sc||{gov:ADM.asc.gov,grp:ADM.asc.grp,sup:ADM.asc.sup})}">${I(P.target,'width:14px;height:14px')}تحويل إلى قرار</button></span></div>`).join('')}
+function anaTop(SD){const A=SD.filter(o=>!o.closed),m=rMet(A),pv=anaPrev(),hsL=A.map(o=>o.hs).filter(v=>v!=null),hs=hsL.length?Math.round(hsL.reduce((t,v)=>t+v,0)/hsL.length):null,crit=A.filter(o=>o.hs!=null&&o.hs<40).length;
+ const sel=(k,l,arr,lab)=>`<label class="ansc ${ADM.asc[k]?'on':''}"><span>${l}</span><select data-asc="${k}"><option value="">الكل</option>${arr.map(([v,n])=>`<option value="${esc(v)}" ${ADM.asc[k]==v?'selected':''}>${esc(lab?lab(v):v)} (${n})</option>`).join('')}</select></label>`;
+ const any=ADM.asc.gov||ADM.asc.grp||ADM.asc.sup,base=DB.filter(o=>!o.closed);
+ const dl=(cur,prev,u,good)=>{if(prev==null||cur==null)return '';const d=Math.round((cur-prev)*10)/10;if(!d)return '<em class="ankn">دون تغيير عن اللقطة</em>';const g=(d>0)==good;return `<em class="${g?'gd':'bd'}">${d>0?'▲':'▼'} ${Math.abs(d).toLocaleString('en')}${u} عن ${new Date(pv.at).toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{month:'long'})}</em>`};
+ const kp=(l,v,u,em,f,sub)=>`<button class="ank" data-anv="${esc(JSON.stringify(anaDir(f)))}"><small>${l}</small><b>${v==null?'—':v.toLocaleString('en')}<span>${u||''}</span></b>${em}${sub?`<i>${sub}</i>`:''}</button>`;
+ const okP=Math.round(m.okP*100),fullP=Math.round(m.fullP*100);
+ return `<div class="anscb" role="group" aria-label="نطاق التحليلات"><b>${I(P.filter,'width:15px;height:15px')}النطاق</b>${sel('gov','المحافظة',cntBy(base,'gov'))}${sel('grp','المجال',cntBy(base,'grp'))}${sel('sup','الجهة المشرفة',cntBy(base,'sup'),v=>supShort(v))}${any?'<button class="dvlnk" data-ascx>إعادة ضبط</button>':''}<span class="sp"></span><small class="hint">${pv?'مقارنة بلقطة '+new Date(pv.at).toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long'}):any?'المقارنة باللقطات للمنطقة كاملة فقط':'تُحفظ لقطة تلقائياً أول كل شهر من «مركز التقارير»'}</small></div>
+ <div class="anks">${kp('الجمعيات في النطاق',A.length,'',dl(A.length,pv&&pv.n,'',true),{},any?pctOf(A.length,base.length)+'% من المنطقة':'')}${kp('تراخيص سارية',okP,'%',dl(okP,pv&&pv.n?Math.round(pv.ok/pv.n*100):null,' نقطة',true),{st:'ساري'})}${kp('ملفات تواصل مكتملة',fullP,'%',dl(fullP,pv&&pv.n&&pv.full!=null?Math.round(pv.full/pv.n*100):null,' نقطة',true),{comp:'part'},'اضغط لعرض الناقصة')}${kp('متوسط الفاعلية',hs,'',dl(hs,pv&&pv.hs,'',true),{})}${kp('تحتاج انتباهاً',crit,'',dl(crit,pv&&pv.crit,'',false),{attn:'crit'},'الفاعلية أقل من 40')}</div>
+ <section class="anin" aria-labelledby="anin-h"><header><h3 id="anin-h">ما يحتاج انتباهك</h3><small>مستخرجة تلقائياً من بيانات ${esc(anaScopeT())}</small></header>${anaInsights(SD)||'<p class="hint">لا ملاحظات عاجلة في هذا النطاق.</p>'}</section>`}
+function anaBind(el){el.querySelectorAll('[data-asc]').forEach(s=>s.onchange=()=>{ADM.asc[s.dataset.asc]=s.value;SS('asirAnaScope',ADM.asc);AM.analytics(el)});
+ const x=el.querySelector('[data-ascx]');x&&(x.onclick=()=>{ADM.asc={gov:'',grp:'',sup:''};SS('asirAnaScope',ADM.asc);AM.analytics(el)});
+ el.querySelectorAll('[data-anv]').forEach(b=>b.onclick=()=>{const f=JSON.parse(b.dataset.anv);goMod('directory',f)});
+ el.querySelectorAll('[data-anh]').forEach(b=>b.onclick=()=>{const h=$('#ap-heat');h&&h.scrollIntoView({behavior:'smooth',block:'start'})});
+ el.querySelectorAll('[data-anq]').forEach(b=>b.onclick=()=>{const sc=JSON.parse(b.dataset.ansc||'{}');Object.keys(sc).forEach(k=>{if(!sc[k])delete sc[k]});decNew({tpl:b.dataset.anq,scope:sc})})}
 /* ---------- decisions ---------- */
 /* ================= القرارات v2 (0.42): قوالب، مؤشر قياس، مهام، سجل متابعة، وربط بمشروع =================
    القرار = {id,k:'man',tpl,d:عنوان,t:مبرر,goal,scope:{gov,grp,sup},base,target,o,due,pri,st,tasks:[{t,done}],log:[{at,by,t}],pid,at,by,src}
@@ -7737,7 +7830,7 @@ const rPct=v=>Math.max(0,Math.min(100,(v||0)*100));
 function rBlock(b){
  if(b.type=='kpis')return `<div class="rk ${b.small?'sm':''} ${b.cmp?'cmp':''}" style="--c:${rKc(b.items.length)}">${b.items.map(k=>{const f=k.t=='r'?'p':k.t=='y'?'y':'n';const sub=[];
    if(k.ref!=null&&b.cmp)sub.push(`المنطقة: <b><bdi dir="ltr">${rFmt(k.ref,f)}</bdi></b>`);
-   if(k.diff!=null&&b.cmp)sub.push(k.t=='y'?`الفرق: <b dir="ltr">${k.diff>0?'+':''}${k.diff}</b> سنة`:`الفرق: <b dir="ltr">${k.diff>0?'+':''}${Math.round(k.diff*100)}</b> نقطة`);
+   if(k.diff!=null&&b.cmp)sub.push(k.t=='y'?`الفرق: <b><bdi dir="ltr">${k.diff>0?'+':''}${k.diff}</bdi></b> سنة`:`الفرق: <b><bdi dir="ltr">${k.diff>0?'+':''}${Math.round(k.diff*100)}</bdi></b> نقطة`);
    if(k.share!=null&&b.cmp)sub.push(`الحصة من المنطقة: <b><bdi dir="ltr">${rFmt(k.share,'p')}</bdi></b>`);
    if(k.sub)sub.push(rTx(k.sub));
    const val=k.v==null?'—':typeof k.v=='number'&&k.v<0?`<bdi dir="ltr">${rFmt(k.v,f)}</bdi>`:rFmt(k.v,f);
@@ -7867,15 +7960,15 @@ function rXLSX(R){if(!R)return toast('لا توجد بيانات لهذا الت
 /* ---------- مركز التقارير: منشئ بمعاينة حية ---------- */
 ADM.rpick={gov:null,sup:null};ADM.rcat='الكل';
 ADM.rp=Object.assign({kind:'region',key:{},cmpDim:'gov',cmpKeys:{},off:{}},LS('asirRpUi',{}));
-const rpSave=()=>{const {kind,key,cmpDim,cmpKeys,off,period}=ADM.rp;try{localStorage.setItem('asirRpUi',JSON.stringify({kind,key,cmpDim,cmpKeys,off,period}))}catch(e){}};
-function rpGo(kind,key){ADM.rp.kind=kind;if(key!=null)ADM.rp.key[kind]=key;rpSave();goMod('reports')}
+const rpSave=()=>{const {kind,key,cmpDim,cmpKeys,off,period,tab}=ADM.rp;try{localStorage.setItem('asirRpUi',JSON.stringify({kind,key,cmpDim,cmpKeys,off,period,tab}))}catch(e){}};
+function rpGo(kind,key){ADM.rp.tab='build';ADM.rp.kind=kind;if(key!=null)ADM.rp.key[kind]=key;rpSave();goMod('reports')}
 function rpCur(){const X=ADM.rp,A=rAct(),k=X.kind;
  if(k=='gov'||k=='grp'||k=='sup'){const ks=cntBy(A,k).map(x=>x[0]);if(!ks.includes(X.key[k]))X.key[k]=ks[0]}
  if(k=='assoc'&&!DB.some(o=>o.id==X.key.assoc))X.key.assoc=(A.find(o=>LOGO[o.id])||A[0]).id;
  if(k=='cmp'){const d=X.cmpDim,ks=cntBy(A,d).map(x=>x[0]);X.cmpKeys[d]=(X.cmpKeys[d]||[]).filter(x=>ks.includes(x));if(X.cmpKeys[d].length<2)X.cmpKeys[d]=ks.slice(0,4)}
  return rBuild(k,k=='cmp'?null:X.key[k],{off:X.off[k]||{},dim:X.cmpDim,keys:X.cmpKeys[X.cmpDim],period:X.period||'m'})}
 var HDR_RPT=()=>`<button class="jbtn pri" onclick="expReport(rpCur())">${I(P.dl,'width:16px;height:16px')}تصدير</button><button class="jbtn" onclick="rPDF(rpCur())" title="يفتح نافذة الطباعة: اختر الطابعة أو «حفظ بصيغة PDF»">${I('<path d="M6 9V3h12v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M6 14h12v7H6z"/>','width:16px;height:16px')}طباعة / PDF</button>`;
-AM.reports=el=>{const X=ADM.rp,A=rAct(),R=rpCur(),k=X.kind;
+AM.reports=el=>{const X=ADM.rp;if(X.tab!='build'){rpOther(el);return}const A=rAct(),R=rpCur(),k=X.kind;
  const opts=d=>cntBy(A,d).map(([v,n])=>`<option value="${esc(v)}" ${X.key[d]==v?'selected':''}>${esc(rLab(d,v))} (${n})</option>`).join('');
  const cur=k=='assoc'?DB.find(o=>o.id==X.key.assoc):null;
  let scope='';
@@ -7886,7 +7979,7 @@ AM.reports=el=>{const X=ADM.rp,A=rAct(),R=rpCur(),k=X.kind;
  if(k=='assoc')scope=`<label class="rpsel wide"><span>الجمعية</span><input id="rpAs" list="rpAsL" placeholder="اكتب اسم الجمعية أو رقم الترخيص" value="${cur?esc(cur.n):''}"><datalist id="rpAsL">${A.map(o=>`<option value="${esc(o.n)}">ترخيص ${o.lic} · ${o.gov}</option>`).join('')}</datalist></label>`;
  if(k=='cmp'){const d=X.cmpDim,sel=X.cmpKeys[d]||[];scope=`<div class="rpcmp"><div class="csf">${Object.entries(RDIM).map(([dk,v])=>`<button class="${d==dk?'on':''}" data-rd="${dk}">${v[1]}</button>`).join('')}</div><div class="rpck">${cntBy(A,d).map(([v,n])=>`<label class="${sel.includes(v)?'on':''}"><input type="checkbox" value="${esc(v)}" ${sel.includes(v)?'checked':''}><span>${esc(rLab(d,v))}</span><em>${n}</em></label>`).join('')}</div><small class="rpsn">اختر من 2 إلى 6. المحدد: ${sel.length}</small></div>`}
  const secs=R?R.sections:[];
- el.innerHTML=`<p class="alead">اختر نوع التقرير ونطاقه، وراجع المعاينة، ثم نزّله PDF بحجم A4 مع غلاف وترقيم صفحات، أو Excel بورقة لكل قسم. التقارير تعرض الأرقام فقط، ولا تتضمن بيانات شخصية.</p>
+ el.innerHTML=`${rpTabs()}<p class="alead">اختر نوع التقرير ونطاقه، وراجع المعاينة، ثم نزّله PDF بحجم A4 مع غلاف وترقيم صفحات، أو Excel بورقة لكل قسم. التقارير تعرض الأرقام فقط، ولا تتضمن بيانات شخصية.</p>
  <div class="rpb"><div class="rpkinds" role="tablist">${Object.entries(RKIND).map(([kk,[t,ic]])=>`<button role="tab" aria-selected="${k==kk}" class="${k==kk?'on':''}" data-rk="${kk}">${I(ic,'width:17px;height:17px')}<span>${t}</span></button>`).join('')}</div><div class="rpscope">${scope}</div></div>
  <div class="rplay"><aside class="rpside"><h5>أقسام التقرير</h5><div class="rpsecs">${secs.map(s=>`<label class="${s.blocks.length?'':'dis'}"><input type="checkbox" data-rs="${s.id}" ${s.on?'checked':''} ${s.blocks.length?'':'disabled'}><span>${esc(s.t)}</span></label>`).join('')}</div>
   
@@ -7894,6 +7987,7 @@ AM.reports=el=>{const X=ADM.rp,A=rAct(),R=rpCur(),k=X.kind;
   <div class="rpview" id="rpView">${R?rHTML(R):'<div class="empty">لا توجد بيانات لهذا النطاق</div>'}</div></div>
  <details class="rpquick" ${ADM.rqOpen?'open':''}><summary>${I(P.file,'width:16px;height:16px')}تصدير البيانات الجاهزة <em>${REPORTS.length}</em></summary>${rQuick()}</details>`;
  el.querySelectorAll('[data-rk]').forEach(b=>b.onclick=()=>{X.kind=b.dataset.rk;rpSave();AM.reports(el)});
+ rpTabsBind(el);
  const ky=$('#rpKey');ky&&(ky.onchange=()=>{X.key[k]=ky.value;rpSave();AM.reports(el)});
  const pe=$('#rpPer');pe&&(pe.onchange=()=>{X.period=pe.value;rpSave();AM.reports(el)});
  const sn=$('#rpSnap');sn&&(sn.onclick=()=>{rSnapSave(false);AM.reports(el)});
@@ -7909,6 +8003,30 @@ AM.reports=el=>{const X=ADM.rp,A=rAct(),R=rpCur(),k=X.kind;
  el.querySelectorAll('[data-rf]').forEach(b=>b.onclick=()=>expReport(specToR(spec(b.dataset.rf)),'pdf'))};
 function rQuick(){const govs=cntBy(DB,'gov').map(x=>x[0]),sups=cntBy(DB,'sup').map(x=>x[0]);ADM.rpick.gov=ADM.rpick.gov||govs[0];ADM.rpick.sup=ADM.rpick.sup||sups[0];
  return `<div class="rgrid">${REPORTS.map(r=>`<div class="rcard"><div class="ri">${I(P[r.ic]||P.file,'width:20px;height:20px')}</div><div class="rb"><b>${r.t}</b><p>${r.d}</p>${r.pick?`<select data-rp="${r.pick}">${(r.pick=='gov'?govs:sups).map(k=>`<option value="${esc(k)}" ${ADM.rpick[r.pick]==k?'selected':''}>${esc(r.pick=='sup'?supShort(k):k)}</option>`).join('')}</select>`:''}</div><div class="ra"><button class="xbtn" data-rx="${r.id}">${I(P.dl,'width:14px;height:14px')}Excel</button><button class="xbtn" data-rf="${r.id}" title="طباعة أو حفظ بصيغة PDF">طباعة / PDF</button></div></div>`).join('')}</div>`}
+
+/* ================= 0.95: مركز التقارير — القوالب، المنشئ، سجل التنزيلات =================
+   «القوالب» معرض لأنواع التقارير (RKIND) يفتح المنشئ الحالي على النوع المختار. المنشئ والمولّدات (PDF/Excel) كما هي.
+   «سجل التنزيلات» من سجل التدقيق في الخادم (entity=export) لمن له صلاحية «الأدوار»، وإلا تنزيلات هذه الجلسة. */
+const RKD={region:'صورة شاملة: الأعداد والتراخيص والبيانات والفاعلية والفجوات.',gov:'كل ما يخص محافظة واحدة، مع ترتيبها ومقارنتها بالمنطقة.',grp:'القطاع عبر المحافظات، والفجوات فيه.',sup:'جمعيات جهة إشرافية واحدة وتراخيصها وبياناتها.',assoc:'ملف جمعية واحدة: بياناتها وفاعليتها وتعاملها مع المجلس.',cmp:'من 2 إلى 6 محافظات أو مجالات أو جهات جنباً إلى جنب.',health:'الفاعلية وحالات التعثر وما يحتاج تدخلاً.',period:'شهري أو ربعي أو سنوي، مع المقارنة باللقطة السابقة.'};
+const rpTabs=()=>{const t=ADM.rp.tab||'tpl';return `<div class="dvtabs rptabs" role="group" aria-label="أقسام مركز التقارير">${[['tpl','القوالب'],['build','المنشئ'],['log','سجل التنزيلات']].map(([k,l])=>`<button data-rtab="${k}" aria-pressed="${t==k}" class="${t==k?'on':''}">${l}</button>`).join('')}</div>`};
+function rpTabsBind(el){el.querySelectorAll('[data-rtab]').forEach(b=>b.onclick=()=>{ADM.rp.tab=b.dataset.rtab;rpSave();AM.reports(el)})}
+function rpOther(el){const X=ADM.rp;X.tab=X.tab||'tpl';
+ if(X.tab=='log'){el.innerHTML=`${rpTabs()}<p class="alead">كل ملف نُزّل من اللوحة: ماذا، وبأي صيغة، وكم صفاً، ومن نزّله، وهل تضمّن بيانات شخصية.</p><div id="rpLog"><p class="hint">جارٍ التحميل…</p></div>`;rpTabsBind(el);rpLogLoad();return}
+ const A=rAct(),nQ=typeof REPORTS!='undefined'?REPORTS.length:0;
+ el.innerHTML=`${rpTabs()}<p class="alead">اختر قالباً، ثم حدّد نطاقه وراجع المعاينة، ونزّله PDF بحجم A4 (غلاف وفهرس وترقيم صفحات) أو Excel (ورقة لكل قسم وورقة تعريفات). التقارير أرقام فقط دون بيانات شخصية.</p>
+ <div class="rptpl">${Object.entries(RKIND).map(([k,[t,ic]])=>`<button class="rptc ${X.kind==k?'last':''}" data-rk="${k}"><i>${I(ic,'width:20px;height:20px')}</i><b>${t}</b><p>${RKD[k]||''}</p><span><em>PDF</em><em>Excel</em>${k=='period'?'<em class="pu">لقطة شهرية</em>':''}${X.kind==k?'<em class="lu">آخر استخدام</em>':''}</span></button>`).join('')}
+ <button class="rptc q" data-rq><i>${I(P.dl,'width:20px;height:20px')}</i><b>التصديرات الجاهزة</b><p>${nQ} ملفاً جاهزاً بنقرة: قوائم ومؤشرات بصيغة Excel أو PDF.</p><span><em>Excel</em><em>PDF</em></span></button></div>
+ <p class="hint" style="margin-top:12px">${A.length.toLocaleString('en')} جمعية نشطة في البيانات الحالية.</p>`;
+ rpTabsBind(el);
+ el.querySelectorAll('[data-rk]').forEach(b=>b.onclick=()=>{X.kind=b.dataset.rk;X.tab='build';rpSave();AM.reports(el)});
+ const q=el.querySelector('[data-rq]');q&&(q.onclick=()=>{X.tab='build';ADM.rqOpen=true;rpSave();AM.reports(el);setTimeout(()=>{const d=el.querySelector('.rpquick');d&&d.scrollIntoView({behavior:'smooth',block:'start'})},60)})}
+const FMTL={xlsx:'Excel',csv:'CSV',pdf:'PDF',print:'طباعة'};
+async function rpLogLoad(){const box=$('#rpLog');if(!box)return;let rows=null,note='';
+ if(SESSION&&can('roles')){try{const r=await api('/api/audit?entity=export&limit=200');rows=(r.data||[]).map(x=>{let a={};try{a=JSON.parse(x.after_json||'{}')}catch(e){}return {at:x.at,by:x.actor_email,what:a.what,fmt:a.fmt,rows:a.rows,pers:a.personal}})}catch(e){note='تعذّر تحميل السجل من الخادم.'}}
+ if(!rows){rows=(ADM.log||[]).filter(x=>/^تصدير /.test(x.t)).map(x=>{const m=x.t.match(/^تصدير ([^:]+): (.*)$/)||[];return {at:x.at,by:'أنت',what:m[2]||x.t,fmt:Object.keys(FMTL).find(k=>FMTL[k]==m[1])||m[1],rows:null}});note=note||(SESSION?'سجل الفريق الكامل متاح لمن له صلاحية «الأدوار والصلاحيات». هذه تنزيلاتك في هذه الجلسة فقط.':'وضع العرض التجريبي: تنزيلات هذه الجلسة فقط.')}
+ const dt=v=>{const d=new Date(String(v).replace(' ','T')+(/Z|\+/.test(v)?'':'Z'));return isNaN(d)?esc(String(v||'')):d.toLocaleString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})};
+ if(!$('#rpLog'))return;
+ box.innerHTML=(note?`<p class="rpsn">${I(P.info,'width:15px;height:15px;flex:none')}${esc(note)}</p>`:'')+(rows.length?`<div class="jtable"><table class="at" id="rpLogT"><thead><tr><th>الملف</th><th>الصيغة</th><th>الصفوف</th><th>بيانات شخصية</th><th>بواسطة</th><th>الوقت</th></tr></thead><tbody>${rows.map(r=>`<tr><td><b>${esc(r.what||'—')}</b></td><td><span class="pill2 p-mute">${esc(FMTL[r.fmt]||r.fmt||'—')}</span></td><td>${r.rows?Number(r.rows).toLocaleString('en'):'—'}</td><td>${r.pers?'<span class="pill2 p-warn">نعم</span>':'<span class="pill2 p-ok">لا</span>'}</td><td>${esc(r.by||'—')}</td><td class="ltr">${dt(r.at)}</td></tr>`).join('')}</tbody></table></div>`:'<div class="dvempty"><b>لا توجد تنزيلات بعد</b><p>كل تصدير من اللوحة يُسجَّل هنا.</p></div>')}
 /* ---------- partnerships ---------- */
 ADM.pt=LS('asirPtUi',{tab:'council'});
 let APART=LS('asirAPart',[
@@ -7998,7 +8116,7 @@ const rmSave=m=>{SS('asirRoadmap',RM);m&&toast(m)};
 /* المراحل: st تلقائية من حالة المنصة حين أمكن (auto) وإلا من الفريق */
 const ROAD=[
  {k:'ph1',t:'الأساس التقني',d:'قاعدة البيانات، الاستيراد، البوابة، اللوحة',items:[
-  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.94)',()=>true,'done']]},
+  ['db','قاعدة بيانات D1 وتخزين R2 ومزامنة أقسام اللوحة',()=>!!SESSION,'done'],['import','استيراد ملف جمعيات المجلس ومطابقته',()=>DB.length>400,'done'],['portal','بوابة التحديث بروابط لكل جمعية ومراجعة الطلبات',()=>true,'done'],['dash','لوحة الفريق بكل وحداتها (النسخة 0.95)',()=>true,'done']]},
  {k:'ph2',t:'الدخول والصلاحيات',d:'من رمز معاينة لشخص واحد إلى فريق كامل بأدوار',items:[
   ['links','روابط دخول شخصية لكل صاحب صلاحية بدوره (المرحلة الحالية)',()=>true,'done','من «المستخدمون»: رابط لكل شخص بمدة وإلغاء فوري، وكل دخول مسجّل باسمه.'],['access','الربط ببريد المجلس عبر Cloudflare Access (مؤجل حتى تكتمل تجربة الروابط)',()=>!!(SESSION&&SESSION.authAccess),'later','من إعدادات Cloudflare: تطبيق Access على النطاق ثم ضبط ACCESS_TEAM_DOMAIN وACCESS_AUD في wrangler.toml (docs/DEPLOY.md).'],
   ['users','إضافة أعضاء الفريق الفعليين من «المستخدمون» بأدوارهم',()=>(ADM.gv.users||[]).filter(u=>u.active).length>1,null,'كل عضو ببريده ودوره؛ تحتاج Access أولاً ليتمكن من الدخول.'],
@@ -8245,7 +8363,7 @@ function mcLabel(){document.querySelectorAll('#adminRoot table.at:not(.nomc),#ad
 new MutationObserver(()=>{if(mcLabel._t)return;mcLabel._t=setTimeout(()=>{mcLabel._t=0;mcLabel()},40)}).observe(document.body,{childList:true,subtree:true});/*@/adm*/
 document.addEventListener('keydown',e=>{const t=e.target;if((e.key=='Enter'||e.key==' ')&&t&&t.matches&&t.matches('tr.cl,tr.clk,.pcard.cl,.kcard2')&&!t.onkeydown){e.preventDefault();t.click()}});
 /*@adm*/addEventListener('scroll',()=>{const st=$('#jstick');st&&st.classList.toggle('stuck',scrollY>30)},{passive:true});
-function goMod(m,dirPatch){{const js=document.querySelector('.jstick');if(js)js.style.visibility=''}if(m=='licenses'){m='directory';dirPatch=dirPatch||(ADM.lic=='soon'?{st:'ينتهي قريباً'}:ADM.lic=='mm'?{iss:'mm'}:{st:'منتهي'});ADM.lic=null}const g0=modGroup(m);if(ADM.navOpen&&g0)ADM.navOpen[g0.k]=true;if(dirPatch){Object.assign(ADM.dir,{q:'',gov:'',grp:'',sup:'',st:'',comp:'',iss:'',page:0},dirPatch)}
+function goMod(m,dirPatch){{const js=document.querySelector('.jstick');if(js)js.style.visibility=''}if(m=='licenses'){m='directory';dirPatch=dirPatch||(ADM.lic=='soon'?{st:'ينتهي قريباً'}:ADM.lic=='mm'?{iss:'mm'}:{st:'منتهي'});ADM.lic=null}const g0=modGroup(m);if(ADM.navOpen&&g0)ADM.navOpen[g0.k]=true;if(dirPatch){Object.assign(ADM.dir,{q:'',gov:'',grp:'',sup:'',st:'',comp:'',iss:'',attn:'',page:0},dirPatch)}
  const prev=(location.hash||'').split('?')[0];clearTimeout(ADM._rt);ADM.rec=null;const ad=$('#adrawer');if(ad&&ad.classList.contains('on')){ADM._routing=1;closeAll();queueMicrotask(()=>ADM._routing=0)}ntfClose();
  ADM.mod=m;renderAdmin();const h=uHash();try{if(h.split('?')[0]!=prev&&curPg=='admin')history.pushState({adm:1},'',h);else history.replaceState(history.state,'',h)}catch(e){}curPath=decodeURIComponent(h.replace(/^#\/?/,''));window.scrollTo(0,0)}
 
