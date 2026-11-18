@@ -7,7 +7,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 400);
   const b = await chromium.launch(); const errs = []; const p = await b.newPage({ viewport: { width: 1366, height: 860 } }); p.on('pageerror', (e) => errs.push(e.message)); p.on('dialog', (d) => d.accept());
   await p.goto(BASE + '/#/admin/compliance'); await W(p, 1800);
   const c = await p.evaluate(() => ({ mod: ADM.mod, kpis: $$('.cmpk .kpi').length, items: $$('.cmpr').length, live: $$('.cmpl>div').length, refs: $$('.cmprefs a').length, frame: !!$('#cmpPv iframe'), crumb: $('.jcrumb').textContent }));
-  ok(c.mod == 'compliance' && c.kpis == 6 && c.items >= 30 && c.live >= 8 && c.refs == 6 && c.frame && /الحوكمة/.test(c.crumb), 'compliance page: 6 domains, catalogue, live checks, references, device preview');
+  ok(c.mod == 'compliance' && c.kpis == 6 && c.items >= 30 && c.live >= 8 && c.refs == 6 && c.frame && /شؤون المجلس/.test(c.crumb), 'compliance page: 6 domains, catalogue, live checks, references, device preview');
   const f = await p.evaluate(() => { $('.cmpk [data-cd="a11y"]').click(); const a = $$('.cmpr').length; $('[data-cs="plan"]').click(); const pl = $$('.cmpr').length, allPlan = $$('.cmpr>.pill2').every((x) => x.textContent == 'مخطط'); $('[data-cs=""]').click(); $('.cmpk [data-cd="a11y"]').click(); return { a, pl, allPlan, back: $$('.cmpr').length } });
   ok(f.a >= 8 && f.pl >= 1 && f.allPlan && f.back >= 30, 'domain and status filters work');
   await p.evaluate(() => { $('[data-dv="ipad"]').click() }); await W(p, 1500);

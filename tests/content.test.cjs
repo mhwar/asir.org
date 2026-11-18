@@ -45,12 +45,12 @@ const ok = (c, m) => { if (!c) { console.error('FAIL: ' + m); process.exitCode =
   const after = await p.evaluate(async (id) => (await (await fetch('/api/messages')).json()).data.find((m) => m.id == id).status, ib.f.id);
   ok(after == 'done', 'status patched');
   await p.screenshot({ path: 'tests/out/inbox.png' });
-  // 6) القائمة الجانبية: مجموعة قابلة للطي وتُحفظ
-  const g = await p.evaluate(() => { const b = document.querySelector('.jgrp[data-gk=partner] .jng'); b.click(); return [document.querySelector('.jgrp[data-gk=partner]').classList.contains('open'), JSON.parse(localStorage.getItem('asirNavOpen')).partner] });
-  ok(g[0] && g[1] === true, 'accordion toggles + persists');
-  // 6ب) تبويبات الصفحة الفرعية: «طلبات تحديث البيانات» مخفية من القائمة وتظهر تبويباً داخل «نظرة عامة»، والحملات والاستشارات مستقلة
-  const sub = await p.evaluate(() => { goMod('updates'); return { side: !!document.querySelector('.jside .jni[data-m=updates]'), on: document.querySelector('.jside .jni.on')?.dataset.m, tabs: [...document.querySelectorAll('.jsubt button')].map((b) => b.dataset.m), solo: !!document.querySelector('.jgrp.solo .jng[data-m=chub]') && !!document.querySelector('.jgrp.solo .jng[data-m=campaigns]') } });
-  ok(!sub.side && sub.on == 'overview' && sub.tabs.join() == 'overview,updates,quality,alerts' && sub.solo, 'sub-tabs + solo groups ' + JSON.stringify(sub));
+  // 6) القائمة الجانبية (0.93): قسم قابل للطي وتُحفظ حالته
+  const g = await p.evaluate(() => { const was = document.querySelector('.jgrp[data-gk=rel]').classList.contains('open'); document.querySelector('.jgrp[data-gk=rel] .jng').click(); const now = document.querySelector('.jgrp[data-gk=rel]').classList.contains('open'); return [was != now, JSON.parse(localStorage.getItem('asirNavOpen')).rel === now] });
+  ok(g[0] && g[1], 'accordion toggles + persists ' + JSON.stringify(g));
+  // 6ب) هيكل 0.93: «طلبات تحديث البيانات» صفحة ظاهرة في القائمة، وصفحات استوديو المحتوى ظاهرة، والمتابعات في الأعلى
+  const sub = await p.evaluate(() => { goMod('updates'); return { side: !!document.querySelector('.jside .jnis .jni[data-m=updates]'), on: document.querySelector('.jside .jnis .jni.on')?.dataset.m, tabs: document.querySelectorAll('.jsubt button').length, ct: [...document.querySelectorAll('.jside .jnis [data-ct]')].map((b) => b.dataset.ct).join(), top: [...document.querySelectorAll('.jside .jtopi .jni')].map((b) => b.dataset.m).join(), chub: !!document.querySelector('.jgrp[data-gk=prog] .jnis .jni[data-m=chub]') } });
+  ok(sub.side && sub.on == 'updates' && sub.tabs == 0 && sub.ct == 'kb,studio,subs,ann' && sub.top == 'home,alerts' && sub.chub, 'sidebar 0.93 structure ' + JSON.stringify(sub));
   // 6ج) الاستشارات «قريباً» ما دام لا يوجد مستشار مُفعّل
   const soon = await v.evaluate(() => { go('consult'); return [document.body.classList.contains('conssoon'), !!document.querySelector('#booking .soonchip')] });
   ok(soon[0] && soon[1], 'consult coming soon');

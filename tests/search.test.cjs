@@ -13,8 +13,8 @@ const AX = async (p, sel) => { if (!(await p.evaluate(() => !!window.axe))) awai
   const p = await ctx.newPage(); p.on('pageerror', (e) => errs.push(e.message));
   await p.goto(BASE + '/#/admin/home'); await W(p, 2200);
   // الرئيسية: بحث كبير + شرائح المحفوظة + إجراءات مجمّعة
-  const h = await p.evaluate(() => ({ srch: !!$('.hsrch'), chips: $$('.hchips button').length, groups: $$('.hmg .hgrp').length, rows: $$('.hmg .hrow').length, acts: homeActs().length, inGroup: homeActs().every((a) => a.g) }));
-  ok(h.srch && h.chips >= 2 && h.groups >= 2 && h.rows == h.acts && h.inGroup, 'home: big search, saved-page chips, every action shown once inside a topic group ' + JSON.stringify(h));
+  const h = await p.evaluate(() => ({ srch: !!$('.hsrch'), chips: $$('.jside .jpins .jni').length, groups: $$('.hmg .hgrp').length, rows: $$('.hmg .hrow').length, acts: homeActs().length, inGroup: homeActs().every((a) => a.g) }));
+  ok(h.srch && h.chips >= 2 && h.groups >= 2 && h.rows == h.acts && h.inGroup, 'home: search bar, pinned pages in the sidebar, every action shown once inside a topic group ' + JSON.stringify(h));
   // Ctrl+K
   await p.keyboard.press('Control+k'); await W(p);
   const o = await p.evaluate(() => ({ open: !!$('#cmdk'), role: $('#cmdk [role=dialog]').getAttribute('aria-modal'), focus: document.activeElement.id, empty: $$('#cmdl [role=option]').length }));
@@ -60,7 +60,7 @@ const AX = async (p, sel) => { if (!(await p.evaluate(() => !!window.axe))) awai
   // الصفحات المحفوظة تبقى بعد إعادة التحميل
   await p.evaluate(() => { goMod('partners') }); await W(p, 300); await p.click('#bmk'); await W(p, 200);
   await p.reload(); await W(p, 2200); await p.evaluate(() => goMod('home')); await W(p, 300);
-  ok(await p.evaluate(() => ADM.saved.includes('partners') && $$('.hchips button').some((x) => x.textContent.includes('الشراكات'))), 'saved pages persist after reload and show as chips');
+  ok(await p.evaluate(() => ADM.saved.includes('partners') && $$('.jside .jpins .jni').some((x) => x.textContent.includes('الشراكات'))), 'pinned pages persist after reload and show in the sidebar');
   // التأجيل في خطة البناء
   ok(await p.evaluate(() => { const ph = ROAD.find((x) => x.k == 'ph7'); return ph && ph.items.some((i) => i[0] == 'dpo' && rmSt(i) == 'later') && RDST.later }), 'data-protection officer naming is in the plan as «مؤجل»');
   // الجوال
@@ -68,12 +68,12 @@ const AX = async (p, sel) => { if (!(await p.evaluate(() => !!window.axe))) awai
   await m.addInitScript(() => { window.__noConfirm = true });
   const q = await m.newPage(); q.on('pageerror', (e) => errs.push(e.message));
   await q.goto(BASE + '/#/admin/home'); await W(q, 2200);
-  const t = await q.evaluate(() => { const r = $('.jav').getBoundingClientRect(), vis = (s) => { const e = $(s); return e && getComputedStyle(e).display != 'none' }; return { w: Math.round(r.width), h: Math.round(r.height), left: Math.round(r.left), priv: vis('#privtg'), a11y: vis('.jtop .a11yb'), globe: vis('.jtop .jglobe'), srch: vis('.jsrch'), over: document.documentElement.scrollWidth > innerWidth } });
-  ok(t.w == 36 && t.h == 36 && t.left >= 4 && !t.priv && !t.a11y && !t.globe && t.srch && !t.over, 'mobile top bar: round 36px avatar, search icon, extras moved into the account menu ' + JSON.stringify(t));
+  const t = await q.evaluate(() => { const vis = (s) => { const e = $(s); return e && getComputedStyle(e).display != 'none' }; return { avTop: !!$('.jtop .jav'), avSide: !!$('.jside .jav'), priv: vis('#privtg'), srch: vis('.jsrch'), menu: vis('.jmenu'), over: document.documentElement.scrollWidth > innerWidth } });
+  ok(!t.avTop && t.avSide && !t.priv && t.srch && t.menu && !t.over, 'mobile top bar: menu + search icon; account lives in the sidebar drawer ' + JSON.stringify(t));
   await q.tap('.jsrch'); await W(q);
   const fm = await q.evaluate(() => { const r = $('.cmdk-b').getBoundingClientRect(); return { w: Math.round(r.width), h: Math.round(r.height), vh: innerHeight } });
   ok(fm.w == 390 && Math.abs(fm.h - fm.vh) <= 1, 'mobile: search opens full screen');
-  await q.evaluate(() => cmdClose()); await q.tap('.jav'); await W(q);
+  await q.evaluate(() => cmdClose()); await q.tap('.jmenu'); await W(q); await q.tap('.jav'); await W(q);
   ok(await q.evaluate(() => { const r = $('#jum').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth && !!$('#jum [data-um=priv]') && !!$('#jum [data-um=a11y]') }), 'mobile: account menu fits the screen and holds privacy + accessibility');
   ok(!errs.length, 'no page errors ' + errs.join(' | '));
   await b.close();
