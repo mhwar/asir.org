@@ -36,7 +36,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.evaluate(() => { ADM.rp.tab = 'tpl'; rpGo('gov') }); await W(p, 600);
   ok(await p.evaluate(() => ADM.rp.tab == 'build' && ADM.rp.kind == 'gov'), 'links from other pages (rpGo) land in the builder');
   await p.evaluate(() => expLog('اختبار سجل التنزيلات 0.95', 'xlsx', 7)); await W(p, 800);
-  await p.click('[data-rtab=log]'); await W(p, 1500);
+  await p.click('[data-rtab=log]'); await p.waitForSelector('#rpLogT, #rpLog .dvempty', { timeout: 10000 }).catch(() => {}); await W(p, 300);
   const l = await p.evaluate(() => ({ rows: $$('#rpLogT tbody tr').length, has: !!$$('#rpLogT tbody tr').find((t) => t.textContent.includes('اختبار سجل التنزيلات 0.95')) }));
   ok(l.rows >= 1 && l.has, 'downloads log lists the export ' + JSON.stringify(l));
   // 5) معاينة نافذة التصدير تتبع الصيغة
