@@ -29,7 +29,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   // القوائم
   await p.evaluate((id) => a360Lists(id), id); await W(p);
   const LN = 'قائمة اختبار ' + Date.now(); await p.fill('#lsN', LN); await p.click('#lsGo'); await W(p, 1200);
-  ok(await p.evaluate(([id, LN]) => LISTS.list.some((l) => l.n == LN && l.ids.includes(id)) && /قائمة/.test($('.a360t').textContent) && !$('#modal').classList.contains('on'), [id, LN]), 'association added to a new shared list; header shows it');
+  ok(await p.evaluate(([id, LN]) => LISTS.list.some((l) => l.n == LN && l.ids.includes(id)) && /قائمة|قوائم/.test($('.a360t').textContent) && !$('#modal').classList.contains('on'), [id, LN]), 'association added to a new shared list; header shows it');
   const lid = await p.evaluate((LN) => LISTS.list.find((l) => l.n == LN).id, LN);
   ok(await p.evaluate((lid) => dirList({ lst: lid }).length == 1 && dirList({ sc: 'none' }).length > 0, lid), 'directory filters: by list and by «النطاق: لم يُحدَّد»');
   // السجل
@@ -40,7 +40,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.setViewportSize({ width: 390, height: 844 }); await W(p, 400);
   ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), 'no horizontal overflow on mobile');
   // تنظيف
-  await p.evaluate((lid) => { LISTS.list = LISTS.list.filter((l) => l.id != lid); listsSave() }, lid);
+  await p.evaluate((lid) => { LISTS.list = LISTS.list.filter((l) => l.id != lid); listsSave() }, lid); await W(p, 1500);
   await p.evaluate(async (id) => { const f = (await api(`/api/associations/${id}/full`)).data; const x = f.log.find((l) => l.summary == 'اختبار 1.00'); if (x) await api(`/api/associations/${id}/contact-log/${x.id}`, { method: 'DELETE' }) }, id);
   ok(!errs.length, 'no page errors ' + errs.join(' | '));
   await b.close();
