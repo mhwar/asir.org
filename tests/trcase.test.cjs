@@ -66,7 +66,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(pj.ok && pj.benef == 2 && pj.ints && pj.stage == 'plan' && /2\/2/.test(pj.lbl), 'project created with both associations as beneficiaries, intervention logged in each case, pattern shows 2/2');
   // 7) الوصول من ملف الجمعية والعنوان
   await p.evaluate((A) => open360(A), A); await p.waitForTimeout(900);
-  ok(await p.evaluate(() => !!$$('.a3ovn .jbtn').find((b) => /فتح الحالة/.test(b.textContent))), 'association page still offers «فتح الحالة»');
+  ok(await p.evaluate(() => !![...$$('.a5st .jbtn, .a3bar .jbtn')].find((b) => /فتح الحالة/.test(b.textContent))), 'association page still offers «فتح الحالة»');
   await p.evaluate((A) => trOpen(A), A); await p.waitForTimeout(600);
   ok(await p.evaluate((A) => location.hash.includes('trcase-' + A), A), 'case page has its own URL (trcase-<id>)');
   await p.evaluate(() => go('admin/trcase-' + ADM.taid)); await p.waitForTimeout(600);

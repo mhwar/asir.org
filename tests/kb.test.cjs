@@ -58,7 +58,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.evaluate((aid) => { TRB.cases = TRB.cases.filter((c) => c.aid != aid) }, aid);
   const ex = await p.evaluate(() => { const o = DB.find((x) => !x.closed && x.st == 'منتهي'); return o && o.id; });
   await p.evaluate((i) => { open360(i, 'req') }, ex); await p.waitForTimeout(1500);
-  ok(await p.evaluate(() => { const c = $('#a3-req'); if (c && c.classList.contains('fold')) a360Toggle('req'); return !!$('#a3-req .kbr') }), 'association requirements card links regulations for unmet requirements');
+  ok(await p.evaluate(() => !!$('#a5eval .kbr')), 'association evaluation links regulations for unmet requirements');
   await p.evaluate(async (nid) => { await api('/api/kb/' + nid, { method: 'PATCH', body: JSON.stringify({ status: 'archived' }) }) }, nid);
   ok(errs.length == 0, 'no page errors' + (errs.length ? ': ' + errs.join(' | ') : ''));
   await b.close(); console.log(fails ? `\n${fails} FAILED` : '\nALL PASS'); process.exit(fails ? 1 : 0);

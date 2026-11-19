@@ -35,6 +35,7 @@ export async function getFull(env, req, user, id, { logReveal = true } = {}) {
   const profile = Object.fromEntries(Object.entries(PROFILE).map(([k, col]) => [k, UFIELDS[k].json ? js(pr[col]) : (pr[col] ?? '')]));
   try { profile.verified = pr.verified_json ? JSON.parse(pr.verified_json) : {}; } catch { profile.verified = {}; }
   profile.dataVerified = pr.data_verified_on || '';
+  try { profile.hsSnap = pr.hs_snap ? JSON.parse(pr.hs_snap) : null; } catch { profile.hsSnap = null; }
   profile.updated = pr.updated_at || '';
   profile.logo = pr.logo_key ? `/u-logo/${id}?v=${encodeURIComponent(pr.updated_at || '')}` : '';
   const contacts = Object.fromEntries(Object.entries(CONTACT).map(([k, col]) => [k, ct[col] || '']));

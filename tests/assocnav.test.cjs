@@ -37,8 +37,8 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => !$('#cmaGo').disabled && /إضافة إلى 1/.test($('#cmaGoE').textContent)), 'ticking a community enables save and previews «إضافة إلى 1»');
   await p.click('#cmaGo'); await p.waitForTimeout(600);
   ok(await p.evaluate(([A, cm]) => CMEM.list.some((m) => m.aid == A && m.cid == cm && m.st == 'active'), [A, cm]), 'membership saved');
-  await p.evaluate(() => a360Tab('rel')); await p.waitForTimeout(400);
-  ok(await p.evaluate((cm) => $('.a3c[data-c=eco]').textContent.includes(cmById(cm).n), cm), 'engagement card shows the new community');
+  await p.evaluate((A) => { open360(A); }, A); await p.waitForTimeout(800);
+  ok(await p.evaluate((cm) => $('#a5rel').textContent.includes(cmById(cm).n), cm), 'relation section shows the new community');
   // row menu entry
   await p.evaluate(() => goMod('directory')); await p.waitForTimeout(600);
   await p.evaluate(() => { const btn = document.querySelector('tr.cl [data-rm], tr.cl .rm, tr.cl button[title="إجراءات"]') || document.querySelector('tr.cl td:last-child button'); btn && btn.click(); }); await p.waitForTimeout(300);

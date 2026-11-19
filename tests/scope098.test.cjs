@@ -28,7 +28,8 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   // 2) ملف الجمعية: بطاقة النطاق تقول «بانتظار الاعتماد»
   await p.evaluate((id) => { ADM.a360r = null; open360(id) }, id); await W(p, 1500);
   await p.evaluate(() => a360Tab('data')); await W(p, 600);
-  ok(await p.evaluate(() => !!$('.a3c[data-c=scope]') && $$('.a3c[data-c=scope] .a3sct span').length >= 19 && /المقر: /.test($('.a360m').textContent)), 'file has a «النطاق الجغرافي» card with the governorate tiles, header shows HQ and scope');
+  await p.evaluate(() => a5Go('data', 'scope')); await W(p, 500);
+  ok(await p.evaluate(() => !!$('.a5ins [data-sct]') && $$('.a5ins .a3sct > *').length >= 19 && /المقر: /.test($('.a360m').textContent)), 'file has the scope editor (governorate tiles) inside «النطاق والتواصل», header shows HQ and scope');
   // 3) المراجعة: يظهر النوع بالعربية، والاعتماد يكتبه
   await p.evaluate((rid) => updReview(rid), rq.id); await W(p, 900);
   ok(await p.evaluate(() => /محافظات محددة/.test($('#adrawer').textContent)), 'review shows the scope type in Arabic, not its code');

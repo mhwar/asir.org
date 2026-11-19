@@ -38,36 +38,19 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.evaluate(() => { $('#modal [data-usw=all]').click() }); await p.waitForTimeout(300); await p.click('#hsVGo'); await p.waitForTimeout(900);
   const vf = await p.evaluate((id) => { const o = DBI[id], h = hsOf(o); return { n: Object.keys(o.hx.ver || {}).length, okAll: h.parts.filter((p) => p.dim == 'data' && p.r > 0).every((p) => p.relOk), rel: h.rel }; }, id);
   ok(vf.n >= 10 && vf.okAll && vf.rel >= 80, `full review: all 9 groups verified, reliability ${vf.rel}%`);
-  // 7) صفحة الجمعية: ثلاثة تبويبات بدرجاتها
+  // 7) صفحة الجمعية الموحّدة (1.10): جودة البيانات ومؤشر الجمعية، والبيانات بجدولها، والتقييم بمحاوره
   await p.evaluate((id) => open360(id), id); await p.waitForTimeout(1500);
-  const pg0 = await p.evaluate(() => ({ tabs: $$('.a3tabs [role=tab]').map((t) => t.textContent.trim().slice(0, 9)), sc: $$('.a3tabs [role=tab] .a3ts[style*="--c:#"]').length, on: $('.a3tabs [aria-selected=true]').textContent, mini: $$('.a3sc3 button').length }));
-  await p.evaluate(() => a360Tab('eff')); await p.waitForTimeout(400);
-  const pg = { ...pg0, cards: await p.evaluate(() => $$('.a3grid .a3c').map((c) => c.dataset.c)) };
-  ok(pg.tabs.length == 5 && pg.mini == 4, `five tabs; header shows effectiveness, data and relation scores (${pg.tabs.join(' | ')})`);
-  ok(/نظرة عامة/.test(pg.on) && ['score', 'trouble', 'req', 'diag'].every((k) => pg.cards.includes(k)), 'opens on «نظرة عامة»; «الفاعلية» holds effectiveness, trouble, requirements, diagnosis');
-  await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(400);
-  const dt = await p.evaluate(() => { const c = $('#a3-dprof'); if (c && c.classList.contains('fold')) a360Toggle('dprof'); return { cards: $$('.a3grid .a3c').map((c) => c.dataset.c), items: $$('#a3-dprof .hsi').length, rl: $$('#a3-dprof .hsrl').length, hd: /الاكتمال/.test($('#a3-dprof .hshd').textContent) && /الموثوقية/.test($('#a3-dprof .hshd').textContent) }; });
-  ok(['dprof', 'lic', 'contact', 'quality', 'pub'].every((k) => dt.cards.includes(k)) && dt.items == 9 && dt.rl > 0 && dt.hd, 'data tab: completeness & reliability card with 9 groups (incl. scope), each with its source; licence, contact, quality, public profile');
-  await p.evaluate(() => a360Tab('rel')); await p.waitForTimeout(400);
-  ok(await p.evaluate(() => ['eng', 'rel', 'eco'].every((k) => $$('.a3grid .a3c').some((c) => c.dataset.c == k)) && $$('#a3-eng .hsi').length == 3), 'relation tab: engagement score (3 indicators), contact log and links, ecosystem');
-  // 8) نافذة الدرجات تنقل إلى التبويب
-  await p.evaluate((id) => hsPeek(id, $('.hspk')), id); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('#hsPk .hspr').length == 3), 'score popover: three rows (effectiveness, data, relation)');
-  await p.evaluate(() => $$('#hsPk .hspr')[1].click()); await p.waitForTimeout(600);
-  ok(await p.evaluate(() => /البيانات/.test($('.a3tabs [aria-selected=true]').textContent)), 'clicking the data row opens the data tab');
-  // 9) التخصيص: نقل بطاقة إلى تبويب آخر وإخفاء أخرى
-  await p.evaluate(() => { uiMemSet('a360lay', { req: 'data', eco: 'hide' }); a360Tab('data') }); await p.waitForTimeout(400);
-  const lay = await p.evaluate(() => { const d = $$('.a3grid .a3c').map((c) => c.dataset.c); a360Tab('rel'); const r = $$('.a3grid .a3c').map((c) => c.dataset.c); return { d, r }; });
-  ok(lay.d.includes('req') && !lay.r.includes('eco'), 'layout is customisable: a card moved to another tab, another hidden');
-  await p.evaluate(() => a360Layout()); await p.waitForTimeout(400);
-  ok(await p.evaluate(() => $$('.a3lay .uiseg').length == A360_CARDS.length), 'layout dialog lists every card with tab choices');
-  await p.evaluate(() => { closeAll(); uiMemSet('a360lay', {}) });
+  const pg = await p.evaluate(() => ({ nums: $$('.a5num').length, data: !!$('#a5data .a5t'), ax: $$('.a5axw > table > tbody > tr').length, rel: !!$('#a5rel') }));
+  ok(pg.nums == 2 && pg.data && pg.ax == 5 && pg.rel, 'unified file: data quality + index, data table, five evaluation axes, relation');
+  ok(await p.evaluate((id) => { const h = hsOf(DBI[id]), X = a5Index(DBI[id], h, trCase(id)); const r = X.ax.find((a) => a.k == 'rel'); return r.rows.map((q) => q.k).join() == 'r_resp,r_eng,r_upd' && X.ax.find((a) => a.k == 'data').s == h.data }, id), 'axes reuse the existing indicators (relation: response, engagement, updates; data axis = data quality)');
+  // 8) الانتقال من الأسماء القديمة
+  await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(500);
+  ok(await p.evaluate(() => Math.abs(document.getElementById('a5data').getBoundingClientRect().top) < 200), 'a360Tab("data") scrolls to the data section');
   // 10) التعثر: إنذارات الفاعلية تقود إلى حالة بأنواعها
   const ex = await p.evaluate(() => { const o = DB.find((x) => !x.closed && x.st == 'منتهي' && !trCase(x.id)); return o && o.id; });
   if (ex) {
-    await p.evaluate((i) => { open360(i); setTimeout(() => { a360Tab('eff'); const c = $('#a3-trouble'); if (c && c.classList.contains('fold')) a360Toggle('trouble') }, 400) }, ex); await p.waitForTimeout(1500);
-    ok(await p.evaluate(() => /ترخيص منتهي/.test($('#a3-trouble .a3tw').textContent) && !!$('#a3-trouble .a3ta button')), 'expired licence shows as a trouble warning with «open a case with these types»');
-    ok(await p.evaluate((i) => { const h = hsOf(DBI[i]); return h.s <= 39 && h.cap && h.band[1] == 'حرجة' && !!$('#a3-score .hscap'); }, ex), 'governing requirement: expired licence caps effectiveness at 39 (critical) and says why');
+    await p.evaluate((i) => open360(i), ex); await p.waitForTimeout(1500);
+    ok(await p.evaluate((i) => { const h = hsOf(DBI[i]), X = a5Index(DBI[i], h, null); return h.s <= 39 && h.cap && X.s <= 39 && X.why.some((w) => /39/.test(w[0])) }, ex), 'governing requirement: expired licence caps both indices at 39 and says why');
     await p.evaluate((i) => trFlag(i, ['ترخيص منتهي', 'نقص الكوادر']), ex); await p.waitForTimeout(400);
     ok(await p.evaluate(() => $$('#trF [name=ty]:checked').map((x) => x.value).join() == 'ترخيص منتهي,نقص الكوادر'), 'case form opens with the warned types preselected');
     await p.evaluate(() => closeAll());
