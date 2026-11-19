@@ -17,7 +17,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   ok(l.st == 'due' && l.sort == 'days' && l.cols == 'gov,lic,exp,mobile,email' && l.rows == l.tab && !l.bad && /v=lic/.test(l.hash), 'licences view: due filter + its columns + sort, in the link ' + JSON.stringify(l));
   // 2) التصفية: قائمة الحقول ثم القيم بعددها، وشريحة قابلة للإزالة
   await p.click('#fBtn'); await W(p, 200);
-  ok(await p.evaluate(() => $$('.dvpop [data-dp^="f:"]').length == 7), 'filter menu lists 7 fields');
+  ok(await p.evaluate(() => $$('.dvpop [data-dp^="f:"]').length == 9), 'filter menu lists 9 fields (scope and follow-up list since 1.00)');
   await p.click('[data-dp="f:gov"]'); await W(p, 200);
   const g = await p.evaluate(() => { const r = $$('.dvpop input[data-fv=gov]')[1]; return { v: r.value, n: +r.closest('label').querySelector('.g').textContent.replace(/,/g, '') } });
   await p.click(`.dvpop input[data-fv=gov][value="${g.v}"]`); await W(p);

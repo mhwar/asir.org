@@ -10,7 +10,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const id = await p.evaluate(() => DB.filter((o) => !o.closed && o.st == 'ساري')[9].id);
   // 1) النموذج
   const m = await p.evaluate(() => { const W = (d) => HS_IND.filter((i) => i.dim == d).reduce((t, i) => t + i.w, 0); return { d: W('data'), a: W('act'), e: W('eng'), how: HS_IND.every((i) => i.how && i.src), g: HS_IND.filter((i) => i.dim == 'data').every((i) => HS_GRP[i.g]), n: HS_IND.length }; });
-  ok(m.d == 100 && m.a == 100 && m.e == 100 && m.how && m.g, `three dimensions each weighted to 100 (${m.n} indicators; every data group has an owner)`);
+  ok(m.d == 110 && m.a == 100 && m.e == 100 && m.how && m.g, `three dimensions (data 110 raw incl. scope since 1.00, normalised to 100) (${m.n} indicators; every data group has an owner)`);
   // 2) التسجيل مقابل التفعيل
   const reg = await p.evaluate((id) => { const o = DBI[id], x0 = { ...o.hx }; const run = (hx) => { o.hx = { ...x0, ...hx }; const h = hsOf(o); const g = (k) => h.parts.find((p) => p.k == k); return { data: h.data, s: h.s, conf: h.conf, plat: g('d_plat').r, vol: g('a_vol') }; };
     const U = run({ vs: '', es: '', vl: '', vy: null, vo: null, vh: null }), R = run({ vs: 'مسجّلة غير مفعّلة', vl: '' }), A = run({ vs: 'مفعّلة', vl: new Date(Date.now() - 30 * 864e5).toISOString().slice(0, 10) }), O = run({ vs: 'مفعّلة', vl: '2023-01-01', vy: 2023, vo: 3 }); o.hx = x0; return { U, R, A, O }; }, id);
@@ -34,18 +34,20 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(after.exec == 1 && after.dexec == 1 && after.vol == 1 && after.keys && !after.pii, 'payload carries the new facts (incl. profile presence) without names; indicators reflect them');
   // 6) تحقق الفريق
   await p.evaluate((id) => hsVerify(id, 'con'), id); await p.waitForTimeout(400);
-  ok(await p.evaluate(() => $$('#modal [data-ug]').length == 9 && $$('#modal [data-uc=src]').length == 5 && $('#modal [data-ug=con]').checked), 'verify dialog: 9 data groups, 5 sources, opened from a group preselects it');
+  ok(await p.evaluate(() => $$('#modal [data-ug]').length == 10 && $$('#modal [data-uc=src]').length == 5 && $('#modal [data-ug=con]').checked), 'verify dialog: 10 data groups (incl. scope), 5 sources, opened from a group preselects it');
   await p.evaluate(() => { $('#modal [data-usw=all]').click() }); await p.waitForTimeout(300); await p.click('#hsVGo'); await p.waitForTimeout(900);
   const vf = await p.evaluate((id) => { const o = DBI[id], h = hsOf(o); return { n: Object.keys(o.hx.ver || {}).length, okAll: h.parts.filter((p) => p.dim == 'data' && p.r > 0).every((p) => p.relOk), rel: h.rel }; }, id);
-  ok(vf.n >= 9 && vf.okAll && vf.rel >= 80, `full review: all 9 groups verified, reliability ${vf.rel}%`);
+  ok(vf.n >= 10 && vf.okAll && vf.rel >= 80, `full review: all 9 groups verified, reliability ${vf.rel}%`);
   // 7) صفحة الجمعية: ثلاثة تبويبات بدرجاتها
   await p.evaluate((id) => open360(id), id); await p.waitForTimeout(1500);
-  const pg = await p.evaluate(() => ({ tabs: $$('.a3tabs [role=tab]').map((t) => t.textContent.trim().slice(0, 9)), sc: $$('.a3tabs .a3ts').length, on: $('.a3tabs [aria-selected=true]').textContent, mini: $$('.a3mini button').length, cards: $$('.a3grid .a3c').map((c) => c.dataset.c) }));
-  ok(pg.tabs.length == 3 && pg.sc == 3 && pg.mini == 2, `three tabs each with its score; header shows effectiveness plus data and relation (${pg.tabs.join(' | ')})`);
-  ok(/الفاعلية/.test(pg.on) && ['score', 'trouble', 'req', 'diag'].every((k) => pg.cards.includes(k)), 'admin opens on «الفاعلية»: effectiveness, trouble, requirements, diagnosis');
+  const pg0 = await p.evaluate(() => ({ tabs: $$('.a3tabs [role=tab]').map((t) => t.textContent.trim().slice(0, 9)), sc: $$('.a3tabs [role=tab] .a3ts[style*="--c:#"]').length, on: $('.a3tabs [aria-selected=true]').textContent, mini: $$('.a3sc3 button').length }));
+  await p.evaluate(() => a360Tab('eff')); await p.waitForTimeout(400);
+  const pg = { ...pg0, cards: await p.evaluate(() => $$('.a3grid .a3c').map((c) => c.dataset.c)) };
+  ok(pg.tabs.length == 5 && pg.mini == 4, `five tabs; header shows effectiveness, data and relation scores (${pg.tabs.join(' | ')})`);
+  ok(/نظرة عامة/.test(pg.on) && ['score', 'trouble', 'req', 'diag'].every((k) => pg.cards.includes(k)), 'opens on «نظرة عامة»; «الفاعلية» holds effectiveness, trouble, requirements, diagnosis');
   await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(400);
   const dt = await p.evaluate(() => { const c = $('#a3-dprof'); if (c && c.classList.contains('fold')) a360Toggle('dprof'); return { cards: $$('.a3grid .a3c').map((c) => c.dataset.c), items: $$('#a3-dprof .hsi').length, rl: $$('#a3-dprof .hsrl').length, hd: /الاكتمال/.test($('#a3-dprof .hshd').textContent) && /الموثوقية/.test($('#a3-dprof .hshd').textContent) }; });
-  ok(['dprof', 'lic', 'contact', 'quality', 'pub'].every((k) => dt.cards.includes(k)) && dt.items == 8 && dt.rl > 0 && dt.hd, 'data tab: completeness & reliability card with 8 groups, each with its source; licence, contact, quality, public profile');
+  ok(['dprof', 'lic', 'contact', 'quality', 'pub'].every((k) => dt.cards.includes(k)) && dt.items == 9 && dt.rl > 0 && dt.hd, 'data tab: completeness & reliability card with 9 groups (incl. scope), each with its source; licence, contact, quality, public profile');
   await p.evaluate(() => a360Tab('rel')); await p.waitForTimeout(400);
   ok(await p.evaluate(() => ['eng', 'rel', 'eco'].every((k) => $$('.a3grid .a3c').some((c) => c.dataset.c == k)) && $$('#a3-eng .hsi').length == 3), 'relation tab: engagement score (3 indicators), contact log and links, ecosystem');
   // 8) نافذة الدرجات تنقل إلى التبويب

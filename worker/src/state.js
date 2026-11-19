@@ -48,7 +48,8 @@ export const STATE_KEYS = {
   // 0.96: الخطة التشغيلية — كاملة (مع التكاليف) لمن له وحدة plan (مدير النظام، ومجلس الإدارة عبر صلاحية القراءة العامة)؛
   // بقية الفريق المسجّل يرى المبادرات والمؤشرات بلا تكاليف (team). لا تظهر للزائر.
   asirPlan:      { module: 'plan', team: planNoCost },
-  asirSubc:      { module: 'plan', team: (v) => v },   // اللجان الفرعية: أسماء الأعضاء وأدوارهم والاجتماعات — للفريق فقط
+  asirSubc:      { module: 'plan', team: (v) => v },
+  asirLists:     { module: 'directory', team: (v) => v }, // قوائم متابعة الجمعيات (أرقام الجمعيات فقط) — للفريق   // اللجان الفرعية: أسماء الأعضاء وأدوارهم والاجتماعات — للفريق فقط
 };
 function planNoCost(v) {
   const I = ((v.plan && v.plan.I) || []).map((i) => { const { cost, spent, ...r } = i; return r; });
