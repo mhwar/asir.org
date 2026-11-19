@@ -45,7 +45,15 @@ export const STATE_KEYS = {
   asirPro:       { module: 'pro', public: true, pub: proPublic }, // التطوع الاحترافي: للزائر أرقام مجمّعة وخبراء وافقوا على الظهور ومخرجات وافقت الجمعية على نشرها فقط
   asirTrouble:   { module: 'trouble' },                // الجمعيات المتعثرة — للفريق فقط
   asirRpSnaps:   { module: 'reports' },                // لقطات المؤشرات الدورية (أرقام مجمّعة فقط)
+  // 0.96: الخطة التشغيلية — كاملة (مع التكاليف) لمن له وحدة plan (مدير النظام، ومجلس الإدارة عبر صلاحية القراءة العامة)؛
+  // بقية الفريق المسجّل يرى المبادرات والمؤشرات بلا تكاليف (team). لا تظهر للزائر.
+  asirPlan:      { module: 'plan', team: planNoCost },
+  asirSubc:      { module: 'plan', team: (v) => v },   // اللجان الفرعية: أسماء الأعضاء وأدوارهم والاجتماعات — للفريق فقط
 };
+function planNoCost(v) {
+  const I = ((v.plan && v.plan.I) || []).map((i) => { const { cost, spent, ...r } = i; return r; });
+  return { ...v, noCost: true, plan: v.plan ? { ...v.plan, I } : v.plan };
+}
 const MAX_BYTES = 256 * 1024;
 
 export async function readState(env, user) {
@@ -56,9 +64,11 @@ export async function readState(env, user) {
     if (!spec) continue;
     // صاحب الصلاحية يرى القيمة كاملة؛ غيره (زائر أو مستخدم بلا صلاحية على الوحدة) يرى الجزء العام فقط إن كانت الوحدة عامة
     const full = user && can(user, spec.module);
-    if (!full && !spec.public) continue;
+    const team = !full && user && spec.team;                 // عضو فريق مسجّل بلا صلاحية الوحدة: نسخة الفريق
+    if (!full && !spec.public && !team) continue;
     let value = r.value;
-    if (!full && spec.pub) { try { value = JSON.stringify(spec.pub(JSON.parse(r.value))); } catch { continue; } }  // تعذّر الإسقاط: لا يُرسل شيء
+    const proj = team ? spec.team : !full ? spec.pub : null;
+    if (proj) { try { value = JSON.stringify(proj(JSON.parse(r.value))); } catch { continue; } }  // تعذّر الإسقاط: لا يُرسل شيء
     out[r.key] = { value, version: r.version, by: full ? r.updated_by : undefined, at: r.updated_at };
   }
   return out;

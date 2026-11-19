@@ -20,7 +20,7 @@ const OLD = ['home','overview','updates','quality','alerts','directory','assoc',
     const children = MODS.filter((m) => modParent(m[0]) != m[0] && !RECPAGES[m[0]]).filter((m) => !document.querySelector(`.jside [data-m="${modParent(m[0])}"]`)).map((m) => m[0]);
     return { missing, extra, noPlace, children, groups: NAV.map((g) => g.k).join(), tmp: isTmp('launch') && isTmp('gaps') && !isTmp('users') };
   }, OLD);
-  ok(!r.missing.length && !r.extra.length, 'all page keys kept (links unchanged) ' + JSON.stringify([r.missing, r.extra]));
+  ok(!r.missing.length && r.extra.every((k) => ['plan', 'subc'].includes(k)), 'all page keys kept (links unchanged; only later additions) ' + JSON.stringify([r.missing, r.extra]));
   ok(!r.noPlace.length && !r.children.length, 'every page has a place in the sidebar ' + JSON.stringify([r.noPlace, r.children]));
   ok(r.groups == 'home,data,prog,rel,know,insight,gov,sys' && r.tmp, 'groups in the new order, launch pages still temporary ' + r.groups);
   // عناوين فرعية، و«قريباً» للمدير
