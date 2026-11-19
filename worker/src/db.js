@@ -178,6 +178,14 @@ export function healthFacts(p, c) {
     asm: p.last_assembly_on || '', fin: n(p.fin_year), stf: n(p.staff_count), ver, dv: p.data_verified_on || '', pu: p.updated_at || '', gs: n(p.gov_score), gy: n(p.gov_score_year),
     ab: p.about ? 1 : 0, pg: p.programs ? 1 : 0, bn: n(p.beneficiaries_count) };
 }
+// النطاق الجغرافي (0025): نوعه، ومحافظاته عند «محافظات محددة»، والفروع — عام لا بيانات شخصية
+export function scopeOf(p) {
+  const o = {};
+  if (p.scope_type) o.sc = p.scope_type;
+  if (p.scope_type === 'govs' && p.scope_govs) { try { const a = JSON.parse(p.scope_govs); if (Array.isArray(a) && a.length) o.scg = a; } catch { /* تجاهل */ } }
+  if (p.branches) o.br = p.branches;
+  return o;
+}
 export async function pagePayload(env) {
   const [adm, meta, prof, con, nts, asm] = await env.DB.batch([
     env.DB.prepare('SELECT * FROM v_admin_associations ORDER BY id'),
@@ -205,6 +213,7 @@ export async function pagePayload(env) {
     a.contact_consent ? 'نعم' : 'لا', [...dataIssues(a, c).map((x) => x.t), ...(N[a.id] || [])].join('؛ '),
     a.closed_on || '', a.closure_reason || '', P[a.id] && P[a.id].logo_key ? `/u-logo/${a.id}` : '', (P[a.id] && P[a.id].about) || '',
     healthFacts(P[a.id] || {}, c),
+    scopeOf(P[a.id] || {}),
   ]; });
   // public list — published and not closed
   // سياسة الحقول من اللوحة (asirFieldPol): ظهور بيانات التواصل في الموقع — pub دائماً، con بموافقة الجمعية، int أبداً
@@ -225,6 +234,7 @@ export async function pagePayload(env) {
     if (p.social) o.soc = p.social;
     if (p.programs) o.pr = p.programs;
     if (p.beneficiaries) o.bn = JSON.parse(p.beneficiaries);
+    Object.assign(o, scopeOf(p));
     const c = C[a.id] || {};
     if (show('email', 'con', a) && c.email) o.em = c.email;
     if (show('mobile', 'con', a) && c.mobile) o.mo = c.mobile;

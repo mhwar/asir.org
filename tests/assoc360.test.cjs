@@ -36,7 +36,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.evaluate(() => closeAll());
   // التبويبات: التطوير والعلاقة
   await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'dprof,lic,contact,quality,pub'), '«البيانات» tab: completeness + licence + contact + quality + public profile');
+  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'dprof,lic,contact,quality,pub,scope'), '«البيانات» tab: completeness + licence + contact + quality + public profile + geographic scope');
   await p.keyboard.press('3'); await p.waitForTimeout(300);
   ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'eng,rel,eco'), 'key 3 → «العلاقة» tab: engagement + rel + eco');
   await p.keyboard.press('1'); await p.waitForTimeout(300);

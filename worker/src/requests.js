@@ -25,6 +25,16 @@ export const EXEC_TYPES = ['متفرغ', 'غير متفرغ', 'متطوع', 'ش�
 export const REP_IS = ['المفوض', 'المدير التنفيذي', 'رئيس مجلس الإدارة', 'شخص آخر'];
 const oneOf = (L) => (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!L.includes(v)) fail(422, 'invalid', 'قيمة غير معروفة: ' + v); return v; };
 const band = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!REV_BANDS.includes(v)) fail(422, 'invalid', 'شريحة غير معروفة'); return v; };
+export const SCOPE_TYPES = ['hq', 'govs', 'region', 'national'];
+const govList = (v) => { const a = Array.isArray(v) ? [...new Set(v.map((x) => String(x).trim()).filter(Boolean))].slice(0, 40) : []; if (a.some((x) => x.length > 40)) fail(422, 'invalid', 'اسم محافظة غير صالح'); return a.length ? a : null; };
+// يتحقق أن أسماء محافظات النطاق موجودة في جدول المحافظات
+export async function checkGovs(env, arr) {
+  if (!arr || !arr.length) return;
+  const { results } = await env.DB.prepare('SELECT name_ar AS n FROM governorates').all();
+  const ok = new Set(results.map((r) => r.n));
+  const bad = arr.filter((g) => !ok.has(g));
+  if (bad.length) fail(422, 'invalid', 'محافظة غير معروفة: ' + bad.join('، '));
+}
 const list = (v) => { const a = Array.isArray(v) ? v.map((x) => String(x).trim()).filter(Boolean).slice(0, 20) : []; return a.length ? a : null; };
 
 export const UFIELDS = {
@@ -58,6 +68,10 @@ export const UFIELDS = {
   volLast:   { l: 'تاريخ آخر فرصة تطوعية منشورة', kind: 'profile', col: 'vol_last_on', v: date },
   ehsanSt:   { l: 'حساب الجمعية في منصة إحسان', kind: 'profile', col: 'ehsan_status', v: oneOf(PLAT_ST) },
   ehsanRef:  { l: 'رابط صفحة الجمعية في منصة إحسان', kind: 'profile', col: 'ehsan_ref', v: txt(200) },
+  // النطاق الجغرافي (0025): أين تقدّم الجمعية خدماتها — المقر هو المحافظة الرسمية ولا يتغير هنا
+  scope:     { l: 'نطاق الخدمة', kind: 'profile', col: 'scope_type', v: oneOf(SCOPE_TYPES) },
+  scopeGovs: { l: 'محافظات نطاق الخدمة', kind: 'profile', col: 'scope_govs', v: govList, json: true },
+  branches:  { l: 'الفروع والمكاتب', kind: 'profile', col: 'branches', v: txt(300) },
   logo:      { l: 'شعار الجمعية', kind: 'profile', col: 'logo_key', file: { max: 5, types: ['image/png', 'image/svg+xml', 'image/jpeg', 'image/webp'] } },
   founded:   { l: 'تاريخ التأسيس', kind: 'assoc', col: 'founded_on', v: date },
   gov:       { l: 'المحافظة', kind: 'assoc', col: 'governorate_id', v: txt(40), gov: true },
@@ -98,13 +112,14 @@ export async function currentValues(env, id, withPersonal) {
     `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
             a.founded_on AS founded, a.license_expires_on AS exp, a.license_issued_on AS issued, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
-            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.rep_is AS repIs, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand
+            p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.rep_is AS repIs, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand, p.scope_type AS scope, p.scope_govs AS scopeGovs, p.branches
        FROM associations a JOIN governorates g ON g.id = a.governorate_id
        JOIN fields f3 ON f3.id = a.field_id JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
        LEFT JOIN association_profiles p ON p.association_id = a.id
       WHERE a.id = ?1 AND a.deleted_at IS NULL`).bind(id).first();
   if (!a) fail(404, 'not_found', 'الجمعية غير موجودة');
   a.ben = a.ben ? JSON.parse(a.ben) : [];
+  try { a.scopeGovs = a.scopeGovs ? JSON.parse(a.scopeGovs) : []; } catch { a.scopeGovs = []; }
   a.consent = !!a.consent;
   a.ncnpPending = a.ncnpPending ? JSON.parse(a.ncnpPending) : [];
   if (withPersonal) {
@@ -278,6 +293,7 @@ export async function submitRequest(env, req, link) {
     const ov = k === 'consent' ? (cur.consent ? 1 : 0) : cur[k] ?? null;
     if (JSON.stringify(nv ?? null) !== JSON.stringify(f.json ? (ov && ov.length ? ov : null) : ov)) changes[k] = { old: ov, new: nv };
   }
+  if (changes.scopeGovs) await checkGovs(env, changes.scopeGovs.new);
   if (changes.gov) {
     const g = await env.DB.prepare('SELECT id FROM governorates WHERE name_ar = ?1').bind(changes.gov.new).first();
     if (!g) fail(422, 'invalid', 'محافظة غير معروفة');
@@ -363,7 +379,7 @@ export async function reviewRequest(env, req, user, id, body) {
       } else if (k === 'consent') {
         await env.DB.prepare(`UPDATE associations SET contact_consent = ?2, contact_consent_at = ${NOW}, updated_at = ${NOW} WHERE id = ?1`).bind(r.association_id, v ? 1 : 0).run();
       } else assocPatch[f.col] = v;
-    } else if (f.kind === 'profile') profile[f.col] = f.json ? JSON.stringify(v) : v;
+    } else if (f.kind === 'profile') profile[f.col] = f.json ? (v == null || (Array.isArray(v) && !v.length) ? null : JSON.stringify(v)) : v;
     else if (f.kind === 'contact') contact[f.col] = v;
   }
   // classification is chosen by the reviewer (level-3 field id), not typed by the association
@@ -373,6 +389,8 @@ export async function reviewRequest(env, req, user, id, body) {
     const diff = await updateAssociation(env, r.association_id, assocPatch);
     if (Object.keys(diff.after).length) await audit(env, req, user.email, 'update', 'associations', r.association_id, diff.before, { ...diff.after, via_request: id });
   }
+  // نطاق غير «محافظات محددة» لا يحتفظ بقائمة محافظات
+  if ('scope_type' in profile && profile.scope_type !== 'govs') profile.scope_govs = null;
   if (Object.keys(profile).length) {
     const cols = Object.keys(profile);
     await env.DB.prepare(
