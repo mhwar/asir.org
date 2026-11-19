@@ -20,9 +20,9 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.screenshot({ path: 'tests/out/a360_header.png' });
   const heads = await p.evaluate(() => Object.fromEntries($$('.a3c').map((c) => [c.dataset.c, c.querySelector('.a3hs').textContent.trim()])));
   ok(heads.score && heads.trouble && heads.req, 'card heads carry status/counts: ' + JSON.stringify(heads).slice(0, 160));
-  const rail = await p.evaluate(() => ({ rail: !!$('.a3rail'), comp: !!$('.a3rail #clF'), filters: $$('.a3rf button').length, items: $$('.a3ti').length, months: $$('.a3rm').length, jump: $$('.a3tabs [role=tab]').length, tabsOn: ($$('.a3tabs [role=tab]').findIndex((b) => b.classList.contains('on')) == 1 ? 'eff' : 'other'), order: $$('.a3c').map((c) => c.dataset.c).join(',') }));
+  const rail = await p.evaluate(() => ({ rail: !!$('.a3rail'), comp: !!$('.a3rail #clF'), filters: $$('.a3rf button').length, items: $$('.a3ti').length, months: $$('.a3rm').length, jump: $$('.a3tabs [role=tab]').length, tabsOn: ($$('.a3tabs [role=tab]').findIndex((b) => b.classList.contains('on')) == 2 ? 'eff' : 'other'), order: $$('.a3c').map((c) => c.dataset.c).join(',') }));
   ok(rail.rail && rail.comp && rail.filters >= 2 && rail.items > 0 && rail.months > 0, 'activity rail: composer, filters, grouped feed (' + rail.items + ')');
-  ok(rail.jump == 3 && rail.tabsOn == 'eff', '3 tabs; admin lands on «الفاعلية»');
+  ok(rail.jump == 5 && rail.tabsOn == 'eff', '5 tabs; admin lands on «الفاعلية»');
   ok(rail.order == 'score,trouble,req,diag', 'admin order inside «الفاعلية»: ' + rail.order);
   const tb = await p.evaluate(() => ({ bad: $$('.a3tabs .dot.bad').length, warn: $$('.a3tabs .dot.warn').length }));
   ok(tb.bad + tb.warn >= 1, 'tab shows a status dot when a card inside has an issue');
@@ -36,9 +36,9 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.evaluate(() => closeAll());
   // التبويبات: التطوير والعلاقة
   await p.evaluate(() => a360Tab('data')); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'dprof,lic,contact,quality,pub,scope'), '«البيانات» tab: completeness + licence + contact + quality + public profile + geographic scope');
-  await p.keyboard.press('3'); await p.waitForTimeout(300);
-  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'eng,rel,eco'), 'key 3 → «العلاقة» tab: engagement + rel + eco');
+  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'dprof,lic,contact,quality'), '«البيانات» tab: completeness + licence + contact + quality (scope and public profile have their own tabs)');
+  await p.keyboard.press('4'); await p.waitForTimeout(300);
+  ok(await p.evaluate(() => $$('.a3c').map((c) => c.dataset.c).join(',') == 'eng,rel,eco'), 'key 4 → «العلاقة» tab: engagement + rel + eco');
   await p.keyboard.press('1'); await p.waitForTimeout(300);
   // تصفية السجل
   const fk = await p.evaluate(() => { const b = $$('.a3rf button').find((x) => x.dataset.a3f); b.click(); return b.dataset.a3f; }); await p.waitForTimeout(200);
@@ -75,7 +75,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.click('.a3c[data-c=contact] .a3ch');
   // open360 بتبويب قديم يفتح البطاقة المقابلة
   await p.evaluate((A) => open360(A, 'diag'), A); await p.waitForTimeout(1500);
-  ok(await p.evaluate(() => $('.a3c[data-c=diag]') && !$('.a3c[data-c=diag]').classList.contains('fold') && $$('.a3tabs [role=tab]')[1].classList.contains('on')), 'open360(id,"diag") switches to «الفاعلية» and opens the card');
+  ok(await p.evaluate(() => $('.a3c[data-c=diag]') && !$('.a3c[data-c=diag]').classList.contains('fold') && $$('.a3tabs [role=tab]')[2].classList.contains('on')), 'open360(id,"diag") switches to «الفاعلية» and opens the card');
   await p.evaluate((A) => open360(A, 'data'), A); await p.waitForTimeout(800);
   ok(await p.evaluate(() => $('.a3c[data-c=lic]') && $$('.a3tabs [role=tab]')[0].classList.contains('on')), 'old tab "data" maps to «البيانات»');
   await p.evaluate((A) => open360(A, 'tl'), A); await p.waitForTimeout(800);

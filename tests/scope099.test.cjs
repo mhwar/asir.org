@@ -1,0 +1,36 @@
+// 0.99: ملف الجمعية كما في التصور — تبويب «النطاق الجغرافي» بمحرر مباشر (النوع + الخريطة + الفروع + حفظ)، وتبويب «الملف العام» (ما يظهر للزوار)، وزر «الصفحة العامة» في الرأس.
+const { chromium } = require('playwright');
+const BASE = process.env.BASE || 'http://127.0.0.1:8787';
+const ok = (c, m) => { console.log((c ? 'ok  ' : 'FAIL ') + m); if (!c) process.exitCode = 1 };
+const W = (p, ms) => p.waitForTimeout(ms || 300);
+(async () => {
+  const b = await chromium.launch(); const errs = [];
+  const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage(); p.on('pageerror', (e) => errs.push(e.message));
+  await p.goto(BASE + '/#/admin/directory'); await W(p, 2500);
+  const id = await p.evaluate(() => DB.filter((o) => !o.closed && o.gov == 'أبها')[5].id);
+  const before = await p.evaluate(async (id) => (await api(`/api/associations/${id}/full`)).data, id);
+  await p.evaluate((id) => open360(id), id); await W(p, 1500);
+  ok(await p.evaluate(() => $$('.a3tabs [role=tab]').map((t) => t.querySelector('b').firstChild.textContent.trim()).join('|') == 'البيانات|النطاق الجغرافي|الفاعلية|العلاقة|الملف العام'), 'tabs: البيانات | النطاق الجغرافي | الفاعلية | العلاقة | الملف العام');
+  ok(await p.evaluate(() => [...$$('.a360a .jbtn')].some((x) => /الصفحة العامة/.test(x.textContent))), 'header has «الصفحة العامة»');
+  await p.evaluate(() => a360Tab('scope')); await W(p, 500);
+  ok(await p.evaluate(() => $$('[data-sct]').length == 4 && !$$('[data-scg]').length && $('#scSave').disabled), 'scope tab: four types, map read-only until «محافظات محددة», save disabled until a change');
+  await p.click('[data-sct=govs]'); await W(p, 400);
+  ok(await p.evaluate(() => $$('[data-scg]').length == 18 && !$('#scSave').disabled && !!$('.a3ta .dty')), 'choosing «محافظات محددة» makes the 18 other governorates clickable and marks unsaved changes');
+  await p.click('[data-scg="خميس مشيط"]'); await p.click('[data-scg="بيشة"]'); await W(p, 300);
+  ok(await p.evaluate(() => $$('[data-scg].s').length == 2 && /3 محافظات/.test($('.a3scd').textContent)), 'clicked tiles join the scope (HQ + 2 = 3 محافظات)');
+  await p.fill('#scBr', 'مكتب في خميس مشيط');
+  await p.click('#scSave'); await W(p, 1500);
+  const sv = await p.evaluate(async (id) => (await api(`/api/associations/${id}/full`)).data, id);
+  ok(sv.profile.scope == 'govs' && sv.profile.scopeGovs.sort().join() == ['بيشة', 'خميس مشيط'].sort().join() && sv.profile.branches == 'مكتب في خميس مشيط', 'saved to the database');
+  ok(sv.association.governorate == before.association.governorate && sv.profile.about == before.profile.about && sv.association.license_no == before.association.license_no, 'HQ and other data untouched');
+  ok(await p.evaluate(() => /3 محافظات/.test($('.a360m').textContent) && !$('.a3ta .dty')), 'header updated without reload, no unsaved marker');
+  await p.click('[data-sct=region]'); await W(p, 300); await p.click('#scUndo'); await W(p, 300);
+  ok(await p.evaluate(() => $('[data-sct=govs]').classList.contains('on')), '«تراجع» restores the saved scope');
+  await p.evaluate(() => a360Tab('pub')); await W(p, 800);
+  ok(await p.evaluate(() => $$('.a3pv li').length == 7 && /أين تعمل الجمعية/.test($('.a3pv li.on').parentElement.textContent)), 'public tab lists what visitors see, scope now visible');
+  await p.setViewportSize({ width: 390, height: 844 }); await p.evaluate(() => a360Tab('scope')); await W(p, 500);
+  ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2), 'no horizontal overflow on mobile');
+  await p.evaluate(async ([id, pr]) => api(`/api/associations/${id}/full`, { method: 'PUT', body: JSON.stringify({ profile: { scope: pr.scope || '', scopeGovs: pr.scopeGovs || [], branches: pr.branches || '' } }) }), [id, before.profile]);
+  ok(!errs.length, 'no page errors ' + errs.join(' | '));
+  await b.close();
+})();

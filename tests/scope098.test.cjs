@@ -27,7 +27,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   ok(rq && ['نطاق الخدمة', 'محافظات نطاق الخدمة', 'الفروع والمكاتب'].every((k) => rq.fields.includes(k)), 'request carries scope, its governorates and branches');
   // 2) ملف الجمعية: بطاقة النطاق تقول «بانتظار الاعتماد»
   await p.evaluate((id) => { ADM.a360r = null; open360(id) }, id); await W(p, 1500);
-  await p.evaluate(() => a360Tab('data')); await W(p, 600);
+  await p.evaluate(() => a360Tab('scope')); await W(p, 600);
   ok(await p.evaluate(() => !!$('.a3c[data-c=scope]') && $$('.a3c[data-c=scope] .a3sct span').length >= 19 && /المقر: /.test($('.a360m').textContent)), 'file has a «النطاق الجغرافي» card with the governorate tiles, header shows HQ and scope');
   // 3) المراجعة: يظهر النوع بالعربية، والاعتماد يكتبه
   await p.evaluate((rid) => updReview(rid), rq.id); await W(p, 900);
