@@ -10,14 +10,10 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.goto(BASE + '/#/admin/directory'); await W(p, 2500);
   const id = await p.evaluate(() => DB.find((o) => /آباء/.test(o.n)).id);
   await p.evaluate((id) => { ADM.a5tab = 'data'; ADM.a6aud = 1; open360(id) }, id); await W(p, 2500);
-  ok(await p.evaluate(() => !$('.a3tabs') && !!$('#a5data') && $$('.a6tabs [data-a6tab]').length == 3), 'one page with three sections (1.11: switched by the sticky row); audit mode keeps the table');
-  ok(await p.evaluate(() => /الوضع:/.test($('.a5st').textContent) && /أهم خطوة الآن/.test($('.a5st').textContent)), 'status sentence with the next step');
-  ok(await p.evaluate(() => $$('.a5num').length == 2 && /%/.test($('.a5num.dq b').textContent) && !!$('.a5num.ix').title), 'two numbers (data quality, association index) with definitions');
+  ok(await p.evaluate(() => !$('.a3tabs') && !!$('#a5data') && $$('.a6tabs [data-a6tab]').length == 4), 'one page with four sections (1.12: switched by the sticky row); audit mode keeps the table');
+  ok(await p.evaluate(() => $$('.a6tc.need .a6n').length >= 1 && !!$('.a6tc.need .a6n .jbtn')), '1.12: «المطلوب الآن» card lists the top needs with their actions');
+  ok(await p.evaluate(() => !!$('[data-a6tab=data] span') && !!$('[data-a6tab=eval] span')), '1.12: missing count and index value sit on the tabs');
   // العلامة
-  await p.click('#a5flag'); await W(p);
-  ok(await p.evaluate(() => !!$('.a5pop') && $$('.a5pop .a5pi').length >= 1 && !!$('.a5pop .jbtn.pri')), '«يحتاج تدخلاً» flag opens a popover with actions');
-  await p.keyboard.press('Escape'); await W(p);
-  ok(await p.evaluate(() => !$('.a5pop')), 'Escape closes it');
   // البيانات
   ok(await p.evaluate(() => $$('.a5vt button').length == 7 && $$('.a5ff button').length >= 5), 'seven data views and four status filters');
   ok(await p.evaluate(() => $$('#a5data .a5t tbody .pill2').every((x) => ['مؤكد', 'غير مؤكد', 'ناقص', 'يحتاج مراجعة'].includes(x.textContent))), 'only four statuses');
@@ -35,13 +31,13 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   if (un) { await p.evaluate(() => $$('[data-a5a]')[0].click()); await W(p); ok(await p.evaluate(() => !!$('.a5cf') && $$('input[name=a5cf]').length == 4), 'confirm opens an inline «كيف تأكدت؟» row with four sources') }
   // التقييم
   await p.evaluate(() => { ADM.a5tab = 'eval'; AM.assoc($('#acontent')) }); await W(p);
-  ok(await p.evaluate(() => $$('.a5axw > table > tbody > tr').length == 5 && !!$('.a5ix b')), 'evaluation: index with five axes');
+  ok(await p.evaluate(() => $$('.a5axw [data-a5ax]').length == 5 && !!$('.a5ix b')), 'evaluation: index with five axes');
   ok(await p.evaluate((id) => { const o = DBI[id], h = hsOf(o), X = a5Index(o, h, trCase(o.id)); return X.s >= 0 && X.s <= 100 && X.ax.reduce((t, a) => t + a.w, 0) == 100 }, id), 'axes weights sum to 100 and index in range');
   await p.click('[data-a5ax=comp]'); await W(p);
   ok(await p.evaluate(() => !!$('.a5axd') && $$('.a5axd tbody tr').length >= 2), 'axis opens its indicators table');
   // العلاقة
   await p.evaluate(() => { ADM.a5tab = 'rel'; AM.assoc($('#acontent')) }); await W(p);
-  ok(await p.evaluate(() => $$('#a5rel .a5kp > div').length == 6 && $$('#a5rel .a5t tbody tr').length >= 1), 'relation: six facts and the activity table');
+  ok(await p.evaluate(() => $$('#a5rel .a5kp > div').length == 6 && $$('#a5rel .a5cards .a5c').length >= 1), 'relation: six facts and the activity list');
   // الانتقال القديم
   await p.evaluate((id) => open360(id, 'diag'), id); await W(p, 1200);
   ok(await p.evaluate(() => ADM.a5ax == 'gov'), 'old link open360(id,"diag") lands on evaluation with governance open');

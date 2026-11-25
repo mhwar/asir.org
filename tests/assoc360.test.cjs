@@ -10,8 +10,8 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.evaluate(() => go('admin')); await p.waitForTimeout(600);
   const A = await p.evaluate(() => (DB.find((o) => !o.closed && o.st == 'ينتهي قريباً') || DB.find((o) => !o.closed && o.st == 'منتهي')).id);
   await p.evaluate((A) => { ADM.a5tab = 'rel'; open360(A) }, A); await p.waitForTimeout(1800);
-  const h = await p.evaluate(() => ({ flag: !!$('#a5flag'), st: $('.a5st').textContent, pri: ($('.a3bar .jbtn.pri') || {}).textContent || '' }));
-  ok(h.flag && /الترخيص/.test(h.st), 'licence issue surfaces in the status sentence and the flag');
+  const h = await p.evaluate(() => ({ flag: !!$('.a6tc.need .a6n'), st: $('.a6tc.need').textContent, pri: ($('.a6ha .jbtn.pri') || {}).textContent || '' }));
+  ok(h.flag && /الترخيص/.test(h.st), 'licence issue surfaces in «المطلوب الآن»');
   ok(/رابط تحديث/.test(h.pri), 'the top need marks its bar button as primary (no duplicate)');
   const mn = await p.evaluate(() => { const m = $$('.a3more > button').find((x) => /المزيد/.test(x.textContent)); m.click(); const box = m.parentElement; return { open: box.classList.contains('open'), groups: box.querySelectorAll('small').length, items: [...box.querySelectorAll('[role=menuitem]')].map((x) => x.textContent.trim()) } });
   ok(mn.open && mn.groups >= 2 && mn.items.some((x) => /تصدير الملف/.test(x)), '«المزيد»: two groups, export entry present');
@@ -27,7 +27,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate((fk) => $$('#a5rel .a5t tbody tr').every((r) => r.textContent.includes((A360_FK[fk] || [fk])[0])), fk), 'relation filter narrows the table to one kind');
   // اللاصق
   await p.setViewportSize({ width: 1440, height: 420 }); await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(600);
-  ok(await p.evaluate(() => $('.a6row').classList.contains('a6stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 3), 'on scroll the sticky row carries the association name beside the three tabs');
+  ok(await p.evaluate(() => $('.a6row').classList.contains('a6stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 4), 'on scroll the sticky row carries the association name beside the tabs');
   await p.evaluate(() => window.scrollTo(0, 0)); await p.setViewportSize({ width: 1440, height: 900 });
   // الأسهم
   const before = await p.evaluate(() => ADM.aid); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
@@ -38,16 +38,16 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const Fid = await p.evaluate(async (A) => { const r = await (await fetch(`/api/associations/${A}/notes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ field: 'gov', kind: 'assumed', text: 'اختبار ملف الجمعية' }) })).json(); await flagsLoad(true); return r.data ? r.data.id : r.id; }, A);
   await p.evaluate((A) => { ADM.a360f = null; open360(A) }, A); await p.waitForTimeout(1800);
   ok(await p.evaluate(() => { ADM.a5tab = 'data'; ADM.a6aud = 1; ADM.a5v = 'off'; AM.assoc($('#acontent')); return [...$$('#a5data .a5t tbody tr')].some((r) => /المقر/.test(r.textContent) && /يحتاج مراجعة/.test(r.textContent)) }), 'flagged field shows «يحتاج مراجعة» in the data table');
-  ok(await p.evaluate(() => { $('#a5flag').click(); return /تحتاج تحقق/.test($('.a5pop').textContent) }), 'flag popover lists the fields needing verification');
+  ok(await p.evaluate((A) => a360Needs(DBI[A], ADM.a360f && ADM.a360f.data, trCase(A)).some((n) => /تحتاج تحقق/.test(n.t)), A), 'needs list includes the fields needing verification');
   await p.evaluate(([A, id]) => fetch(`/api/associations/${A}/notes/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'resolved' }) }), [A, Fid]);
   // جمعية سليمة
   const G = await p.evaluate(() => (DB.filter((o) => !o.closed && o.st == 'ساري' && o.comp >= 60 && (!flagsOf(o.id).length) && o.days > 120 && !(typeof trCase == 'function' && trCase(o.id))).sort((a, b) => b.hs - a.hs)[0] || {}).id);
   if (G) { await p.evaluate((G) => open360(G), G); await p.waitForTimeout(1800);
-    ok(await p.evaluate(() => !$('.a3bar .jbtn.pri') || !$('#a5flag')), 'healthy association: no urgent flag or no contextual primary'); }
+    ok(await p.evaluate(() => !$('.a6ha .jbtn.pri') || !!$('.a6okk')), 'healthy association: nothing urgent or no contextual primary'); }
   // مغلقة
   const C = await p.evaluate(() => (DB.find((o) => o.closed) || {}).id);
   if (C) { await p.evaluate((C) => open360(C), C); await p.waitForTimeout(1200);
-    ok(await p.evaluate(() => /مغلقة نهائياً/.test($('.a5hd').textContent) && !$('#a5flag') && !$('#a5eval')), 'closed association: closed label, no flag, no evaluation'); }
+    ok(await p.evaluate(() => /مغلقة نهائياً/.test($('.a6hd').textContent) && !$('.a6tc.need') && !$('#a5eval') && !$('[data-a6tab=eval]')), 'closed association: closed label, no needs card, no evaluation'); }
   // الجوال
   const m = await (await b.newContext({ viewport: { width: 390, height: 844 } })).newPage(); m.on('pageerror', (e) => errs.push('m: ' + e.message));
   await m.goto(BASE + '/'); await m.waitForTimeout(600); await m.evaluate((A) => { go('admin'); setTimeout(() => open360(A), 300); }, A); await m.waitForTimeout(2200);

@@ -9,12 +9,12 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   // 1) نافذة المؤشر في رأس ملف الجمعية
   const id = await p.evaluate(() => DB.filter((o) => !o.closed && o.st == 'ساري')[9].id);
   await p.evaluate((id) => open360(id), id); await p.waitForTimeout(1500);
-  await p.evaluate(() => hsPeek(ADM.aid, $('.a5num.ix'))); await p.waitForTimeout(300);
+  await p.evaluate(() => hsPeek(ADM.aid, $('[data-a6tab=eval]'))); await p.waitForTimeout(300);
   const pk = await p.evaluate(() => ({ on: !!$('#hsPk'), dims: $$('#hsPk .hspr').length, conf: /ثقة/.test($('#hsPk').textContent), gaps: $$('#hsPk li').length, btns: $$('#hsPk .hspf button').length }));
   ok(pk.on && pk.dims == 3 && pk.conf && pk.gaps > 0 && pk.btns >= 2, 'clicking the header index opens the index panel (three scores, confidence, biggest gains, actions)');
   await p.keyboard.press('Escape'); await p.waitForTimeout(200);
   ok(await p.evaluate(() => !$('#hsPk')), 'Escape closes the panel');
-  await p.evaluate(() => hsPeek(ADM.aid, $('.a5num.ix'))); await p.waitForTimeout(200); await p.evaluate(() => $$('#hsPk .hspf button')[0].click()); await p.waitForTimeout(700);
+  await p.evaluate(() => hsPeek(ADM.aid, $('[data-a6tab=eval]'))); await p.waitForTimeout(200); await p.evaluate(() => $$('#hsPk .hspf button')[0].click()); await p.waitForTimeout(700);
   ok(await p.evaluate(() => !$('#hsPk') && $('#modal').classList.contains('on')), 'the panel\'s first action («كيف تُحسب؟») opens the method');
   await p.evaluate(() => closeAll());
   // لقطة المؤشر تُحفظ عند فتح الملف
