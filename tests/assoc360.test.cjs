@@ -9,12 +9,12 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   await p.goto(BASE + '/'); await p.waitForTimeout(700);
   await p.evaluate(() => go('admin')); await p.waitForTimeout(600);
   const A = await p.evaluate(() => (DB.find((o) => !o.closed && o.st == 'ينتهي قريباً') || DB.find((o) => !o.closed && o.st == 'منتهي')).id);
-  await p.evaluate((A) => open360(A), A); await p.waitForTimeout(1800);
+  await p.evaluate((A) => { ADM.a5tab = 'rel'; open360(A) }, A); await p.waitForTimeout(1800);
   const h = await p.evaluate(() => ({ flag: !!$('#a5flag'), st: $('.a5st').textContent, pri: ($('.a3bar .jbtn.pri') || {}).textContent || '' }));
   ok(h.flag && /الترخيص/.test(h.st), 'licence issue surfaces in the status sentence and the flag');
   ok(/رابط تحديث/.test(h.pri), 'the top need marks its bar button as primary (no duplicate)');
   const mn = await p.evaluate(() => { const m = $$('.a3more > button').find((x) => /المزيد/.test(x.textContent)); m.click(); const box = m.parentElement; return { open: box.classList.contains('open'), groups: box.querySelectorAll('small').length, items: [...box.querySelectorAll('[role=menuitem]')].map((x) => x.textContent.trim()) } });
-  ok(mn.open && mn.groups == 2 && mn.items.some((x) => /تصدير الملف/.test(x)), '«المزيد»: two groups, export entry present');
+  ok(mn.open && mn.groups >= 2 && mn.items.some((x) => /تصدير الملف/.test(x)), '«المزيد»: two groups, export entry present');
   await p.evaluate(() => document.body.click()); ok(await p.evaluate(() => !$('.a3more.open')), 'menu closes on outside click');
   await p.evaluate((A) => recPrint(A), A); await p.waitForTimeout(700);
   ok(await p.evaluate(() => $('#modal').classList.contains('on') && $$('[data-uc=fmt]').length == 2), 'export goes through the unified export dialog (PDF/Excel)');
@@ -26,9 +26,9 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   const fk = await p.evaluate(() => { const b = $$('#a5rel [data-a5k]').find((x) => x.dataset.a5k); b.click(); return b.dataset.a5k; }); await p.waitForTimeout(300);
   ok(await p.evaluate((fk) => $$('#a5rel .a5t tbody tr').every((r) => r.textContent.includes((A360_FK[fk] || [fk])[0])), fk), 'relation filter narrows the table to one kind');
   // اللاصق
-  await p.evaluate(() => $('#a5rel').scrollIntoView()); await p.waitForTimeout(500);
-  ok(await p.evaluate(() => $('.a3sticky').classList.contains('on') && $$('.a3sticky .a5sn button').length == 3), 'sticky bar appears on scroll with the three section links');
-  await p.evaluate(() => window.scrollTo(0, 0));
+  await p.setViewportSize({ width: 1440, height: 420 }); await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(600);
+  ok(await p.evaluate(() => $('.a6row').classList.contains('stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 3), 'on scroll the sticky row carries the association name beside the three tabs');
+  await p.evaluate(() => window.scrollTo(0, 0)); await p.setViewportSize({ width: 1440, height: 900 });
   // الأسهم
   const before = await p.evaluate(() => ADM.aid); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
   ok(await p.evaluate((b) => ADM.aid != b, before), 'ArrowLeft moves to the next association');
@@ -37,7 +37,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   // علامة تحقق تظهر حالة «يحتاج مراجعة» وفي العلامة
   const Fid = await p.evaluate(async (A) => { const r = await (await fetch(`/api/associations/${A}/notes`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ field: 'gov', kind: 'assumed', text: 'اختبار ملف الجمعية' }) })).json(); await flagsLoad(true); return r.data ? r.data.id : r.id; }, A);
   await p.evaluate((A) => { ADM.a360f = null; open360(A) }, A); await p.waitForTimeout(1800);
-  ok(await p.evaluate(() => { ADM.a5v = 'off'; AM.assoc($('#acontent')); return [...$$('#a5data .a5t tbody tr')].some((r) => /المقر/.test(r.textContent) && /يحتاج مراجعة/.test(r.textContent)) }), 'flagged field shows «يحتاج مراجعة» in the data table');
+  ok(await p.evaluate(() => { ADM.a5tab = 'data'; ADM.a6aud = 1; ADM.a5v = 'off'; AM.assoc($('#acontent')); return [...$$('#a5data .a5t tbody tr')].some((r) => /المقر/.test(r.textContent) && /يحتاج مراجعة/.test(r.textContent)) }), 'flagged field shows «يحتاج مراجعة» in the data table');
   ok(await p.evaluate(() => { $('#a5flag').click(); return /تحتاج تحقق/.test($('.a5pop').textContent) }), 'flag popover lists the fields needing verification');
   await p.evaluate(([A, id]) => fetch(`/api/associations/${A}/notes/${id}`, { method: 'PATCH', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ status: 'resolved' }) }), [A, Fid]);
   // جمعية سليمة

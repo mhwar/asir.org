@@ -17,6 +17,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.evaluate(() => a360Nav(-1)); await W(p, 800);
   ok(await p.evaluate((id) => ADM.aid == id, L[1]), 'previous goes back');
   // 2) المتطلبات الأساسية لا تتكرر
+  await p.evaluate(() => { ADM.a5tab = 'eval'; AM.assoc($('#acontent')) }); await W(p);
   ok(await p.evaluate(() => $$('#a5eval .a5box > b').filter((b) => /المتطلبات والقرارات/.test(b.textContent)).length == 1), 'one «المتطلبات والقرارات» box in the evaluation (1.10)');
   // 3) حارس التعديلات: × و«إلغاء» يسألان، والحفظ لا يسأل
   await p.evaluate(() => uiDialog(uiHead('اختبار') + '<div class="uifrm"><label class="uifld"><span>حقل</span><input id="tf"></label></div>' + uiFoot('', ['tGo', 'حفظ'])));

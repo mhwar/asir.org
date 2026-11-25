@@ -40,7 +40,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(vf.n >= 10 && vf.okAll && vf.rel >= 80, `full review: all 9 groups verified, reliability ${vf.rel}%`);
   // 7) صفحة الجمعية الموحّدة (1.10): جودة البيانات ومؤشر الجمعية، والبيانات بجدولها، والتقييم بمحاوره
   await p.evaluate((id) => open360(id), id); await p.waitForTimeout(1500);
-  const pg = await p.evaluate(() => ({ nums: $$('.a5num').length, data: !!$('#a5data .a5t'), ax: $$('.a5axw > table > tbody > tr').length, rel: !!$('#a5rel') }));
+  const pg = await p.evaluate(() => { const R = (t) => { ADM.a5tab = t; ADM.a6aud = 1; AM.assoc($('#acontent')) }; R('data'); const data = !!$('#a5data .a5t'); R('eval'); const ax = $$('.a5axw > table > tbody > tr').length; R('rel'); const rel = !!$('#a5rel'); R('data'); return { nums: $$('.a5num').length, data, ax, rel } });
   ok(pg.nums == 2 && pg.data && pg.ax == 5 && pg.rel, 'unified file: data quality + index, data table, five evaluation axes, relation');
   ok(await p.evaluate((id) => { const h = hsOf(DBI[id]), X = a5Index(DBI[id], h, trCase(id)); const r = X.ax.find((a) => a.k == 'rel'); return r.rows.map((q) => q.k).join() == 'r_resp,r_eng,r_upd' && X.ax.find((a) => a.k == 'data').s == h.data }, id), 'axes reuse the existing indicators (relation: response, engagement, updates; data axis = data quality)');
   // 8) الانتقال من الأسماء القديمة

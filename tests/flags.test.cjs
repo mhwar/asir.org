@@ -26,7 +26,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(pv.gov == 'غير محددة' && !pv.hasUnk, 'public site hides an assumed governorate (shows «غير محددة», not counted as a governorate)');
   await p.evaluate((A) => { go('admin'); }, A); await p.waitForTimeout(900);
   await p.evaluate((A) => open360(A, 'data'), A); await p.waitForTimeout(1500);
-  const v = await p.evaluate(() => { ADM.a5v = 'all'; ADM.a5f = 'rev'; AM.assoc($('#acontent')); const cells = $$('#a5data .a5t tbody tr').filter((r) => /يحتاج مراجعة/.test(r.textContent)).length; ADM.a5f = 'all'; AM.assoc($('#acontent')); $('#a5flag').click(); return { ban: /خانتان تحتاجان تحقق/.test(($('.a5pop') || {}).textContent || ''), cells, gov: !!document.querySelector('.a360m .flgtxt') } });
+  const v = await p.evaluate(() => { ADM.a5tab = 'data'; ADM.a6aud = 1; ADM.a5v = 'all'; ADM.a5f = 'rev'; AM.assoc($('#acontent')); const cells = $$('#a5data .a5t tbody tr').filter((r) => /يحتاج مراجعة/.test(r.textContent)).length; ADM.a5f = 'all'; AM.assoc($('#acontent')); $('#a5flag').click(); return { ban: /خانتان تحتاجان تحقق/.test(($('.a5pop') || {}).textContent || ''), cells, gov: !!document.querySelector('.a360m .flgtxt') } });
   ok(v.ban, 'flag popover lists the 2 flags on the association page');
   ok(v.cells >= 2, 'flagged fields show «يحتاج مراجعة» in the data table (' + v.cells + ')');
   ok(v.gov, 'governorate in the header marked');

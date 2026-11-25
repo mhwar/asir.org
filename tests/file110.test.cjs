@@ -9,8 +9,8 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   const p = await (await b.newContext({ viewport: { width: 1440, height: 900 } })).newPage(); p.on('pageerror', (e) => errs.push(e.message));
   await p.goto(BASE + '/#/admin/directory'); await W(p, 2500);
   const id = await p.evaluate(() => DB.find((o) => /آباء/.test(o.n)).id);
-  await p.evaluate((id) => open360(id), id); await W(p, 2500);
-  ok(await p.evaluate(() => !$('.a3tabs') && !!$('#a5data') && !!$('#a5eval') && !!$('#a5rel')), 'one page: data, evaluation, relation sections; no tabs');
+  await p.evaluate((id) => { ADM.a5tab = 'data'; ADM.a6aud = 1; open360(id) }, id); await W(p, 2500);
+  ok(await p.evaluate(() => !$('.a3tabs') && !!$('#a5data') && $$('.a6tabs [data-a6tab]').length == 3), 'one page with three sections (1.11: switched by the sticky row); audit mode keeps the table');
   ok(await p.evaluate(() => /الوضع:/.test($('.a5st').textContent) && /أهم خطوة الآن/.test($('.a5st').textContent)), 'status sentence with the next step');
   ok(await p.evaluate(() => $$('.a5num').length == 2 && /%/.test($('.a5num.dq b').textContent) && !!$('.a5num.ix').title), 'two numbers (data quality, association index) with definitions');
   // العلامة
@@ -34,11 +34,13 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   const un = await p.evaluate(() => { ADM.a5v = 'all'; ADM.a5f = 'un'; AM.assoc($('#acontent')); return $$('[data-a5a]').length });
   if (un) { await p.evaluate(() => $$('[data-a5a]')[0].click()); await W(p); ok(await p.evaluate(() => !!$('.a5cf') && $$('input[name=a5cf]').length == 4), 'confirm opens an inline «كيف تأكدت؟» row with four sources') }
   // التقييم
+  await p.evaluate(() => { ADM.a5tab = 'eval'; AM.assoc($('#acontent')) }); await W(p);
   ok(await p.evaluate(() => $$('.a5axw > table > tbody > tr').length == 5 && !!$('.a5ix b')), 'evaluation: index with five axes');
   ok(await p.evaluate((id) => { const o = DBI[id], h = hsOf(o), X = a5Index(o, h, trCase(o.id)); return X.s >= 0 && X.s <= 100 && X.ax.reduce((t, a) => t + a.w, 0) == 100 }, id), 'axes weights sum to 100 and index in range');
   await p.click('[data-a5ax=comp]'); await W(p);
   ok(await p.evaluate(() => !!$('.a5axd') && $$('.a5axd tbody tr').length >= 2), 'axis opens its indicators table');
   // العلاقة
+  await p.evaluate(() => { ADM.a5tab = 'rel'; AM.assoc($('#acontent')) }); await W(p);
   ok(await p.evaluate(() => $$('#a5rel .a5kp > div').length == 6 && $$('#a5rel .a5t tbody tr').length >= 1), 'relation: six facts and the activity table');
   // الانتقال القديم
   await p.evaluate((id) => open360(id, 'diag'), id); await W(p, 1200);
@@ -46,7 +48,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   // اللقطة تحمل المؤشرين
   ok(await p.evaluate((id) => { const s = hsSnapOf(DBI[id]); return s && s.s != null && s.ix != null }, id), 'snapshot stores old and new index together');
   // الجوال
-  await p.setViewportSize({ width: 390, height: 844 }); await p.evaluate(() => { ADM.a5f = 'all'; AM.assoc($('#acontent')) }); await W(p, 500);
+  await p.setViewportSize({ width: 390, height: 844 }); await p.evaluate(() => { ADM.a5f = 'all'; ADM.a5tab = 'data'; ADM.a6aud = 1; AM.assoc($('#acontent')) }); await W(p, 500);
   ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2 && getComputedStyle($('.a5cards')).display == 'flex' && getComputedStyle($('.a5mb')).display == 'flex'), 'mobile: cards instead of tables, bottom action bar, no overflow');
   ok(!errs.length, 'no page errors ' + errs.join(' | '));
   await b.close();

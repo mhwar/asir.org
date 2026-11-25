@@ -37,7 +37,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => !$('#cmaGo').disabled && /إضافة إلى 1/.test($('#cmaGoE').textContent)), 'ticking a community enables save and previews «إضافة إلى 1»');
   await p.click('#cmaGo'); await p.waitForTimeout(600);
   ok(await p.evaluate(([A, cm]) => CMEM.list.some((m) => m.aid == A && m.cid == cm && m.st == 'active'), [A, cm]), 'membership saved');
-  await p.evaluate((A) => { open360(A); }, A); await p.waitForTimeout(800);
+  await p.evaluate((A) => { ADM.a5tab = 'rel'; open360(A); }, A); await p.waitForTimeout(800);
   ok(await p.evaluate((cm) => $('#a5rel').textContent.includes(cmById(cm).n), cm), 'relation section shows the new community');
   // row menu entry
   await p.evaluate(() => goMod('directory')); await p.waitForTimeout(600);
