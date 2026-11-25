@@ -30,7 +30,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => $('.a6row').classList.contains('a6stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 4), 'on scroll the sticky row carries the association name beside the tabs');
   await p.evaluate(() => window.scrollTo(0, 0)); await p.setViewportSize({ width: 1440, height: 900 });
   // الأسهم
-  const before = await p.evaluate(() => ADM.aid); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
+  const before = await p.evaluate(() => { document.activeElement && document.activeElement.blur(); return ADM.aid }); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
   ok(await p.evaluate((b) => ADM.aid != b, before), 'ArrowLeft moves to the next association');
   await p.keyboard.press('ArrowRight'); await p.waitForTimeout(900);
   ok(await p.evaluate((b) => ADM.aid == b, before), 'ArrowRight moves back');

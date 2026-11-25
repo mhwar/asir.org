@@ -28,7 +28,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.evaluate(() => { ADM.a6t.place = 'gov'; ADM.a6ed = 'place'; AM.assoc($('#acontent')) }); await W(p);
   ok(await p.evaluate(() => !!$('.a6c.ed') && $$('.a6c.ed [data-a6e]').length >= 4 && !!$('[data-a6sv]')), 'pen turns the card into fields with save and cancel');
   await p.evaluate(() => { const i = $('.a6c.ed input[data-a6e=staff]'); i.value = '7'; i.dispatchEvent(new Event('input')) }); await W(p);
-  ok(await p.evaluate(() => /تغيّر 1/.test($('[data-a6chg]').textContent) && $('.a6c.ed input[data-a6e=staff]').classList.contains('chg')), 'changed field is highlighted and counted');
+  ok(await p.evaluate(() => /تغيّر (1|حقل واحد)/.test($('[data-a6chg]').textContent) && $('.a6c.ed input[data-a6e=staff]').classList.contains('chg')), 'changed field is highlighted and counted');
   await p.click('[data-a6ex]'); await W(p);
   ok(await p.evaluate(() => !$('.a6c.ed')), 'cancel leaves edit mode without saving');
   await p.evaluate(() => { ADM.a6ed = 'off'; AM.assoc($('#acontent')) }); await W(p);

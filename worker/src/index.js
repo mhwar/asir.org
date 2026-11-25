@@ -433,6 +433,13 @@ async function api(req, env, url) {
     await db.audit(env, req, user.email, 'import', 'app_state', 'asirSijam', null, { source: 'sijam', total: r.total, fetched: r.fetched, added: r.added, gone: r.gone });
     return json({ data: r });
   }
+  if (path === '/api/sijam/map' && m === 'PUT') {
+    requirePerm(user, 'directory', 'write');
+    const body = await readJson(req, 32 * 1024);
+    const r = await sj.setMap(env, user, body);
+    await db.audit(env, req, user.email, 'update', 'app_state', 'asirSijam', null, { map: r.map });
+    return json({ data: r });
+  }
   const sm = path.match(/^\/api\/state\/([A-Za-z0-9]+)$/);
   if (sm && m === 'PUT') {
     const body = await readJson(req, 300 * 1024);

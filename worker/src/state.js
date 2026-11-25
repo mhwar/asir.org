@@ -49,7 +49,7 @@ export const STATE_KEYS = {
   // بقية الفريق المسجّل يرى المبادرات والمؤشرات بلا تكاليف (team). لا تظهر للزائر.
   asirPlan:      { module: 'plan', team: planNoCost },
   asirSubc:      { module: 'plan', team: (v) => v },
-  asirSijam:     { module: 'directory', team: (v) => v }, // منجزات سجام لجمعيات عسير (منشورة علناً في سجام) — للفريق، لا تظهر للزائر
+  asirSijam:     { module: 'directory', ro: true, team: (v) => v }, // منجزات سجام لجمعيات عسير (منشورة علناً في سجام) — للفريق، لا تظهر للزائر
   asirLists:     { module: 'directory', team: (v) => v }, // قوائم متابعة الجمعيات (أرقام الجمعيات فقط) — للفريق   // اللجان الفرعية: أسماء الأعضاء وأدوارهم والاجتماعات — للفريق فقط
 };
 function planNoCost(v) {
@@ -80,6 +80,7 @@ export async function writeState(env, user, key, body) {
   const spec = STATE_KEYS[key];
   if (!spec) fail(404, 'unknown_key', 'وحدة غير معروفة');
   if (!can(user, spec.module, 'write')) fail(403, 'forbidden', 'لا تملك صلاحية لهذا الإجراء');
+  if (spec.ro) fail(405, 'read_only', 'هذا القسم يُحدَّث من مساره الخاص');
   const value = body && body.value;
   if (typeof value !== 'string') fail(422, 'invalid', 'القيمة يجب أن تكون نص JSON');
   if (value.length > MAX_BYTES) fail(413, 'payload_too_large', 'حجم البيانات أكبر من المسموح');

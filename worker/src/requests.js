@@ -17,7 +17,7 @@ const email = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (/@te
 const mobile = (v) => { v = String(v ?? '').replace(/[\s-]/g, ''); if (!v) return null; if (!/^(05\d{8}|\+9665\d{8})$/.test(v)) fail(422, 'invalid', 'رقم الجوال بصيغة 05xxxxxxxx'); return v; };
 const phone = (v) => { v = String(v ?? '').replace(/[\s-]/g, ''); if (!v) return null; if (!/^(\+966|0)?\d{8,10}$/.test(v)) fail(422, 'invalid', 'رقم الهاتف غير صحيح'); return v; };
 const url = (v) => { v = String(v ?? '').trim(); if (!v) return null; if (!/^https?:\/\/[^\s]+\.[^\s]+$/i.test(v) || v.length > 200) fail(422, 'invalid', 'رابط غير صالح (يبدأ بـ https://)'); return v; };
-const int = (max) => (v) => { if (v === '' || v == null) return null; const n = Number(String(v).replace(/[^\d]/g, '')); if (!Number.isInteger(n) || n < 0 || n > max) fail(422, 'invalid', `رقم غير صالح (0 – ${max})`); return n; };
+const int = (max) => (v) => { if (v === '' || v == null) return null; const d = String(v).replace(/[٠-٩]/g, (c) => c.charCodeAt(0) - 1632).replace(/[۰-۹]/g, (c) => c.charCodeAt(0) - 1776).replace(/[^\d]/g, ''); if (!d) fail(422, 'invalid', 'اكتب رقماً صحيحاً'); const n = Number(d); if (!Number.isInteger(n) || n < 0 || n > max) fail(422, 'invalid', `رقم غير صالح (0 – ${max})`); return n; };
 const year = (v) => { if (!v) return null; const n = Number(v); if (!Number.isInteger(n) || n < 1990 || n > 2100) fail(422, 'invalid', 'سنة غير صالحة'); return n; };
 export const REV_BANDS = ['أقل من 500 ألف', '500 ألف – 2 مليون', '2 – 10 ملايين', 'أكثر من 10 ملايين'];
 export const PLAT_ST = ['غير مسجّلة', 'مسجّلة غير مفعّلة', 'مفعّلة'];
