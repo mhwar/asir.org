@@ -21,6 +21,7 @@ import * as kb from './kb.js';
 import * as seo from './seo.js';
 import * as ts from './turnstile.js';
 import * as ncnp from './ncnp.js';
+import * as sj from './sijam.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -426,6 +427,12 @@ async function api(req, env, url) {
   }
 
   if (path === '/api/state' && m === 'GET') return json({ data: await readState(env, user) });
+  if (path === '/api/sijam/sync' && m === 'POST') {
+    requirePerm(user, 'directory', 'write');
+    const r = await sj.sync(env, user);
+    await db.audit(env, req, user.email, 'import', 'app_state', 'asirSijam', null, { source: 'sijam', total: r.total, fetched: r.fetched, added: r.added, gone: r.gone });
+    return json({ data: r });
+  }
   const sm = path.match(/^\/api\/state\/([A-Za-z0-9]+)$/);
   if (sm && m === 'PUT') {
     const body = await readJson(req, 300 * 1024);

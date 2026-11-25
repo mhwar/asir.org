@@ -80,6 +80,17 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   ok(await p.evaluate(() => /لا نتائج/.test($('.a6rh').textContent) && !!$('.a6rn')), 'no results: guidance and the masked-data note');
   await p.keyboard.press('Escape'); await W(p);
   ok(await p.evaluate(() => $('#a6res').hidden && $('#a6q').value == ''), 'Escape clears the search');
+  // 1.15: منجزات سجام في حساب الجمعية (بيانات اختبار، لا اتصال بسجام)
+  const sj = await p.evaluate(async (id) => { const o = DBI[id], fx = { v: 1, at: '2026-11-25T12:00:00Z', items: [{ id: 9001, t: 'منجز اختبار سجام', cat: 'الصحة العامة', date: '2026-05-16', ver: '2026-07-16', sid: 77, sn: 'جمعية ' + o.n, ben: 10 }, { id: 9002, t: 'منجز جهة خارج السجل', date: '2026-01-01', sid: 78, sn: 'جمعية لا وجود لها في السجل إطلاقاً' }], map: {} };
+    const prev = localStorage.getItem('asirSijam'); SJ = fx; ADM.sjIx = null; const M = sjIndex().M; const mine = sjOf(id).map((x) => x.id);
+    ADM.a5tab = 'data'; AM.assoc($('#acontent')); const card = /منجز سجام/.test($$('.a6tc')[2].textContent); a6Acts(id); const dlg = $$('#modal .a6sj').length; closeAll();
+    const found = a6Find(o, a5Fields(o, ADM.a360f && ADM.a360f.data), 'منجز اختبار').some((x) => x.g == 'منجز');
+    SJ = prev ? JSON.parse(prev) : { v: 1, items: [], map: {} }; ADM.sjIx = null;
+    return { own: M[77] && M[77].aid == id, out: M[78] && !M[78].aid, mine: mine.join(), card, dlg, found } }, id);
+  ok(sj.own && sj.out && sj.mine == '9001', 'Sijam achievement matched to its association by name; an unknown association stays unmatched');
+  ok(sj.card && sj.dlg == 1 && sj.found, 'achievement shows in the activities card, its dialog, and the file search');
+  ok(await p.evaluate(async () => { try { await api('/api/sijam/sync', { method: 'POST', body: '{}' }); return true } catch (e) { return /سجام/.test(e.message) } }), 'sync endpoint answers (or reports Sijam unreachable) without crashing');
+  await p.evaluate(() => AM.assoc($('#acontent')));
   // mobile
   await p.setViewportSize({ width: 390, height: 844 }); await p.evaluate(() => AM.assoc($('#acontent'))); await W(p, 500);
   ok(await p.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 2 && $$('.a6c').length == 4), 'mobile: no horizontal overflow, cards stack');

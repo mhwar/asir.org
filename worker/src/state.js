@@ -49,6 +49,7 @@ export const STATE_KEYS = {
   // بقية الفريق المسجّل يرى المبادرات والمؤشرات بلا تكاليف (team). لا تظهر للزائر.
   asirPlan:      { module: 'plan', team: planNoCost },
   asirSubc:      { module: 'plan', team: (v) => v },
+  asirSijam:     { module: 'directory', team: (v) => v }, // منجزات سجام لجمعيات عسير (منشورة علناً في سجام) — للفريق، لا تظهر للزائر
   asirLists:     { module: 'directory', team: (v) => v }, // قوائم متابعة الجمعيات (أرقام الجمعيات فقط) — للفريق   // اللجان الفرعية: أسماء الأعضاء وأدوارهم والاجتماعات — للفريق فقط
 };
 function planNoCost(v) {
