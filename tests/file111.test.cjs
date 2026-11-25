@@ -20,6 +20,20 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   ok(await p.evaluate(() => $('[data-a6c=con] .a6ct .on').textContent.includes('قنوات') && ADM.a6t.con == 'con'), 'card tab switches and is remembered');
   const rq = await p.evaluate(() => { const b = $('[data-a6rq]'); return b ? b.dataset.a6rq.split(',').length + '|' + b.textContent : '' });
   ok(!rq || +rq.split('|')[0] == +rq.split('|')[1].replace(/\D/g, ''), '«طلب N ناقص» carries exactly N missing keys (' + rq + ')');
+  // 1.13: request dialog, inline edit
+  if (rq) { await p.click('[data-a6rq]'); await W(p, 500);
+    ok(await p.evaluate(() => $$('#modal [data-a6rk]').length >= 1 && $$('#modal [data-a6rk]:checked').length == +$('[data-a6rq]').dataset.a6rq.split(',').length && /محدد/.test($('#a6rqn').textContent)), 'request dialog opens with the card\'s missing fields pre-selected');
+    await p.evaluate(() => { const g = $('#modal [data-a6gall]'); g.checked = false; g.dispatchEvent(new Event('change')) }); await W(p);
+    ok(await p.evaluate(() => /محدد/.test($('#a6rqn').textContent)), 'group toggle updates the count'); await p.evaluate(() => closeAll()); await W(p) }
+  await p.evaluate(() => { ADM.a6t.place = 'gov'; ADM.a6ed = 'place'; AM.assoc($('#acontent')) }); await W(p);
+  ok(await p.evaluate(() => !!$('.a6c.ed') && $$('.a6c.ed [data-a6e]').length >= 4 && !!$('[data-a6sv]')), 'pen turns the card into fields with save and cancel');
+  await p.evaluate(() => { const i = $('.a6c.ed input[data-a6e=staff]'); i.value = '7'; i.dispatchEvent(new Event('input')) }); await W(p);
+  ok(await p.evaluate(() => /تغيّر 1/.test($('[data-a6chg]').textContent) && $('.a6c.ed input[data-a6e=staff]').classList.contains('chg')), 'changed field is highlighted and counted');
+  await p.click('[data-a6ex]'); await W(p);
+  ok(await p.evaluate(() => !$('.a6c.ed')), 'cancel leaves edit mode without saving');
+  await p.evaluate(() => { ADM.a6ed = 'off'; AM.assoc($('#acontent')) }); await W(p);
+  ok(await p.evaluate(() => !$('.a6c.ed [data-a6e]') && /مقفل/.test($('.a6c.ed').textContent)), 'official fields stay locked in edit mode');
+  await p.evaluate(() => { ADM.a6ed = ''; AM.assoc($('#acontent')) }); await W(p);
   // audit mode = the full table of 1.10
   await p.click('[data-a6aud]'); await W(p);
   ok(await p.evaluate(() => !!$('.a5t') && $$('.a5vt button').length == 7 && !$('.a6c') && $('[data-a6aud]').getAttribute('aria-pressed') == 'true'), 'audit mode shows the full table with views and filters');
@@ -29,7 +43,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.click('[data-a6tab=eval]'); await W(p);
   ok(await p.evaluate(() => !!$('#a5eval') && !$('#a5data') && $$('.a5axw [data-a5ax]').length == 5 && !!$('.a5ix b') && !!$('.a6gg') && !!$('.a6rd') && !$('[data-a6aud]')), 'analysis tab: index and five axes; audit toggle hidden');
   await p.click('[data-a6tab=rel]'); await W(p);
-  ok(await p.evaluate(() => !!$('#a5rel') && $$('#a5rel .a5kp > div').length == 6), 'log tab: relation facts and activity');
+  ok(await p.evaluate(() => !!$('#a5rel') && $$('#a5rel .a5kp > div').length == 6 && !!$('#a6qlog') && /سجل النشاط الموحد/.test($('#a5rel h3').textContent)), 'log tab: unified log, facts, and the quick log row');
   await p.evaluate(() => a5Go('data', 'scope')); await W(p, 500);
   ok(await p.evaluate(() => ADM.a5tab == 'data' && ADM.a6aud == 1 && !!$('.a5ins [data-sct]')), 'a5Go(data, scope) opens the scope editor in audit mode');
   await p.evaluate(() => { ADM.a6aud = 0; ADM.a5tab = 'eval'; AM.assoc($('#acontent')) }); await W(p);

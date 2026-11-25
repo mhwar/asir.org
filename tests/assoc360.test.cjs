@@ -27,7 +27,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate((fk) => $$('#a5rel .a5t tbody tr').every((r) => r.textContent.includes((A360_FK[fk] || [fk])[0])), fk), 'relation filter narrows the table to one kind');
   // اللاصق
   await p.setViewportSize({ width: 1440, height: 420 }); await p.evaluate(() => window.scrollTo(0, document.body.scrollHeight)); await p.waitForTimeout(600);
-  ok(await p.evaluate(() => $('.a6row').classList.contains('stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 3), 'on scroll the sticky row carries the association name beside the three tabs');
+  ok(await p.evaluate(() => $('.a6row').classList.contains('a6stk') && getComputedStyle($('.a6nm')).display != 'none' && $$('.a6row [data-a6tab]').length == 3), 'on scroll the sticky row carries the association name beside the three tabs');
   await p.evaluate(() => window.scrollTo(0, 0)); await p.setViewportSize({ width: 1440, height: 900 });
   // الأسهم
   const before = await p.evaluate(() => ADM.aid); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(900);
