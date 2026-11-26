@@ -26,6 +26,9 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   const cells = await p.evaluate(() => { const r = $('#dirT tbody tr'); return { hs: !!r.querySelector('.dvhs i em'), con: r.querySelectorAll('.dvci>span').length, lic: !!r.querySelector('.dvsm'), sub: /·/.test(r.querySelector('.jname small').textContent), grpCol: !ADM.dir.cols.includes('grp') } });
   ok(cells.hs && cells.con == 4 && cells.lic && cells.sub && cells.grpCol, 'row: effectiveness bar, four contact icons, licence duration, domain under the name ' + JSON.stringify(cells));
 
+  // 2ب) 1.19: توزيع الأعمدة — الاسم يأخذ مساحة كافية، الأزرار في سطر، ولا «سليمة» تناقض ترخيصاً منتهياً
+  const lay = await p.evaluate(() => { const th = $('#dirT th[data-col=n]'), a = $('#dirT tbody tr .dvaw'), bs = a ? [...a.children].map((x) => Math.round(x.getBoundingClientRect().top)) : []; return { name: Math.round(th.getBoundingClientRect().width), same: bs.length < 2 || Math.abs(bs[0] - bs[1]) < 3, fits: $('#dirT').scrollWidth <= $('.jtable.dirt').clientWidth + 1, ok: !$$('#dirT td[data-col=iss] .p-ok').length, rowH: Math.round($('#dirT tbody tr').getBoundingClientRect().height) } });
+  ok(lay.name >= 280 && lay.same && lay.fits && lay.ok && lay.rowH <= 84, 'columns: name ≥280px, actions on one line, no horizontal scroll at 1440, rows ≤84px, no «سليمة» in the table ' + JSON.stringify(lay));
   // 3) البطاقات المنبثقة
   const nb = await p.$('#dirT [data-pop^="n:"]');
   if (nb) {
@@ -51,6 +54,7 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.evaluate(() => { ADM.dir.lay = 'cards'; ADM.dir.cg = 'band'; renderAdmin() }); await W(p, 500);
   const cg = await p.evaluate(() => ({ secs: $$('.dvcsec').length, cards: $$('.dvcards .dcard').length, page: Math.min(ADM.dir.per, dirList().length), hs: !!$('.dcard .dchs'), dl: !!$('.dcard .dcdl .dvci') }));
   ok(cg.secs >= 1 && cg.cards == cg.page && cg.hs && cg.dl, 'cards grouped by effectiveness band, same page size ' + JSON.stringify(cg));
+  ok(await p.evaluate(() => { const C = $$('.dvcards')[0].querySelectorAll('.dcard'), t = [...C].slice(0, 3).map((c) => Math.round(c.querySelector('.dcg').getBoundingClientRect().top)); return t.every((x) => Math.abs(x - t[0]) < 2) }), 'cards in a row line up (name clamped to two lines)');
   const before = await p.evaluate(() => ADM.dir.sel.size);
   await p.click('.dvcsec [data-gsel]'); await W(p);
   ok(await p.evaluate((b0) => ADM.dir.sel.size > b0 && !!$('.dvbulk'), before), '«تحديد المجموعة» selects the group and shows the bulk bar');
