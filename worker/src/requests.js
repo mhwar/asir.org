@@ -76,7 +76,8 @@ export const UFIELDS = {
   founded:   { l: 'تاريخ التأسيس', kind: 'assoc', col: 'founded_on', v: date },
   gov:       { l: 'المحافظة', kind: 'assoc', col: 'governorate_id', v: txt(40), gov: true },
   grp:       { l: 'المجال الرئيسي', kind: 'note', v: txt(80) },
-  s1:        { l: 'التصنيف الفرعي', kind: 'note', v: txt(120) },
+  s1:        { l: 'التصنيف الفرعي الأول', kind: 'note', v: txt(160) },
+  s2:        { l: 'التصنيف الفرعي الثاني', kind: 'note', v: txt(200) },
   exp:       { l: 'تاريخ انتهاء الترخيص', kind: 'assoc', col: 'license_expires_on', v: date },
   licFile:   { l: 'صورة الترخيص الساري', kind: 'doc', file: { max: 10, types: ['application/pdf', 'image/png', 'image/jpeg', 'image/webp'] } },
   // corrections to official fields (locked in the portal; sent as «طلب تصحيح» with an optional document)
@@ -109,7 +110,7 @@ export async function collectPersonal(env) {
 // current values of an association, in portal field keys
 export async function currentValues(env, id, withPersonal) {
   const a = await env.DB.prepare(
-    `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1,
+    `SELECT a.id, a.name_ar AS n, a.license_no AS lic, g.name_ar AS gov, f1.name_ar AS grp, f2.name_ar AS s1, f3.name_ar AS s2,
             a.founded_on AS founded, a.license_expires_on AS exp, a.license_issued_on AS issued, a.contact_consent AS consent,
             p.short_name AS short, p.about, p.website AS web, p.social, p.beneficiaries AS ben, p.programs AS progs, p.logo_key AS logo,
             p.staff_count AS staff, p.volunteers_count AS vols, p.vol_hours AS volHours, p.vol_opps AS volOpps, p.vol_year AS volYear, p.phone_official AS phone, p.address, p.postal_code AS postal, p.po_box AS pobox, p.donate_url AS donate, p.exec_since AS execSince, p.exec_type AS execType, p.rep_is AS repIs, p.vol_status AS volSt, p.vol_ref AS volRef, p.vol_last_on AS volLast, p.ehsan_status AS ehsanSt, p.ehsan_ref AS ehsanRef, p.ncnp_pending AS ncnpPending, p.gov_score AS govScore, p.gov_score_year AS govScoreYear, p.beneficiaries_count AS benef, p.last_assembly_on AS assembly, p.fin_year AS finYear, p.revenue_band AS revBand, p.scope_type AS scope, p.scope_govs AS scopeGovs, p.branches
@@ -294,6 +295,13 @@ export async function submitRequest(env, req, link) {
     if (JSON.stringify(nv ?? null) !== JSON.stringify(f.json ? (ov && ov.length ? ov : null) : ov)) changes[k] = { old: ov, new: nv };
   }
   if (changes.scopeGovs) await checkGovs(env, changes.scopeGovs.new);
+  // التصنيف من دليل نوى: الدرجات الثلاث يجب أن تكون بنداً قائماً بالترتيب نفسه
+  if (changes.grp || changes.s1 || changes.s2) {
+    const g = (changes.grp ? changes.grp.new : cur.grp) || '', a = (changes.s1 ? changes.s1.new : cur.s1) || '', b = (changes.s2 ? changes.s2.new : cur.s2) || '';
+    const ok = await env.DB.prepare(`SELECT f3.id FROM fields f3 JOIN fields f2 ON f2.id = f3.parent_id JOIN fields f1 ON f1.id = f2.parent_id
+      WHERE f3.level = 3 AND f1.name_ar = ?1 AND f2.name_ar = ?2 AND f3.name_ar = ?3`).bind(g, a, b).first();
+    if (!ok) fail(422, 'invalid', 'اختر التصنيف الرئيسي ثم الفرعي الأول ثم الثاني من القوائم');
+  }
   if (changes.gov) {
     const g = await env.DB.prepare('SELECT id FROM governorates WHERE name_ar = ?1').bind(changes.gov.new).first();
     if (!g) fail(422, 'invalid', 'محافظة غير معروفة');

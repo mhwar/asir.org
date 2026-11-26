@@ -14,10 +14,10 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   ok(t.tabs.join() == 'main,attn,lic,contact,gov' && t.on == 'main' && t.n == t.all && !t.cards, 'views are tabs with counts; quick cards replaced ' + JSON.stringify(t));
   await p.click('[data-v=lic]'); await W(p);
   const l = await p.evaluate(() => ({ st: ADM.dir.st, sort: ADM.dir.sort, cols: ADM.dir.cols.join(), rows: dirList().length, tab: +$('.dvtabs .on .tc').textContent.replace(/,/g, ''), bad: dirList().filter((o) => o.st != 'منتهي' && o.st != 'ينتهي قريباً').length, hash: location.hash }));
-  ok(l.st == 'due' && l.sort == 'days' && l.cols == 'gov,lic,exp,mobile,email' && l.rows == l.tab && !l.bad && /v=lic/.test(l.hash), 'licences view: due filter + its columns + sort, in the link ' + JSON.stringify(l));
+  ok(l.st == 'due' && l.sort == 'days' && l.cols == 'gov,lic,exp,sup,comp' && l.rows == l.tab && !l.bad && /v=lic/.test(l.hash), 'licences view: due filter + its columns + sort, in the link ' + JSON.stringify(l));
   // 2) التصفية: قائمة الحقول ثم القيم بعددها، وشريحة قابلة للإزالة
   await p.click('#fBtn'); await W(p, 200);
-  ok(await p.evaluate(() => $$('.dvpop [data-dp^="f:"]').length == 9), 'filter menu lists 9 fields (scope and follow-up list since 1.00)');
+  ok(await p.evaluate(() => $$('.dvpop [data-dp^="f:"]').length == 11), 'filter menu lists 11 fields (scope, follow-up list, and both NCNP sub-classifications since 1.20)');
   await p.click('[data-dp="f:gov"]'); await W(p, 200);
   const g = await p.evaluate(() => { const r = $$('.dvpop input[data-fv=gov]')[1]; return { v: r.value, n: +r.closest('label').querySelector('.g').textContent.replace(/,/g, '') } });
   await p.click(`.dvpop input[data-fv=gov][value="${g.v}"]`); await W(p);

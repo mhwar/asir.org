@@ -1,0 +1,31 @@
+"""يولّد migrations/0026_ncnp_fields.sql وثابت NCLS من data/ncnp-classification.json (دليل التصنيفات والجهات المشرفة — منصة نوى).
+مفاتيح المستوى الأول تبقى الأسماء المختصرة المستخدمة في المنصة، والاسم الرسمي الكامل يُحفظ في عمود official."""
+import json, os, re
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+d = json.load(open(os.path.join(ROOT, 'data/ncnp-classification.json'), encoding='utf-8'))
+SHORT = {1: 'الثقافة والترفيه', 2: 'التعليم والأبحاث', 3: 'الصحة', 4: 'الخدمات الاجتماعية', 5: 'البيئة', 6: 'التنمية والإسكان',
+         7: 'التأييد والمؤازرة', 8: 'دعم العمل الخيري', 9: 'الدعوة والإرشاد', 10: 'الروابط المهنية'}
+RENAME = [('خدمات الأشخاص ذوي الإعاقة', 'خدمات ذوي الاحتياجات الخاصة'), ('رعاية الموهبة والموهوبين', 'رعاية الموهبة والموهبين')]
+q = lambda s: "'" + re.sub(r'\s+', ' ', str(s)).strip().replace("'", "''") + "'"
+L = ['ALTER TABLE fields ADD COLUMN official TEXT;', 'ALTER TABLE fields ADD COLUMN def TEXT;',
+     'ALTER TABLE fields ADD COLUMN sup_name TEXT;', 'ALTER TABLE fields ADD COLUMN ord INTEGER;']
+for a, b in RENAME:
+    L.append(f"UPDATE fields SET name_ar = {q(b)} WHERE level = 3 AND name_ar = {q(a)} AND NOT EXISTS (SELECT 1 FROM fields x WHERE x.level = 3 AND x.name_ar = {q(b)});")
+P1 = lambda g: f"(SELECT id FROM fields WHERE level = 1 AND name_ar = {q(SHORT[g])})"
+P2 = lambda g, a: f"(SELECT id FROM fields WHERE level = 2 AND name_ar = {q(a)} AND parent_id = {P1(g)})"
+# اسم قديم وُجد بجانبه الاسم الرسمي: تُنقل جمعياته إلى البند الرسمي (نفس الأب) ثم يُحذف القديم إن لم يبقَ ما يشير إليه
+for a, b in RENAME:
+    L.append(f"UPDATE associations SET field_id = (SELECT n.id FROM fields n JOIN fields o ON o.parent_id = n.parent_id WHERE n.level = 3 AND n.name_ar = {q(b)} AND o.level = 3 AND o.name_ar = {q(a)}) WHERE field_id IN (SELECT o.id FROM fields o JOIN fields n ON n.parent_id = o.parent_id WHERE o.level = 3 AND o.name_ar = {q(a)} AND n.level = 3 AND n.name_ar = {q(b)});")
+    L.append(f"DELETE FROM fields WHERE level = 3 AND name_ar = {q(a)} AND NOT EXISTS (SELECT 1 FROM associations x WHERE x.field_id = fields.id);")
+for g in d['groups']:
+    n = g['n']
+    L.append(f"INSERT INTO fields (parent_id, level, name_ar, official, def, ord) VALUES (NULL, 1, {q(SHORT[n])}, {q(g['name'])}, {q(g['def'])}, {n}) ON CONFLICT(name_ar) WHERE parent_id IS NULL DO UPDATE SET official = excluded.official, def = excluded.def, ord = excluded.ord;")
+    for i, a in enumerate(g['sub1']):
+        L.append(f"INSERT INTO fields (parent_id, level, name_ar, ord) SELECT {P1(n)}, 2, {q(a['name'])}, {n * 100 + i} WHERE true ON CONFLICT(parent_id, name_ar) DO UPDATE SET ord = excluded.ord;")
+        for j, b in enumerate(a['sub2']):
+            L.append(f"INSERT INTO fields (parent_id, level, name_ar, def, sup_name, ord) SELECT {P2(n, a['name'])}, 3, {q(b['name'])}, {q(b['def'])}, {q(b['sup'])}, {(n * 100 + i) * 100 + j} WHERE true ON CONFLICT(parent_id, name_ar) DO UPDATE SET def = excluded.def, sup_name = excluded.sup_name, ord = excluded.ord;")
+open(os.path.join(ROOT, 'migrations/0026_ncnp_fields.sql'), 'w', encoding='utf-8').write('\n'.join(L) + '\n')
+# شجرة الأسماء للواجهة (رابط التحديث والفلاتر): [مفتاح, الاسم الرسمي, [[فرعي أول, [فرعي ثانٍ…]]…]]
+T = [[SHORT[g['n']], re.sub(r'\s+', ' ', g['name']).strip(), [[a['name'], [re.sub(r'\s+', ' ', b['name']).strip() for b in a['sub2']]] for a in g['sub1']]] for g in d['groups']]
+print(len(L), 'statements'); print(len(json.dumps(T, ensure_ascii=False)), 'chars NCLS')
+open('/tmp/ncls.json', 'w').write(json.dumps(T, ensure_ascii=False, separators=(',', ':')))

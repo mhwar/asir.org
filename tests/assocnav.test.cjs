@@ -22,7 +22,7 @@ let fails = 0; const ok = (c, m) => { console.log((c ? 'PASS ' : 'FAIL ') + m); 
   ok(await p.evaluate(() => ADM.mod == 'directory' && ADM.dir.st == 'ينتهي قريباً'), 'overview KPI opens directory filtered to «ينتهي قريباً»');
   // 3) النظرة السريعة بالهوية الجديدة
   await p.evaluate((A) => { goMod('directory', { st: '', q: '' }); openRec(A); }, A); await p.waitForTimeout(500);
-  const q = await p.evaluate(() => ({ on: $('#adrawer').classList.contains('on'), adq: !!$('#adrawer .adq'), dark: !!$('#adrawer .dh'), needs: !!$('#adrawer .a3need'), foot: $$('#adrawer .adqf .jbtn').length, pri: ($('#adrawer .adqf .jbtn.pri') || {}).textContent }));
+  const q = await p.evaluate(() => ({ on: $('#adrawer').classList.contains('on'), adq: !!$('#adrawer .adq'), dark: !!$('#adrawer .dh'), needs: !!$('#adrawer .a3need'), foot: $$('#adrawer .adqf .jbtn').length + $$('#adrawer .adqas .adqa').length, pri: ($('#adrawer .adqf .jbtn.pri') || {}).textContent }));
   ok(q.on && q.adq && !q.dark && q.needs && q.foot >= 3 && /فتح الملف الكامل/.test(q.pri), 'quick view: light header, needs strip, footer actions');
   await p.screenshot({ path: 'tests/out/quickview.png' });
   await p.click('#adrawer .adqf .jbtn.pri'); await p.waitForTimeout(900);
