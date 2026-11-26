@@ -22,6 +22,7 @@ import * as seo from './seo.js';
 import * as ts from './turnstile.js';
 import * as ncnp from './ncnp.js';
 import * as sj from './sijam.js';
+import * as mig from './migrate.js';
 
 const MARK = (name) => [`/*@${name}*/`, '/*@END*/'];
 
@@ -432,6 +433,11 @@ async function api(req, env, url) {
     const r = await sj.sync(env, user);
     await db.audit(env, req, user.email, 'import', 'app_state', 'asirSijam', null, { source: 'sijam', total: r.total, fetched: r.fetched, added: r.added, gone: r.gone });
     return json({ data: r });
+  }
+  // هجرة 0026 (دليل تصنيفات نوى) من داخل العامل — لمدير النظام فقط، قابلة للتكرار
+  if (path === '/api/admin/migrate/0026') {
+    if (m === 'GET') return json({ data: await mig.status0026(env, user) });
+    if (m === 'POST') return json({ data: await mig.run0026(env, req, user) });
   }
   if (path === '/api/sijam/map' && m === 'PUT') {
     requirePerm(user, 'directory', 'write');

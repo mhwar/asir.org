@@ -13,11 +13,14 @@ export async function audit(env, req, actor, action, entity, entityId, before, a
 }
 
 export async function lookups(env) {
-  const [g, s, f] = await env.DB.batch([
+  const [g, s] = await env.DB.batch([
     env.DB.prepare('SELECT id, name_ar AS name, sort FROM governorates ORDER BY sort'),
     env.DB.prepare('SELECT id, name_ar AS name, short_ar AS short, logo_key FROM supervisors ORDER BY sort'),
-    env.DB.prepare('SELECT id, parent_id, level, name_ar AS name, official, def, sup_name AS sup, ord FROM fields ORDER BY level, ord IS NULL, ord, id'),
   ]);
+  // قبل هجرة 0026 لا توجد أعمدة دليل نوى: نعود للأعمدة الأساسية فلا يتعطل شيء
+  let f;
+  try { f = await env.DB.prepare('SELECT id, parent_id, level, name_ar AS name, official, def, sup_name AS sup, ord FROM fields ORDER BY level, ord IS NULL, ord, id').all(); }
+  catch { f = await env.DB.prepare('SELECT id, parent_id, level, name_ar AS name FROM fields ORDER BY level, id').all(); }
   return { governorates: g.results, supervisors: s.results, fields: f.results };
 }
 

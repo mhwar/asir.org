@@ -66,6 +66,11 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
     ok(/البيئة › حفظ النعمة › حفظ النعمة \(الغذاء\)/.test(rv || ''), 'review preselects the matching official item ' + rv);
     await p.evaluate(async (id) => { closeAll(); await api(`/api/update-requests/${id}/review`, { method: 'POST', body: JSON.stringify({ decision: 'reject' }) }) }, good[1].id); await W(p, 300);
   }
+  // 6) مسار الهجرة من داخل العامل: حالة مطبّقة، والتكرار لا يغيّر شيئاً، ولغير المدير 403
+  const mg = await p.evaluate(async () => { const g = await api('/api/admin/migrate/0026'); const r = await api('/api/admin/migrate/0026', { method: 'POST' }); return { applied: g.data.applied, ran: r.data.ran } });
+  ok(mg.applied && mg.ran == 0, 'in-worker migration route: applied, and a second run changes nothing ' + JSON.stringify(mg));
+  const nr = await p.evaluate(async () => { const pr = SESSION.role; return pr });
+  ok(nr == 'admin', 'test session is the system admin (route is admin-only in the worker)');
   ok(errs.length == 0, 'no page errors ' + errs.join(' | '));
   await b.close();
 })();
