@@ -42,9 +42,10 @@ const W = (p, ms) => p.waitForTimeout(ms || 300);
   await p.click('[data-lay=cards]'); await W(p);
   ok(await p.evaluate(() => $$('.dvcards .dcard').length == Math.min(ADM.dir.per, dirList().length) && !$('#dirT')), 'cards layout');
   await p.click('[data-lay=gov]'); await W(p);
-  const gv = await p.evaluate(() => { const b = $('.dvgv'); return { n: $$('.dvgv').length, g: b.dataset.mapf, c: +b.querySelector('strong').firstChild.textContent.replace(/,/g, '') } });
-  await p.click('.dvgv'); await W(p);
-  ok(await p.evaluate((x) => ADM.dir.gov == x.g && ADM.dir.lay == 'table' && dirList().length == x.c && !!$('#dirT'), gv) && gv.n > 5, 'by-governorate groups; click opens its rows in the table ' + JSON.stringify(gv));
+  // 1.18: فهرس جانبي وأقسام لكل محافظة؛ الأول موسّع وفيه «فتح في الجدول»
+  const gv = await p.evaluate(() => { const s = $('.dvgm>.dvgsec.op'); return { n: $$('.dvgm>.dvgsec').length, r: $$('.dvgr [data-gj]').length, g: s.querySelector('h3').textContent, c: s.querySelector('[data-gsel]').dataset.gsel.split(',').length } });
+  await p.click('.dvgm>.dvgsec.op .dvgwh [data-mapf]'); await W(p);
+  ok(await p.evaluate((x) => ADM.dir.gov == x.g && ADM.dir.lay == 'table' && dirList().length == x.c && !!$('#dirT'), gv) && gv.n > 5 && gv.r == gv.n, 'by-governorate groups; click opens its rows in the table ' + JSON.stringify(gv));
   await p.click('.fchip2 [data-fx=gov]'); await W(p);
   // 6) الخيارات: الأعمدة والكثافة ولكل صفحة
   await p.click('#colBtn'); await W(p, 200);
